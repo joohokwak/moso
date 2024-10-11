@@ -209,6 +209,14 @@ body, input, select, textarea, button, table {
   border-radius: 10px;
 }
 
+div:where(.swal2-container) {
+	z-index: 99999 !important;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+	background-color: var(--point-color1) !important;
+}
+
 /* 스크롤바 안보이게 */
 /* IE */
 /* * {

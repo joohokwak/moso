@@ -67,3 +67,27 @@ function isContains(target, chars) {
 	return false;
 }
 
+// alert(공통)
+function alert(str) {
+	Swal.fire({
+		text: str,
+		icon: "warning"
+	});
+}
+
+// confirm(공통)
+function confirm(str, callback) {
+	Swal.fire({
+		text: str,
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "확인",
+		cancelButtonText: "취소"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			callback();
+		}
+	});
+}

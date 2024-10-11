@@ -77,7 +77,6 @@ window.addEventListener('DOMContentLoaded', function() {
 		if (loginMainBtn3) {
 			loginMainBtn3.addEventListener('click', function(e) {
 				e.preventDefault();
-				console.log(this.closest('.on'));
 				closeFn(this);
 				loginMainBtn.click();
 			});
@@ -97,6 +96,9 @@ window.addEventListener('DOMContentLoaded', function() {
 				
 				// 아이디 찾기 영역 활성화
 				document.querySelector('.login_find_id').classList.add('on');
+				
+				// 포커스
+				document.querySelector('.login_find_id input[name=name]').focus();
 			});
 		});
 	}
@@ -114,6 +116,9 @@ window.addEventListener('DOMContentLoaded', function() {
 				
 				// 비밀번호 찾기 영역 활성화
 				document.querySelector('.login_find_pw').classList.add('on');
+				
+				// 포커스
+				document.querySelector('.login_find_pw_info > input[type=text]').focus();
 			});
 		});
 	}
@@ -123,28 +128,42 @@ window.addEventListener('DOMContentLoaded', function() {
 	const loginFindedBtn = document.querySelector('#loginFindedBtn');
 	if (loginFindedBtn) {
 		loginFindedBtn.addEventListener('click', function() {
-			const params = {id : loginFindedId.value};
-			
-			post('/Member/pwFined', params, (data) => {
-				if (data) {
-					const loginFindedOkEl = document.querySelector('.login_find_pw_ok');
-					loginFindedOkEl.children[0].innerHTML = data;
-					
-					// 현재 페이지 닫기			
-					closeFn(this);
-					
-					// 비밀번호 찾은페이지 영역 활성화
-					loginFindedOkEl.classList.add('on');
-				} else {
-					alert('등록된 아이디가 없습니다.');
-					loginFindedId.value = '';
-					loginFindedId.focus();
-				}
-			});
+			if (loginFindedId.value.trim()) {
+				const params = {id : loginFindedId.value};
+				
+				post('/Member/pwFined', params, (data) => {
+					if (data) {
+						const loginFindedOkEl = document.querySelector('.login_find_pw_ok');
+						loginFindedOkEl.children[0].innerHTML = data;
+						
+						// 현재 페이지 닫기			
+						closeFn(this);
+						
+						// 비밀번호 찾은페이지 영역 활성화
+						loginFindedOkEl.classList.add('on');
+					} else {
+						alert('등록된 아이디가 없습니다.');
+						loginFindedId.value = '';
+						loginFindedId.focus();
+					}
+				});
+				
+			} else {
+				alert('아이디를 입력해주세요');
+			}
 		});
 		
 		loginFindedId.addEventListener('keyup', function(e) {
 			if (e.key === 'Enter') loginFindedBtn.click();
+		});
+	}
+	
+	// 임시 비밀번호 복사
+	const btnFindedCopy = document.querySelector('.login_find_pw_ok .btn_finded_copy');
+	if (btnFindedCopy) {
+		btnFindedCopy.addEventListener('click', function() {
+			const _pass = document.querySelector('.login_find_pw_ok > .finded_pw > strong').innerText;
+			window.navigator.clipboard.writeText(_pass).then(() => {alert('찾은 비밀번호를 복사하였습니다.')});
 		});
 	}
 

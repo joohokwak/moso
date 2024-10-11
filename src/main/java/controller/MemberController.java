@@ -98,7 +98,6 @@ public class MemberController extends HttpServlet {
 			Map<String, Object> data = Common.jsonConvert(req);
 			
 			MemberDTO dto = mService.pwFined(data.get("id") + "");
-			System.out.println(dto);
 			String result = "";
 			if (dto != null) result = dto.getName() + " 회원님의 임시비밀번호는<br><strong>" + dto.getPass() + "</strong> 입니다";
 			Common.jsonResponse(resp, result);
