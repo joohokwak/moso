@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="external">
 	<div class="brand_wrap">
@@ -6,7 +7,7 @@
 			<div class="brand_menu">
 				<ul class="tabs">
 					<li><a href="#">이벤트</a></li>
-					<li><a href="brand.html" class="on">매거진</a></li>
+					<li><a href="/Magazine/magazine" class="on">매거진</a></li>
 					<li><a href="#">지누스 스토리</a></li>
 					<li><a href="#">Mattress in a Box</a></li>
 					<li><a href="#">제품안전인증</a></li>
@@ -37,62 +38,15 @@
 					</div>
 					<div class="review">
 						<ul>
-							<li>
-								<a href="#"><img src="/images/review/14.jfif"></a>
-								<div>
-									<h3><a href="#">이 달의 리뷰 1월호</a></h3>
-									<p>2024.01.01 ~ 2024 01.31</p>
-								</div>
-							</li>
-							<li>
-								<a href="#"><img src="/images/review/13.png"></a>
-								<div>
-									<h3><a href="#">이 달의 리뷰 12월호</a></h3>
-									<p>2023.12.01 ~ 2023.12.31</p>
-								</div>
-							</li>
-							<li>
-								<a href="#"><img src="/images/review/12.png"></a>
-								<div>
-									<h3><a href="#">이 달의 리뷰 11월호</a></h3>
-									<p>2023.11.01 ~ 2023.11.30</p>
-								</div>
-							</li>
-							<li>
-								<a href="#"><img src="/images/review/11.png"></a>
-								<div>
-									<h3><a href="#">이 달의 리뷰 10월호</a></h3>
-									<p>2023.10.02 ~ 2023.10.31</p>
-								</div>
-							</li>
-							<li>
-								<a href="#"><img src="/images/review/10.png"></a>
-								<div>
-									<h3><a href="#">이 달의 리뷰 9월호</a></h3>
-									<p>2023.08.11 ~ 2023.09.10</p>
-								</div>
-							</li>
-							<li>
-								<a href="#"><img src="/images/review/09.png"></a>
-								<div>
-									<h3><a href="#">이 달의 리뷰 8월호</a></h3>
-									<p>2023.08.01 ~ 2023.08.31</p>
-								</div>
-							</li>
-							<li>
-								<a href="#"><img src="/images/review/08.jfif"></a>
-								<div>
-									<h3><a href="#">이 달의 리뷰 6월호</a></h3>
-									<p>2023.06.01 ~ 2023.06.31</p>
-								</div>
-							</li>
-							<li>
-								<a href="#"><img src="/images/review/07.jfif"></a>
-								<div>
-									<h3><a href="#">이 달의 리뷰 4월호</a></h3>
-									<p>2023.04.01 ~ 2023.04.30</p>
-								</div>
-							</li>
+							<c:forEach var="m" items="${magazine }">
+								<li>
+									<a href="/Magazine/view"><img src="/images/review/${m.poster }"></a>
+									<div>
+										<h3><a href="/Magazine/view?no=${m.no }">${m.title }</a></h3>
+										<p>${m.text }</p>
+									</div>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>

@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.MagazineService;
+import serviceImpl.MagazineServiceImpl;
+
 @WebServlet("/Magazine/*")
 public class MagazineController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,13 +22,15 @@ public class MagazineController extends HttpServlet {
 		
 		String action = req.getPathInfo();
 		
+		MagazineService mgs = new MagazineServiceImpl();
 		
 		if (action.equals("/magazine")) {
+			req.setAttribute("magazine", mgs.magazineList("magazine"));
 			
 		} else if (action.equals("/view")) {
 			
 		} else if (action.equals("/review")) {
-			
+			req.setAttribute("magazine", mgs.magazineList("review"));
 		}
 		
 		req.setAttribute("layout", "/magazine" + action);
