@@ -2,6 +2,7 @@ package serviceImpl;
 
 import java.util.List;
 
+import common.Pagination;
 import dao.CatalogDAO;
 import dto.CatalogDTO;
 import service.CatalogService;
@@ -14,8 +15,13 @@ public class CatalogServiceImpl implements CatalogService {
 	}
 
 	@Override
-	public List<CatalogDTO> selectList() {
-		return dao.selectList();
+	public List<CatalogDTO> selectList(Pagination pg) {
+		return dao.selectList(pg);
+	}
+	
+	@Override
+	public List<CatalogDTO> selectList(int pageNum, String title) {
+		return dao.selectList(pageNum, title);
 	}
 
 	@Override
@@ -27,7 +33,19 @@ public class CatalogServiceImpl implements CatalogService {
 	public int plusVisitCount(int num) {
 		return dao.plusVisitCount(num);
 	}
+
+	@Override
+	public boolean insertCatalog(CatalogDTO dto) {
+		return dao.insertCatalog(dto) > 0;
+	}
+
+	@Override
+	public void insertCatalogfile() {
+	}
 	
-	
+	@Override
+	public int totalPage() {
+		return dao.totalPage();
+	}
 
 }
