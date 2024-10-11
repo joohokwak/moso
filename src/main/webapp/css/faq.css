@@ -1,0 +1,138 @@
+:root {
+	--point-color1: #003628;
+	--point-color2: #717171;
+	--gray-400: #717171;
+	--gray-500: #003628;
+	--gray-600: #000;
+}
+
+.faq_wrap {
+	background: url(/images/faq/bg_dots_green.png) repeat center top;
+	padding-bottom: 60px;
+}
+
+.faq_wrap .inner {
+	width: 1120px;
+	margin: 0 auto;
+}
+
+.faq_top {
+	margin-top: 40px;
+}
+
+.faq_top span+span::before {
+	content: '/';
+	display: inline-block;
+	color: #999;
+	margin: 0 10px;
+}
+
+/* contents */
+.faq_contents>h2 {
+	margin: 30px 0 20px;
+	padding-bottom: 20px;
+	font-size: 60px;
+	font-family: 'BerlingskeSerif', Noto Sans KR;
+	font-weight: 500;
+	letter-spacing: -1px;
+	border-bottom: 1px solid #ddd;
+}
+
+.faq_search {
+	text-align: center;
+}
+
+.faq_search .faq_text {
+	background: url(/images/faq/btn-search.png) no-repeat 10px 50% #fff;
+	width: 700px;
+	height: 40px;
+	border-radius: 20px;
+	padding: 0 0 0 40px;
+	border: 1px solid #cfcfcf;
+}
+
+.faq_content {
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.faq_content_left {
+	width: 210px;
+}
+
+.faq_content_left ul>li {
+	margin-bottom: 10px;
+}
+
+.faq_content_left ul>li>a.active {
+	text-decoration: underline;
+}
+
+.faq_content_right {
+	width: 910px;
+}
+
+.faq_content_right ul {
+	border-top: 1px solid #dbdbdb;
+}
+
+.faq_content_right .faq_a {
+	display: block;
+	padding: 10px 0;
+	border-bottom: 1px solid #ededed;
+	color: #444;
+	font-size: 16px;
+	position: relative;
+}
+
+.faq_content_right .faq_a::after {
+	content: '';
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 9px;
+	height: 6px;
+	background: url(/images/faq/icon-toggle.png) 0 0 no-repeat;
+}
+
+.faq_content_right .faq_a .cate {
+	color: #003628;
+	font-size: 16px;
+	display: inline-block;
+	margin-right: 15px;
+	padding-right: 15px;
+	position: relative;
+	width: 110px;
+	text-align: center;
+}
+
+.faq_content_right .faq_a .cate::after {
+	content: "";
+	display: inline-block;
+	width: 1px;
+	height: 10px;
+	background: #ccc;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	margin-top: -5px;
+}
+
+.faq_content_right .faq_q {
+	padding: 10px 0 30px;
+	line-height: 22px;
+	color: #999;
+	font-size: 16px;
+	border-bottom: 1px solid #ededed;
+	display: none;
+}
+
+.faq_content_right ul li:has(.on) .faq_q {
+	display: block;
+}
+
+.faq_content_right ul li:has(.on) .faq_a::after {
+	background-position: 0 -6px;
+}

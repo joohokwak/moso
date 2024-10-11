@@ -1,0 +1,848 @@
+@font-face {
+	font-family: 'BerlingskeSerif';
+	font-style: normal;
+	font-weight: 400;
+	src: url(/fonts/BerlingskeSerifTx-DBd.eot);
+	src: url(/fonts/BerlingskeSerifTx-DBd.eot?#iefix) format('embedded-opentype'), 
+		 url(/fonts/BerlingskeSerifTx-DBd.woff) format('woff'), 
+		 url(/fonts/BerlingskeSerifTx-DBd.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'BerlingskeSerif';
+	font-style: normal;
+	font-weight: 500;
+	src: url(/fonts/BerlingskeSerifTx-DBd.eot);
+	src: url(/fonts/BerlingskeSerifTx-DBd.eot?#iefix) format('embedded-opentype'), 
+		 url(/fonts/BerlingskeSerifTx-DBd.woff) format('woff'), 
+		 url(/fonts/BerlingskeSerifTx-DBd.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'BerlingskeSerif';
+	font-style: normal;
+	font-weight: 700;
+	src: url(/fonts/BerlingskeSerifTx-DBd.eot);
+	src: url(/fonts/BerlingskeSerifTx-DBd.eot?#iefix) format('embedded-opentype'), 
+		 url(/fonts/BerlingskeSerifTx-DBd.woff) format('woff'), 
+		 url(/fonts/BerlingskeSerifTx-DBd.ttf) format('truetype');
+}
+
+/* 반응형, 모바일에서 모든요소의 패딩,선을 크기안에 포함시킴 */
+*, ::before, ::after {
+	box-sizing: border-box;
+}
+
+/* 컬러 변수 */
+/* :root는 html을 의미 */
+:root {
+	--point-color1: #003628;
+	--point-color2: #717171;
+	--gray-400: #717171;
+	--gray-500: #003628;
+	--gray-600: #000;
+}
+
+/* rem단위사용시 주석풀고 사용 */
+/* 브라우저 기본폰트크기 16:10 = 100:x x=62.5% */
+/* html {
+  font-size: 62.5%;
+} */
+
+/* body에 들어갈수있는 모든태그의 여백빼기 */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, address, code, em, img, strong, sub, sup, b, u, i,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption,
+tbody, tfoot, thead, tr, th, td, article, aside, canvas, details,
+figure, figcaption, footer, header, hgroup, menu, nav, section, main,
+audio, video {
+	margin: 0;
+	padding: 0;
+}
+
+/* html5추가 시멘틱엘리먼트를 익스하위버전에서 블럭으로 인식되도록함 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, main {
+	display: block;
+}
+
+/* button태그에 손모양 커서 */
+button {
+	cursor: pointer;
+}
+
+/* 익스하위버전에서 이미지 선없애기 */
+fieldset, img {
+	border: 0;
+	vertical-align: top;
+}
+
+/* 모바일, 반응형에서 이미지가 원본보다 커지지않게하고 뷰포트에 따라 줄어들게 */
+img {
+	max-width: 100%;
+}
+
+/* 리스트 기호 빼기 */
+ol, ul {
+	list-style: none;
+}
+
+/* 기울임꼴 제거 */
+address, em {
+	font-style: normal;
+}
+
+strong {
+	font-weight: normal;
+}
+
+/* 벤더프리픽스: 브라우저 제조사를 의미 */
+/* -webkit- 크롬, 사파리, 다른브라우저에서 사용하기도함 */
+a {
+	text-decoration: none;
+	color: var(--gray-500);
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+/* iframe으로 외부컨텐츠 연결시 외부컨텐츠 안쪽내용이 페이지에 영향을 주지못하도록 가려줌*/
+iframe {
+	overflow: hidden;
+	border: 0;
+}
+
+/* 칸의 선 합치고 간격없애기, 가로를 늘려줌, 테이블의 데이터가 길면 늘어나므로 fixed로 크기고정 */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	table-layout: fixed;
+}
+
+/* 굵기 빼고 폰트크기를 body 폰트크기와 일치시킴 */
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	font-size: 100%;
+}
+
+/* 폼요소 높이 다를때 요소끼리 세로정렬시킴 */
+/* border-radius:0 -> iOS 테두리 둥글게 제거 */
+/* -webkit-appearance: none -> iOS 폼요소 기본모양 제거 */
+/* -webkit-: 크롬, 사파리 -moz-: 파이어폭스 -ms-:IE -o-: 오페라 */
+input, select, textarea, button {
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	border-radius: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+	outline: none;
+}
+
+/* textarea 리사이즈 막기 */
+textarea {
+	resize: none;
+}
+
+/* 모바일 크롬, 사파리 텍스트 자동확대 방지 */
+body {
+	-webkit-text-size-adjust: none;
+}
+
+/*********************** 공통스타일 *************************/
+/* body에 높이가 없어도 hidden이 걸리면 스크롤바가 사라짐(데스크탑) */
+body.on {
+	overflow: hidden;
+}
+/* iOS 사파리는 페이지최상단에서만 hidden이 걸리므로 페이지 위로 올라오게함(모바일,반응형) */
+/* body.on { overflow: hidden; position: fixed; left:0; top:0; width:100%; } */
+body, input, select, textarea, button, table {
+	font-family: 'Noto Sans KR', '맑은 고딕', 'malgun gothic', 'Apple SD Gothic Neo', sans-serif;
+	/* font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif; */
+	font-size: 14px;
+	line-height: 1.4;
+	color: var(--gray-500);
+}
+
+/* 스킵 네비 */
+#skip_navi {
+	position: relative;
+}
+
+#skip_navi a {
+	position: absolute;
+	left: 0;
+	top: -999px;
+	width: 100%;
+	padding: 10px 0;
+	background: #fff;
+	z-index: 99999;
+	text-align: center;
+}
+
+#skip_navi a:hover, #skip_navi a:active, #skip_navi a:focus {
+	top: 0;
+}
+
+#prepareCommonWrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, .3);
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	display: none;
+}
+
+/* 스크롤바 */
+::-webkit-scrollbar {
+  width: 0px; 
+  background: #f5f5f5;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border:2px solid #fff;
+  border-radius: 10px;
+}
+
+/* 스크롤바 안보이게 */
+/* IE */
+/* * {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+
+/* 텍스트 선택 컬러 */
+/* ::selection {
+  background: #000;
+  color: #fff;
+} */
+
+/* legend,caption, 섹션제목 안보이게 */
+/* 제자리에서 띄워 다른내용에 영향 안가게 */
+/* 넘친내용을 가려줌 */
+/* 선도 가려줌 */
+/* 원래위치로 이동 */
+/* 0이면 스크린리더에서 글자 읽지않으므로 */
+legend, caption, .blind {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	margin: -1px;
+	width: 1px;
+	height: 1px;
+}
+
+/* float해제 */
+/* .clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+} */
+
+/********************** 폼요소 ********************/
+/* 입력필드 */
+/* placeholder */
+::-webkit-input-placeholder {
+	color: #c7c8cc;
+	font-weight: 400;
+} /* Webkit,크롬,사파리 */
+:-moz-placeholder {
+	color: #c7c8cc;
+	font-weight: 400;
+} /* Firefox 4-18 */
+::-moz-placeholder {
+	color: #c7c8cc;
+	opacity: 1;
+	font-weight: 400;
+} /* Firefox 19+ */
+:-ms-input-placeholder {
+	color: #c7c8cc !important;
+	font-weight: 400;
+} /* IE10+ */
+
+/* IE x버튼, password 눈모양 제거 */
+input::-ms-clear, input::-ms-reveal {
+	display: none;
+}
+
+/* input search x버튼 제거 */
+input::-webkit-search-decoration, input::-webkit-search-cancel-button,
+input::-webkit-search-results-button, input::-webkit-search-results-decoration
+{
+	display: none;
+}
+
+/* input number 위아래 화살표제거 */
+input[type='number']::-webkit-outer-spin-button, input[type='number']::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
+input[type='text'], input[type='search'], input[type='password'], input[type='number'] {
+	border: 1px solid #333;
+	height: 40px;
+	padding: 0 10px;
+}
+
+.checkbox_wrap {
+	display: inline-block;
+}
+
+input[type='checkbox']+label {
+	color: #333;
+	cursor: pointer;
+	display: inline-flex;
+	/* 폰트크기 16 * 줄간격(1.4내외) =  23px이하인 경우 하단 간격 발생 */
+	vertical-align: top;
+	align-items: center;
+	gap: 0 8px;
+}
+
+input[type='checkbox']+label::before {
+	content: '';
+	width: 18px;
+	height: 18px;
+	border: 1px solid #999;
+}
+
+input[type='checkbox']:checked+label::before {
+	border: none;
+	background: url(/images/common/check.png) no-repeat 50% 50%/100%;
+}
+
+.checkbox {
+	display: inline-flex;
+	align-items: center;
+	gap: 0 10px;
+	cursor: pointer;
+}
+
+.checkbox::before {
+	content: '';
+	width: 18px;
+	height: 18px;
+	border: 1px solid #999;
+}
+/* :has - ios 15.4부터 지원 */
+.checkbox:has(input[type='checkbox']:checked)::before {
+	border: none;
+	background: url(/images/common/check.png) no-repeat 50% 50%/100%;
+}
+
+/* radio 공통 */
+.radio_wrap {
+	display: inline-block;
+}
+
+input[type='radio']+label {
+	cursor: pointer;
+	position: relative;
+	display: inline-flex;
+	vertical-align: top;
+	align-items: center;
+	gap: 0 8px;
+}
+
+input[type='radio']+label::before {
+	content: '';
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	border: 1px solid #999;
+}
+
+input[type='radio']:checked+label::before {
+	background: url(/images/common/circle.svg) no-repeat 50% 50%/12px;
+}
+
+.radio {
+	display: inline-flex;
+	align-items: center;
+	gap: 0 5px;
+	cursor: pointer;
+}
+
+.radio::before {
+	content: '';
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	border: 1px solid #999;
+}
+/* :has - ios 15.4부터 지원 */
+.radio:has(input[type='radio']:checked)::before {
+	background: url(/images/common/circle.svg) no-repeat 50% 50%/14px;
+}
+
+/* select 공통 */
+/* 익스 화살표 제거 */
+select::-ms-expand {
+	display: none;
+}
+
+.select_wrap {
+	display: inline-block;
+	max-width: 240px;
+	width: 100%;
+	border: 1px solid #ddd;
+	position: relative;
+	z-index: 0;
+	background: #fff;
+}
+
+.select_wrap:after {
+	content: '';
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	z-index: -1;
+	transform: translateY(-25%);
+	border: 6px solid transparent;
+	border-left-width: 5px;
+	border-right-width: 5px;
+	border-top-color: #333;
+}
+
+.select_wrap select {
+	width: 100%;
+	border: none;
+	height: 48px;
+	padding: 0 10px;
+	cursor: pointer;
+	background: none;
+}
+
+/* select 커스텀 */
+.select_custom {
+	width: 192px;
+	display: inline-block;
+	border: 1px solid #ddd;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.select_custom .select_btn {
+	display: block;
+	position: relative;
+	line-height: 38px;
+	padding: 0 10px;
+	color: #666;
+}
+
+.select_custom .select_btn:after {
+	content: '';
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY(-25%);
+	border: 6px solid transparent;
+	border-top-color: #333;
+}
+
+.select_custom .select_list_wrap {
+	position: relative;
+	/* display: none; */
+}
+
+.select_custom .select_list {
+	position: absolute;
+	left: -1px;
+	top: 0px;
+	border: 1px solid #ddd;
+	width: calc(100% + 2px);
+	background: #fff;
+}
+
+.select_custom .select_list a {
+	display: block;
+	padding: 0 10px;
+	line-height: 40px;
+	color: #666;
+}
+
+.select_custom .select_list a:hover {
+	background: #eee;
+}
+
+/* textarea */
+/* textarea {
+  width: 100%;
+  border: none;
+  background: #f8f8f8;
+  padding: 15px;
+} */
+
+/* 파일선택 */
+.file_wrap {
+	display: inline-block;
+	border: 1px solid #999;
+	width: 100%;
+	display: flex;
+}
+
+.file_wrap input[type='text'] {
+	height: 38px;
+	width: calc(100% - 98px);
+	border: none;
+	padding: 0 10px;
+}
+
+.file_wrap label {
+	width: 98px;
+	cursor: pointer;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.file_wrap label:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 2px;
+	height: 16px;
+	transform: translateY(-50%);
+	background: #ddd;
+}
+
+/* 버튼 */
+.admin_btn_wrap {
+	margin-top: 20px;
+	display: none;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0 5px;
+}
+
+.btn {
+	border: 1px solid #666;
+	color: var(--gray-600);
+	/* 버튼디자인에 아이콘이 포함된 경우 글자와 아이콘의 높이가 다르면 inline-flex이용하여 버튼을 좌우배치하고 align-items로 수직정렬해줌 */
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 40px;
+	padding: 0 15px;
+	background: none;
+}
+
+.point_btn1 {
+	line-height: 55px;
+	border-radius: 28px;
+	width: 180px;
+	font-weight: 700;
+	color: #fff;
+	background: linear-gradient(0deg, #ed1c24, #e0462e);
+	border: none;
+	font-size: 14px;
+}
+/* .point_btn1::after {
+  content: '';
+  width:17px;
+  height: 17px;
+  background: url(/images/common/icon_plus.svg) no-repeat left top / 100%;
+  margin-left:10px;
+} */
+.point_btn2 {
+	line-height: 38px;
+	border-radius: 20px;
+	width: 130px;
+	font-weight: 500;
+	color: #fff;
+	border: 1px solid #fff;
+}
+
+.point_btn2::after {
+	content: '';
+	width: 20px;
+	height: 10px;
+	background: url(/images/common/arrow_more.svg) no-repeat left top/100%;
+	margin-left: 20px;
+}
+
+.point_btn3 {
+	height: 60px;
+	border-radius: 30px;
+	width: 185px;
+	font-weight: 700;
+	color: #fff;
+	background: linear-gradient(-115deg, #008a43, #2ad47d);
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	gap: 0 10px;
+	font-size: 17px;
+}
+
+.point_btn3::before {
+	content: '';
+	width: 18px;
+	height: 15px;
+	background: url(/images/common/icon_list.svg) no-repeat left top/100%;
+}
+
+/* 라벨 버튼 */
+[class*='label_btn'] {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0 8px;
+	height: 40px;
+	border: 1px solid #999;
+	padding: 0 10px;
+}
+
+[class*='label_btn']::before {
+	content: '';
+	width: 24px;
+	height: 24px;
+}
+
+.delete_label_btn::before {
+	background: url(/images/common/delete.svg) no-repeat 0 0/100%;
+}
+
+.send_label_btn {
+	flex-direction: row-reverse;
+}
+
+.send_label_btn::before {
+	background: url(/images/common/send.svg) no-repeat 0 0/100%;
+}
+
+/* 아이콘 버튼 */
+[class*='icon_btn'] {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #999;
+	/* 줄간격 초기화하여 아이콘 높이에 따라 높이변경되도록 */
+	padding: 7px;
+	background: none;
+	margin-right: 0;
+}
+
+[class*='icon_btn']:before {
+	content: '';
+	width: 24px;
+	height: 24px;
+}
+
+.delete_icon_btn:before {
+	background: url(/images/common/delete.svg) no-repeat 50% 50%/100%;
+}
+
+.send_icon_btn:before {
+	background: url(/images/common/send.svg) no-repeat 50% 50%/100%;
+}
+
+/* 다운로드 버튼 */
+.download_btn {
+	padding: 7px 3px;
+	display: inline-block;
+	/* 줄간격으로 인해 기본높이가 커지므로 줄여줌 */
+	line-height: 1;
+}
+
+.download_btn:hover {
+	border-bottom: 1px solid #000;
+}
+
+.download_btn:hover [class^='icon_download'] {
+	transform: translateY(-1px);
+}
+
+/* 다운로드 아이콘 */
+[class*='file_icon'] {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url(/images/common/sprite_pc_new.png) no-repeat;
+	vertical-align: top;
+}
+
+.pdf_file_icon {
+	background-position-x: -125px;
+}
+
+.mp4_file_icon {
+	background-position-x: 0px;
+}
+
+.txt_file_icon {
+	background-position-x: -25px;
+}
+
+.ppt_file_icon {
+	background-position-x: -50px;
+}
+
+.doc_file_icon {
+	background-position-x: -75px;
+}
+
+.xls_file_icon {
+	background-position-x: -100px;
+}
+
+/* 플랫폼 아이콘 */
+[class*="device_icon"] {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background: url(/images/common/common/set_os.svg) no-repeat;
+	/* 기본폰트크기보다 작은 경우 하단에 간격발생함 */
+	vertical-align: top;
+}
+
+.pc_device_icon {
+	background-position: 0 0;
+}
+
+.mobile_device_icon {
+	background-position: 0 -50px;
+}
+
+.console_device_icon {
+	background-position: 0 -100px;
+}
+
+[class*="device_icon"]:hover {
+	background-position-x: -50px;
+}
+
+/* 커뮤니티 아이콘 */
+/* sns_icon 문자를 포함하는 모든 요소 */
+[class*="sns_icon"] {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url(/images/common/set_community.svg) no-repeat;
+	/* 기본폰트크기보다 작은 경우 하단에 간격발생함 */
+	vertical-align: top;
+}
+
+.forum_sns_icon {
+	background-position: 0 0;
+}
+
+.youtube_sns_icon {
+	background-position: 0 -50px;
+}
+
+.facebook_sns_icon {
+	background-position: 0 -100px;
+}
+
+.twitter_sns_icon {
+	background-position: 0 -150px;
+}
+
+.cafe_sns_icon {
+	background-position: 0 -200px;
+}
+
+.community_sns_icon {
+	background-position: 0 -250px;
+}
+
+[class*="sns_icon"]:hover {
+	background-position-x: -50px;
+}
+
+/* 테이블 캡션 버그 대응 */
+caption.nohead {
+	position: static;
+}
+
+/* 페이징 */
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px 0;
+}
+
+.page_num {
+	line-height: 28px;
+	width: 28px;
+	text-align: center;
+	display: block;
+	font-weight: 700;
+	color: var(--gray-500);
+	margin: 0 2px;
+}
+
+.page_num.active {
+	color: #fff;
+	background: var(--point-color1);
+}
+
+/* TOP Button */
+.float_btn {
+	position: fixed;
+	right: 20px;
+	bottom: -120px;
+	width: 50px;
+	transition: all 0.5s;
+	z-index: 9999;
+}
+
+.float_btn.fixed {
+	bottom: 20px;
+}
+
+.go_top {
+	display: block;
+	background: url(/images/magazine/gotop.png) no-repeat center 13px #fff;
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	text-align: center;
+	padding-top: 25px;
+	font-size: 12px;
+	font-weight: bold;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 애니메이션 공통 */
+.animate_fade_down {
+	transform: translate(0, -100px);
+	opacity: 0;
+	transition: all 1s;
+}
+
+.animate_fade_up {
+	transform: translate(0, 100px);
+	opacity: 0;
+	transition: all 1s;
+}
+
+.animate_fade_flip {
+	transform: rotateY(90deg);
+	transition: all 1s;
+	opacity: 0;
+}
+
+[class*='animate_fade'].on {
+	opacity: 1;
+	transform: translate(0, 0) rotate(0);
+}
+
+@media ( max-width : 1200px) {
+}
+
+@media ( max-width : 767px) {
+}
+
+/********** 공통스타일 끝  **********/

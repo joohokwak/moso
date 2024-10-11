@@ -1,0 +1,707 @@
+:root {
+	--point-color1: #003628;
+	--point-color2: #717171;
+	--gray-400: #717171;
+	--gray-500: #003628;
+	--gray-600: #000;
+}
+
+/* 로그인 */
+.login_wrap:has(.on) {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 9999;
+	overflow-y: auto;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, .3);
+}
+
+.login_wrap>* {
+	display: none;
+}
+
+.login_main.on {
+	display: block;
+}
+
+.login_box {
+	position: absolute;
+	margin: 0 auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 500px;
+	background: #fff;
+	padding: 30px;
+	overflow: hidden;
+}
+
+.login_top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.login_close {
+	border: none;
+	width: 30px;
+	height: 30px;
+	text-indent: -9999px;
+	background: url(/images/login/layer-close.png) no-repeat left top;
+}
+
+.login_tit {
+	font-size: 26px;
+	font-weight: bold;
+	margin-top: 40px;
+}
+
+.login_sns {
+	margin-top: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.login_sns a {
+	display: block;
+	text-align: center;
+	font-size: 15px;
+	line-height: 28px;
+	border-radius: 1px;
+	padding: 10px 0;
+	color: #333;
+}
+
+.login_sns img {
+	vertical-align: -2px;
+	margin-right: 10px;
+}
+
+.login_sns a.kakao {
+	background: #fee500;
+}
+
+.login_sns a.naver {
+	background: #03c75a;
+	color: #fff;
+	margin-top: 10px;
+}
+
+.login_msg {
+	margin-top: 30px;
+	color: var(--gray-400);
+}
+
+.login_area {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+	gap: 0 5px;
+}
+
+.login_info {
+	width: 70%;
+}
+
+.login_info input {
+	width: 100%;
+	height: 36px;
+	padding: 0 10px;
+	border: 1px solid #e5e5e5;
+	color: #8c8c8c;
+	font-size: 13px;
+	line-height: 36px;
+}
+
+.login_info input:first-child {
+	margin-bottom: 5px;
+}
+
+.login_area button {
+	width: 29%;
+	height: 77px;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 75px;
+	background: var(--point-color1);
+	border: 1px solid var(--point-color1);
+	color: #fff;
+}
+
+.login_save {
+	margin-top: 13px;
+	margin-bottom: 20px;
+}
+
+.login_save label[for=saveId] {
+	color: var(--gray-400);
+}
+
+.login_btns {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0 10px;
+}
+
+.login_btns button {
+	width: calc(100%/ 3);
+	border: 1px solid #e5e5e5;
+	color: #666;
+	height: 44px;
+	background: none;
+	font-weight: 700;
+}
+
+.login_btns button:first-child {
+	background: #cba977;
+	border: 1px solid #cba977;
+	color: #fff;
+}
+
+.login_btns button:not(:first-child):hover {
+	border: 1px solid #cba977;
+	color: #222;
+}
+
+/* 비회원 주문조회 */
+.login_another_tit {
+	margin-top: 30px;
+	padding-bottom: 5px;
+	font-size: 15px;
+}
+
+.login_another {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0 5px;
+}
+
+.login_another_info {
+	width: 70%;
+}
+
+.login_another input {
+	width: 100%;
+	height: 36px;
+	padding: 0 10px;
+	border: 1px solid #e5e5e5;
+	color: #8c8c8c;
+	font-size: 13px;
+	line-height: 36px;
+}
+
+.login_another input:first-child {
+	margin-bottom: 5px;
+}
+
+.login_another button {
+	width: 29%;
+	height: 77px;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 75px;
+	border: 1px solid var(--point-color1);
+	color: var(--gray-500);
+	background: none;
+}
+
+.login_caution {
+	background: #fff url(/images/login/caution-2.png) no-repeat left 4px;
+	color: #999;
+	line-height: 20px;
+	padding-left: 19px;
+	margin-top: 10px;
+}
+
+/* 아이디 찾기 */
+.login_find_id.on {
+	display: block;
+}
+
+.login_find_id .login_top {
+	margin-bottom: 20px;
+}
+
+.login_find_id .login_top h3 {
+	padding-bottom: 5px;
+	font-size: 15px;
+}
+
+.login_find_id .login_btns {
+	margin-top: 20px;
+}
+
+/* 찾은 아이디 */
+.login_find_id_ok.on {
+	display: block;
+	width: 500px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: #fff;
+	padding: 30px;
+}
+
+.login_find_id_ok .finded_id {
+	padding: 48px 0 53px;
+	color: #444;
+	font-size: 16px;
+	text-align: center;
+}
+
+.login_find_id_ok .finded_id strong {
+	color: #3e3d3c;
+	font-size: 22px;
+	font-weight: 700;
+}
+
+/* 비밀번호 찾기 */
+.login_find_pw.on {
+	display: block;
+}
+
+.login_guide {
+	font-size: 12px;
+	color: var(--gray-400);
+}
+/* 찾은 비밀번호 */
+.login_find_pw_ok.on {
+	display: block;
+	width: 500px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: #fff;
+	padding: 30px;
+}
+
+.login_find_pw_ok .finded_pw {
+	padding: 48px 0 53px;
+	color: #444;
+	font-size: 16px;
+	text-align: center;
+}
+
+.login_find_pw_ok .finded_pw strong {
+	color: #3e3d3c;
+	font-size: 22px;
+	font-weight: 700;
+}
+
+.login_find_pw_info {
+	margin: 20px 0;
+	padding: 20px 0;
+	border-top: 1px solid #dbdbdb;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.login_find_pw_ok .login_btns button {
+	width: calc(100% / 2);
+}
+
+.login_find_pw_info>input {
+	width: 100%;
+	padding: 0 10px;
+	border: 1px solid #d0d0d0;
+	height: 34px;
+	color: #8c8c8c;
+	line-height: 34px;
+}
+
+.login_find_pw_info>p:nth-of-type(1) {
+	padding: 12px 0 0;
+	color: #666;
+}
+
+.login_find_pw_info>p.error_message {
+	padding: 12px 0 0;
+	color: #666;
+	font-weight: 700;
+	display: none;
+}
+
+.login_find_pw_info>p.error_message.on {
+	display: block;
+}
+
+.login_find_pw_info a.btn_find_id {
+	margin: 0 0 0 10px;
+	color: #3e3d3c;
+	text-decoration: underline;
+}
+
+.login_find_pw #loginFindedBtn {
+	width: 32%;
+	background: #cba977;
+	border: 1px solid #cba977;
+	color: #fff;
+	height: 44px;
+	line-height: 42px;
+	font-weight: 700;
+}
+
+/* 회원가입 약관 */
+.join_agree_wrap {
+	width: 1120px;
+	margin: 0 auto;
+	padding-bottom: 60px;
+}
+
+.join_top {
+	padding: 20px 0;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.join_top h2 {
+	color: var(--gray-500);
+	font-size: 50px;
+	font-weight: 500;
+	letter-spacing: -2px;
+}
+
+.join_term {
+	width: 800px;
+	margin: 0 auto;
+}
+
+.join_term h3 {
+	margin: 0 0 38px;
+	padding: 64px 0 13px;
+	border-bottom: 1px solid #717171;
+	color: #111;
+	font-size: 20px;
+	font-weight: normal;
+}
+
+.join_agree_wrap input[type=checkbox]+label {
+	color: #999;
+	font-size: 13px;
+}
+
+.join_agree_wrap input[type=checkbox]+label strong {
+	color: #333;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.join_agree_wrap input[type=checkbox]+label .option strong {
+	color: #2e95ff;
+}
+
+.join_agree_wrap input[type=checkbox]+label+a {
+	color: #3e3d3c;
+	font-size: 12px;
+	text-decoration: underline;
+	vertical-align: 2px;
+}
+
+.join_terms_view {
+	padding-top: 32px;
+}
+
+.join_terms_view>div {
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 120px;
+	margin: 10px 0 0;
+	padding: 20px;
+	border: 1px solid #e6e6e6;
+	border-top: 1px solid #717171;
+	line-height: 18px;
+}
+
+.join_terms_view:nth-of-type(3)>div {
+	overflow: hidden;
+	padding: 0;
+}
+
+.join_terms_view>div>table th {
+	height: 49px;
+	padding: 0 0 0 30px;
+	background: #f9f9f9;
+	border-bottom: 1px solid #e6e6e6;
+	color: #333;
+	text-align: left;
+}
+
+.join_terms_view>div>table td div {
+	overflow-y: auto;
+	padding: 15px 0 10px 30px;
+	border-bottom: 1px solid #e6e6e6;
+	color: #333;
+	height: 85px;
+}
+
+.join_btns {
+	padding: 40px 0 0;
+	font-size: 0;
+	text-align: center;
+}
+
+.join_btns button {
+	border: 1px solid var(--point-color1);
+	color: var(--gray-500);
+	background: none;
+	width: 203px;
+	height: 55px;
+	line-height: 53px;
+	font-size: 14px;
+}
+
+.join_msg {
+	margin: 55px 0 0;
+	text-align: center;
+	display: none;
+}
+
+.join_msg.on {
+	display: block;
+}
+
+.join_msg span {
+	display: inline-block;
+	min-height: 17px;
+	padding: 0 0 0 19px;
+	background: #fff url(/images/login/caution-1.png) no-repeat left 4px;
+	color: #3e3d3c;
+	line-height: 20px;
+}
+
+.join_btns button:last-child {
+	background: var(--point-color1);
+	color: #fff;
+	margin-left: 6px;
+}
+
+/* 회원가입 */
+.join_wrap {
+	width: 1120px;
+	margin: 0 auto;
+	padding-bottom: 60px;
+}
+
+.join_top {
+	padding: 20px 0;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.join_top h2 {
+	color: var(--gray-500);
+	font-size: 50px;
+	font-weight: 500;
+	letter-spacing: -2px;
+}
+
+.join_form {
+	width: 800px;
+	margin: 0 auto;
+}
+
+.join_form .join_tit {
+	overflow: hidden;
+	padding: 63px 0 9px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.join_form .join_tit h3 {
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.join_form .join_tit p {
+	line-height: 25px;
+	padding: 0 0 0 12px;
+	background: #fff url(/images/login/squre-4x4-red.png) no-repeat left 50%;
+	color: #999;
+	font-size: 11px;
+}
+
+.join_form>table {
+	border-top: 1px solid #dbdbdb;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.join_form>table>tbody>tr>th {
+	padding: 0 0 0 20px;
+	color: #333;
+	font-size: 13px;
+	font-weight: 400;
+	text-align: left;
+	border-bottom: 1px solid #ededed;
+}
+
+.join_form>table>tbody>tr>th.required {
+	background: url(/images/login/squre-4x4-red.png) no-repeat 10px 50%;
+}
+
+.join_form>table>tbody>tr>td {
+	padding: 12px 20px;
+	border-bottom: 1px solid #ededed;
+}
+
+.join_form>table>tbody>tr>td>input {
+	width: 360px;
+	border: 1px solid #d0d0d0;
+	height: 30px;
+	padding: 0 10px;
+}
+
+.join_form>table>tbody>tr input[name=email] {
+	width: 234px;
+}
+
+.join_form>table .join_id_msg {
+	color: #3e3d3c;
+	display: none;
+}
+
+.join_form>table .join_id_msg.ok {
+	display: block;
+	color: #329cff;
+}
+
+.join_form>table>tbody>tr select {
+	color: #717171;
+	height: 30px;
+	border: 1px solid #d0d0d0;
+	background: url(/images/login/select-arrow.png) no-repeat right 50% #fff;
+	padding: 0 10px;
+	margin-left: 2px;
+	width: 120px;
+}
+
+.join_form>table>tbody>tr select.on {
+	background: url(/images/login/select-arrow-up-11x7.png) no-repeat 90%;
+}
+
+.join_element {
+	margin-top: 10px;
+}
+
+.join_form>table>tbody>tr>td>input[name=zipcode] {
+	width: 120px;
+	height: 30px;
+	border: 1px solid #d0d0d0;
+	padding: 0 10px;
+}
+
+.join_form>table>tbody>tr>td>input[name=zipcode]+button {
+	margin-left: 7px;
+	border: 1px solid #dbdbdb;
+	font-size: 12px;
+	line-height: 28px;
+	padding: 0 10px;
+	background: none;
+}
+
+.join_form>table>tbody>tr>td>div>input[type=text] {
+	width: 360px;
+	border: 1px solid #d0d0d0;
+	height: 30px;
+	padding: 0 10px;
+	margin-top: 8px;
+}
+
+.join_form .calendar_wrap {
+	position: relative;
+}
+
+.join_form .calendar_wrap .join_calendar {
+	width: 226px;
+	border: 1px solid #d0d0d0;
+	height: 30px;
+	padding: 0 10px;
+}
+
+.join_form .calendar_wrap img {
+	position: absolute;
+	top: 15px;
+	left: 200px;
+}
+
+/* 회원가입 완료 */
+.join_ok {
+	width: 1120px;
+	margin: 0 auto;
+	padding-bottom: 60px;
+}
+
+.join_complete {
+	padding: 50px;
+	background: url(/images/login/bg_join_coupon.png) repeat center;
+	text-align: center;
+}
+
+.join_complete .txt2 {
+	padding: 15px 0;
+	letter-spacing: -1px;
+	font-size: 22px;
+}
+
+.join_complete .txt2 strong {
+	font-weight: 700;
+}
+
+.join_ok .join_btn {
+	padding-top: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.join_ok #loginbtnJoin {
+	text-align: center;
+	width: 188px;
+	height: 62px;
+	line-height: 60px;
+	background: var(--point-color1);
+	border: 1px solid var(--point-color1);
+	color: #fff;
+}
+
+/* 인기상품 */
+.join_popular {
+	width: 1120px;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+/* 추천상품 */
+.join_recommand {
+	width: 1120px;
+	margin: 0 auto;
+	margin-top: 30px;
+	padding-bottom: 60px;
+}
+
+.join_popular .hit, .join_recommand .hit {
+	margin: 0 0 40px;
+	padding: 0;
+	border-bottom: 1px solid #dadada;
+	font-size: 22px;
+	text-align: center;
+}
+
+.join_popular .hit span, .join_recommand .hit span {
+	position: relative;
+	top: 15px;
+	display: inline-block;
+	padding: 0 20px;
+	background: #fff;
+	font-size: 22px;
+	font-weight: 700;
+}
+
+.join_popular .goods_list, .join_recommand .goods_list {
+	line-height: 60px;
+	text-align: center;
+	color: var(--gray-400);
+}

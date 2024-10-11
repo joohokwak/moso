@@ -1,0 +1,303 @@
+:root {
+  --point-color1: #003628;
+  --point-color2: #717171;
+  --gray-400: #717171;
+  --gray-500: #003628;
+  --gray-600: #000;
+}
+#shopping {
+  padding: 60px 0;
+}
+#shopping .view {
+  position: relative;
+}
+#shopping .view .main_img{
+  width: 100%;
+  margin: 0 auto;
+}
+#shopping .view .title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  line-height: 1;
+  transform: translate(-50%);
+}
+#shopping .view .title h2 {
+  font-size: 60px;
+  font-family: 'BerlingskeSerif';
+}
+#shopping .view .title p {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+#shopping .view .title a{
+  display: block;
+  font-size: 13px;
+  margin-top: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+
+#shopping .go_menu {
+  background: #d6e7d0;
+}
+#shopping .go_menu .inner {
+  padding: 80px 0;
+  display: flex;
+  gap: 2%;
+}
+#shopping .go_menu .box {
+  padding: 4%;
+  width: 32%;
+  background: url(/images/shopping/bg_box.png);
+}
+#shopping .go_menu .box:nth-child(2) {
+  background: url(/images/shopping/bg_box2.png);
+}
+#shopping .go_menu .box:nth-child(3) {
+  background: url(/images/shopping/bg_box3.png);
+}
+#shopping .go_menu .box_inner {
+  padding: 60px 0;
+  background: #fff;
+  text-align: center;
+}
+#shopping .go_menu .box h4 {
+  font-size: 40px;
+  line-height: 1;
+  height: 80px;
+}
+#shopping .go_menu .box h5 {
+  margin-top: 10px;
+  font-size: 18px;
+}
+#shopping .go_menu .box p {
+  margin-top: 20px;
+  color: var(--gray-400);
+}
+#shopping .go_menu .box a {
+  display: block;
+  margin: 20px auto 0;
+  border: 1px solid var(--point-color1);
+  width: 160px;
+  line-height: 40px;
+  font-weight: 700;
+}
+#shopping .go_menu .box a:hover {
+  background: var(--point-color1);
+  color: #fff
+}
+
+#shopping .shopping_view .inner {
+  margin: 40px auto 0;
+  width: 1120px;
+}
+#shopping .shopping_view #location {
+  position: relative;
+  display: flex;
+  gap: 8px;
+}
+#shopping .shopping_view .slash {
+  color: var(--gray-400);
+  font-size: 10px;
+  margin-top: 3px;
+}
+#shopping .shopping_view .current_active{
+  color: #535353;
+  position: relative;
+}
+#shopping .shopping_view .current_active::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  transform: rotate(180deg);
+  margin-top: 4px;
+  right: -14px;
+  width: 8px;
+  height: 8px;
+  background: url(/images/shopping/show-arrow.png) no-repeat;
+}
+#shopping .shopping_view .show_more:hover .current_active::after{
+  margin-top: 8px;
+  transform: rotate(360deg);
+}
+#shopping .shopping_view .show_more .category {
+  overflow: hidden;
+  height: 0;
+  width: 200px;
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  top: 20px;
+  left: 50px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
+  padding: 0;
+}
+#shopping .shopping_view .show_more:hover .category{
+  height:fit-content;
+  padding: 6px 0; 
+}
+#shopping .shopping_view .show_more .category a {
+  color: var(--gray-400);
+  display: inline-block;
+  width: 100%;
+  line-height: 24px;
+  padding: 0 10px;
+}
+#shopping .shopping_view .show_more .category a:hover {
+  background: var(--gray-500);
+  color: #fff;
+}
+#shopping .shopping_view .filter {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  margin: 40px 0 ;
+}
+#shopping .shopping_view .filter .select_toggle {
+  width: 200px;
+  border: 1px solid #e6e3dd;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 7px;
+  height: 54px;
+}
+
+#shopping .shopping_view .filter .select_toggle::after {
+  content: "";
+  position: absolute;
+  top: 23px;
+  right: 5px;
+  width: 18px;
+  height: 10px;
+  background: url(/images/shopping/select-arrow-down.png) no-repeat;
+}
+
+#shopping .shopping_view .filter .select_toggle.on:after {
+  top: 21px;
+  right: 10px;
+  transform: rotate(180deg);
+}
+
+#shopping .shopping_view .filter .current_select{
+  line-height: 40px;
+  color: #444;
+  font-weight: 400;
+}
+#shopping .shopping_view .filter .type_select {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  border: none;
+  height: 0;
+  overflow: hidden;
+  z-index: 10;
+  background: #fff;
+}
+#shopping .shopping_view .filter .select_toggle.on .type_select{
+  height: fit-content;
+  border: 1px solid #ccc;
+  }
+#shopping .shopping_view .filter .type_select a {
+  display: block;
+  padding:6px;
+  color: #444;
+  font-weight: 400;
+  line-height: 1.1;
+}
+#shopping .shopping_view .filter .type_select a:hover {
+  background: #e9e9e9;
+}
+#shopping .shopping_view .filter .rank{
+  display: flex;
+  gap: 20px;
+  color: #a3a3a3;
+  font-size: 13px;
+  line-height: 40px;
+}
+
+#shopping .shopping_view .filter .rank li.active a{
+  color: var(--point-color1);
+  font-weight: 400;
+}
+
+#shopping .shopping_view .filter .rank a{
+  color: #a3a3a3;
+  height: 100%;
+}
+/* shopping_view list */
+#shopping .shopping_view .list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-row: repeat(4, 1fr);
+  column-gap: 40px;
+  row-gap: 50px;
+  padding-bottom: 50px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #dadada;
+}
+#shopping .shopping_view .list .product_img {
+  position: relative;
+  display: block;
+}
+#shopping .shopping_view .list .product_img .wish{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 7px 7px 0 0 ;
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+#shopping .shopping_view .list .product_img .wish img{
+  width: 100%;
+}
+
+#shopping .shopping_view .list .discription a{
+  margin-top: 20px;
+  width: 100%;
+}
+#shopping .shopping_view .list .discription:hover a{
+  text-decoration: underline;
+  text-decoration-color:#6c6b63;
+}
+#shopping .shopping_view .list .discription a{
+  display: block;
+  width: 100%;
+}
+#shopping .shopping_view .list .discription strong {
+  line-height: 20px;
+  font-size: 16px;
+  word-break: break-all;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+#shopping .shopping_view .list .discription em{
+  display: block;
+  margin-top: 10px;
+  color: #6c6b63;
+  height: 62px;
+  border-bottom: 1px dotted #f5f5f5;
+}
+#shopping .shopping_view .list .price {
+  font-size: 15px;
+  color: #6c6b63;
+  padding-top: 10px;
+}
+#shopping .shopping_view .list .price strong {
+  font-weight: 700;
+  font-size: 17px;
+}
+#shopping .shopping_view .list .type {
+  height: 30px;
+  margin-top: 10px;
+}
+#shopping .shopping_view .list .type img {
+  max-height: 100%;
+  margin-right: 5px;
+}

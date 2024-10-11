@@ -1,0 +1,138 @@
+:root {
+	--point-color1: #003628;
+	--point-color2: #717171;
+	--gray-400: #717171;
+	--gray-500: #003628;
+	--gray-600: #000;
+}
+
+footer {
+	color: #fff;
+}
+
+footer .footer_bg {
+	background: var(--point-color1);
+}
+
+footer .inner {
+	display: flex;
+	width: 1120px;
+	padding: 50px 0 80px;
+	margin: 0 auto;
+	justify-content: space-between;
+}
+
+footer .footer_left {
+	width: 75%;
+}
+
+footer .logo {
+	width: 100px;
+}
+
+footer .footer_link {
+	font-size: 14px;
+	margin-top: 29px;
+	padding-bottom: 29px;
+	font-weight: 200;
+}
+
+footer .footer_link>ul {
+	display: flex;
+	gap: 30px;
+}
+
+footer .footer_link .fw {
+	font-weight: 700;
+}
+
+footer .footer_link a {
+	color: #D6E7D0;
+}
+
+footer .policy {
+	line-height: 20px;
+	padding-bottom: 50px;
+}
+
+footer .policy a {
+	color: #fff;
+}
+
+footer .policy p {
+	font-weight: 200;
+	word-break: keep-all;
+}
+
+footer .policy p>span:first-child {
+	padding: 0 10px 0 0;
+}
+
+footer .policy p>span {
+	position: relative;
+	padding: 0 10px;
+	display: inline-block;
+}
+
+footer .policy p>span+span::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 1px;
+	height: 10px;
+	background: #fff;
+	margin-top: -4px;
+}
+
+footer .certify_mark a {
+	display: inline-block;
+	border: 1px solid #D6E7D0;
+	padding: 10px;
+	color: #D6E7D0;
+	font-weight: 200;
+}
+
+footer .footer_right {
+	color: #D6E7D0;
+}
+
+footer .footer_right h2 {
+	line-height: 39px;
+	font-weight: 700;
+}
+
+footer .footer_right .num_st {
+	font-size: 24px;
+	line-height: 1.2;
+}
+
+footer .footer_right .hour {
+	margin-top: 5px;
+	font-weight: 200;
+	line-height: 1.4;
+}
+
+footer .footer_sns {
+	margin-top: 20px;
+	display: flex;
+}
+
+footer .footer_sns a {
+	display: block;
+	width: 45px;
+	height: 45px;
+	margin-right: 10px;
+}
+
+footer .footer_sns .insta {
+	background: url(/images/footer/ico_insta.png) no-repeat center/cover;
+}
+
+footer .footer_sns .youtube {
+	background: url(/images/footer/ico_yout.png) no-repeat center/cover;
+}
+
+footer .footer_sns .blog {
+	background: url(/images/footer/ico_blog.png) no-repeat center/cover;
+}

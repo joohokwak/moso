@@ -1,0 +1,115 @@
+:root {
+	--point-color1: #003628;
+	--point-color2: #717171;
+	--gray-400: #717171;
+	--gray-500: #003628;
+	--gray-600: #000;
+}
+
+.content_admin {
+	width: 100%;
+	padding: 0 0 60px;
+	color: #003628;
+	font-size: 14px;
+	background: url(/images/notice/bg_board1_top.png) repeat-x left 156px top;
+}
+
+.content_admin .inner {
+	width: 1120px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.content_admin .route {
+	display: flex;
+	align-items: center;
+	height: 120px;
+}
+
+.admin_notice_wrap .admin_notice_header {
+	border-bottom: 1px solid #ddd;
+	margin: 0 0 20px;
+	padding: 0 0 20px;
+}
+
+.admin_notice_wrap .admin_notice_header h2 {
+	font-size: 60px;
+	margin-top: 40px;
+	font-weight: 500;
+	letter-spacing: -1;
+}
+
+.admin_notice_wrap .tabs {
+	text-align: center;
+	margin: 30px 0 -5px 0;
+	padding: 0;
+}
+
+.admin_notice_wrap .tabs a {
+	font-weight: 700;
+	display: block;
+	position: relative;
+}
+
+.admin_notice_wrap .tabs a::after {
+	content: "";
+	width: 120px;
+	height: 3px;
+	background: #d6e7d0;
+	position: absolute;
+	bottom: -15px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: block;
+}
+
+.admin_notice_wrap .search_box {
+	text-align: center;
+	border-bottom: 1px solid #dbdbdb;
+	padding-bottom: 20px;
+	color: #717171;
+}
+
+.admin_notice_wrap .search_box input {
+	width: 70%;
+	height: 38px;
+	border: 1px solid #ddd;
+	border-radius: 20px;
+	padding: 0 40px;
+	background: url(/images/notice/btn-search.png) no-repeat 10px 50% #fff;
+}
+
+.admin_notice_wrap .admin_notice_table {
+	width: 100%;
+	border-top: 1px solid #dbdbdb;
+}
+
+.admin_notice_wrap .admin_notice_table th {
+	padding: 10px 0;
+	border-bottom: 1px solid #ededed;
+	color: #003628;
+	font-weight: 300;
+}
+
+.admin_notice_wrap .admin_notice_table td {
+	padding: 10px 0;
+	border-bottom: 1px solid #ededed;
+	color: #444;
+}
+
+.admin_notice_wrap .admin_notice_table td:not(:nth-of-type(2)) {
+	text-align: center;
+}
+
+.admin_notice_wrap .admin_notice_table td>img {
+	vertical-align: 0px;
+}
+
+.admin_notice_wrap .admin_notice_table td>a:hover {
+	text-decoration: underline;
+}
+
+.footer_height {
+	height: 100px;
+	background-color: bisque;
+}

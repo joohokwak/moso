@@ -1,0 +1,278 @@
+:root {
+	--point-color1: #003628;
+	--point-color2: #717171;
+	--gray-400: #717171;
+	--gray-500: #003628;
+	--gray-600: #000;
+}
+
+/* ---------------------- 브랜드 공통 ---------------------- */
+.external {
+	background: url(/images/magazine/bg_board.png) repeat-y center;
+}
+
+.brand_wrap {
+	background: url(/images/magazine/bg_board_top.png) repeat-x left 156px
+		top 60px;
+}
+
+.brand_wrap.on {
+	background: none;
+}
+
+.brand_content {
+	width: 1120px;
+	padding-bottom: 60px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.brand_menu .tabs {
+	display: flex;
+	height: 59px;
+	justify-content: center;
+	align-items: center;
+}
+
+.brand_menu .tabs li {
+	display: block;
+}
+
+.brand_menu .tabs li>a {
+	position: relative;
+	padding: 20px 25px;
+	letter-spacing: -0.7px;
+}
+
+.brand_menu .tabs a.on {
+	font-weight: bold;
+}
+
+.brand_menu .tabs a.on::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 3px;
+	background: var(--point-color1);
+}
+
+.brand_menu.fixed {
+	position: fixed;
+	top: 60px;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+	background: #fff;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.brand_admin {
+	line-height: 120px;
+}
+
+.brand_admin.on {
+	line-height: 140px;
+}
+
+.brand_admin span {
+	color: var(--point-color1);
+}
+
+.brand_admin span>a {
+	color: #333;
+}
+
+.brand_admin span::after {
+	content: "/";
+	color: #999;
+	padding: 0 10px;
+	display: inline-block;
+}
+
+.brand_admin span:last-child::after {
+	content: "";
+}
+
+.brand_section {
+	margin-top: 30px;
+	position: relative;
+}
+
+.brand_section .section_header {
+	text-align: center;
+	align-items: center;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+.brand_section .section_header li {
+	display: inline-block;
+	position: relative;
+	padding: 0 30px;
+}
+
+.brand_section .section_header li.on {
+	font-weight: bold;
+}
+
+.brand_section .section_header li.on::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -20px;
+	width: 100%;
+	height: 3px;
+	background: #d6e7d0;
+}
+
+.brand_section .section_search {
+	padding-bottom: 20px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+}
+
+.brand_section .section_search .search {
+	width: 70%;
+	padding: 0 40px;
+	line-height: 38px;
+	border-radius: 30px;
+	border: 1px solid #ddd;
+	background: url(/images/magazine/btn-search.png) no-repeat 10px #fff;
+}
+
+.brand_section .section_main {
+	margin-top: 20px;
+}
+
+.brand_section .section_main .category a {
+	color: var(--point-color2);
+}
+
+.brand_section .section_main .category a.on {
+	font-weight: bold;
+	color: #111;
+}
+
+.brand_section .section_main .category span::after {
+	content: "|";
+	padding: 0 10px;
+	color: #d2d2d2;
+}
+
+.brand_section .section_main .category span:last-child::after {
+	content: "";
+}
+
+.brand_section .section_main .category a:hover {
+	font-weight: bold;
+	color: #111;
+}
+
+/* ---------------------- 매거진 ---------------------- */
+.brand_section .section_main .board {
+	margin: 20px 0 70px;
+}
+
+.brand_section .section_main .board ul {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 37px;
+}
+
+.brand_section .section_main .board img {
+	filter: brightness(1);
+	transition: 0.7s;
+}
+
+.brand_section .section_main .board img:hover {
+	filter: brightness(0.7);
+}
+
+.brand_section .section_main .board h3 {
+	padding: 15px 0 0;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.brand_section .section_main .board h3>a {
+	color: #333;
+}
+
+.brand_section .section_main .board h3>a:hover {
+	text-decoration: underline;
+}
+
+.brand_section .section_main .board p {
+	margin-top: 15px;
+	color: var(--point-color2);
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+/* ---------------------- 월간 리뷰 ---------------------- */
+.brand_section .section_main .review {
+	margin: 20px 0 70px;
+}
+
+.brand_section .section_main .review ul {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	margin-right: -37px;
+}
+
+.brand_section .section_main .review img {
+	filter: brightness(1);
+	transition: 0.7s;
+}
+
+.brand_section .section_main .review img:hover {
+	filter: brightness(0.7);
+}
+
+.brand_section .section_main .review h3 {
+	padding: 15px 0 0;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.brand_section .section_main .review h3>a {
+	color: #333;
+}
+
+.brand_section .section_main .review h3>a:hover {
+	text-decoration: underline;
+}
+
+.brand_section .section_main .review p {
+	margin: 5px 0 20px;
+	color: var(--point-color2);
+}
+
+/* ---------------------- 상세페이지 ---------------------- */
+.section_main .viewer {
+	padding: 30px 0;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.list_btn {
+	margin-top: 20px;
+	text-align: right;
+}
+
+.list_btn a {
+	border: 1px solid #e5e5e5;
+	display: inline-block;
+	text-align: center;
+	line-height: 40px;
+	width: 120px;
+	color: #666;
+}
+
+.list_btn a:hover {
+	border: 1px solid #cba977;
+	color: #222;
+}

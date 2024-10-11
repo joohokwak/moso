@@ -1,0 +1,128 @@
+:root {
+	--point-color1: #003628;
+	--point-color2: #717171;
+	--gray-400: #717171;
+	--gray-500: #003628;
+	--gray-600: #000;
+}
+
+#catalog_container {
+	background: url(/images/catalog/bg_board1.png) repeat center 220px;
+}
+
+#catalog_content {
+	padding: 0 0 60px;
+	background: url(/images/catalog/bg_board1_top.png) repeat-x left 156px
+		top;
+}
+
+#catalog_content .inner {
+	margin: 0 auto;
+	width: 1120px;
+}
+
+#catalog_content .route {
+	width: 1120px;
+	line-height: 1.4;
+	position: relative;
+	margin: 0 auto;
+	height: 120px;
+	display: flex;
+	align-items: center;
+}
+
+#catalog_content .route span {
+	padding: 0 10px 0 14px;
+	color: var(--point-color1);
+	position: relative;
+}
+
+#catalog_content .route span:first-child {
+	padding: 0 10px 0 0;
+}
+
+#catalog_content .route span::before {
+	content: "/";
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #999;
+}
+
+#catalog_content .route span:first-child::before {
+	display: none;
+}
+
+#catalog_content .section_header {
+	margin-bottom: 20px;
+	padding-bottom: 25px;
+	border-bottom: 1px solid #ddd;
+	margin-top: 35px;
+}
+
+#catalog_content .section h2 {
+	font-family: 'beBerlingskeSerif', Noto Sans Kr;
+	font-size: 60px;
+	font-weight: 500;
+	letter-spacing: -1px;
+}
+
+#catalog_content .search_frm {
+	text-align: center;
+	border-bottom: 1px solid #dbdbdb;
+	padding-bottom: 20px;
+}
+
+#catalog_content .search_frm input[type=text] {
+	background: url(/images/catalog/btn-search.png) no-repeat 10px 50% #fff;
+	width: 70%;
+	line-height: 38px;
+	border: 1px solid #ddd;
+	border-radius: 20px;
+	padding: 0 40px;
+}
+
+#catalog_content .search_frm input[type=text]::placeholder {
+	color: #717171;
+}
+
+#catalog_content .catalog_table {
+	border-top: 1px solid #dbdbdb;
+}
+
+#catalog_content .catalog_table th {
+	padding: 10px 0;
+	border-bottom: 1px solid #ededed;
+	color: var(--point-color1);
+	font-weight: 300;
+}
+
+#catalog_content .catalog_table .col_no {
+	color: #444;
+}
+
+#catalog_content .catalog_table td {
+	padding: 10px 0;
+	border: none;
+	color: #ACACAC;
+	border-bottom: 1px solid #ededed;
+}
+
+#catalog_content .catalog_table .col_tit {
+	width: 100%;
+	display: inline-block;
+	color: #444;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	word-break: break-all;
+}
+
+#catalog_content .catalog_table .col_tit img {
+	vertical-align: middle;
+}
+
+#catalog_content .col_no, .col_postdate, .col_visicount {
+	text-align: center;
+}

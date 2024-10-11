@@ -1,0 +1,201 @@
+:root {
+	--point-color1: #003628;
+	--point-color2: #717171;
+	--gray-400: #717171;
+	--gray-500: #003628;
+	--gray-600: #000;
+}
+
+.external ::-webkit-input-placeholder {
+	color: #979797;
+}
+
+.external {
+	background: url(/images/inquiry/bg_dots_green.png) repeat center top;
+}
+
+.inquiry_wrap {
+	background: url(/images/inquiry/bg_board_top.png) repeat-x left 156px top;
+}
+
+.inquiry_wrap.on {
+	background: none;
+}
+
+.inquiry_content {
+	padding-bottom: 60px;
+	position: relative;
+	width: 100%;
+}
+
+.inquiry_admin {
+	width: 1120px;
+	margin: 0 auto;
+	line-height: 120px;
+}
+
+.inquiry_admin span>a {
+	color: #333;
+}
+
+.inquiry_admin span::after {
+	content: "/";
+	margin: 0 10px;
+}
+
+.inquiry_admin span:last-child::after {
+	content: "";
+}
+
+.inquiry_section {
+	padding-top: 40px;
+	width: 1120px;
+	margin: 0 auto;
+}
+
+.section_title {
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+.section_title h2 {
+	font-size: 60px;
+	font-weight: 500;
+}
+
+.section_title p {
+	font-size: 18px;
+	color: var(--point-color2);
+	margin-top: 10px;
+}
+
+.section_main {
+	border-top: 1px solid #dbdbdb;
+}
+
+.section_main>ul>li {
+	border-bottom: 1px solid #ededed;
+	padding: 10px 0;
+	display: flex;
+}
+
+.section_main span {
+	width: 15%;
+	align-content: center;
+}
+
+.section_main .main_field {
+	width: 100%;
+	padding-left: 20px;
+	position: relative;
+}
+
+.section_main .main_field input {
+	height: 30px;
+	width: 250px;
+	border: 1px solid #d0d0d0;
+	padding: 0 10px;
+	color: #979797;
+}
+
+.section_main .main_field textarea {
+	padding: 10px;
+	color: #979797;
+	border: 1px solid #d0d0d0;
+}
+
+.section_main .main_field .division_btn {
+	display: flex;
+	justify-content: space-between;
+	background: #fff;
+	color: #444;
+	width: 250px;
+	line-height: 28px;
+	padding: 0 10px;
+	text-align: left;
+	border: 1px solid #d0d0d0;
+}
+
+.section_main .main_field .division_btn b {
+	width: 26px;
+	height: 26px;
+	display: block;
+	background: url(/images/inquiry/select-arrow-down-11x7.png) no-repeat right;
+}
+
+.section_main .main_field.on .division_btn b {
+	background: url(/images/inquiry/select-arrow-up-11x7.png) no-repeat	right;
+}
+
+.section_main .main_field.on .division {
+	max-height: 250px;
+	visibility: visible;
+	width: 250px;
+}
+
+.section_main .main_field .division {
+	position: absolute;
+	border: 1px solid #d0d0d0;
+	max-height: 0;
+	width: calc(100% - 20px);
+	visibility: hidden;
+	border-top: none;
+	background: #fff;
+	z-index: 10;
+}
+
+.section_main .main_field .division li {
+	padding: 5px 7px;
+}
+
+.section_main .main_field .division li:hover {
+	background: #dbdbdb;
+}
+
+.section_main .main_field .division a {
+	display: block;
+	color: #444;
+}
+
+.section_main .main_field .field_tit {
+	width: 930px;
+}
+
+.section_main .main_field .field_box {
+	margin-bottom: 5px;
+}
+
+.section_main .main_field .field_txt {
+	margin-top: 10px;
+	width: 930px;
+}
+
+.section_main .main_field .field_file {
+	border: none;
+}
+
+.section_bottom {
+	margin: 30px 0;
+	display: flex;
+	gap: 5px;
+	justify-content: center;
+}
+
+.section_bottom a {
+	display: block;
+	width: 120px;
+	height: 40px;
+	border: 1px solid var(--point-color1);
+	text-align: center;
+	align-content: center;
+}
+
+.section_bottom .save {
+	background: var(--point-color1);
+	color: #fff;
+	width: 120px;
+	height: 40px;
+	border: 1px solid var(--point-color1);
+	text-align: center;
+}
