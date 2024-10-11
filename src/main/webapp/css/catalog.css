@@ -111,7 +111,6 @@
 
 #catalog_content .catalog_table .col_tit {
 	width: 100%;
-	display: inline-block;
 	color: #444;
 	overflow: hidden;
 	white-space: nowrap;

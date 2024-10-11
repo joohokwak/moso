@@ -40,6 +40,7 @@
 <!-- FAQ -->
 <link rel="stylesheet" href="/css/faq.css?v=${version }">
 <link rel="stylesheet" href="/css/catalog.css?v=${version }">
+<link rel="stylesheet" href="/css/catalog_view.css?v=${version }">
 
 <!-- 비즈니스 -->
 <link rel="stylesheet" href="/css/notice.css?v=${version }">
