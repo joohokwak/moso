@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
  <div id="shopping">
    <div class="view">
      <img class="main_img" src="/images/shopping/mattress.jpg" alt="mattress">
