@@ -28,7 +28,7 @@ public class Common {
 	// Gson jar 추가 필요!!!!
 	
 	// 파일 저장 경로
-	private static final String ATTACHED_DIR = "C:\\JHKWAK\\jspws\\zinus\\src\\main\\webapp\\upload";
+	private static final String ATTACHED_DIR = "C:\\git\\moso\\src\\main\\webapp\\upload";
 
 	// parameter to class
 	@SuppressWarnings("unchecked")

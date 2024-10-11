@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="content_admin">
 	<div class="inner">
@@ -12,9 +13,9 @@
 					</li>
 				</ul>
 			</div>
-			<div class="search_box">
-				<input type="text" class="text_search" placeholder="Search" title="검색어">
-			</div>
+			<form class="search_box" action="/Notice/list" method="post">
+				<input type="text" class="text_search" placeholder="Search" name="title" title="검색어" value="${param.title }">
+			</form>
 			<table class="admin_notice_table">
 				<colgroup>
 					<col style="width: 10%">
@@ -24,52 +25,27 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th>번호 nono</th>
+						<th>번호</th>
 						<th>제목</th>
 						<th>등록일</th>
 						<th>조회</th>
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach var="list" items="${list }">
 					<tr>
-						<td>5</td>
-						<td><a href="#">신주발행공고(안)</a></td>
-						<td>2022.11.08</td>
-						<td>3499</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td><a href="#">신주발행공고(안)</a></td>
-						<td>2021.02.25</td>
-						<td>13092</td>
-					</tr>
-					<tr>
-						<td>3</td>
+						<td>${list.no }</td>
 						<td>
-							<a href="#">전자증권 전환대상 주권 등의 권리자 보호 안내</a>
-							<img src="/images/notice/icon_board_attach_img.png">
+							<a href="#">
+								${list.title }
+								<c:if test="${not empty list.ofile }"><img src="/images/notice/icon_board_attach_file.png"></c:if>
+							</a>
 						</td>
-						<td>2019.09.10</td>
-						<td>3499</td>
+						<td>${list.regdate }</td>
+						<td>${list.visitcount }</td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td>
-							<a href="#">지누스 중견기업확인서 (2020.03.31)</a>
-							<img src="/images/notice/icon_board_attach_file.png">
-						</td>
-						<td>2019.07.19</td>
-						<td>18869</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>
-							<a href="#">지누스 중견기업확인서 (2020.03.31)</a>
-							<img src="/images/notice/icon_board_attach_file.png">
-						</td>
-						<td>2019.07.19</td>
-						<td>18869</td>
-					</tr>
+				</c:forEach>
+					
 				</tbody>
 			</table>
 			
@@ -79,10 +55,7 @@
 			
 			<!-- 페이징 -->
 			<div class="pagination">
-				<span class="page_num active">1</span>
-				<span class="page_num"><a href="#">2</a></span>
-				<span class="page_num"><a href="#">3</a></span>
-				<span class="page_num"><a href="#">4</a></span>
+				${paging }
 			</div>
 		</div>
 	</div>
