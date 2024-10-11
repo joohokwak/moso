@@ -19,6 +19,7 @@ public class MagazineController extends HttpServlet {
 		
 		String action = req.getPathInfo();
 		
+		
 		if (action.equals("/magazine")) {
 			
 		} else if (action.equals("/view")) {
