@@ -87,7 +87,7 @@ public class Pagination {
 			sb.append(prevPage);
 			
 			// 검색
-			if (searchMap != null) {
+			if (searchMap != null && !searchMap.isEmpty()) {
 				for (Map.Entry<String, String> entry : searchMap.entrySet()) {
 					sb.append("&");
 					sb.append(entry.getKey());
@@ -114,7 +114,7 @@ public class Pagination {
 				sb.append(i);
 				
 				// 검색
-				if (searchMap != null) {
+				if (searchMap != null && !searchMap.isEmpty()) {
 					for (Map.Entry<String, String> entry : searchMap.entrySet()) {
 						sb.append("&");
 						sb.append(entry.getKey());
@@ -137,7 +137,7 @@ public class Pagination {
 			sb.append(nextPage);
 			
 			// 검색
-			if (searchMap != null) {
+			if (searchMap != null && !searchMap.isEmpty()) {
 				for (Map.Entry<String, String> entry : searchMap.entrySet()) {
 					sb.append("&");
 					sb.append(entry.getKey());
@@ -166,7 +166,7 @@ public class Pagination {
 		sb.append(query);
 		
 		// 검색
-		if (searchMap != null) {
+		if (searchMap != null && !searchMap.isEmpty()) {
 			sb.append(" WHERE 1 = 1 ");
 			
 			for (Map.Entry<String, String> entry : searchMap.entrySet()) {
@@ -203,7 +203,7 @@ public class Pagination {
 			sb.append("WITH QCNT AS ( ");
 			sb.append(query);
 			
-			if (searchMap != null) {
+			if (searchMap != null && !searchMap.isEmpty()) {
 				sb.append(" WHERE 1 = 1 ");
 				
 				for (Entry<String, String> entry : searchMap.entrySet()) {
