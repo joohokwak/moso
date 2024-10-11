@@ -26,7 +26,7 @@ import com.google.gson.JsonElement;
 
 public class Common {
 	// 파일 저장 경로
-	private static final String ATTACHED_DIR = "C:\\Users\\tj\\git\\moso\\src\\main\\webapp\\upload";
+	private static final String ATTACHED_DIR = "C:\\git\\moso\\src\\main\\webapp\\upload";
 
 	// parameter to class
 	@SuppressWarnings("unchecked")
