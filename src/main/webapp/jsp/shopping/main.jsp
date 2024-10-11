@@ -1,4 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
  <div id="shopping">
    <div class="view">
@@ -70,374 +73,74 @@
 			<div class="select_toggle">
 				<span class="current_select">타입선택</span>
 				<ul class="type_select">
-						<li><a href="#">타입 선택</a></li>
-						<li><a href="#">메모리폼 매트리스</a></li>
-						<li><a href="#">스프링 매트리스</a></li>
-						<li><a href="#">에어 매트릭스</a></li>
-						<li><a href="#">Luxe S collection</a></li>
-						<li><a href="#">ForestWalk</a></li>
+						<li><a >타입 선택</a></li>
+						<li><a href="/Shop/main?type=memory">메모리폼 매트리스</a></li>
+						<li><a href="/Shop/main?type=spring">스프링 매트리스</a></li>
+						<li><a href="/Shop/main?type=air">에어 매트리스</a></li>
+						<li><a href="/Shop/main?type=luxe">Luxe S collection</a></li>
+						<li><a href="/Shop/main?type=forest">ForestWalk</a></li>
 				</ul>
 			</div>
+			
 			<ul class="rank">
-				<li class="active">
-					<a href="#" class="sort">
+				<li class="${param.ordered eq 'pop' ? 'active' : '' }">
+					<a href="/Shop/main?ordered=pop${typecheck }" class="sort">
 						인기순
 					</a>
 				</li>
-				<li>
-					<a href="#" class="sort">
+				<li class="${param.ordered eq 'new' ? 'active' : '' }">
+					<a href="/Shop/main?ordered=new${typecheck }" class="sort">
 						신상품순
 					</a>
 				</li>
-				<li>
-					<a href="#" class="sort">
+				<li class="${param.ordered eq 'price' ? 'active' : '' }">
+					<a href="/Shop/main?ordered=price${typecheck }" class="sort">
 						가격순
 					</a>
 				</li>
-				<li>
-					<a href="#" class="sort">
+				<li class="${param.ordered eq 'review' ? 'active' : '' }">
+					<a href="/Shop/main?ordered=review${typecheck }" class="sort">
 						상품평순
 					</a>
 				</li>
 			</ul>
 		</div>
 		<div class="list">
+			<c:forEach var="list" items="${list }">
 			<ul class="product">
 				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
+					<a href="/Shop/buy?num=${list.no }">
+						<img src="/images/shopping/${list.poster }" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
 					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
+					<a href="#" class="wish" data-no="${list.no }"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
 				</li>
 				<li class="discription">
-					<a href="/shopping_buy.html">
+					<a href="/Shop/buy?num=${list.no }">
 						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
+							${list.name} 
 						</strong>
 						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
+							${list.text }
 						</em>
 					</a>
 				</li>
 				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
+					<p class="price">최저 <strong><fmt:formatNumber value="${list.price }" pattern="#,###" /></strong> 원</p>
 					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
+						<c:set var="size" value="${fn:split(list.sizename, ',') }" />
+						<c:forEach var="s" items="${size }">
+							<c:choose>
+								<c:when test="${s eq 'Q' }"><img src="/images/shopping/S_03.png" alt="Q"></c:when>
+								<c:when test="${s eq 'LK' }"><img src="/images/shopping/S_01.png" alt="LK"></c:when>
+								<c:when test="${s eq 'SS' }"><img src="/images/shopping/S_04.png" alt="SS"></c:when>
+								<c:otherwise></c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${list.point eq '중간' }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
 					</div>
 				</li>
 			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
-			<ul class="product">
-				<li class="product_img">
-					<a href="/shopping_buy.html">
-						<img src="/images/shopping/1000000369_main_074.jpg" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
-				</li>
-				<li class="discription">
-					<a href="/shopping_buy.html">
-						<strong>
-							포레스트 워크S 하이브리드 스프링 매트리스 / 30cm
-						</strong>
-						<em>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br>*부드러운 퀼팅으로 마감된 타이트탑
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong>1,010,000</strong> 원</p>
-					
-					<div class="type">
-						<img src="/images/shopping/H_03.png" alt="중간">
-						<img src="/images/shopping/S_01.png" alt="LK">
-						<img src="/images/shopping/S_03.png" alt="Q">
-						<img src="/images/shopping/S_04.png" alt="SS">
-					</div>
-				</li>
-			</ul>
+			</c:forEach>
 		</div>
 	</div>
 </div>
