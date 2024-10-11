@@ -184,10 +184,10 @@
 							</div>
 						</li>
 						<li>
-							<a href="/Faq/catalog" class="depth3_tit">카탈로그</a>
+							<a href="/Catalog/list" class="depth3_tit">카탈로그</a>
 							<div class="depth3">
 								<ul>
-									<li><a href="#">카탈로그</a></li>
+									<li><a href="/Catalog/list">카탈로그</a></li>
 								</ul>
 							</div>
 						</li>

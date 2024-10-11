@@ -17,12 +17,6 @@ public class DBCP {
 	private final String USER = "zinus";
 	private final String PASS = "1234";
 	
-	// MYSQL
-//	private final String DRIVER = "com.mysql.cj.jdbc.Driver";
-//	private final String URL = "jdbc:mysql://localhost:3306/musthave?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8";
-//	private final String USER = "musthave";
-//	private final String PASS = "1234";
-	
 	public Connection getConn() {
 		Connection conn = null;
 		
