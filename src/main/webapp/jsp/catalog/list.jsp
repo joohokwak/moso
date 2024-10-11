@@ -16,10 +16,10 @@
 					<h2>카탈로그</h2>
 				</div>
 				<div class="search_frm">
-					<form>
+					<form action="/Catalog/list" method="post">
 						<fieldset>
-							<legend><span class="blind"></span></legend>
-							<input type="text" placeholder="Search" title="검색">
+							<legend><span class="blind">검색</span></legend>
+							<input type="text" placeholder="Search" name="title" title="검색" value="${param.title }">
 						</fieldset>
 					</form>
 				</div>
@@ -46,7 +46,9 @@
 									<td class="col_no">${ct.no }</td>
 									<td class="col_tit">
 										<a href="/Catalog/view?no=${ct.no }">${ct.title }</a>
-										<img src="/images/catalog/icon_board_attach_file.png" alt="파일첨부 있음">
+										<c:if test="${not empty ct.ofile }">
+											<img src="/images/catalog/icon_board_attach_file.png" alt="파일첨부 있음">
+										</c:if>
 										<img src="/images/catalog/icon_board_hot.png" alt="인기글">
 									</td>
 									<td class="col_postdate">${ct.regdate }</td>
@@ -67,12 +69,20 @@
 						</table>
 					</div>
 					
+					<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
+						<button class="btn write_btn">글쓰기</button>
+					</div>
+					
 					<!-- 페이징 -->
 					<div class="pagination">
-						<span class="page_num active">1</span>
-						<span class="page_num"><a href="#">2</a></span>
-						<span class="page_num"><a href="#">3</a></span>
-						<span class="page_num"><a href="#">4</a></span>
+						<c:forEach var="p" begin="1" end="${totalPages }">
+							<c:if test="${p eq pageNum }">
+								<span class='page_num active'>${p }</span>
+							</c:if>
+							<c:if test="${p ne pageNum }">
+								<a href="/Catalog/list?pageNum=${p }" class="page_num">${p }</a>
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
 			</div>

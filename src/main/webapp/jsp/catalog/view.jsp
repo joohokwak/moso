@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="catalog_container">
 	<div id="catalog_content">
@@ -17,86 +18,35 @@
 				<div class="catalog_view_header">
 					<div class="catalog_view_title">
 						<strong>제목</strong>
-						<h3>ZINUS Product Catalog (Mar,2021)</h3>
+						<h3>${view.title }</h3>
 					</div>
 					<div class="catalog_view_info">
 						<strong>등록일</strong>
-						<span class="text1">2021.04.20 15:31:49</span>
+						<span class="text1">${view.regdate }</span>
 					</div>
 					<div class="catalog_view_info">
 						<strong>조회수</strong>
-						<span class="text1">8104</span>
+						<span class="text1">${view.visitcount }</span>
 					</div>
 					<div class="catalog_view_info">
 						<img src="/images/catalog/icon-clip.png" alt="첨부파일 있음">
 						<strong>첨부파일</strong>
-						<a href="#" class="file_name">ZINUS Product Catalog (Mar, 2021).pdf</a>
+						<c:if test="${not empty view.ofile }">
+							<a href="/Catalog/download?ofile=${view.ofile }&nfile=${view.nfile }" class="file_name">${view.ofile }</a>
+						</c:if>
 					</div>
 				</div>
 				<div class="catalog_view_body">
 					<div class="text_field">
-						<p>&nbsp;</p>
+						<p>${view.content }</p>
 					</div>
 				</div>
 				<div class="catalog_list_btn">
-					<a href="#">목록</a>
-				</div>
-				<div class="search_frm">
-					<form>
-						<fieldset>
-							<legend><span class="blind"></span></legend>
-							<input type="text" placeholder="Search" title="검색">
-						</fieldset>
-					</form>
-				</div>
-				<div class="section_body">
-					<div class="catalog_table">
-						<table class="news">
-							<colgroup>
-								<col style="width: 10%;">
-							<col>
-							<col style="width: 10%;">
-							<col style="width: 10%;">
-							</colgroup>
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>제목</th>
-									<th>등록일</th>
-									<th>조회</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="col_no">2</td>
-									<td class="col_tit">
-										<a href="#">ZINUS Product Catalog (Mar, 20...</a>
-										<img src="/images/catalog/icon_board_attach_file.png" alt="파일첨부 있음">
-										<img src="/images/catalog/icon_board_hot.png" alt="인기글">
-									</td>
-									<td class="col_postdate">2024.10.04</td>
-									<td class="col_visicount">16</td>
-								</tr>
-								<tr>
-									<td class="col_no">1</td>
-									<td class="col_tit">
-										<a href="#">ZINUS Product Catalog (Mar, 20...</a>
-										<img src="/images/catalog/icon_board_attach_file.png" alt="파일첨부 있음">
-										<img src="/images/catalog/icon_board_hot.png" alt="인기글">
-									</td>
-									<td class="col_postdate">2024.10.04</td>
-									<td class="col_visicount">132</td>
-								</tr>
-							</tbody>
-						</table>
+					<div style="display: none;" data-isadmin="${member.isadmin eq 'Y' }">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
 					</div>
-					<!-- 페이징 -->
-					<div class="pagination">
-						<span class="page_num active">1</span>
-						<span class="page_num"><a href="#">2</a></span>
-						<span class="page_num"><a href="#">3</a></span>
-						<span class="page_num"><a href="#">4</a></span>
-					</div>
+					<a href="javascript:history.back();">목록</a>
 				</div>
 			</div>
 		</div>
