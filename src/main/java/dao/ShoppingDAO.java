@@ -14,7 +14,6 @@ public class ShoppingDAO extends DBCP{
 //	private Connection conn;
 //	private PreparedStatement ps;
 //	private ResultSet rs;
-	
 
 	public List<ShoppingDTO> viewMain(String ty, String ordered) {
 		List<ShoppingDTO> list = new ArrayList<>();

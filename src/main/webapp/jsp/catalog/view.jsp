@@ -90,8 +90,12 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="catalog_pagination">
-						<span class="page_num">1</span>
+					<!-- 페이징 -->
+					<div class="pagination">
+						<span class="page_num active">1</span>
+						<span class="page_num"><a href="#">2</a></span>
+						<span class="page_num"><a href="#">3</a></span>
+						<span class="page_num"><a href="#">4</a></span>
 					</div>
 				</div>
 			</div>

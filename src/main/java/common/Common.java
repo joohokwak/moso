@@ -25,8 +25,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 public class Common {
-	// Gson jar 추가 필요!!!!
-	
 	// 파일 저장 경로
 	private static final String ATTACHED_DIR = "C:\\git\\moso\\src\\main\\webapp\\upload";
 
@@ -213,7 +211,7 @@ public class Common {
 			if ("pageNum".equalsIgnoreCase(key)) continue;
 			if (val.isBlank()) continue;
 			
-			map.put(key, request.getParameter(key));
+			map.put(key, val);
 		}
 		
 		pg.setSearchMap(map);
