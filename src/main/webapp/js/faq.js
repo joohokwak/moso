@@ -42,9 +42,9 @@ window.addEventListener('DOMContentLoaded', function () {
 	if (faqDeleteBtns) {
 		faqDeleteBtns.forEach(btn => {
 			btn.addEventListener('click', function() {
-				if (confirm('삭제하시겠습니까?')) {
+				confirm('삭제하시겠습니까?', () => {
 					location.href = '/Faq/delete?no=' + this.dataset.no;
-				}
+				});
 			});
 		})
 	}

@@ -158,7 +158,6 @@ public class MemberDAO extends DBCP {
 			ps.setString(2, id);
 			
 			int re = ps.executeUpdate();
-			System.out.println("re : " + re);
 			
 			if (re > 0) {
 				sql = "SELECT * FROM MEMBER WHERE ID = ?";

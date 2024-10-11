@@ -116,6 +116,7 @@
 		</div>
 
 		<div class="login_btns">
+			<button type="button" class="btn_finded_copy">찾은 비밀번호 복사</button>
 			<button type="button" class="btn_login_main3">로그인하기</button>
 			<button type="button" onclick="javascript:location.href='/Member/join_agreement'">회원가입하기</button>
 		</div>

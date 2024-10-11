@@ -301,10 +301,6 @@
 	border-bottom: 1px solid #dbdbdb;
 }
 
-.login_find_pw_ok .login_btns button {
-	width: calc(100% / 2);
-}
-
 .login_find_pw_info>input {
 	width: 100%;
 	padding: 0 10px;
