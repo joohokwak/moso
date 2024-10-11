@@ -24,7 +24,7 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th>번호</th>
+						<th>번호 nono</th>
 						<th>제목</th>
 						<th>등록일</th>
 						<th>조회</th>
