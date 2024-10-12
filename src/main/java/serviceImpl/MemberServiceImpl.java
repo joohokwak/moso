@@ -36,4 +36,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.pwFined(id);
 	}
 
+	@Override
+	public int updateMember(MemberDTO member) {
+		return dao.updateMember(member);
+	}
+
 }

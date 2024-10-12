@@ -31,7 +31,7 @@
 				</div>
 
 				<div class="login_btns">
-					<button type="button" onclick="javascript:location.href='/Member/join_agreement'">회원가입</button>
+					<button type="button" onclick="javascript:location.href='/Member/joinAgreement'">회원가입</button>
 					<button type="button" class="btn_find_id">아이디 찾기</button>
 					<button type="button" class="btn_find_pw">비밀번호 찾기</button>
 				</div>
@@ -70,7 +70,7 @@
 			<div class="login_btns">
 				<button type="button" class="btn_find_pw">비밀번호 찾기</button>
 				<button type="button" class="btn_login_main">로그인하기</button>
-				<button type="button" onclick="javascript:location.href='/Member/join_agreement'">회원가입하기</button>
+				<button type="button" onclick="javascript:location.href='/Member/joinAgreement'">회원가입하기</button>
 			</div>
 		</div>
 	</div>
@@ -104,7 +104,7 @@
 		<div class="login_btns">
 			<button type="button" class="btn_find_pw">비밀번호 찾기</button>
 			<button type="button" class="btn_login_main2">로그인하기</button>
-			<button type="button" onclick="javascript:location.href='/Member/join_agreement'">회원가입하기</button>
+			<button type="button" onclick="javascript:location.href='/Member/joinAgreement'">회원가입하기</button>
 		</div>
 	</div>
 	
@@ -118,7 +118,7 @@
 		<div class="login_btns">
 			<button type="button" class="btn_finded_copy">찾은 비밀번호 복사</button>
 			<button type="button" class="btn_login_main3">로그인하기</button>
-			<button type="button" onclick="javascript:location.href='/Member/join_agreement'">회원가입하기</button>
+			<button type="button" onclick="javascript:location.href='/Member/joinAgreement'">회원가입하기</button>
 		</div>
 	</div>
 </div>

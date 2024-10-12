@@ -8,4 +8,5 @@ public interface MemberService {
 	MemberDTO login(MemberDTO member);
 	MemberDTO idFined(MemberDTO member);
 	MemberDTO pwFined(String id);
+	int updateMember(MemberDTO member);
 }

@@ -1,11 +1,20 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:if test="${not empty msg }">
+	<script>
+		alert(`${msg }`, () => {
+			history.back();
+		});
+	</script>
+</c:if>
 
 <div class="join_wrap">
 	<div class="join_top">
 		<h2>회원가입</h2>
 	</div>
 
-	<form action="/Member/join_ok" class="join_form" method="post">
+	<form action="/Member/joinOk" class="join_form" method="post">
 		<div class="join_tit">
 			<h3>기본 정보</h3>
 			<p>표시는 반드시 입력하셔야 하는 항목입니다.</p>
