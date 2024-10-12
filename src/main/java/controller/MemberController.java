@@ -38,21 +38,24 @@ public class MemberController extends HttpServlet {
 		// 회원가입
 		} else if (action.equals("/joinOk")) {
 			MemberDTO member = Common.convert(req, new MemberDTO());
-			
-			String domain = req.getParameter("domain");
-			String email = member.getEmail() + "@" + domain;
-			member.setEmail(email);
-			
-			int re = mService.insertMember(member);
-			
-			if (re == 0) {
-				req.setAttribute("msg", "회원가입에 실패하였습니다. 잠시후 다시 시도 하시거나 관리자에게 문의하세요.");
-				action = "/join";
+			if (member != null) {
+				String domain = req.getParameter("domain");
+				String email = member.getEmail() + "@" + domain;
+				member.setEmail(email);
+				
+				int re = mService.insertMember(member);
+				if (re == 0) {
+					req.setAttribute("msg", "회원가입에 실패하였습니다. 잠시후 다시 시도 하시거나 관리자에게 문의하세요.");
+					action = "/join";
+				}
+			} else {
+				resp.sendRedirect("/Main");
+				return;
 			}
 			
 		// 로그인
 		} else if (action.equals("/login")) {
-			MemberDTO member = Common.convert(req, new MemberDTO());
+			MemberDTO member = new MemberDTO();
 			Map<String, Object> data = Common.jsonConvert(req);
 			member.setId(data.get("id") + "");
 			member.setPass(data.get("pw") + "");
@@ -77,7 +80,7 @@ public class MemberController extends HttpServlet {
 			
 		// 아이디 찾기
 		} else if (action.equals("/idFined")) {
-			MemberDTO member = Common.convert(req, new MemberDTO());
+			MemberDTO member = new MemberDTO();
 			Map<String, Object> data = Common.jsonConvert(req);
 			member.setName(data.get("name") + "");
 			member.setEmail(data.get("email") + "");
