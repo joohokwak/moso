@@ -525,7 +525,6 @@ select::-ms-expand {
 
 /* 버튼 */
 .admin_btn_wrap {
-	margin-top: 20px;
 	display: none;
 	align-items: center;
 	justify-content: flex-end;

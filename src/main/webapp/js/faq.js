@@ -48,4 +48,11 @@ window.addEventListener('DOMContentLoaded', function () {
 			});
 		})
 	}
+	
+	
 });
+
+// 조립설명서 (파일다운로드)
+function fileDownLoad(ofile) {
+	location.href = "/Materials/download?ofile=" + ofile;
+}

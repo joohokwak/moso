@@ -60,15 +60,16 @@ public class CatalogController extends HttpServlet {
 			req.setAttribute("view", cs.selectOne(num));
 
 		} else if (action.equals("/download")) {
+			String path = req.getServletContext().getRealPath("files/catalog");
 			String ofile = req.getParameter("ofile");
 			String nfile = req.getParameter("nfile");
-
-			Common.fileDownLoad(resp, nfile, ofile);
+			
+			Common.fileDownLoad(resp, path, nfile, ofile);
 			return;
 
 		} else if (action.equals("/writeOk")) {
 			CatalogDTO dto = Common.convert(req, new CatalogDTO());
-			Map<String, String> map = Common.fileUpload(req);
+			Map<String, String> map = Common.fileUpload(req, "files/catalog");
 			
 			if (map != null) {
 				String nfile = map.get("nfile");

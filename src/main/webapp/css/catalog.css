@@ -89,6 +89,7 @@
 
 #catalog_content .catalog_table {
 	border-top: 1px solid #dbdbdb;
+	margin-bottom: 20px;
 }
 
 #catalog_content .catalog_table th {

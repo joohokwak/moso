@@ -37,10 +37,11 @@
 <!-- 문의 공통 -->
 <link rel="stylesheet" href="/css/inquiry.css?v=${version }">
 
-<!-- FAQ -->
+<!-- 고객서비스 -->
 <link rel="stylesheet" href="/css/faq.css?v=${version }">
 <link rel="stylesheet" href="/css/catalog.css?v=${version }">
 <link rel="stylesheet" href="/css/catalog_view.css?v=${version }">
+<link rel="stylesheet" href="/css/materials.css?v=${version }">
 
 <!-- 비즈니스 -->
 <link rel="stylesheet" href="/css/notice.css?v=${version }">

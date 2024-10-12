@@ -25,9 +25,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 public class Common {
-	// 파일 저장 경로
-	private static final String ATTACHED_DIR = "C:\\Users\\tj\\git\\moso\\src\\main\\webapp\\upload";
-
 	// parameter to class
 	@SuppressWarnings("unchecked")
 	public static <T> T convert(HttpServletRequest request, T t) {
@@ -102,7 +99,9 @@ public class Common {
 	
 	// 파일 업로드
 	// 사용시 서블릿에 @MultipartConfig 추가 필요!!
-	public static Map<String, String> fileUpload(HttpServletRequest request) {
+	public static Map<String, String> fileUpload(HttpServletRequest request, String path) {
+		String ATTACHED_DIR = request.getServletContext().getRealPath(path);
+		
 		Map<String, String> map = null;
 		
 		try {
@@ -168,9 +167,9 @@ public class Common {
 	}
 
 	// 파일 다운로드
-	public static void fileDownLoad(HttpServletResponse response, String saveFileName, String originFileName) {
+	public static void fileDownLoad(HttpServletResponse response, String path, String saveFileName, String originFileName) {
 		// 파일 경로 및 저장된 파일명을 file 객체로 얻기
-		File file = new File(ATTACHED_DIR, saveFileName);
+		File file = new File(path, saveFileName);
 		
 		// 파일을 찾아 입력 스트림 생성
 		try (InputStream inStream = new FileInputStream(file); OutputStream outStream = response.getOutputStream();) {
