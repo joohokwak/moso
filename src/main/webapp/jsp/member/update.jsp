@@ -1,12 +1,17 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:if test="${not empty msg }">
+	<script>alert(`${msg }`);</script>
+</c:if>
+
 <div class="join_wrap">
 	<div class="join_top">
 		<h2>회원정보</h2>
+		<a href="#" id="memberListBtn" data-isadmin="${member.isadmin eq 'Y' }">회원목록</a>
 	</div>
 
-	<form action="/Member/update_ok" class="join_form" method="post">
+	<form action="/Member/updateOk" class="join_form" method="post">
 		<div class="join_tit">
 			<h3>개인회원 정보입력</h3>
 			<p>표시는 반드시 입력하셔야 하는 항목입니다.</p>

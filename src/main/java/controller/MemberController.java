@@ -25,41 +25,35 @@ public class MemberController extends HttpServlet {
 		resp.setContentType("text/html; charset=utf-8");
 		
 		String action = req.getPathInfo();
-		//System.out.println(action);
 		
 		MemberService mService = new MemberServiceImpl();
-		MemberDTO member = Common.convert(req, new MemberDTO());
 		
 		// 아이디 중복체크
 		if (action.equals("/idCheck")) {
 			Map<String, Object> data = Common.jsonConvert(req);
-			//System.out.println(data);
 			String result = mService.idCheck(data.get("id") + "") ? "no" : "ok";
 			Common.jsonResponse(resp, result);
 			return;
 		
 		// 회원가입
 		} else if (action.equals("/joinOk")) {
+			MemberDTO member = Common.convert(req, new MemberDTO());
+			
 			String domain = req.getParameter("domain");
 			String email = member.getEmail() + "@" + domain;
 			member.setEmail(email);
 			
 			int re = mService.insertMember(member);
 			
-			if (re > 0) {
-				req.setAttribute("layout", "/member/join_ok");
-				req.getRequestDispatcher("/layout.jsp").forward(req, resp);
-				
-			} else { // TODO: 실패시 처리 필요
-				
+			if (re == 0) {
+				req.setAttribute("msg", "회원가입에 실패하였습니다. 잠시후 다시 시도 하시거나 관리자에게 문의하세요.");
+				action = "/join";
 			}
-			
-			return;
 			
 		// 로그인
 		} else if (action.equals("/login")) {
+			MemberDTO member = Common.convert(req, new MemberDTO());
 			Map<String, Object> data = Common.jsonConvert(req);
-			//System.out.println(data);
 			member.setId(data.get("id") + "");
 			member.setPass(data.get("pw") + "");
 			
@@ -83,6 +77,7 @@ public class MemberController extends HttpServlet {
 			
 		// 아이디 찾기
 		} else if (action.equals("/idFined")) {
+			MemberDTO member = Common.convert(req, new MemberDTO());
 			Map<String, Object> data = Common.jsonConvert(req);
 			member.setName(data.get("name") + "");
 			member.setEmail(data.get("email") + "");
@@ -102,6 +97,16 @@ public class MemberController extends HttpServlet {
 			if (dto != null) result = dto.getName() + " 회원님의 임시비밀번호는<br><strong>" + dto.getPass() + "</strong> 입니다";
 			Common.jsonResponse(resp, result);
 			return;
+			
+		// 회원정보 수정
+		} else if (action.equals("/updateOk")) {
+			MemberDTO dto = Common.convert(req, new MemberDTO());
+			int re = mService.updateMember(dto);
+			
+			if (re > 0) req.setAttribute("msg", "정상적으로 변경되었습니다.");
+			else req.setAttribute("msg", "회원정보 변경에 실패하였습니다. 잠시후 다시 시도 하시거나 관리자에게 문의하세요.");
+			
+			action = "/update";
 		}
 		
 		

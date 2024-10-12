@@ -13,15 +13,13 @@ public class MemberDAO extends DBCP {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
-	public MemberDAO() {
-		conn = getConn();
-	}
-	
 	// 회원가입
 	public int insertMember(MemberDTO member) {
 		int result = 0;
 		
 		try {
+			conn = getConn();
+			
 			String sql = "";
 			sql += "INSERT INTO MEMBER                         ";
 			sql += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -56,6 +54,8 @@ public class MemberDAO extends DBCP {
 		boolean result = false;
 		
 		try {
+			conn = getConn();
+			
 			String sql = "SELECT * FROM MEMBER WHERE UPPER(ID) = UPPER(?)";
 			
 			ps = conn.prepareStatement(sql);
@@ -78,6 +78,8 @@ public class MemberDAO extends DBCP {
 		MemberDTO dto = null;
 		
 		try {
+			conn = getConn();
+			
 			String sql = "SELECT * FROM MEMBER WHERE ID = ? AND PASS = ?";
 			
 			ps = conn.prepareStatement(sql);
@@ -115,6 +117,8 @@ public class MemberDAO extends DBCP {
 		MemberDTO dto = null;
 		
 		try {
+			conn = getConn();
+			
 			String sql = "SELECT * FROM MEMBER WHERE NAME = ? AND EMAIL = ?";
 			
 			ps = conn.prepareStatement(sql);
@@ -152,6 +156,8 @@ public class MemberDAO extends DBCP {
 		MemberDTO dto = null;
 		
 		try {
+			conn = getConn();
+			
 			String sql = "UPDATE MEMBER SET PASS = ? WHERE ID = ?";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, Common.getRandomPassword(10));
@@ -190,5 +196,42 @@ public class MemberDAO extends DBCP {
 		}
 		
 		return dto;
+	}
+
+	public int updateMember(MemberDTO member) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			String sql = "";
+			sql += "UPDATE MEMBER                         					";
+			sql += "SET PASS = ?, NAME = ?, EMAIL = ?, PHONE = ?, TEL = ?	";
+			sql += "ZIPCODE = ?, ADDRESS = ?, ADDR_DETAIL = ?, GENDER = ?	";
+			sql += "GENDER = ?, BIRTH = ?									";
+			sql += "WHERE ID = ?											";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, member.getPass());
+			ps.setString(2, member.getName());
+			ps.setString(3, member.getEmail());
+			ps.setString(4, member.getPhone().replaceAll("-", ""));
+			ps.setString(5, member.getTel().replaceAll("-", ""));
+			ps.setString(6, member.getZipcode().replaceAll("-", ""));
+			ps.setString(7, member.getAddress());
+			ps.setString(8, member.getAddr_detail());
+			ps.setString(9, member.getGender());
+			ps.setString(10, member.getBirth().replaceAll("-", ""));
+			ps.setString(11, member.getId());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
 	}
 }

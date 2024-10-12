@@ -54,7 +54,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			// 로그인 영역 활성화
 			document.querySelector('.login_main').classList.add('on');
 			
-			// 스크롤바 없애기
+			// 스크롤바 비활성화
 			document.body.classList.add('on');
 			
 			// 포커스
@@ -142,14 +142,15 @@ window.addEventListener('DOMContentLoaded', function() {
 						// 비밀번호 찾은페이지 영역 활성화
 						loginFindedOkEl.classList.add('on');
 					} else {
-						alert('등록된 아이디가 없습니다.');
-						loginFindedId.value = '';
-						loginFindedId.focus();
+						alert('등록된 아이디가 없습니다.', () => {
+							loginFindedId.value = '';
+							loginFindedId.focus();
+						});
 					}
 				});
 				
 			} else {
-				alert('아이디를 입력해주세요');
+				alert('아이디를 입력해주세요', () => loginFindedId.focus());
 			}
 		});
 		
@@ -172,17 +173,19 @@ window.addEventListener('DOMContentLoaded', function() {
 	if (memberLoginBtn) {
 		memberLoginBtn.addEventListener('click', function(e) {
 			e.preventDefault();
-			const id = document.querySelector('.login_main input[name=id]').value.trim();
-			const pw = document.querySelector('.login_main input[name=pass]').value.trim();
+			const idEl = document.querySelector('.login_main input[name=id]');
+			const pwEl = document.querySelector('.login_main input[name=pass]');
+			const id = idEl.value.trim();
+			const pw = pwEl.value.trim();
 	
 			if (id.length <= 0) {
-				alert('아이디를 입력해주세요');
+				alert('아이디를 입력해주세요', () => idEl.focus());
 			} else if (pw.length <= 0) {
-				alert('패스워드를 입력해주세요');
+				alert('패스워드를 입력해주세요', () => pwEl.focus());
 			} else {
 				post('/Member/login', { id, pw }, (data) => {
 					if (data === -1) {
-						alert('회원정보를 찾을 수 없습니다.');
+						alert('회원정보를 찾을 수 없습니다.', () => idEl.focus());
 					} else {
 						location.reload();
 					}
@@ -204,13 +207,15 @@ window.addEventListener('DOMContentLoaded', function() {
 	if (findedIdBtn) {
 		findedIdBtn.addEventListener('click', function(e) {
 			e.preventDefault();
-			const name = document.querySelector('.login_find_id input[name=name]').value.trim();
-			const email = document.querySelector('.login_find_id input[name=email]').value.trim();
+			const nameEl = document.querySelector('.login_find_id input[name=name]');
+			const emailEl = document.querySelector('.login_find_id input[name=email]');
+			const name = nameEl.value.trim();
+			const email = emailEl.value.trim();
 	
 			if (name.length <= 0) {
-				alert('이름을 입력해주세요');
+				alert('이름을 입력해주세요', () => nameEl.focus());
 			} else if (email.length <= 0) {
-				alert('이메일을 입력해주세요');
+				alert('이메일을 입력해주세요', () => emailEl.focus());
 			} else {
 				post('/Member/idFined', { name, email }, (data) => {
 					if (data) {
@@ -292,6 +297,16 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 			emailEl.value += '@' + domainVal;
 			if (!domainVal) emailEl.focus();
+		});
+	}
+	
+	// 멤버 리스트 (관리자 페이지)
+	const memberListBtn = document.querySelector('#memberListBtn');
+	if (memberListBtn) {
+		memberListBtn.addEventListener('click', function(e) {
+			e.preventDefault();
+			// TODO: 해야할 목록!!
+			alert(1);
 		});
 	}
 	

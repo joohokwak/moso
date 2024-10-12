@@ -4,7 +4,8 @@
 	<div class="inquiry_wrap">
 		<div class="inquiry_content">
 			<div class="inquiry_admin">
-				<span><a href="#">Home</a></span> <span>글쓰기</span>
+				<span><a href="#">Home</a></span>
+				<span>글쓰기</span>
 			</div>
 			
 			<div class="inquiry_section">

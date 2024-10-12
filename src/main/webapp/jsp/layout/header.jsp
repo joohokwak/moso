@@ -215,7 +215,7 @@
 				<div class="depth2_inner">
 					<ul class="depth2">
 						<li>
-							<a href="#" class="depth3_tit">IR</a>
+							<a href="https://esg.zinus.co.kr/kor/html/ethical/ethical_management.html" class="depth3_tit">IR</a>
 							<div class="depth3">
 								<ul>
 									<li><a href="#">기업정보 바로가기</a></li>

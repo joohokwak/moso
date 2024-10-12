@@ -68,10 +68,14 @@ function isContains(target, chars) {
 }
 
 // alert(공통)
-function alert(str) {
+function alert(str, callback) {
 	Swal.fire({
 		text: str,
 		icon: "warning"
+	}).then(result => {
+		if (result.isConfirmed) {
+			if (callback) setTimeout(() => {callback()}, 300);
+		}
 	});
 }
 
@@ -87,7 +91,7 @@ function confirm(str, callback) {
 		cancelButtonText: "취소"
 	}).then((result) => {
 		if (result.isConfirmed) {
-			callback();
+			if (callback) callback();
 		}
 	});
 }

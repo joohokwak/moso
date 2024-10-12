@@ -2,10 +2,10 @@
 
 <div class="join_ok">
 	<div class="join_top">
-		<h2>회원가입</h2>
+		<h2>Congratulations</h2>
 	</div>
 	<div class="join_complete">
-		<p class="txt2"><strong>???</strong>님의 ZINUS 회원가입을 축하합니다.</p>
+		<p class="txt2"><strong>${param.name }</strong>님의 ZINUS 회원가입을 축하합니다.</p>
 	</div>
 	<div class="join_btn">
 		<button type="button" id="loginbtnJoin">로그인</button>
