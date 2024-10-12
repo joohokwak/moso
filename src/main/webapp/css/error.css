@@ -1,0 +1,34 @@
+:root {
+	--point-color1: #003628;
+	--point-color2: #717171;
+	--gray-400: #717171;
+	--gray-500: #003628;
+	--gray-600: #000;
+}
+
+#error_wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: url('/images/common/404-bg.jpg') no-repeat center / cover;
+}
+
+#error_wrap .error_container {
+	display: block;
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 15vh;
+	color: var(--gray-500);
+}
+
+#error_wrap .error_container a {
+	border: 1px solid #666;
+	padding: 15px;
+	text-decoration: none;
+	display: inline-block;
+	margin-top: 10px;
+}

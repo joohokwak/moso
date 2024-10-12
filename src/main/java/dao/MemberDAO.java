@@ -17,12 +17,14 @@ public class MemberDAO extends DBCP {
 	public int insertMember(MemberDTO member) {
 		int result = 0;
 		
+		System.out.println(member);
+		
 		try {
 			conn = getConn();
 			
 			String sql = "";
-			sql += "INSERT INTO MEMBER                         ";
-			sql += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			sql += "INSERT INTO MEMBER (ID, PASS, NAME, EMAIL, PHONE, TEL, ZIPCODE, ADDRESS, ADDR_DETAIL, GENDER, BIRTH) ";
+			sql += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, member.getId());
@@ -36,7 +38,6 @@ public class MemberDAO extends DBCP {
 			ps.setString(9, member.getAddr_detail());
 			ps.setString(10, member.getGender());
 			ps.setString(11, member.getBirth().replaceAll("-", ""));
-			ps.setString(12, member.getIsadmin());
 			
 			result = ps.executeUpdate();
 			

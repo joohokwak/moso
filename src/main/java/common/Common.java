@@ -48,13 +48,17 @@ public class Common {
 			}
 		}
 		
-		Gson gson = new Gson();
-		// 맵 데이터를 jsonElement로 변환
-		JsonElement jsonElement = gson.toJsonTree(map);
-		// jsonElement를 원하는 객체 타입으로 변환
-		t = (T) gson.fromJson(jsonElement, t.getClass());
-
-		return t;
+		if (!map.isEmpty()) {
+			Gson gson = new Gson();
+			// 맵 데이터를 jsonElement로 변환
+			JsonElement jsonElement = gson.toJsonTree(map);
+			// jsonElement를 원하는 객체 타입으로 변환
+			t = (T) gson.fromJson(jsonElement, t.getClass());
+			
+			return t;
+		}
+		
+		return null;
 	}
 	
 	// json type data to map

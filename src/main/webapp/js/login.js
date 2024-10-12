@@ -187,7 +187,8 @@ window.addEventListener('DOMContentLoaded', function() {
 					if (data === -1) {
 						alert('회원정보를 찾을 수 없습니다.', () => idEl.focus());
 					} else {
-						location.reload();
+						if (location.pathname === '/Member/joinOk') location.href = "/Main";
+						else location.reload();
 					}
 				});
 			}
