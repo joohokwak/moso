@@ -176,10 +176,10 @@
 							</div>
 						</li>
 						<li>
-							<a href="#" class="depth3_tit">조립설명서</a>
+							<a href="/Materials/list" class="depth3_tit">조립설명서</a>
 							<div class="depth3">
 								<ul>
-									<li><a href="#">조립설명서</a></li>
+									<li><a href="/Materials/list">조립설명서</a></li>
 								</ul>
 							</div>
 						</li>

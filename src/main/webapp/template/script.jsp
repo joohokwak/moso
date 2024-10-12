@@ -31,10 +31,10 @@
 <!-- 매거진 -->
 <script src="/js/brand.js?v=${version }"></script>
 
-<!-- 매거진 -->
+<!-- 글쓰기 공통 -->
 <script src="/js/inquiry.js?v=${version }"></script>
 
-<!-- FAQ -->
+<!-- 고객서비스 -->
 <script src="/js/faq.js?v=${version }"></script>
 
 <!-- 파트너 -->
