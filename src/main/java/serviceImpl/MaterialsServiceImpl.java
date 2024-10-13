@@ -19,4 +19,9 @@ public class MaterialsServiceImpl implements MaterialsService {
 		return dao.selectList(pg);
 	}
 
+	@Override
+	public int deleteMaterial(int no) {
+		return dao.deleteMaterial(no);
+	}
+
 }

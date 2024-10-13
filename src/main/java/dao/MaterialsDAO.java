@@ -15,6 +15,7 @@ public class MaterialsDAO extends DBCP {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
+	// list
 	public List<MaterialsDTO> selectList(Pagination pg) {
 		List<MaterialsDTO> list = new ArrayList<>();
 		
@@ -34,8 +35,10 @@ public class MaterialsDAO extends DBCP {
 				String msize = rs.getString("MSIZE");
 				String poster = rs.getString("POSTER");
 				String ofile = rs.getString("OFILE");
+				String nfile = rs.getString("NFILE");
+				String regdate = rs.getString("REGDATE");
 				
-				list.add(new MaterialsDTO(no, title, txt, msize, poster, ofile)) ;
+				list.add(new MaterialsDTO(no, title, txt, msize, poster, ofile, nfile, regdate)) ;
 			}
 			
 		} catch (Exception e) {
@@ -46,4 +49,28 @@ public class MaterialsDAO extends DBCP {
 		
 		return list;
 	}
+	
+	// delete
+	public int deleteMaterial(int no) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+	        String sql = "DELETE FROM MATERIALS WHERE NO = ?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
+	}
+		
 }

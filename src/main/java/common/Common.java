@@ -39,7 +39,19 @@ public class Common {
 
 			// 전달된 name 값이 여러개 인지 체크
 			if (request.getParameterValues(key).length > 1) {
-				map.put(key, request.getParameterValues(key));
+				String[] tmp = request.getParameterValues(key);
+				
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0; i < tmp.length; i++) {
+					if (i == tmp.length - 1) {
+						sb.append(tmp[i]);
+						break;
+					}
+					sb.append(tmp[i]).append(", ");
+				}
+				
+				map.put(key, sb.toString());
+				
 			} else {
 				map.put(key, request.getParameter(key));
 			}

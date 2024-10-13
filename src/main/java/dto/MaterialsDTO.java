@@ -14,4 +14,6 @@ public class MaterialsDTO {
 	private String msize;
 	private String poster;
 	private String ofile;
+	private String nfile;
+	private String regdate;
 }
