@@ -27,7 +27,7 @@
 							<strong>${list.title } (${list.msize })</strong><br>
 							${list.txt } (${list.msize })
 						</p>
-						<button type="button" onclick="fileDownLoad('${list.ofile }');">DOWNLOAD</button>
+						<button type="button" onclick="fileDownLoad('${list.ofile }', '${list.nfile }');">DOWNLOAD</button>
 						<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
 							<button class="btn update_btn" data-no="${list.no }">수정</button>
 							<button class="btn delete_btn" data-no="${list.no }">삭제</button>

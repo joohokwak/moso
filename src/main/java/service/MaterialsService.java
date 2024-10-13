@@ -7,4 +7,5 @@ import dto.MaterialsDTO;
 
 public interface MaterialsService {
 	List<MaterialsDTO> selectList(Pagination pg);
+	int deleteMaterial(int no);
 }
