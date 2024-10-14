@@ -21,19 +21,27 @@
 						</li>
 						<li>
 							<span>Size</span>
-							<input type="checkbox" id="Q" class="field_tit" name="msize" value="Q" />
-							<label for="Q">Q</label>&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="checkbox" id="S" class="field_tit" name="msize" value="S" />
 							<label for="S">S</label>&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="checkbox" id="SS" class="field_tit" name="msize" value="SS" />
 							<label for="SS">SS</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" id="Q" class="field_tit" name="msize" value="Q" />
+							<label for="Q">Q</label>&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="checkbox" id="K" class="field_tit" name="msize" value="K" />
-							<label for="K">SS</label>
+							<label for="K">K</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" id="LK" class="field_tit" name="msize" value="LK" />
+							<label for="LK">LK</label>&nbsp;&nbsp;&nbsp;&nbsp;
 						</li>
 						<li>
 							<span>Descript</span>
 							<div class="main_field">
 								<textarea id="writeEditor" name="txt" class="field_txt" data-editor></textarea>
+							</div>
+						</li>
+						<li>
+							<span>Poster</span>
+							<div class="main_field">
+								<input type="text" class="field_tit" name="poster" />
 							</div>
 						</li>
 						<li>
