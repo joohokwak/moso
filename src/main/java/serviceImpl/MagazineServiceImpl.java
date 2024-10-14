@@ -14,7 +14,10 @@ public class MagazineServiceImpl implements MagazineService {
 		dao = new MagazineDAO();
 	}
 	
+	@Override
 	public List<MagazineDTO> magazineList(Pagination pg) {
 		return dao.magazineList(pg);
 	}
+	
+
 }

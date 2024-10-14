@@ -19,11 +19,11 @@ public class MagazineDAO extends DBCP {
 		conn = getConn();
 	}
 	
+	// 전체조회
 	public List<MagazineDTO> magazineList(Pagination pg) {
 		List<MagazineDTO> mglist = new ArrayList<>();
 		
 		try {
-//			String sql = "select * from magazine where mtype like '" + mtype + "'";
 			String sql = pg.getQuery(conn, "select * from magazine");
 			
 			ps = conn.prepareStatement(sql);
@@ -49,4 +49,6 @@ public class MagazineDAO extends DBCP {
 		
 		return mglist;
 	}
+	
+	
 }
