@@ -28,12 +28,12 @@
 				</div>
 				<div class="section_main">
 					<div class="viewer">
-						<p>내용입니다.</p>
+						${magazine.content }
 					</div>
 					<div class="list_btn">
-						<a href="/Magazine/magazine">
-							목록
-						</a>
+						<a href="/Magazine/magazine">목록</a>
+						<a href="/Magazine/update?no=${magazine.no }">수정</a>
+						<a href="#">삭제</a>
 					</div>
 				</div>
 			</div>
