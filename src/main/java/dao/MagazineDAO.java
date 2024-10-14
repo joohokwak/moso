@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.DBCP;
+import common.Pagination;
 import dto.MagazineDTO;
 
 public class MagazineDAO extends DBCP {
@@ -18,11 +19,12 @@ public class MagazineDAO extends DBCP {
 		conn = getConn();
 	}
 	
-	public List<MagazineDTO> magazineList(String mtype) {
+	public List<MagazineDTO> magazineList(Pagination pg) {
 		List<MagazineDTO> mglist = new ArrayList<>();
 		
 		try {
-			String sql = "select * from magazine where mtype like '" + mtype + "'";
+//			String sql = "select * from magazine";
+			String sql = pg.getQuery(conn, "select * from magazine");
 			
 			ps = conn.prepareStatement(sql);
 			
