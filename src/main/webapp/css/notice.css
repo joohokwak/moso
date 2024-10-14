@@ -82,6 +82,7 @@
 .admin_notice_wrap .admin_notice_table {
 	width: 100%;
 	border-top: 1px solid #dbdbdb;
+	margin-bottom: 20px;
 }
 
 .admin_notice_wrap .admin_notice_table th {

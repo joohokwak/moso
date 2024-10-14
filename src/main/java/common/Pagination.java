@@ -34,7 +34,9 @@ public class Pagination {
 	private boolean hasLastPage; 	// 맨 마지막 페이지
 	
 	// 검색
-	Map<String, String> searchMap; 	// 검색
+	private Map<String, String> searchMap; 	// 검색
+	private String orderName = "NO";		// 차순명 지정
+	private Order order = Order.DESC;		// 오름차순 / 내림차순
 	
 	// DB 시작/끝 지정
 	private int start;				// 시작번호
@@ -181,7 +183,11 @@ public class Pagination {
 		sb.append(" ) ");
 		sb.append("SELECT xx.* ");
 		sb.append(" FROM ( ");
-		sb.append(" SELECT /*+ALL_ROWS*/ ROW_NUMBER() OVER(ORDER BY yy.NO DESC) rn ");
+		sb.append(" SELECT /*+ALL_ROWS*/ ROW_NUMBER() OVER(ORDER BY yy.");
+		sb.append(orderName);
+		sb.append(" ");
+		sb.append(order);
+		sb.append(" ) rn ");
 		sb.append(" , yy.* ");
 		sb.append(" FROM QDATA yy ");
 		sb.append(" ) xx ");
