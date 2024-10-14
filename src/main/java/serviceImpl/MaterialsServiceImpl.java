@@ -15,6 +15,11 @@ public class MaterialsServiceImpl implements MaterialsService {
 	}
 
 	@Override
+	public MaterialsDTO selectOne(int no) {
+		return dao.selectOne(no);
+	}
+	
+	@Override
 	public List<MaterialsDTO> selectList(Pagination pg) {
 		return dao.selectList(pg);
 	}

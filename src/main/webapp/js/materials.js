@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	if (materialUpdateBtns) {
 		materialUpdateBtns.forEach(btn => {
 			btn.addEventListener('click', function() {
-				//location.href = '/Faq/update?no=' + this.dataset.no;
+				location.href = '/Materials/update?no=' + this.dataset.no;
 			});
 		})
 	}
