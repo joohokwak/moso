@@ -57,16 +57,18 @@ public class MaterialsController extends HttpServlet {
 			if (strNo != null) {
 				int no = Integer.parseInt(strNo);
 				ms.deleteMaterial(no);
-				resp.sendRedirect("/Materials/list");
-				return;
-				
-			} else {
-				req.setAttribute("deleteMsg", "글삭제에 실패하였습니다. 잠시후 다시 시도 하세요.");
-				action = "/list";
 			}
+			
+			resp.sendRedirect("/Materials/list");
+			return;
 			
 		// 글수정
 		} else if (action.equals("/update")) {
+			String strNo = req.getParameter("no");
+			if (strNo != null) {
+				int no = Integer.parseInt(strNo);
+				req.setAttribute("data", ms.selectOne(no));
+			}
 			
 		// 글수정 실행
 		} else if (action.equals("/updateOk")) {

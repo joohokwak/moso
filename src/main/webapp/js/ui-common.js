@@ -104,16 +104,6 @@ window.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 	
-	// 공통 버튼박스 (관리자인경우 노출되도록 설정)
-	const adminBtnWraps = document.querySelectorAll('[data-isadmin]');
-	if (adminBtnWraps) {
-		adminBtnWraps.forEach(divWrap => {
-			if (divWrap.dataset.isadmin === 'true') {
-				divWrap.style.display = 'flex';
-			}
-		});
-	}
-	
 	// 공통 버튼 (글쓰기)
 	const writeBtns = document.querySelectorAll('.admin_btn_wrap .write_btn');
 	if (writeBtns) {

@@ -524,11 +524,15 @@ select::-ms-expand {
 }
 
 /* 버튼 */
-.admin_btn_wrap {
+/* 관리자인 경우 공통처리 */
+[data-isadmin] {
 	display: none;
 	align-items: center;
 	justify-content: flex-end;
 	gap: 0 5px;
+}
+[data-isadmin="true"] {
+	display: flex;
 }
 
 .btn {
