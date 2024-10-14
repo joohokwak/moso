@@ -17,4 +17,6 @@ public class ShoppingDTO {
 	private String regdate;
 	private String sizename;
 	private String poster;
+	private int itemnum;
+	private String id;
 }

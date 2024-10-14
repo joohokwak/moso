@@ -14,13 +14,13 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public List<ShoppingDTO> viewMain(String ty, String ordered) {
-		return dao.viewMain(ty, ordered);
+	public List<ShoppingDTO> viewMain(String ty, String ordered, String id, int pg) {
+		return dao.viewMain(ty, ordered, id, pg);
 	}
 
 	@Override
-	public void insertLike(int no, String id) {
-		dao.insertLike(no, id);
+	public int insertLike(int no, String id) {
+		return dao.insertLike(no, id);
 	}
 	
 	

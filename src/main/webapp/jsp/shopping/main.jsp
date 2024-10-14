@@ -73,33 +73,34 @@
 			<div class="select_toggle">
 				<span class="current_select">타입선택</span>
 				<ul class="type_select">
-						<li><a >타입 선택</a></li>
-						<li><a href="/Shop/main?type=memory">메모리폼 매트리스</a></li>
-						<li><a href="/Shop/main?type=spring">스프링 매트리스</a></li>
-						<li><a href="/Shop/main?type=air">에어 매트리스</a></li>
-						<li><a href="/Shop/main?type=luxe">Luxe S collection</a></li>
-						<li><a href="/Shop/main?type=forest">ForestWalk</a></li>
+						<li><a href="/Shop/main?type=all${orderBy}">타입 선택</a></li>
+						<li><a href="/Shop/main?type=memory${orderBy}">메모리폼 매트리스</a></li>
+						<li><a href="/Shop/main?type=spring${orderBy}">스프링 매트리스</a></li>
+						<li><a href="/Shop/main?type=air${orderBy}">에어 매트리스</a></li>
+						<li><a href="/Shop/main?type=luxe${orderBy}">Luxe S collection</a></li>
+						<li><a href="/Shop/main?type=forest${orderBy}">ForestWalk</a></li>
 				</ul>
 			</div>
 			
 			<ul class="rank">
 				<li class="${param.ordered eq 'pop' ? 'active' : '' }">
-					<a href="/Shop/main?ordered=pop${typecheck }" class="sort">
-						인기순
-					</a>
+   					<a href="javascript:void(0);" onclick="window.location.href='/Shop/main?${typecheck}ordered=pop'" class="sort">
+   				    	인기순
+ 				   </a>
 				</li>
+
 				<li class="${param.ordered eq 'new' ? 'active' : '' }">
-					<a href="/Shop/main?ordered=new${typecheck }" class="sort">
+					<a href="javascript:void(0)" onclick="window.location.href='/Shop/main?${typecheck }ordered=new'" class="sort">
 						신상품순
 					</a>
 				</li>
 				<li class="${param.ordered eq 'price' ? 'active' : '' }">
-					<a href="/Shop/main?ordered=price${typecheck }" class="sort">
+					<a href="javascript:void(0)" onclick="window.location.href='/Shop/main?${typecheck }ordered=price'" class="sort">
 						가격순
 					</a>
 				</li>
 				<li class="${param.ordered eq 'review' ? 'active' : '' }">
-					<a href="/Shop/main?ordered=review${typecheck }" class="sort">
+					<a href="javascript:void(0)" onclick="window.location.href='/Shop/main?${typecheck }ordered=review'" class="sort">
 						상품평순
 					</a>
 				</li>
@@ -112,7 +113,7 @@
 					<a href="/Shop/buy?num=${list.no }">
 						<img src="/images/shopping/${list.poster }" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
 					</a>
-					<a href="#" class="wish" data-no="${list.no }"><img src="/images/shopping/wish_off.png" alt="좋아요"></a>
+					<a href="#" class="wish" data-no="${list.no }" data-islogin="${not empty member }"><img src="${(list.id eq member.id) and (list.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요"></a> 
 				</li>
 				<li class="discription">
 					<a href="/Shop/buy?num=${list.no }">
@@ -120,6 +121,7 @@
 							${list.name} 
 						</strong>
 						<em>
+							${list.id }
 							${list.text }
 						</em>
 					</a>
@@ -130,13 +132,18 @@
 						<c:set var="size" value="${fn:split(list.sizename, ',') }" />
 						<c:forEach var="s" items="${size }">
 							<c:choose>
-								<c:when test="${s eq 'Q' }"><img src="/images/shopping/S_03.png" alt="Q"></c:when>
 								<c:when test="${s eq 'LK' }"><img src="/images/shopping/S_01.png" alt="LK"></c:when>
+								<c:when test="${s eq 'K' }"><img src="/images/shopping/S_02.png" alt="K"></c:when>
+								<c:when test="${s eq 'Q' }"><img src="/images/shopping/S_03.png" alt="Q"></c:when>
 								<c:when test="${s eq 'SS' }"><img src="/images/shopping/S_04.png" alt="SS"></c:when>
+								<c:when test="${s eq 'S' }"><img src="/images/shopping/S_05.png" alt="S"></c:when>
 								<c:otherwise></c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<c:if test="${list.point eq '중간' }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
+						<c:if test="${list.point eq 'H' }"><img src="/images/shopping/H_01.png" alt="단단한"></c:if>
+						<c:if test="${list.point eq 'MH' }"><img src="/images/shopping/H_02.png" alt="적당히 단단한"></c:if>
+						<c:if test="${list.point eq 'M' }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
+						<c:if test="${list.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
 					</div>
 				</li>
 			</ul>
@@ -145,9 +152,10 @@
 	</div>
 </div>
 <div class="pagination">
-	<span class="page_num active">1</span>
-	<span class="page_num"><a href="#">2</a></span>
-	<span class="page_num"><a href="#">3</a></span>
-	<span class="page_num"><a href="#">4</a></span>
+	<span class="page_num active">
+	<a href="/Shop/main?${typecheck }paging=1${orderBy}">1</a></span>
+	<span class="page_num"><a href="/Shop/main?${typecheck }paging=2${orderBy}">2</a></span>
+	<span class="page_num"><a href="/Shop/main?${typecheck }paging=3${orderBy}">3</a></span>
+	<span class="page_num"><a href="/Shop/main?${typecheck }paging=4${orderBy}">4</a></span>
 </div>
  </div>
