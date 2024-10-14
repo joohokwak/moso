@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.Common;
+import common.Pagination;
 import service.MagazineService;
 import serviceImpl.MagazineServiceImpl;
 
@@ -25,12 +27,20 @@ public class MagazineController extends HttpServlet {
 		MagazineService mgs = new MagazineServiceImpl();
 		
 		if (action.equals("/magazine")) {
-			req.setAttribute("magazine", mgs.magazineList("magazine"));
+			Pagination pg = Common.getParameter(req);
+			pg.getSearchMap().put("mtype", "magazine");
+			
+			req.setAttribute("magazine", mgs.magazineList(pg));
+			req.setAttribute("paging", pg.paging(req));
 			
 		} else if (action.equals("/view")) {
 			
 		} else if (action.equals("/review")) {
-			req.setAttribute("magazine", mgs.magazineList("review"));
+			Pagination pg = Common.getParameter(req);
+			pg.getSearchMap().put("mtype", "review");
+			
+			req.setAttribute("magazine", mgs.magazineList(pg));
+			req.setAttribute("paging", pg.paging(req));
 		}
 		
 		req.setAttribute("layout", "/magazine" + action);
