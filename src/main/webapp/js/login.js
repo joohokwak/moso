@@ -250,26 +250,46 @@ window.addEventListener('DOMContentLoaded', function() {
 				location.href = '/Member/join';
 			} else {
 				document.querySelector('.join_msg').classList.add('on');
+				alert('(필수)이용약관을 체크해주세요.');
 			}
 		});
 	}
 
 	// 회원가입 약관동의 전체 선택
 	const allAgree = document.querySelector('#allAgree');
+	const agreeCheckboxs = document.querySelectorAll('.join_terms_view input[type=checkbox]');
 	if (allAgree) {
 		allAgree.addEventListener('click', function() {
-			const checkboxs = document.querySelectorAll('.join_terms_view input[type=checkbox]');
-			for (const checkbox of checkboxs) {
+			for (const checkbox of agreeCheckboxs) {
 				if (this.checked) checkbox.checked = true;
 				else checkbox.checked = false;
 			}
+			
+		});
+	}
+	
+	// 회원가입 약관 체크박스 선택 별 (전체 선택 / 취소)
+	if (agreeCheckboxs) {
+		agreeCheckboxs.forEach(b => {
+			b.addEventListener('click', function() {
+				let tmp = false;
+				for (const checkbox of agreeCheckboxs) {
+					if (checkbox.checked) tmp = true;
+					else { 
+						tmp = false;
+						break;
+					}
+				}
+				
+				allAgree.checked = tmp;
+			});
 		});
 	}
 	
 	// 회원가입 아이디 중복체크
 	const user_idEl = document.querySelector('#id');
 	if (user_idEl) {
-		user_idEl.addEventListener('focusout', function() {
+		user_idEl.addEventListener('blur', function() {
 			const id = user_idEl.value.trim();
 			
 			if (id.length > 0) {
@@ -277,12 +297,29 @@ window.addEventListener('DOMContentLoaded', function() {
 					let msg = '사용가능한 아이디입니다.';
 					if (data !== 'ok') {
 						msg = '이미 등록된 아이디입니다. 다른 아이디를 입력해 주세요.';
+						this.focus();
 					}
 					this.nextElementSibling.innerHTML = msg;
 					this.nextElementSibling.classList.add('ok');
 				});
 			} else {
 				this.nextElementSibling.classList.remove('ok');
+			}
+		});
+	}
+	
+	// 비밀번호 확인
+	const user_pass1El = document.querySelector('#pass');
+	const user_pass2El = document.querySelector('#pass2');
+	if (user_pass1El) {
+		user_pass2El.addEventListener('blur', function() {
+			const _pass1 = user_pass1El.value.trim();
+			const _pass2 = user_pass2El.value.trim();
+			
+			if (_pass1 !== _pass2) {
+				alert('비밀번호가 다릅니다.', () => {
+					user_pass2El.focus();
+				});
 			}
 		});
 	}
@@ -317,6 +354,12 @@ window.addEventListener('DOMContentLoaded', function() {
 function closeFn(btn) {
 	const parentEl = btn.closest('.on');
 	if (parentEl) parentEl.classList.remove('on');
+}
+
+function joinValidate() {
+	alert('a');
+	
+	return false;
 }
 
 // postcode API

@@ -631,6 +631,15 @@
 	top: 15px;
 	left: 200px;
 }
+.join_form .password_icon {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	vertical-align: -5px;
+	background: url(/images/common/eye1.svg) no-repeat center / cover;
+	color: #666;
+}
 
 /* 회원가입 완료 */
 .join_ok {

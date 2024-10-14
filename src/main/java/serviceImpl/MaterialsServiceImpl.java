@@ -29,4 +29,14 @@ public class MaterialsServiceImpl implements MaterialsService {
 		return dao.deleteMaterial(no);
 	}
 
+	@Override
+	public int insertMaterial(MaterialsDTO dto) {
+		return dao.insertMaterial(dto);
+	}
+
+	@Override
+	public int updateMaterial(MaterialsDTO dto) {
+		return dao.updateMaterial(dto);
+	}
+
 }
