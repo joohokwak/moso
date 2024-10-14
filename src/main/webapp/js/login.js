@@ -309,18 +309,34 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 	
 	// 비밀번호 확인
-	const user_pass1El = document.querySelector('#pass');
-	const user_pass2El = document.querySelector('#pass2');
-	if (user_pass1El) {
-		user_pass2El.addEventListener('blur', function() {
-			const _pass1 = user_pass1El.value.trim();
-			const _pass2 = user_pass2El.value.trim();
-			
-			if (_pass1 !== _pass2) {
-				alert('비밀번호가 다릅니다.', () => {
-					user_pass2El.focus();
-				});
-			}
+//	const user_pass1El = document.querySelector('#pass');
+//	const user_pass2El = document.querySelector('#pass2');
+//	if (user_pass1El) {
+//		user_pass2El.addEventListener('blur', function() {
+//			const _pass1 = user_pass1El.value.trim();
+//			const _pass2 = user_pass2El.value.trim();
+//			
+//			if (_pass1 !== _pass2) {
+//				alert('비밀번호가 다릅니다.', () => {
+//					user_pass2El.focus();
+//				});
+//			}
+//		});
+//	}
+	
+	// 비밀번호 보기 (눈 아이콘 클릭)
+	const passViewIcons = document.querySelectorAll('.join_wrap .password_icon');
+	if (passViewIcons) {
+		passViewIcons.forEach(btn => {
+			btn.addEventListener('click', function() {
+				if (this.previousElementSibling.type === 'text') {
+					this.previousElementSibling.type = 'password';
+					this.style.background = 'url(/images/common/eye2.svg) no-repeat center / cover';
+				} else {
+					this.style.background = 'url(/images/common/eye1.svg) no-repeat center / cover';
+					this.previousElementSibling.type = 'text';
+				}
+			});
 		});
 	}
 	

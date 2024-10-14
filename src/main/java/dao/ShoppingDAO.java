@@ -51,6 +51,7 @@ public class ShoppingDAO extends DBCP{
 			sql += "	  	  			 	SELECT ITEM_NO                          ";
 			sql += "	  	  			 	  FROM ITEM_LIKE                        ";
 			sql += "	  	  			 	 WHERE ITEM_NO = il.ITEM_NO             ";
+			sql += "	  	  			 	   AND MEMBER_ID = il.MEMBER_ID 		";
 			
 			if(id != null) sql += " 		   AND MEMBER_ID = " + id;
 			
@@ -59,6 +60,7 @@ public class ShoppingDAO extends DBCP{
 			sql += "	  	  			 	SELECT MEMBER_ID                        ";
 			sql += "	  	  			 	  FROM ITEM_LIKE                        ";
 			sql += "	  	  			 	 WHERE ITEM_NO = il.ITEM_NO             ";
+			sql += "	  	  			 	   AND MEMBER_ID = il.MEMBER_ID 		";
 			
 			if(id != null) sql += " 		   AND MEMBER_ID = " + id;
 			
