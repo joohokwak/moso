@@ -2,6 +2,7 @@ package serviceImpl;
 
 import java.util.List;
 
+import common.Pagination;
 import dao.MagazineDAO;
 import dto.MagazineDTO;
 import service.MagazineService;
@@ -13,7 +14,7 @@ public class MagazineServiceImpl implements MagazineService {
 		dao = new MagazineDAO();
 	}
 	
-	public List<MagazineDTO> magazineList(String mtype) {
-		return dao.magazineList(mtype);
+	public List<MagazineDTO> magazineList(Pagination pg) {
+		return dao.magazineList(pg);
 	}
 }
