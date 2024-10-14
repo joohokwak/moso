@@ -3,15 +3,19 @@ package controller;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.Common;
+import common.Pagination;
 import service.MagazineService;
 import serviceImpl.MagazineServiceImpl;
 
 @WebServlet("/Magazine/*")
+@MultipartConfig
 public class MagazineController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -24,13 +28,36 @@ public class MagazineController extends HttpServlet {
 		
 		MagazineService mgs = new MagazineServiceImpl();
 		
+		// 매거진 리스트
 		if (action.equals("/magazine")) {
-			req.setAttribute("magazine", mgs.magazineList("magazine"));
+			Pagination pg = Common.getParameter(req);
+			pg.getSearchMap().put("mtype", "magazine");
+			pg.setPageSize(9);
 			
+			req.setAttribute("magazine", mgs.magazineList(pg));
+			req.setAttribute("paging", pg.paging(req));
+			
+		// 상세보기
 		} else if (action.equals("/view")) {
 			
+			
+		
+		// 월간리뷰 리스트
 		} else if (action.equals("/review")) {
-			req.setAttribute("magazine", mgs.magazineList("review"));
+			Pagination pg = Common.getParameter(req);
+			pg.getSearchMap().put("mtype", "review");
+			pg.setPageSize(8);
+			
+			req.setAttribute("magazine", mgs.magazineList(pg));
+			req.setAttribute("paging", pg.paging(req));
+			
+		// 수정페이지
+		} else if (action.equals("/update")) {
+			
+		
+		// 수정완료
+		} else if (action.equals("/updateOk")) {
+			
 		}
 		
 		req.setAttribute("layout", "/magazine" + action);

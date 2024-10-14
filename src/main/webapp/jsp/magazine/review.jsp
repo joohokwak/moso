@@ -40,7 +40,7 @@
 						<ul>
 							<c:forEach var="m" items="${magazine }">
 								<li>
-									<a href="/Magazine/view"><img src="/images/review/${m.poster }"></a>
+									<a href="/Magazine/view?no=${m.no }"><img src="/images/review/${m.poster }"></a>
 									<div>
 										<h3><a href="/Magazine/view?no=${m.no }">${m.title }</a></h3>
 										<p>${m.text }</p>
@@ -50,14 +50,15 @@
 						</ul>
 					</div>
 				</div>
+				
+				<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
+					<button class="btn write_btn">글쓰기</button>
+				</div>
 			</div>
 			
 			<!-- 페이징 -->
 			<div class="pagination">
-				<span class="page_num active">1</span>
-				<span class="page_num"><a href="#">2</a></span>
-				<span class="page_num"><a href="#">3</a></span>
-				<span class="page_num"><a href="#">4</a></span>
+				${paging }
 			</div>
 		</div>
 	</div>
