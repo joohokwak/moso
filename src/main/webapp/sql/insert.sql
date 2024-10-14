@@ -137,3 +137,316 @@ INSERT INTO MATERIALS VALUES (
 );
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- << MATERIALS >> --
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'찐유저(ZINuser) 2기를 소개합니다~!',
+'편안한 숙면의 여정을 함께할 20인을 소개합니다.',
+'73.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'수면 단계를 통해 알아보는 숙면 방법',
+'충분한 수면 시간에서 시작되는 숙면의 시작!',
+'72.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'ZINUS Air Mattress Series',
+'에어 메모리폼으로 더욱 쾌적해진 지누스의 베스트셀러를 만나보세요.',
+'71.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'ZINUS Luxe S Mattress Series',
+'수면은 고품격으로 가격은 합리적으로, 지누스 럭스S 매트리스',
+'70.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'빈티지 매니아, 맥시멀리스트의 선택',
+'2.3평 작은 방에 가득한 빈티지&우드 취향',
+'69.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'플랜테리어의 방이 궁금하다면?🌿',
+'플랜테리어 @u_yuzu_님이 선택한 그린티 럭스S',
+'68.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'지누스와 함께 매일 꿀잠🌙',
+'빈티지 침실 인테리어에 클라우드 매트리스를 매칭해보세요',
+'67.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'고양이 무무네가 선택한 얼티마 럭스S',
+'무무네 삶의 질 수직상승 시켜준 지누스🎢',
+'66.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'아기자기한 말그미네 침실 인테리어',
+'인플루언서 @ oo_0vv님의 색감 가득 침실',
+'65.png',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'지누스 스테이#4 모로코 창신힐스',
+'종로에서 가장 높은 곳',
+'64.png',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'지누스 스테이#3 플랫트먼트',
+'용산 해방촌에 위치한 감성 북스테이',
+'63.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'지누스 스테이#2 린덴 스튜디오',
+'일상과 멀지 않은 휴식의 공간',
+'62.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'지누스 스테이#1 스테이넉넉',
+'서울 도심 속에서 한옥 감성이 주는 힐링감',
+'61.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'버터 옐로우톤 인터리어에 찰떡💛',
+'@alderdn님의 얼티마 에어 매트리스 활용법',
+'60.jfif',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'파스텔톤의 빈티지 인테리어 TIP',
+'지누스가 제안하는 빈티지 무드 인테리어',
+'59.png',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'지누스 x 꼬루비 작가 일러스트 콜라보',
+'귀여운 감성의 지누스 일러스트를 확인해보세요',
+'58.png',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'열대야를 버텨줄 메모리폼 매트리스',
+'오픈셀 에어 매트리스를 소개합니다',
+'57.png',
+'',
+sysdate,
+'magazine'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'지누스 에어 매트리스💛',
+'난연 기능을 무장한 에어 매트리스 후기를 만나보세요',
+'56.png',
+'',
+sysdate,
+'magazine'
+);
+
+----------------리뷰----------------
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 1월호',
+'2024.01.01 ~ 2024.01.31',
+'14.jfif',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 12월호',
+'2023.12.01 ~ 2023.12.31',
+'13.png',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 11월호',
+'2023.11.01 ~ 2023.11.30',
+'12.png',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 10월호',
+'2023.10.02 ~ 2023.10.31',
+'11.png',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 9월호',
+'2023.08.11 ~ 2023.09.10',
+'10.png',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 8월호',
+'2023.08.01 ~ 2023.08.31',
+'09.png',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 6월호',
+'2023.06.01 ~ 2023.06.30',
+'08.jfif',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 4월호',
+'2023.04.01 ~ 2023.04.30',
+'07.jfif',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 3월호',
+'2023.03.24 ~ 2023.03.31',
+'06.jfif',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 2월호',
+'2023.02.01 ~ 2023.02.28',
+'05.jfif',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 12월호',
+'2022.12.01 ~ 2022.12.31',
+'04.jfif',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 11월호',
+'2022.11.16 ~ 2022.11.30',
+'03.jfif',
+'',
+sysdate,
+'review'
+);
+
+INSERT INTO MAGAZINE VALUES(
+seq_magazine.nextval,
+'이 달의 리뷰 9월호',
+'2022.09.01 ~ 2022.09.30',
+'02.jfif',
+'',
+sysdate,
+'review'
+);
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
