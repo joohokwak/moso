@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', function() {
-	const swiper = new Swiper('#shopping_buy .swiper', {
+	new Swiper('#shopping_buy .swiper', {
 		// Optional parameters
 		direction: 'horizontal',
 		loop: true,
@@ -21,8 +21,12 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 
 	const sizes = document.querySelectorAll('#shopping_buy .select_detail .size a');
+	const nonClick = document.querySelectorAll('#shopping_buy .select_detail .size .non_click');
 	const delivery = document.querySelectorAll('#shopping_buy .select_detail .delivery a');
-
+	const priceEm = document.querySelector('#shopping_buy .goods_select .total_price em');
+	let price = priceEm.innerText;
+	let addPr = 0;
+	
 	function noneBro(t) {
 		let bro = t.parentElement.children;
 		let broArr = [];
@@ -39,37 +43,87 @@ window.addEventListener('DOMContentLoaded', function() {
 	if (sizes) {
 		sizes.forEach((item, idx) => {
 			item.addEventListener('click', function(e) {
+				
 				e.preventDefault();
 				noneBro(e.currentTarget).forEach((i) => {
 					i.classList.remove('active');
 				});
 				
 				sizes[idx].classList.add('active');
+				
+				if(sizes[0].classList.contains('active')){ addPr = 80 / 100; }
+				else if(sizes[1].classList.contains('active')){ addPr = 90 / 100; }
+				else if(sizes[2].classList.contains('active')){ addPr = 1;  }
+				else {addPr = 0;}
+				
 				if (sizes[idx].classList.contains('active')) {
 					detail.classList.add('on');
 				} else if (detail.classList.contains('on')) {
 					detail.classList.remove('on');
 				}
+
 			});
 		});
 	}
 	
 	if (delivery) {
+		let clickCnt = 0;
 		delivery.forEach((item, idx) => {
 			item.addEventListener('click', function(e) {
+				clickCnt++;
+				
 				e.preventDefault();
 				noneBro(e.currentTarget).forEach((i) => {
 					i.classList.remove('active');
+					
 				});
 				
+				// active동안 sizes값 변경 방지
 				delivery[idx].classList.add('active');
+				if(clickCnt === 2) {
+					delivery[idx].classList.remove('active');
+					
+					clickCnt = 0;
+				}
+				if(clickCnt === 0){
+					for(n = 0; n < sizes.length; n++) {					
+						sizes[n].style.cssText = 'pointer-events: auto';
+					}
+						detail.classList.remove('view');
+				}
+				
+				// 가격보기
 				if (delivery[idx].classList.contains('active')) {
 					detail.classList.add('view');
+					// 클릭막기
+					for(n = 0; n < sizes.length; n++) {					
+						sizes[n].style.cssText = 'pointer-events: none';
+					}
 				}
+				// 가격 더하기
+				if(delivery[1].classList.contains('active')){ priceEm.innerText = (Number(price) * addPr + 16000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  }
+				else if(delivery[2].classList.contains('active')){ priceEm.innerText = (Number(price) * addPr + 30000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  }
+				else if(delivery[3].classList.contains('active')){ priceEm.innerText = (Number(price) * addPr + 46000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  }
+				else {
+					priceEm.innerText = (Number(price) * addPr).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+				}
+				
 			});
-		});
+		});	
+		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	const detail = document.querySelector('#shopping_buy .select_detail');
 	const likeBtn = document.querySelector('#shopping_buy .buttons .like');
 	if (likeBtn) {

@@ -145,17 +145,13 @@
 						<c:if test="${list.point eq 'M' }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
 						<c:if test="${list.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
 					</div>
-				</li>
+				<`>
 			</ul>
 			</c:forEach>
 		</div>
 	</div>
 </div>
-<div class="pagination">
-	<span class="page_num active">
-	<a href="/Shop/main?${typecheck }paging=1${orderBy}">1</a></span>
-	<span class="page_num"><a href="/Shop/main?${typecheck }paging=2${orderBy}">2</a></span>
-	<span class="page_num"><a href="/Shop/main?${typecheck }paging=3${orderBy}">3</a></span>
-	<span class="page_num"><a href="/Shop/main?${typecheck }paging=4${orderBy}">4</a></span>
+	<div class="pagination">
+	${paging }
+	</div>
 </div>
- </div>
