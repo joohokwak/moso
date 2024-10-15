@@ -85,8 +85,8 @@ function confirm(str, callback) {
 		text: str,
 		icon: "question",
 		showCancelButton: true,
-		confirmButtonColor: "#3085d6",
-		cancelButtonColor: "#d33",
+		confirmButtonColor: "#003628",
+		cancelButtonColor: "#f7c8a8",
 		confirmButtonText: "확인",
 		cancelButtonText: "취소"
 	}).then((result) => {
