@@ -295,13 +295,16 @@ window.addEventListener('DOMContentLoaded', function() {
 			if (id.length > 0) {
 				post('/Member/idCheck', { id }, (data) => {
 					let msg = '사용가능한 아이디입니다.';
+					
 					if (data !== 'ok') {
 						msg = '이미 등록된 아이디입니다. 다른 아이디를 입력해 주세요.';
 						this.focus();
 					}
+					
 					this.nextElementSibling.innerHTML = msg;
 					this.nextElementSibling.classList.add('ok');
 				});
+				
 			} else {
 				this.nextElementSibling.classList.remove('ok');
 			}
@@ -370,12 +373,6 @@ window.addEventListener('DOMContentLoaded', function() {
 function closeFn(btn) {
 	const parentEl = btn.closest('.on');
 	if (parentEl) parentEl.classList.remove('on');
-}
-
-function joinValidate() {
-	alert('a');
-	
-	return false;
 }
 
 // postcode API

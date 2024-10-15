@@ -14,7 +14,7 @@
 		<h2>회원가입</h2>
 	</div>
 
-	<form action="/Member/joinOk" class="join_form" method="post" onsubmit="return joinValidate();">
+	<form action="/Member/joinOk" class="join_form" method="post">
 		<div class="join_tit">
 			<h3>기본 정보</h3>
 			<p>표시는 반드시 입력하셔야 하는 항목입니다.</p>
