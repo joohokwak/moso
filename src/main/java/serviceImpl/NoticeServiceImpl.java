@@ -20,4 +20,20 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.getSelectAll(pg);
 	}
 
+	@Override
+	public NoticeDTO selectOne(int no) {
+		
+		return dao.getSelectOne(no);
+	}
+
+	@Override
+	public boolean insertNotice(NoticeDTO dto) {
+		return dao.getInsertNotice(dto) > 0;
+	}
+
+	@Override
+	public boolean deleteNotice(NoticeDTO dto) {
+		return dao.getDeleteNotice(dto) > 0;
+	}
+
 }

@@ -7,4 +7,10 @@ import dto.NoticeDTO;
 
 public interface NoticeService {
 	List<NoticeDTO> selectAll(Pagination pg);
+	
+	NoticeDTO selectOne(int no);
+	
+	boolean insertNotice(NoticeDTO dto);
+	
+	boolean deleteNotice(NoticeDTO dto);
 }
