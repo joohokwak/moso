@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.Common;
 import common.Pagination;
+import dto.MagazineDTO;
 import service.MagazineService;
 import serviceImpl.MagazineServiceImpl;
 
@@ -39,8 +40,10 @@ public class MagazineController extends HttpServlet {
 			
 		// 상세보기
 		} else if (action.equals("/view")) {
+			String no = req.getParameter("no");
+			MagazineDTO md = mgs.magazineView(Integer.parseInt(no));
 			
-			
+			req.setAttribute("magazine", md);
 		
 		// 월간리뷰 리스트
 		} else if (action.equals("/review")) {
