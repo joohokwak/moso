@@ -49,22 +49,14 @@
 										<c:if test="${not empty ct.ofile }">
 											<img src="/images/catalog/icon_board_attach_file.png" alt="파일첨부 있음">
 										</c:if>
-										<img src="/images/catalog/icon_board_hot.png" alt="인기글">
+										<c:if test="${ct.visitcount ge 10 }">
+											<img src="/images/catalog/icon_board_hot.png" alt="인기글">
+										</c:if>	
 									</td>
 									<td class="col_postdate">${ct.regdate }</td>
 									<td class="col_visicount">${ct.visitcount }</td>
 								</tr>
 							</c:forEach>
-<!-- 								<tr> -->
-<!-- 									<td class="col_no">1</td> -->
-<!-- 									<td class="col_tit"> -->
-<!-- 										<a href="#">ZINUS Product Catalog (Mar, 20...</a> -->
-<!-- 										<img src="/images/catalog/icon_board_attach_file.png" alt="파일첨부 있음"> -->
-<!-- 										<img src="/images/catalog/icon_board_hot.png" alt="인기글"> -->
-<!-- 									</td> -->
-<!-- 									<td class="col_postdate">2024.10.04</td> -->
-<!-- 									<td class="col_visicount">132</td> -->
-<!-- 								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -72,17 +64,9 @@
 					<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
 						<button class="btn write_btn">글쓰기</button>
 					</div>
-					
 					<!-- 페이징 -->
 					<div class="pagination">
-						<c:forEach var="p" begin="1" end="${totalPages }">
-							<c:if test="${p eq pageNum }">
-								<span class='page_num active'>${p }</span>
-							</c:if>
-							<c:if test="${p ne pageNum }">
-								<a href="/Catalog/list?pageNum=${p }" class="page_num">${p }</a>
-							</c:if>
-						</c:forEach>
+						${paging }
 					</div>
 				</div>
 			</div>

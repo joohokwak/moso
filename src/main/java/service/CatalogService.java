@@ -8,8 +8,6 @@ import dto.CatalogDTO;
 public interface CatalogService {
 	List<CatalogDTO> selectList(Pagination pg);
 	
-	List<CatalogDTO> selectList(int pageNum, String title);
-
 	CatalogDTO selectOne(int num);
 
 	int plusVisitCount(int num);
@@ -19,4 +17,10 @@ public interface CatalogService {
 	void insertCatalogfile();
 	
 	int totalPage();
+
+	boolean updateCatalog(CatalogDTO dto);
+
+	void updateCatalogfile();
+
+	boolean deleteCatalog(CatalogDTO dto);
 }

@@ -68,63 +68,61 @@ public class CatalogDAO extends DBCP {
 		return list;
 	}
 
-	public List<CatalogDTO> selectList(int pageNum, String title) {
-		List<CatalogDTO> list = new ArrayList<CatalogDTO>();
-
-		try {
-			conn = getConn();
-
-			// 2. sql Query문 작성
-			String sql = "SELECT a.*";
-			sql += "	FROM (";
-			sql += "		SELECT ROW_NUMBER() over(ORDER BY c.NO desc) rn, c.no, to_char(c.regdate,'YYYY-MM-DD') regdate, c.title, c.visitcount, cf.ofile, cf.nfile ";
-			sql += "		FROM CATALOG c LEFT OUTER JOIN CATALOG_FILE cf ";
-			sql += "		ON c.NO = cf.CATALNO";
-			if (title != null) {
-				sql += " WHERE UPPER(c.title) like UPPER('%'||?||'%')";
-			}
-			
-			sql += ") a";
-			sql += "	WHERE rn BETWEEN ? AND ?";
-			
-			System.out.println(sql);
-
-			// 3. preparedstatement 연결
-			ps = conn.prepareStatement(sql);
-			if(title != null) {
-				ps.setString(1, title);
-				ps.setInt(2, (pageNum - 1) * 10 + 1);
-				ps.setInt(3, pageNum * 10);
-			} else {
-				ps.setInt(1, (pageNum - 1) * 10 + 1);
-				ps.setInt(2, pageNum * 10);
-			}
-			
-
-			// 4. mapping
-
-			// 5. Query문 실행
-			rs = ps.executeQuery();
-
-			while (rs.next()) {
-				int no = rs.getInt("NO");
-				String title2 = rs.getString("TITLE");
-				String regdate = rs.getString("REGDATE");
-				int visitcount = rs.getInt("VISITCOUNT");
-				String ofile = rs.getString("OFILE");
-				String nfile = rs.getString("NFILE");
-
-				list.add(new CatalogDTO(no, title2, null, regdate, visitcount, ofile, nfile));
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps, rs);
-		}
-
-		return list;
-	}
+//	public List<CatalogDTO> selectList(int pageNum, String title) {
+//		List<CatalogDTO> list = new ArrayList<CatalogDTO>();
+//
+//		try {
+//			conn = getConn();
+//
+//			// 2. sql Query문 작성
+//			String sql = "SELECT a.*";
+//			sql += "	FROM (";
+//			sql += "		SELECT ROW_NUMBER() over(ORDER BY c.NO desc) rn, c.no, to_char(c.regdate,'YYYY-MM-DD') regdate, c.title, c.visitcount, cf.ofile, cf.nfile ";
+//			sql += "		FROM CATALOG c LEFT OUTER JOIN CATALOG_FILE cf ";
+//			sql += "		ON c.NO = cf.CATALNO";
+//			if (title != null) {
+//				sql += " WHERE UPPER(c.title) like UPPER('%'||?||'%')";
+//			}
+//			
+//			sql += ") a";
+//			sql += "	WHERE rn BETWEEN ? AND ?";
+//			
+//			// 3. preparedstatement 연결
+//			ps = conn.prepareStatement(sql);
+//			if(title != null) {
+//				ps.setString(1, title);
+//				ps.setInt(2, (pageNum - 1) * 10 + 1);
+//				ps.setInt(3, pageNum * 10);
+//			} else {
+//				ps.setInt(1, (pageNum - 1) * 10 + 1);
+//				ps.setInt(2, pageNum * 10);
+//			}
+//			
+//
+//			// 4. mapping
+//
+//			// 5. Query문 실행
+//			rs = ps.executeQuery();
+//
+//			while (rs.next()) {
+//				int no = rs.getInt("NO");
+//				String title2 = rs.getString("TITLE");
+//				String regdate = rs.getString("REGDATE");
+//				int visitcount = rs.getInt("VISITCOUNT");
+//				String ofile = rs.getString("OFILE");
+//				String nfile = rs.getString("NFILE");
+//
+//				list.add(new CatalogDTO(no, title2, null, regdate, visitcount, ofile, nfile));
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(conn, ps, rs);
+//		}
+//
+//		return list;
+//	}
 
 	public int totalPage() {
 		int result = 0;
@@ -275,6 +273,61 @@ public class CatalogDAO extends DBCP {
 			close(conn, ps, rs);
 		}
 
+		return result;
+	}
+	
+	public int updateCatalog(CatalogDTO dto) {
+		int result = 0;
+		try {
+			conn = getConn();
+			
+			String sql = "UPDATE CATALOG SET TITLE = ?, CONTENT = ? WHERE NO = ?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getContent());
+			ps.setInt(3, dto.getNo());
+			
+			result = ps.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
+	}
+
+	public int deleteCatalog(CatalogDTO dto) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			String sql = "DELETE FROM CATALOG_FILE WHERE CATALNO = ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, dto.getNo());
+			
+			ps.executeUpdate();
+			
+			sql = "DELETE FROM CATALOG WHERE NO = ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, dto.getNo());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
 		return result;
 	}
 }

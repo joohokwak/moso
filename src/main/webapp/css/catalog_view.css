@@ -57,6 +57,7 @@
   display: flex;
   justify-content: flex-end;
   padding-bottom: 65px;
+  gap: 0 5px
 }
 #catalog_content .catalog_list_btn a {
   display: inline-block;
