@@ -34,9 +34,9 @@ public class Pagination {
 	private boolean hasLastPage; 	// 맨 마지막 페이지
 	
 	// 검색
-	private Map<String, String> searchMap; 	// 검색
-	private String orderName = "NO";		// 차순명 지정
-	private Order order = Order.DESC;		// 오름차순 / 내림차순
+	private Map<String, String> searchMap; 			// 검색
+	private String orderName = "NO";				// 차순명 지정
+	private String order = Order.DESC.getOrder();	// 오름차순 / 내림차순
 	
 	// DB 시작/끝 지정
 	private int start;				// 시작번호
