@@ -48,7 +48,7 @@
 						<li>
 							<span>내용</span>
 							<div class="main_field">
-								<textarea id="writeEditor" name="content" class="field_txt" data-editor='${magazine.content }'></textarea>
+								<textarea id="writeEditor" name="content" class="field_txt" data-editor='${magazine.content }'>${magazine.content }</textarea>
 							</div>
 						</li>
 						<li>

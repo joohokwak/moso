@@ -15,9 +15,6 @@ public class CatalogDAO extends DBCP {
 	private PreparedStatement ps;
 	private ResultSet rs;
 
-	public CatalogDAO() {
-	}
-
 	public List<CatalogDTO> selectList(Pagination pg) {
 		List<CatalogDTO> list = new ArrayList<CatalogDTO>();
 
@@ -124,27 +121,27 @@ public class CatalogDAO extends DBCP {
 //		return list;
 //	}
 
-	public int totalPage() {
-		int result = 0;
-		try {
-			conn = getConn();
-
-			String sql = "SELECT COUNT(NO) FROM CATALOG";
-
-			ps = conn.prepareStatement(sql);
-
-			rs = ps.executeQuery();
-			if (rs.next())
-				result = rs.getInt(1);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps, rs);
-		}
-
-		return result;
-	}
+//	public int totalPage() {
+//		int result = 0;
+//		try {
+//			conn = getConn();
+//
+//			String sql = "SELECT COUNT(NO) FROM CATALOG";
+//
+//			ps = conn.prepareStatement(sql);
+//
+//			rs = ps.executeQuery();
+//			if (rs.next())
+//				result = rs.getInt(1);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(conn, ps, rs);
+//		}
+//
+//		return result;
+//	}
 
 	public CatalogDTO selectOne(int num) {
 		CatalogDTO dto = null;
@@ -205,6 +202,7 @@ public class CatalogDAO extends DBCP {
 
 	public int insertCatalog(CatalogDTO dto) {
 		int result = 0;
+		
 		try {
 			conn = getConn();
 
@@ -278,6 +276,7 @@ public class CatalogDAO extends DBCP {
 	
 	public int updateCatalog(CatalogDTO dto) {
 		int result = 0;
+		
 		try {
 			conn = getConn();
 			

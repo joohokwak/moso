@@ -15,15 +15,13 @@ public class MagazineDAO extends DBCP {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
-	public MagazineDAO() {
-		conn = getConn();
-	}
-	
 	// 전체조회
 	public List<MagazineDTO> magazineList(Pagination pg) {
 		List<MagazineDTO> mglist = new ArrayList<>();
 		
 		try {
+			conn = getConn();
+			
 			String sql = pg.getQuery(conn, "SELECT * FROM MAGAZINE");
 			
 			ps = conn.prepareStatement(sql);
@@ -55,6 +53,8 @@ public class MagazineDAO extends DBCP {
 		MagazineDTO mview = null;
 		
 		try {
+			conn = getConn();
+			
 			String sql = "SELECT * FROM MAGAZINE WHERE NO = ?";
 			
 			ps = conn.prepareStatement(sql);
@@ -86,7 +86,9 @@ public class MagazineDAO extends DBCP {
 		int result = 0;
 		
 		try {
-			String sql = "UPDATE MAGAZINE SET TITLE=?, TEXT=?, CONTENT=?, MTYPE=? WHERE NO=?";
+			conn = getConn();
+			
+			String sql = "UPDATE MAGAZINE SET TITLE = ?, TEXT = ?, CONTENT = ?, MTYPE = ? WHERE NO = ?";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());

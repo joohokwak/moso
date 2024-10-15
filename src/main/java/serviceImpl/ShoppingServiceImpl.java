@@ -31,7 +31,6 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	@Override
 	public List<String> imageName(String num) {
-		
 		return dao.imageName(num);
 	}
 	
