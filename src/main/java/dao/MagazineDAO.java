@@ -55,7 +55,7 @@ public class MagazineDAO extends DBCP {
 		MagazineDTO mview = null;
 		
 		try {
-			String sql = "select * from magazine where no = ?";
+			String sql = "SELECT * FROM MAGAZINE WHERE NO = ?";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, no);
@@ -81,21 +81,21 @@ public class MagazineDAO extends DBCP {
 		return mview;
 	}
 	
-	// 수정페이지
-	public int magazineUpdate(MagazineDTO dto) {
+	// 수정완료
+	public int magazineUpdateOk(MagazineDTO dto) {
 		int result = 0;
 		
 		try {
-			String sql = "magazine update title=?, text=?, poster=?, content=?, mtype=?";
+			String sql = "UPDATE MAGAZINE SET TITLE=?, TEXT=?, CONTENT=?, MTYPE=? WHERE NO=?";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getText());
-			ps.setString(3, dto.getPoster());
-			ps.setString(4, dto.getContent());
-			ps.setString(5, dto.getMtype());
+			ps.setString(3, dto.getContent());
+			ps.setString(4, dto.getMtype());
+			ps.setInt(5, dto.getNo());
 			
-			rs = ps.executeQuery();
+			result = ps.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
