@@ -101,6 +101,7 @@ header .depth2_bg {
 	background: #f5f4f1;
 	transition: height .3s;
 	visibility: hidden;
+	z-index: 20;
 }
 
 header .top_nav>li.on .depth2_bg {
