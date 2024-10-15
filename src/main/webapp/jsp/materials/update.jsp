@@ -1,4 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="external">
 	<div class="inquiry_wrap">
@@ -12,28 +14,38 @@
 					<h2>Materials</h2>
 				</div>
 				
-				<form action="/Materials/writeOk" class="section_main" method="post" enctype="multipart/form-data">
+				<form action="/Materials/updateOk" class="section_main" method="post" enctype="multipart/form-data">
 					<ul>
 						<li><span>Title</span>
 							<div class="main_field">
 								<input type="text" class="field_tit" name="title" value="${data.title }" />
+								<input type="hidden" name="no" value="${data.no }" />
 							</div>
 						</li>
 						<li>
 							<span>Size</span>
-							<input type="checkbox" id="Q" class="field_tit" name="msize" value="Q" />
-							<label for="Q">Q</label>&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" id="S" class="field_tit" name="msize" value="S" />
+							<c:set var="msize" value="${fn:split(data.msize, ', ') }" />
+							<input type="checkbox" id="S" class="field_tit" name="msize" value="S" <c:forEach var="ms" items="${msize }">${ms eq 'S' ? 'checked' : '' }</c:forEach> />
 							<label for="S">S</label>&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" id="SS" class="field_tit" name="msize" value="SS" />
+							<input type="checkbox" id="SS" class="field_tit" name="msize" value="SS" <c:forEach var="ms" items="${msize }">${ms eq 'SS' ? 'checked' : '' }</c:forEach> />
 							<label for="SS">SS</label>&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" id="K" class="field_tit" name="msize" value="K" />
-							<label for="K">SS</label>
+							<input type="checkbox" id="Q" class="field_tit" name="msize" value="Q" <c:forEach var="ms" items="${msize }">${ms eq 'Q' ? 'checked' : '' }</c:forEach> />
+							<label for="Q">Q</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" id="K" class="field_tit" name="msize" value="K" <c:forEach var="ms" items="${msize }">${ms eq 'K' ? 'checked' : '' }</c:forEach> />
+							<label for="K">K</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" id="LK" class="field_tit" name="msize" value="LK" <c:forEach var="ms" items="${msize }">${ms eq 'LK' ? 'checked' : '' }</c:forEach> />
+							<label for="LK">LK</label>&nbsp;&nbsp;&nbsp;&nbsp;
 						</li>
 						<li>
 							<span>Descript</span>
 							<div class="main_field">
 								<textarea id="writeEditor" name="txt" class="field_txt" data-editor='${data.txt }'></textarea>
+							</div>
+						</li>
+						<li>
+							<span>Poster</span>
+							<div class="main_field">
+								<input type="text" class="field_tit" name="poster" value="${data.poster }" />
 							</div>
 						</li>
 						<li>

@@ -5,6 +5,8 @@ import java.util.List;
 import dto.ShoppingDTO;
 
 public interface ShoppingService {
-	List<ShoppingDTO> viewMain(String ty, String ordered);
-	void insertLike(int no, String id);
+
+	int insertLike(int no, String id);
+
+	List<ShoppingDTO> viewMain(String ty, String ordered, String id, int pg);
 }

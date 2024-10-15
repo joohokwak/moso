@@ -36,20 +36,21 @@
 				<tr>
 					<th class="required">비밀번호</th>
 					<td>
-						<input type="password" name="pass" title="비밀번호">
+						<input type="password" id="pass" name="pass" title="비밀번호">
+						<i class="password_icon"></i>
 						<div class="join_id_msg">사용불가! 영문대/소문자, 숫자, 특수문자 중 2가지 이상 조합하세요.</div>
 					</td>
 				</tr>
 				<tr>
 					<th class="required">이름</th>
 					<td>
-						<input type="text" name="name" title="이름" autocomplete="off" value="${member.name }">
+						<input type="text" id="name" name="name" title="이름" autocomplete="off" value="${member.name }">
 					</td>
 				</tr>
 				<tr>
 					<th class="required">이메일</th>
 					<td>
-						<input type="text" name="email" title="이메일" autocomplete="off" value="${member.email }">
+						<input type="text" id="email" name="email" title="이메일" autocomplete="off" value="${member.email }">
 						<select name="domain" title="이메일 도메인">
 							<option value="">직접입력</option>
 							<option value="naver.com">naver.com</option>
