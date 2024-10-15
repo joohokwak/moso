@@ -98,7 +98,7 @@
 }
 
 .faq_content_right .faq_a .cate {
-	color: #003628;
+	color: var(--gray-500);
 	font-size: 16px;
 	display: inline-block;
 	margin-right: 15px;
