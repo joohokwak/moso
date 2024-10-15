@@ -35,7 +35,7 @@
 					
 					<div class="section_bottom">
 						<a href="javascript:history.back();" class="return">이전</a>
-						<button class="save">확인</button>
+						<button type="submit" class="save" onclick="location.href='/Notice/writeOk'" >확인</button>
 					</div>
 				</form>
 			</div>

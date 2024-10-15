@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -29,22 +30,40 @@ public class NoticeController extends HttpServlet {
 		String action = req.getPathInfo();
 		NoticeService sc = new NoticeServiceImpl();
 		
+		
 		// 리스트
 		if (action.equals("/list")) {
 			Pagination pg = Common.getParameter(req);
 			List<NoticeDTO> list = sc.selectAll(pg);
+			
 			
 			req.setAttribute("list", list);
 			req.setAttribute("paging", pg.paging(req));
 			
 		// 상세보기
 		} else if (action.equals("/view")) {
+			int no = Integer.parseInt(req.getParameter("no"));
+			NoticeDTO dto = new NoticeDTO();
+			
+			dto = sc.selectOne(no);
+			req.setAttribute("dto", dto);
 			
 		// 글쓰기OK
 		} else if (action.equals("/writeOk")) {
+			NoticeDTO dto = Common.convert(req, new NoticeDTO());
+			Map<String, String> map = Common.fileUpload(req, "files/notice");
+			if(map != null && !map.isEmpty()) {
+				dto.setOfile(map.get("ofile"));
+				dto.setNfile(map.get("nfile"));
+			}
+			sc.insertNotice(dto);
+			resp.sendRedirect("/Notice/list");
+			return;
 			
 		// 글삭제
 		} else if (action.equals("/delete")) {
+			
+			
 			
 		// 글수정
 		} else if (action.equals("/update")) {

@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="/js/notice.js"></script>
 
 <div class="content_admin">
 	<div class="inner">
@@ -17,26 +18,30 @@
 				<input type="text" class="text_search" placeholder="Search" name="title" title="검색어" value="${param.title }">
 			</form>
 			<table class="admin_notice_table">
-				<colgroup>
-					<col style="width: 10%">
-					<col>
-					<col style="width: 10%">
-					<col style="width: 10%">
-				</colgroup>
 				<thead>
 					<tr>
-						<th>번호</th>
+						<th width="8%" class="delete_col" data-isadmin="${member.isadmin eq 'Y' }">
+							<label class="checkbox">
+								<input type="checkbox" class="blind" id="noticeDelAllBtn" />
+							</label>
+						</th>
+						<th width="10%">번호</th>
 						<th>제목</th>
-						<th>등록일</th>
-						<th>조회</th>
+						<th width="10%">등록일</th>
+						<th width="10%">조회</th>
 					</tr>
 				</thead>
 				<tbody>
 				<c:forEach var="list" items="${list }">
 					<tr>
+						<td class="delete_col"  data-isadmin="${member.isadmin eq 'Y' }">
+							<label class="checkbox">
+								<input type="checkbox" class="blind" />
+							</label>
+						</td>
 						<td>${list.no }</td>
 						<td>
-							<a href="#">
+							<a href="/Notice/view?no=${list.no }">
 								${list.title }
 								<c:if test="${not empty list.ofile }"><img src="/images/notice/icon_board_attach_file.png"></c:if>
 							</a>
@@ -51,6 +56,7 @@
 			
 			<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
 				<button class="btn write_btn">글쓰기</button>
+				<button class="btn delete_btn" onclick="">글삭제</button>
 			</div>
 			
 			<!-- 페이징 -->
