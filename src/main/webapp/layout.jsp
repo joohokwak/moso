@@ -18,7 +18,7 @@
 			<a href="#container">본문바로가기</a>
 		</div>
 		
-		<div id="container" style="padding-top: 60px;">
+		<div id="container">
 			<jsp:include page="/jsp${layout }.jsp" />
 			<jsp:include page="/jsp/member/login.jsp"/>
 		</div>
