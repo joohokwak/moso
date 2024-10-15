@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.DBCP;
-import common.Order;
 import common.Pagination;
 import dto.MagazineDTO;
 
@@ -25,7 +24,6 @@ public class MagazineDAO extends DBCP {
 		List<MagazineDTO> mglist = new ArrayList<>();
 		
 		try {
-			pg.setOrder(Order.ASC); // 오름차순으로 세팅
 			String sql = pg.getQuery(conn, "SELECT * FROM MAGAZINE");
 			
 			ps = conn.prepareStatement(sql);
@@ -57,7 +55,7 @@ public class MagazineDAO extends DBCP {
 		MagazineDTO mview = null;
 		
 		try {
-			String sql = "select * from magazine where no = ?";
+			String sql = "SELECT * FROM MAGAZINE WHERE NO = ?";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, no);
@@ -83,21 +81,21 @@ public class MagazineDAO extends DBCP {
 		return mview;
 	}
 	
-	// 수정페이지
-	public int magazineUpdate(MagazineDTO dto) {
+	// 수정완료
+	public int magazineUpdateOk(MagazineDTO dto) {
 		int result = 0;
 		
 		try {
-			String sql = "magazine update title=?, text=?, poster=?, content=?, mtype=?";
+			String sql = "UPDATE MAGAZINE SET TITLE=?, TEXT=?, CONTENT=?, MTYPE=? WHERE NO=?";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getText());
-			ps.setString(3, dto.getPoster());
-			ps.setString(4, dto.getContent());
-			ps.setString(5, dto.getMtype());
+			ps.setString(3, dto.getContent());
+			ps.setString(4, dto.getMtype());
+			ps.setInt(5, dto.getNo());
 			
-			rs = ps.executeQuery();
+			result = ps.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

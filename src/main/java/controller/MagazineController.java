@@ -41,9 +41,9 @@ public class MagazineController extends HttpServlet {
 		// 상세보기
 		} else if (action.equals("/view")) {
 			String no = req.getParameter("no");
-			MagazineDTO md = mgs.magazineView(Integer.parseInt(no));
+			MagazineDTO mv = mgs.magazineView(Integer.parseInt(no));
 			
-			req.setAttribute("magazine", md);
+			req.setAttribute("magazine", mv);
 		
 		// 월간리뷰 리스트
 		} else if (action.equals("/review")) {
@@ -56,7 +56,10 @@ public class MagazineController extends HttpServlet {
 			
 		// 수정페이지
 		} else if (action.equals("/update")) {
+			String no = req.getParameter("no");
+			int mu = Integer.parseInt(no);
 			
+			req.setAttribute("magazine", mgs.magazineView(mu));
 		
 		// 수정완료
 		} else if (action.equals("/updateOk")) {
