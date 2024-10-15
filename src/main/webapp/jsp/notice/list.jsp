@@ -20,7 +20,7 @@
 			<table class="admin_notice_table">
 				<thead>
 					<tr>
-						<th width="8%" class="delete_col" data-isadmin="${member.isadmin eq 'Y' }">
+						<th width="3%" class="delete_col" data-isadmin="${member.isadmin eq 'Y' }">
 							<label class="checkbox">
 								<input type="checkbox" class="blind" id="noticeDelAllBtn" />
 							</label>
