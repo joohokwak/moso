@@ -64,6 +64,7 @@
 					<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
 						<button class="btn write_btn">글쓰기</button>
 					</div>
+					
 					<!-- 페이징 -->
 					<div class="pagination">
 						${paging }

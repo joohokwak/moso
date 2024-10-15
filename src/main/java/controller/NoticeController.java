@@ -30,12 +30,10 @@ public class NoticeController extends HttpServlet {
 		String action = req.getPathInfo();
 		NoticeService sc = new NoticeServiceImpl();
 		
-		
 		// 리스트
 		if (action.equals("/list")) {
 			Pagination pg = Common.getParameter(req);
 			List<NoticeDTO> list = sc.selectAll(pg);
-			
 			
 			req.setAttribute("list", list);
 			req.setAttribute("paging", pg.paging(req));
@@ -56,6 +54,7 @@ public class NoticeController extends HttpServlet {
 				dto.setOfile(map.get("ofile"));
 				dto.setNfile(map.get("nfile"));
 			}
+			
 			sc.insertNotice(dto);
 			resp.sendRedirect("/Notice/list");
 			return;
@@ -64,12 +63,13 @@ public class NoticeController extends HttpServlet {
 		} else if (action.equals("/delete")) {
 			
 			
-			
 		// 글수정
 		} else if (action.equals("/update")) {
 			
+			
 		// 글수정OK
 		} else if (action.equals("/updateOk")) {
+			
 			
 		}
 		

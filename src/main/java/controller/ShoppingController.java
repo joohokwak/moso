@@ -34,26 +34,27 @@ public class ShoppingController extends HttpServlet {
 		HttpSession session = req.getSession();
 		Object user = session.getAttribute("member");
 		String id = null;
-		if(user != null)  {
+		if (user != null)  {
 			MemberDTO member = (MemberDTO) user;
 			id = member.getId();
 		}
-
 		
+		// 상품 리스트 페이지
 		if (action.equals("/main")) {
 			//	정렬하기
 			String ordered = req.getParameter("ordered");
 			String type = req.getParameter("type");
 			String typecheck = "type=" + type + "&";
-			if(ordered == null) ordered = "pop";
+			if (ordered == null) ordered = "pop";
 			String orderBy = "&ordered=" + ordered;
 					
 			//	페이징
 			int pnum = 1;
 			String pagnum = req.getParameter("pageNum");
-			if(pagnum != null) {
+			if (pagnum != null) {
 				pnum = Integer.parseInt(pagnum);
 			}
+			
 			Pagination pg = new Pagination();
 			pg.setPageSize(12);
 			pg.setPageNum(pnum);
@@ -67,6 +68,7 @@ public class ShoppingController extends HttpServlet {
 			req.setAttribute("list", list);
 			req.setAttribute("paging", pg.paging(req));
 			
+		// 상품상세 페이지
 		} else if (action.equals("/buy")) {		
 			//	main에서 클릭한 객체
 			String num = req.getParameter("num");
@@ -74,20 +76,15 @@ public class ShoppingController extends HttpServlet {
 			//	客體 이미지
 			List<String> images = shopSer.imageName(num);
 			
-			System.out.println(images);
-			
-			
-			
 			req.setAttribute("dto", dto);
 			req.setAttribute("images", images);
 			
+		// 좋아요
 		} else if (action.equals("/like")) {
-			
 			String like = req.getParameter("like");
 			int no = Integer.parseInt(like);
 
-			if(user != null) {
-	
+			if (user != null) {
 				int result = shopSer.insertLike(no, id);
 				Common.jsonResponse(resp, result);
 				

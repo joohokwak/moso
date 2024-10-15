@@ -17,11 +17,13 @@ public class ShoppingDAO extends DBCP {
 	private ResultSet rs;
 	private List<ShoppingDTO> list;
 
+	// 상품 리스트 (조건별 조회)
 	public List<ShoppingDTO> viewMain(String ty, String ordered, String id, Pagination pg) {
 		list = new ArrayList<>();
-		conn = getConn();
 		
 		try {
+			conn = getConn();
+			
 			if (ordered.equalsIgnoreCase("new")) {
 				pg.setOrderName("REGDATE");
 				pg.setOrder(Order.DESC.getOrder());
@@ -114,18 +116,21 @@ public class ShoppingDAO extends DBCP {
 		return list;
 	}
 	
+	// 좋아요 버튼
 	public int insertLike(int no, String id) {
-		conn = getConn();
-		
 		int result = 0;
 		
 		try {
+			conn = getConn();
+			
 			String sql = "SELECT * FROM ITEM_LIKE WHERE ITEM_NO = ? AND MEMBER_ID = ?";
+			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, no);
 			ps.setString(2, id);
 			
 			rs = ps.executeQuery();
+			
 			if (rs.next()) {
 				sql = "DELETE FROM ITEM_LIKE WHERE ITEM_NO = ? AND MEMBER_ID = ?";
 				ps = conn.prepareStatement(sql);
@@ -157,33 +162,32 @@ public class ShoppingDAO extends DBCP {
 		return result;
 	}
 
+	// 상품 상세 조회
 	public ShoppingDTO buyMain(String num) {
-		
-		ShoppingDTO dto = new ShoppingDTO();
-		conn = getConn();
+		ShoppingDTO dto = null;
 		
 		try {
+			conn = getConn();
+			
 			String sql = "";
-			
-			sql += " SELECT i.NO																						";
-			sql += "	  , i.NAME                                                                                  	";
-			sql += "	  , i.TYPE                                                                                  	";
-			sql += "	  , i.TEXT                                                                                  	";
-			sql += "	  , i.PRICE                                                                                 	";
-			sql += "	  , i.POINT                                                                                 	";
-			sql += "	  , i.REGDATE                                                                               	";
-			sql += "	  , i.SIZENAME                                                                              	";
-			sql += "	  , i.POSTER  																					";
-			sql += " FROM ITEM i 																						";
-			sql += " WHERE i.NO = " + num ;
-			
+			sql += " SELECT i.NO			";
+			sql += "	  , i.NAME			";
+			sql += "	  , i.TYPE			";
+			sql += "	  , i.TEXT			";
+			sql += "	  , i.PRICE			";
+			sql += "	  , i.POINT			";
+			sql += "	  , i.REGDATE		";
+			sql += "	  , i.SIZENAME		";
+			sql += "	  , i.POSTER		";
+			sql += " FROM ITEM i			";
+			sql += " WHERE i.NO = " + num 	 ;
 			
 			ps = conn.prepareStatement(sql);
 			
 			rs = ps.executeQuery();
 			
-			while (rs.next()) {
-				
+			if (rs.next()) {
+				dto = new ShoppingDTO();
 				dto.setNo(rs.getInt("NO"));
 				dto.setName(rs.getString("NAME"));
 				dto.setType(rs.getString("TYPE"));
@@ -193,7 +197,6 @@ public class ShoppingDAO extends DBCP {
 				dto.setRegdate(rs.getString("REGDATE"));
 				dto.setSizename(rs.getString("SIZENAME"));
 				dto.setPoster(rs.getString("POSTER"));
-				
 			}
 			
 		} catch (Exception e) {
@@ -205,41 +208,34 @@ public class ShoppingDAO extends DBCP {
 		return dto;
 	}
 	
+	// 상품 상세보기 이미지 리스트
 	public List<String> imageName(String num) {
-		conn = getConn();
 		List<String> images = new ArrayList<>();
 		
-		
-		
 		try {
-			String sql = "";
-			sql += "SELECT * 									";
-			sql += " FROM item_image 							";
-			sql += "WHERE ITEMNO = " + num;
+			conn = getConn();
 			
+			String sql = "";
+			sql += "SELECT *				";
+			sql += "  FROM ITEM_IMAGE		";
+			sql += " WHERE ITEMNO = ?		";
 			
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, Integer.parseInt(num));
 			
 			rs = ps.executeQuery();
 			
-			while(rs.next()) {
-				
+			if (rs.next()) {
 				images.add(rs.getString("NAME"));
 			}
 			
-			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);
 		}
 		
-		
-		
-		
-		
 		return images;
 	}
-	
 	
 }

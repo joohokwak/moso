@@ -8,7 +8,7 @@ import dto.NoticeDTO;
 import service.NoticeService;
 
 public class NoticeServiceImpl implements NoticeService {
-	NoticeDAO dao;
+	private NoticeDAO dao;
 	
 	public NoticeServiceImpl () {
 		dao = new NoticeDAO();
@@ -16,13 +16,11 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Override
 	public List<NoticeDTO> selectAll(Pagination pg) {
-		
 		return dao.getSelectAll(pg);
 	}
 
 	@Override
 	public NoticeDTO selectOne(int no) {
-		
 		return dao.getSelectOne(no);
 	}
 

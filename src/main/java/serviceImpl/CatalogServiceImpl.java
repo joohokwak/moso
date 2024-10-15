@@ -39,11 +39,6 @@ public class CatalogServiceImpl implements CatalogService {
 	}
 	
 	@Override
-	public int totalPage() {
-		return dao.totalPage();
-	}
-
-	@Override
 	public boolean updateCatalog(CatalogDTO dto) {
 		return dao.updateCatalog(dto) > 0;
 	}

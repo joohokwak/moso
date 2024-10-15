@@ -34,12 +34,9 @@ public class CatalogController extends HttpServlet {
 		// 카탈로그
 		if (action.equals("/list")) {
 			Pagination pg = Common.getParameter(req);
-			
-			// 페이지네이션
 			pg.setPageNavSize(5);
 			
 			List<CatalogDTO> list = cs.selectList(pg);
-			
 			
 			req.setAttribute("catalog", list);
 			req.setAttribute("paging", pg.paging(req));
@@ -96,7 +93,6 @@ public class CatalogController extends HttpServlet {
 				dto.setOfile(ofile);
 				dto.setNfile(nfile);
 			}
-			System.out.println(dto);
 			
 			cs.updateCatalog(dto);
 			cs.updateCatalogfile();

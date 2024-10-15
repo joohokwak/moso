@@ -16,8 +16,6 @@ public interface CatalogService {
 
 	void insertCatalogfile();
 	
-	int totalPage();
-
 	boolean updateCatalog(CatalogDTO dto);
 
 	void updateCatalogfile();

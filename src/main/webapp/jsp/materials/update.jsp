@@ -39,7 +39,7 @@
 						<li>
 							<span>Descript</span>
 							<div class="main_field">
-								<textarea id="writeEditor" name="txt" class="field_txt" data-editor='${data.txt }'></textarea>
+								<textarea id="writeEditor" name="txt" class="field_txt" data-editor='${data.txt }'>${data.txt }</textarea>
 							</div>
 						</li>
 						<li>
