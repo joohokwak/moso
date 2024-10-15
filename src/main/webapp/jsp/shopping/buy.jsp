@@ -1,4 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div id="shopping_buy">
 	<div class="shopping_goods">
 		<div class="inner">
@@ -28,6 +32,7 @@
 				</div>
 			</div>
 			<div class="goods">
+								
 				<div class="goods_img">
 					<div class="main_img">
 						<img src="/images/shopping/shopping_buy/1000000369_detail_027.jpg"
@@ -39,27 +44,11 @@
 							<!-- Additional required wrapper -->
 							<div class="swiper-wrapper">
 								<!-- Slides -->
-								<div class="swiper-slide">
-									<img src="/images/shopping/shopping_buy/1000000369_detail_027.jpg" alt="상세보기">
-								</div>
-								<div class="swiper-slide">
-									<img src="/images/shopping/shopping_buy/1000000369_detail_124.jpg" alt="상세보기">
-								</div>
-								<div class="swiper-slide">
-									<img src="/images/shopping/shopping_buy/1000000369_detail_227.jpg" alt="상세보기">
-								</div>
-								<div class="swiper-slide">
-									<img src="/images/shopping/shopping_buy/1000000369_detail_335.jpg" alt="상세보기">
-								</div>
-								<div class="swiper-slide">
-									<img src="/images/shopping/shopping_buy/1000000369_detail_487.jpg" alt="상세보기">
-								</div>
-								<div class="swiper-slide">
-									<img src="/images/shopping/shopping_buy/1000000369_detail_544.jpg" alt="상세보기">
-								</div>
-								<div class="swiper-slide">
-									<img src="/images/shopping/shopping_buy/1000000369_detail_648.jpg" alt="상세보기">
-								</div>
+								<c:forEach var="image" items="${images }">
+									<div class="swiper-slide">
+										<img src="/images/shopping/shopping_buy/${image}" alt="상세보기">
+									</div>
+								</c:forEach>
 							</div>
 							<!-- If we need navigation buttons -->
 							<div class="swiper-button-prev"></div>
@@ -69,7 +58,7 @@
 				</div>
 				<div class="goods_select">
 					<div class="info_txt">
-						<h3>포레스트 워크S 하이브리드 스프링 매트리스 / 30cm</h3>
+						<h3>${dto.name }</h3>
 						<div>
 							<a href="#">리뷰 등록</a> <a href="#">상품 Q&amp;A</a>
 						</div>
@@ -91,14 +80,23 @@
 					<div class="select_detail">
 						<div class="size">
 							<strong>사이즈</strong>
-							<div>
-								<a href="#">SS</a> <a href="#">Q</a> <a href="#">LK</a>
+							<div >
+								<c:set var="size" value="${fn:split(dto.sizename, ',') }" />
+								<c:forEach var="s" items="${size }">
+									<c:if test="${s eq 'S' }"><a href="#">S</a></c:if>
+									<c:if test="${s eq 'SS' }"><a href="#">SS</a></c:if>
+									<c:if test="${s eq 'Q' }"><a href="#">Q</a></c:if>
+									<c:if test="${s eq 'K' }"><a href="#">K</a></c:if>
+									<c:if test="${s eq 'LK' }"><a href="#">LK</a></c:if>
+								</c:forEach>
 							</div>
 						</div>
 						<div class="delivery">
 							<strong>설치배송여부</strong>
 							<div>
-								<a href="#">미신청</a> <a href="#">수도권</a> <a href="#">지방</a>
+								<a href="#">미신청</a> 
+								<a href="#">수도권</a> 
+								<a href="#">지방</a>
 								<a href="#">제주도</a>
 							</div>
 						</div>
@@ -107,15 +105,13 @@
 								<strong>판매가</strong><span>제품 가격은 옵션 선택 후 확인하실 수 있습니다.</span>
 							</div>
 							<p class="total_price">
-								<em> 1,182,000 </em>원
+								<em>${dto.price } </em>원
 							</p>
 						</div>
 						<div class="buttons">
 							<a href="#" class="payment">결제하기</a>
-							<a href="/shopping_cart.html" class="cart">장바구니</a>
-							<a href="#" class="like">
-								<img src="/images/shopping/shopping_buy/wish_off.png" alt="좋아요">
-							</a>
+							<a href="/Shop/Cart" class="cart">장바구니</a>
+							<a href="#" class="like" data-no="${dto.no }" data-islogin="${not empty member }"><img src="${(dto.id eq member.id) and (dto.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요"></a>
 						</div>
 						<div class="relation">
 							<p>설치배송 신청 시 입력해주신 수령자 분의 연락처로 배송일 지정을 위한 해피콜이 진행됩니다. (주문 완료후 영업일 기준 D+1일 이내 해피콜 진행)</p>
