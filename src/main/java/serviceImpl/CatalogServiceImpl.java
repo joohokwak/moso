@@ -20,11 +20,6 @@ public class CatalogServiceImpl implements CatalogService {
 	}
 	
 	@Override
-	public List<CatalogDTO> selectList(int pageNum, String title) {
-		return dao.selectList(pageNum, title);
-	}
-
-	@Override
 	public CatalogDTO selectOne(int num) {
 		return dao.selectOne(num);
 	}
@@ -48,4 +43,17 @@ public class CatalogServiceImpl implements CatalogService {
 		return dao.totalPage();
 	}
 
+	@Override
+	public boolean updateCatalog(CatalogDTO dto) {
+		return dao.updateCatalog(dto) > 0;
+	}
+
+	@Override
+	public void updateCatalogfile() {
+	}
+
+	@Override
+	public boolean deleteCatalog(CatalogDTO dto) {
+		return dao.deleteCatalog(dto) > 0;
+	}
 }

@@ -42,9 +42,9 @@
 					</div>
 				</div>
 				<div class="catalog_list_btn">
-					<div style="display: none;" data-isadmin="${member.isadmin eq 'Y' }">
-						<a href="#">수정</a>
-						<a href="#">삭제</a>
+					<div data-isadmin="${member.isadmin eq 'Y' }">
+						<a href="#" class="update_btn" data-no="${view.no }">수정</a>
+						<a href="#" class="delete_btn" data-no="${view.no }">삭제</a>
 					</div>
 					<a href="javascript:history.back();">목록</a>
 				</div>

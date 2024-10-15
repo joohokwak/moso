@@ -37,6 +37,7 @@
 <!-- 고객서비스 -->
 <script src="/js/faq.js?v=${version }"></script>
 <script src="/js/materials.js?v=${version }"></script>
+<script src="/js/catalog.js?v=${version }"></script>
 
 <!-- 파트너 -->
 <script src="/js/partner.js?v=${version }"></script>

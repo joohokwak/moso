@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.Common;
+import common.Pagination;
 import dto.CatalogDTO;
 import service.CatalogService;
 import serviceImpl.CatalogServiceImpl;
@@ -30,35 +31,27 @@ public class CatalogController extends HttpServlet {
 
 		CatalogService cs = new CatalogServiceImpl();
 		
+		// 카탈로그
 		if (action.equals("/list")) {
-			String search = req.getParameter("title");
+			Pagination pg = Common.getParameter(req);
+			
+			// 페이지네이션
+			pg.setPageNavSize(5);
+			
+			List<CatalogDTO> list = cs.selectList(pg);
 			
 			
-			String str = req.getParameter("pageNum");
-			int pageNum = 1;
-			if (str != null) {
-				pageNum = Integer.parseInt(str);
-			}
-			
-			List<CatalogDTO> list = cs.selectList(pageNum, search);
-			
-//			(int) Math.ceil(totalRecord / (double) pageSize)
-			int totalPages = (int) Math.ceil(cs.totalPage() / (double) 10); 
-			
-//			Pagination pg = Common.getParameter(req);
-			
-//			req.setAttribute("catalog", cs.selectList(pg));
 			req.setAttribute("catalog", list);
-//			req.setAttribute("paging", pg.paging(req));
-			req.setAttribute("totalPages", totalPages);
-			req.setAttribute("pageNum", pageNum);
+			req.setAttribute("paging", pg.paging(req));
 			
+		// 상세보기
 		} else if (action.equals("/view")) {
 			int num = Integer.parseInt(req.getParameter("no"));
 
 			cs.plusVisitCount(num);
 			req.setAttribute("view", cs.selectOne(num));
-
+			
+		// 파일 다운로드
 		} else if (action.equals("/download")) {
 			String path = req.getServletContext().getRealPath("files/catalog");
 			String ofile = req.getParameter("ofile");
@@ -66,7 +59,8 @@ public class CatalogController extends HttpServlet {
 			
 			Common.fileDownLoad(resp, path, nfile, ofile);
 			return;
-
+			
+		// 글쓰기
 		} else if (action.equals("/writeOk")) {
 			CatalogDTO dto = Common.convert(req, new CatalogDTO());
 			Map<String, String> map = Common.fileUpload(req, "files/catalog");
@@ -82,7 +76,39 @@ public class CatalogController extends HttpServlet {
 			cs.insertCatalog(dto);
 			cs.insertCatalogfile();
 			
+			resp.sendRedirect("/Catalog/list");
+			return;
 			
+		// 수정하기 페이지	
+		} else if (action.equals("/update")) {
+			int num = Integer.parseInt(req.getParameter("no"));
+			req.setAttribute("update", cs.selectOne(num));
+			
+		// 수정 버튼 클릭
+		} else if (action.equals("/updateOk")) {
+			CatalogDTO dto = Common.convert(req, new CatalogDTO());
+			Map<String, String> map = Common.fileUpload(req, "files/catalog");
+			
+			if (map != null) {
+				String nfile = map.get("nfile");
+				String ofile = map.get("ofile");
+				
+				dto.setOfile(ofile);
+				dto.setNfile(nfile);
+			}
+			System.out.println(dto);
+			
+			cs.updateCatalog(dto);
+			cs.updateCatalogfile();
+			
+			resp.sendRedirect("/Catalog/list");
+			return;
+		
+		// 삭제하기
+		} else if (action.equals("/deleteOk")) {
+			CatalogDTO dto = Common.convert(req, new CatalogDTO());
+			
+			cs.deleteCatalog(dto);
 			resp.sendRedirect("/Catalog/list");
 			return;
 		}
@@ -91,3 +117,4 @@ public class CatalogController extends HttpServlet {
 		req.getRequestDispatcher("/layout.jsp").forward(req, resp);
 	}
 }
+
