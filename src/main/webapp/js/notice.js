@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', function () {
 			
 			noticeDels.forEach(btn => {
 				btn.checked = this.checked;
-			})
+			});
 		});
 		
 	}
