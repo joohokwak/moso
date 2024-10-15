@@ -180,6 +180,10 @@ body, input, select, textarea, button, table {
 	text-align: center;
 }
 
+#container {
+	padding-top: 60px;
+}
+
 #skip_navi a:hover, #skip_navi a:active, #skip_navi a:focus {
 	top: 0;
 }

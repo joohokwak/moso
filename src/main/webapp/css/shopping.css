@@ -6,7 +6,7 @@
   --gray-600: #000;
 }
 #shopping {
-  padding: 60px 0;
+  padding-bottom: 60px;
 }
 #shopping .view {
   position: relative;
