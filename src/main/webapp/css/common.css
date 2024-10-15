@@ -528,14 +528,14 @@ select::-ms-expand {
 
 /* 버튼 */
 /* 관리자인 경우 공통처리 */
+.admin_btn_wrap {
+	text-align: right;
+}
 [data-isadmin] {
-	display: none;
-	align-items: center;
-	justify-content: flex-end;
-	gap: 0 5px;
+	display: none !important;
 }
 [data-isadmin="true"] {
-	display: flex;
+	display: revert !important;
 }
 
 .btn {

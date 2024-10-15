@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.DBCP;
-import common.Order;
 import common.Pagination;
 import dto.MagazineDTO;
 
@@ -25,7 +24,6 @@ public class MagazineDAO extends DBCP {
 		List<MagazineDTO> mglist = new ArrayList<>();
 		
 		try {
-			pg.setOrder(Order.ASC); // 오름차순으로 세팅
 			String sql = pg.getQuery(conn, "SELECT * FROM MAGAZINE");
 			
 			ps = conn.prepareStatement(sql);
