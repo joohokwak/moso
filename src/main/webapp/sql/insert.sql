@@ -236,8 +236,8 @@ INSERT INTO MAGAZINE VALUES(
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- << CATALOG >> --
-INSERT INTO CATALOG VALUES (seq_catalog.nextval, '지누스 프로덕트 카탈로그 (Jan, 20...', '내용입니다.', sysdate, 0);
+INSERT INTO CATALOG VALUES (SEQ_CATALOG.NEXTVAL, '지누스 프로덕트 카탈로그 (Jan, 20...', '내용입니다.', SYSDATE, 0);
 
 -- << CATALOG_FILE >> --
-INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.nextval, 'ZINUS Product Catalog (Mar, 2021).pdf', 'ZINUS Product Catalog (Mar, 2021).pdf', sysdate, 1);
+INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'ZINUS Product Catalog (Mar, 2021).pdf', 'ZINUS Product Catalog (Mar, 2021).pdf', SYSDATE, 1);
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
