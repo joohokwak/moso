@@ -31,6 +31,9 @@
 <!-- 매거진 -->
 <script src="/js/brand.js?v=${version }"></script>
 
+<!-- 공지사항 -->
+<script src="/js/notice.js?v=${version }"></script>
+
 <!-- 글쓰기 공통 -->
 <script src="/js/inquiry.js?v=${version }"></script>
 

@@ -127,16 +127,42 @@ public class NoticeDAO extends DBCP {
 		return result;
 	}
 	
-	public int getDeleteNotice(NoticeDTO dto) {
+	public int getDeleteNotice(String[] selNo) {
 		int result = 0;
 		
 		try {
 			conn = getConn();
+			for(int i =0; i < selNo.length ; i++) {
+				String delSql = "DELETE FROM NOTICE_FILE WHERE NOTICENO = ?";
+				ps = conn.prepareStatement(delSql);
+				ps.setInt(1, Integer.parseInt(selNo[i]));
+				
+				ps.executeUpdate();
+				
+				String sql = "DELETE FROM NOTICE WHERE NO = ?";
+				
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, Integer.parseInt(selNo[i]));
+				
+				result = ps.executeUpdate();
+			}
 			
-			String sql = "DELETE FROM NOTICE WHERE NO = ?";
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		return result;
+	}
+	
+	public int getDeleteView(String no) {
+		int result = 0;
+		try {
+			conn = getConn();
+			String sql = "DELETE FROM NOTICE WHERE NO=?";
 			
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, dto.getNo());
+			ps.setInt(1, Integer.parseInt(no));
 			
 			result = ps.executeUpdate();
 			
@@ -145,7 +171,6 @@ public class NoticeDAO extends DBCP {
 		} finally {
 			close(conn, ps, rs);
 		}
-		
 		return result;
 	}
 }
