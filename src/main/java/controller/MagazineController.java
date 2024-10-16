@@ -63,6 +63,11 @@ public class MagazineController extends HttpServlet {
 		
 		// 수정완료
 		} else if (action.equals("/updateOk")) {
+			MagazineDTO dto = Common.convert(req, new MagazineDTO());
+			mgs.magazineUpdateOk(dto);
+			
+			resp.sendRedirect("/Magazine/view?no=" + dto.getNo());
+			return;
 			
 		}
 		
