@@ -35,6 +35,10 @@
 <!-- 매거진 -->
 <link rel="stylesheet" href="/css/brand.css?v=${version }">
 
+<!-- 퀴즈 -->
+<link rel="stylesheet" href="/css/quiz.css?v=${version }">
+<link rel="stylesheet" href="/css/quiz_result.css?v=${version }">
+
 <!-- 문의 공통 -->
 <link rel="stylesheet" href="/css/inquiry.css?v=${version }">
 
