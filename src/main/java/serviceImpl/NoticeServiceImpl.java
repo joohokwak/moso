@@ -30,8 +30,13 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public boolean deleteNotice(NoticeDTO dto) {
-		return dao.getDeleteNotice(dto) > 0;
+	public boolean deleteNotice(String[] selNo) {
+		return dao.getDeleteNotice(selNo) > 0;
+	}
+
+	@Override
+	public boolean deleteView(String no) {
+		return dao.getDeleteView(no) > 0;
 	}
 
 }

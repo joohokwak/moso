@@ -61,7 +61,21 @@ public class NoticeController extends HttpServlet {
 			
 		// 글삭제
 		} else if (action.equals("/delete")) {
+			String selNo = req.getParameter("no");
+			//System.out.println(selNo);
 			
+			sc.deleteNotice(selNo.split(","));
+			resp.sendRedirect("/Notice/list");
+			return;
+		
+		// 상세보기 글삭제
+		} else if (action.equals("/deleteView")) {
+			String viewNo = req.getParameter("no");
+			//System.out.println(viewNo);
+			
+			sc.deleteView(viewNo);
+			resp.sendRedirect("/Notice/list");
+			return;
 			
 		// 글수정
 		} else if (action.equals("/update")) {
