@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.Common;
 import common.Pagination;
+import service.CatalogService;
 import service.FaqService;
 import service.MemberService;
 import service.NoticeService;
+import serviceImpl.CatalogServiceImpl;
 import serviceImpl.FaqServiceImpl;
 import serviceImpl.MemberServiceImpl;
 import serviceImpl.NoticeServiceImpl;
@@ -57,6 +59,15 @@ public class AdminController extends HttpServlet {
 			req.setAttribute("list", fs.selectList(pg));
 			req.setAttribute("paging", pg.paging(req));
 			
+		// 카탈로그 목록
+		} else if (action.equals("/catalog")) {
+			CatalogService cs = new CatalogServiceImpl();
+			
+			Pagination pg = Common.getParameter(req);
+			
+			req.setAttribute("list", cs.selectList(pg));
+			req.setAttribute("paging", pg.paging(req));
+			
 		// 공지사항 목록
 		} else if (action.equals("/notice")) {
 			NoticeService ns = new NoticeServiceImpl();
@@ -67,10 +78,21 @@ public class AdminController extends HttpServlet {
 			req.setAttribute("paging", pg.paging(req));
 			
 		// 엑셀 다운로드
-		} else if (action.equals("/excel")) {
+		} else if (action.equals("/excelDown")) {
+			// TODO : 해야함
 			System.out.println("excel");
 //			MemberService ms = new MemberServiceImpl();
 			
+			return;
+			
+		// 삭제 공통
+		} else if (action.equals("/delete")) {
+			String _path = req.getParameter("path");
+			String _no = req.getParameter("no");
+			System.out.println(_path);
+			System.out.println(_no);
+			
+			resp.sendRedirect(_path);
 			return;
 		}
 		

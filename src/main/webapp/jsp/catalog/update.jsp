@@ -12,6 +12,7 @@
 				</div>
 				<form action="/Catalog/updateOk" class="section_main" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="no" value="${update.no }" />
+					<input type="hidden" name="isadmin" value="${param.isadmin }" />
 					<ul>
 						<li><span>제목</span>
 							<div class="main_field">

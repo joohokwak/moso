@@ -33,6 +33,7 @@
 								</ul>
 								<input type="hidden" name="no" value="${faq.no }">
 								<input type="hidden" name="cate" value="${faq.cate }">
+								<input type="hidden" name="isadmin" value="${param.isadmin }">
 							</div>
 						</li>
 						<li><span>제목</span>
