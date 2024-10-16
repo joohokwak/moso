@@ -253,12 +253,12 @@ public class CatalogDAO extends DBCP {
 						if (result > 0) {
 							conn.commit();
 
-							// 실패하면 catalog, catalog_file 모두 롤백
+						// 실패하면 catalog, catalog_file 모두 롤백
 						} else {
 							conn.rollback();
 						}
 
-						// 파일 업로드 없이 커밋
+					// 파일 업로드 없이 커밋
 					} else {
 						conn.commit();
 					}

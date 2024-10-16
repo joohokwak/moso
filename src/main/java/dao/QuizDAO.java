@@ -20,106 +20,88 @@ public class QuizDAO extends DBCP {
 		try {
 			conn = getConn();
 					
-			
-			String sql = "";
-			if (sumQ.equals("1111")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%050%' OR POSTER LIKE '%096%') ";
-			} 
-			else if (sumQ.equals("1112") || sumQ.equals("1222")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%058%' OR POSTER LIKE '%082%') ";
-			}
-			else if (sumQ.equals("1121") || sumQ.equals("2221")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%069%') ";
-			}
-			else if (sumQ.equals("1122") || sumQ.equals("2111") || sumQ.equals("2112") || sumQ.equals("2222") || sumQ.equals("2231") || sumQ.equals("2311") || sumQ.equals("2312")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%032%') ";
-			}
-			else if (sumQ.equals("1131")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%071%' OR POSTER LIKE '%096%') ";
-			}
-			else if (sumQ.equals("1132") || sumQ.equals("2132")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%050%' OR POSTER LIKE '%071%') ";
-			}
-			else if (sumQ.equals("1211") || sumQ.equals("1311")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%073%')						   ";
-			}
-			else if (sumQ.equals("1212") || sumQ.equals("1312")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%048%' OR POSTER LIKE '%073%') ";
-			}
-			else if (sumQ.equals("1221")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%058%' OR POSTER LIKE '%087%') ";
-			}
-			else if (sumQ.equals("1231") || sumQ.equals("1232")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%053%' OR POSTER LIKE '%085%') ";
-			}
-			else if (sumQ.equals("1321")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%087%') ";
-			}
-			else if (sumQ.equals("1322")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%053%' OR POSTER LIKE '%087%') ";
-			}
-			else if (sumQ.equals("1331")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%071%' OR POSTER LIKE '%085%') ";
-			}
-			else if (sumQ.equals("1332")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%050%' OR POSTER LIKE '%053%') ";
-			}
-			else if (sumQ.equals("2121") || sumQ.equals("2122") || sumQ.equals("2231") || sumQ.equals("2321")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%071%') ";
-			}
-			else if (sumQ.equals("2211")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%087%') 					   ";
-			}
-			else if (sumQ.equals("2212")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%073%' OR POSTER LIKE '%087%') ";
-			}
-			else if (sumQ.equals("2231") || sumQ.equals("2232")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%025%')						   ";
-			}
-			else if (sumQ.equals("2322")) {
-				sql += "SELECT *                 	   						   ";
-				sql += "	FROM ITEM            	  						   ";
-				sql += "  	WHERE (POSTER LIKE '%0%' OR POSTER LIKE '%0%') ";
+			String sql = "SELECT * FROM ITEM ";
+			switch (sumQ) {
+				case "1111": 
+					sql += " WHERE (POSTER LIKE '%050%' OR POSTER LIKE '%096%') ";
+					break;
+					
+				case "1112": case "1222": 
+					sql += " WHERE (POSTER LIKE '%058%' OR POSTER LIKE '%082%') ";
+					break;
+					
+				case "1121": case "2221":
+					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%069%') ";
+					break;
+					
+				case "1122": case "2111": case "2112": case "2222": 
+				case "2231": case "2311": case "2312":
+					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%032%') ";
+					break;
+					
+				case "1131":
+					sql += " WHERE (POSTER LIKE '%071%' OR POSTER LIKE '%096%') ";
+					break;
+					
+				case "1132": case "2132":
+					sql += " WHERE (POSTER LIKE '%050%' OR POSTER LIKE '%071%') ";
+					break;
+					
+				case "1211": case "1311":
+					sql += " WHERE (POSTER LIKE '%073%')						";
+					break;
+					
+				case "1212": case "1312":
+					sql += " WHERE (POSTER LIKE '%048%' OR POSTER LIKE '%073%') ";
+					break;
+					
+				case "1221":
+					sql += " WHERE (POSTER LIKE '%058%' OR POSTER LIKE '%087%') ";
+					break;
+				
+				case "1231": case "1232":
+					sql += " WHERE (POSTER LIKE '%053%' OR POSTER LIKE '%085%') ";
+					break;
+					
+				case "1321":
+					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%087%') ";
+					break;
+					
+				case "1322":
+					sql += " WHERE (POSTER LIKE '%053%' OR POSTER LIKE '%087%') ";
+					break;
+					
+				case "1331":
+					sql += " WHERE (POSTER LIKE '%071%' OR POSTER LIKE '%085%') ";
+					break;
+					
+				case "1332":
+					sql += " WHERE (POSTER LIKE '%050%' OR POSTER LIKE '%053%') ";
+					break;
+					
+				case "2121": case "2122": case "2231": case "2321":
+					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%071%') ";
+					break;
+					
+				case "2211":
+					sql += " WHERE (POSTER LIKE '%087%')						";
+					break;
+					
+				case "2212":
+					sql += " WHERE (POSTER LIKE '%073%' OR POSTER LIKE '%087%') ";
+					break;
+					
+				case "2231": case "2232":
+					sql += " WHERE (POSTER LIKE '%025%')						";
+					break;
+					
+				case "2322":
+					sql += " WHERE (POSTER LIKE '%0%' OR POSTER LIKE '%0%')		";
+					break;
+				
+				default: break;
 			}
 
-			// 2321
-			
 			ps = conn.prepareStatement(sql);
 			
 			rs = ps.executeQuery();
