@@ -8,7 +8,6 @@
 <div class="join_wrap">
 	<div class="join_top">
 		<h2>회원정보</h2>
-		<a href="#" id="memberListBtn" data-isadmin="${member.isadmin eq 'Y' }">회원목록</a>
 	</div>
 
 	<form action="/Member/updateOk" class="join_form" method="post">

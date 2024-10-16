@@ -17,7 +17,7 @@
 
 <!-- 멤버 -->
 <script src="/js/login.js?v=${version }"></script>
-
+<script src="/js/admin.js?v=${version }"></script>
 
 <!-- 헤더/푸터 -->
 <script src="/js/header.js?v=${version }"></script>

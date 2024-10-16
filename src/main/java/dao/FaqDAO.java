@@ -22,7 +22,7 @@ public class FaqDAO extends DBCP {
 		try {
 			conn = getConn();
 			
-	        String sql = pg.getQuery(conn, "SELECT * FROM FAQ");
+	        String sql = pg.getQuery(conn, "SELECT NO, CATE, TITLE, CONTENT, TO_CHAR(REGDATE, 'YYYY-MM-DD') AS REGDATE FROM FAQ");
 			
 			ps = conn.prepareStatement(sql);
 			

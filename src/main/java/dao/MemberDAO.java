@@ -3,9 +3,13 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import common.Common;
 import common.DBCP;
+import common.Order;
+import common.Pagination;
 import dto.MemberDTO;
 
 public class MemberDAO extends DBCP {
@@ -86,6 +90,44 @@ public class MemberDAO extends DBCP {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, member.getId());
 			ps.setString(2, member.getPass());
+			
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				dto = new MemberDTO();
+				dto.setId(rs.getString("ID"));
+				dto.setPass(rs.getString("PASS"));
+				dto.setName(rs.getString("NAME"));
+				dto.setEmail(rs.getString("EMAIL"));
+				dto.setPhone(rs.getString("PHONE"));
+				dto.setTel(rs.getString("TEL"));
+				dto.setZipcode(rs.getString("ZIPCODE"));
+				dto.setAddress(rs.getString("ADDRESS"));
+				dto.setAddr_detail(rs.getString("ADDR_DETAIL"));
+				dto.setGender(rs.getString("GENDER"));
+				dto.setBirth(rs.getString("BIRTH"));
+				dto.setIsadmin(rs.getString("ISADMIN"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return dto;
+	}
+	
+	// 회원 상세조회
+	public MemberDTO selectMember(String id) {
+		MemberDTO dto = null;
+		
+		try {
+			conn = getConn();
+			
+			String sql = "SELECT * FROM MEMBER WHERE ID = ?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
 			
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -199,6 +241,7 @@ public class MemberDAO extends DBCP {
 		return dto;
 	}
 
+	// 회원 수정
 	public int updateMember(MemberDTO member) {
 		int result = 0;
 		
@@ -235,4 +278,48 @@ public class MemberDAO extends DBCP {
 		
 		return result;
 	}
+
+	// 관리자페이지 (회원전체 조회)
+	public List<MemberDTO> selectMemberAll(Pagination pg) {
+		List<MemberDTO> list = new ArrayList<>();
+		
+		try {
+			conn = getConn();
+			
+			pg.setOrderName("ID");
+			pg.setOrder(Order.ASC.getOrder());
+			String sql = pg.getQuery(conn, "SELECT * FROM MEMBER");
+			
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				dto.setId(rs.getString("ID"));
+				dto.setPass(rs.getString("PASS"));
+				dto.setName(rs.getString("NAME"));
+				dto.setEmail(rs.getString("EMAIL"));
+				dto.setPhone(rs.getString("PHONE"));
+				dto.setTel(rs.getString("TEL"));
+				dto.setZipcode(rs.getString("ZIPCODE"));
+				dto.setAddress(rs.getString("ADDRESS"));
+				dto.setAddr_detail(rs.getString("ADDR_DETAIL"));
+				dto.setGender(rs.getString("GENDER"));
+				dto.setBirth(rs.getString("BIRTH"));
+				dto.setIsadmin(rs.getString("ISADMIN"));
+				
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return list;
+	}
+	
+	
+	
 }

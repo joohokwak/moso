@@ -292,10 +292,15 @@
 			</c:if>
 			<c:choose>
 				<c:when test="${empty member }">
-					<a href="#" title="마이 페이지" class="my_page" id="loginbtn"><span class="blind">마이 페이지</span></a>
+					<a href="#" title="로그인 페이지" class="my_page" id="loginbtn"><span class="blind">로그인 페이지</span></a>
 				</c:when>
 				<c:otherwise>
-					<a href="#" title="마이 페이지" class="my_page" id="updateBtn"><span class="blind">마이 페이지</span></a>
+					<c:if test="${member.isadmin eq 'Y' }">
+						<a href="#" title="관리자 페이지" class="my_page" id="adminBtn"><span class="blind">관리자 페이지</span></a>
+					</c:if>
+					<c:if test="${member.isadmin ne 'Y' }">
+						<a href="#" title="마이 페이지" class="my_page" id="updateBtn"><span class="blind">마이 페이지</span></a>
+					</c:if>
 				</c:otherwise>
 			</c:choose>
 			<a href="#" title="주문/배송" class="delivery"><span class="blind">주문/배송</span></a>

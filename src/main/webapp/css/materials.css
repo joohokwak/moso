@@ -1,11 +1,3 @@
-:root {
-	--point-color1: #003628;
-	--point-color2: #717171;
-	--gray-400: #717171;
-	--gray-500: #003628;
-	--gray-600: #000;
-}
-
 .materials_wrap {
 	background: url(/images/faq/bg_dots_green.png) repeat center top;
 	padding-bottom: 60px;

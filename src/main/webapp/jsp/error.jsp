@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>MOSO::ZINUS</title>
 	<link rel="shortcut icon" href="/images/common/favicon.png">
 	<link rel="stylesheet" href="/css/error.css">
