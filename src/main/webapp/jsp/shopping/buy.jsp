@@ -21,7 +21,7 @@
 				</div>
 				<span class="slash2">/</span>
 				<div class="show_detail">
-					<a href="#" class="current_active">스프링 매트리스</a>
+					<a href="#" class="current_active">${dto.type}</a>
 					<ul class="category">
 						<li><a href="#" class="active">메모리폼 매트리스</a></li>
 						<li><a href="#">스프링 매트리스</a></li>
@@ -35,7 +35,7 @@
 								
 				<div class="goods_img">
 					<div class="main_img">
-						<img src="/images/shopping/shopping_buy/1000000369_detail_027.jpg"
+						<img src="/images/shopping/${dto.poster }"
 							alt="메인 이미지">
 					</div>
 					<!-- Slider main container -->
@@ -62,9 +62,7 @@
 						<div>
 							<a href="#">리뷰 등록</a> <a href="#">상품 Q&amp;A</a>
 						</div>
-						<p>
-							*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br> *부드러운 퀼팅으로 마감된 타이트탑
-						</p>
+						<p>${dto.text }</p>
 					</div>
 					<div class="info_sub">
 						<p>
@@ -111,7 +109,9 @@
 						<div class="buttons">
 							<a href="#" class="payment">결제하기</a>
 							<a href="/Shop/Cart" class="cart">장바구니</a>
-							<a href="#" class="like" data-no="${dto.no }" data-islogin="${not empty member }"><img src="${(dto.id eq member.id) and (dto.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요"></a>
+							<a href="#" class="like" data-no="${dto.no }" data-islogin="${not empty member }">
+								<img src="${(dto.id eq member.id) and (dto.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요">
+							</a>
 						</div>
 						<div class="relation">
 							<p>설치배송 신청 시 입력해주신 수령자 분의 연락처로 배송일 지정을 위한 해피콜이 진행됩니다. (주문 완료후 영업일 기준 D+1일 이내 해피콜 진행)</p>
@@ -425,35 +425,72 @@
 							<col style="width: 112px; text-align: center;">
 							<col style="width: 112px;">
 						</colgroup>
-						<tr>
-							<td>
-								<img src="/images/shopping/shopping_buy/star-bg-new-g.png" alt="별점">
-							</td>
-							<td class="board_content">
-								<a href="#">good</a>
-							</td>
-							<td>
-								<p>이용준</p>
-							</td>
-							<td>
-								<p class="center">2024.05.31</p>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<img src="/images/shopping/shopping_buy/star-fill-new.png" alt="별점">
-							</td>
-							<td class="board_content">
-								<a href="#">푹신해서 너무 좋아요</a>
-									<span><img src="/images/shopping/shopping_buy/icon_board_attach_file.png"alt="file"></span>
+						
+						<c:forEach var="rv" items="${review }">
+							<tbody class="display_view">
+								<tr>
+									<td>
+										<span class="rating">
+											<c:forEach var="rat" begin="1" end="${rv.rating }">
+												<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
+											</c:forEach>
+											<c:forEach var="rat" begin="1" end="${ 5 - rv.rating }">
+												<img src="/images/shopping/shopping_buy/star-bg.png" alt="별점">
+											</c:forEach>
+										
+											
+										</span>
+									</td>
+									<td class="board_content">
+										<a href="/Shop/buy?reviewNum=${rv.no}">good</a>
+										<span><img src="/images/shopping/shopping_buy/icon_board_attach_file.png"alt="file"></span>
+									</td>
+									<td>
+										<p>이용준</p>
+									</td>
+									<td>
+										<p class="center">2024.05.31</p>
+									</td>
+								</tr>
+								<tr class="display none">
+									<td></td>
+									<td class="board_content">
+										<div class="board_main_content">
+											아이구 먹다보니 시간을 모른 채로 막 먹고 그래버렸네요
+										</div>
+										<div>
+											<p><span><img src="/images/shopping/shopping_buy/icon_board_attach_file.png"alt="file"></span><strong>첨부파일</strong><i class="file_name">jpg</i></p>
+										</div>
+									</td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</c:forEach>
+						
+						<tbody class="board_body">
+							<tr>
+								<td>
+									<span class="rating">
+										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
+										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
+										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
+										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
+										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
+									</span>
 								</td>
-							<td>
-								<p>이용준</p>
-							</td>
-							<td>
-								<p class="center">2024.05.31</p>
-							</td>
-						</tr>
+								<td class="board_content">
+									<a href="#">푹신해서 너무 좋아요</a>
+										<span><img src="/images/shopping/shopping_buy/icon_board_attach_file.png"alt="file"></span>
+									</td>
+								<td>
+									<p>이용준</p>
+								</td>
+								<td>
+									<p class="center">2024.05.31</p>
+								</td>
+							</tr>
+						</tbody>
 					</table>
 					<div class="pagination">
 						<span class="page_num active">1</span>
@@ -482,7 +519,7 @@
 						<h3>리뷰</h3>
 						<div class="board_btn">
 							<button class="board_all">고객센터</button>
-							<button class="board_write" type="button" onclick="location.href='/shopping_wirte'">Q&amp;A 등록</button>
+							<button class="board_write" type="button" onclick="window.location.href='/shopping_wirte'">Q&amp;A 등록</button>
 						</div>
 					</div>
 					<table class="board_body">

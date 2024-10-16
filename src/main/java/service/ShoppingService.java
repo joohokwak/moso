@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import common.Pagination;
+import dto.ItemReviewDTO;
 import dto.ShoppingDTO;
 
 public interface ShoppingService {
@@ -11,7 +12,9 @@ public interface ShoppingService {
 
 	List<ShoppingDTO> viewMain(String ty, String ordered, String id, Pagination pg);
 
-	ShoppingDTO buyMain(String num);
+	ShoppingDTO buyMain(int num);
 
-	List<String> imageName(String num);
+	List<String> imageName(int num);
+	
+	List<ItemReviewDTO> buyReview(int num);
 }
