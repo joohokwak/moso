@@ -16,6 +16,7 @@
 		</div>
 
 		<!-- 지도 -->
+		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c1b3017dd3d8dfe9308da71a1a5fd8b"></script>
 		<div class="partner_map" id="map"></div>
 		
 		<!-- 텍스트 -->

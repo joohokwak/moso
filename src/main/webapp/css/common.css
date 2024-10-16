@@ -355,7 +355,7 @@ input[type='checkbox']:checked+label::before {
 .radio_wrap {
 	display: inline-block;
 }
-
+/* 
 input[type='radio']+label {
 	cursor: pointer;
 	position: relative;
@@ -372,7 +372,7 @@ input[type='radio']+label::before {
 	border-radius: 50%;
 	border: 1px solid #999;
 }
-
+ */
 input[type='radio']:checked+label::before {
 	background: url(/images/common/circle.svg) no-repeat 50% 50%/12px;
 }
