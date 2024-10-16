@@ -6,7 +6,7 @@
 <!-- 공통 -->
 <script src="/js/quill.min.js"></script>
 <script src="/js/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c1b3017dd3d8dfe9308da71a1a5fd8b"></script>
+
 <script src="/js/swiper-bundle.min.js"></script>
 <script src="/js/sweetalert2.js"></script>
 
