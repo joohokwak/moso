@@ -119,4 +119,12 @@ window.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 	
+	// 관리자 페이지
+	const adminBtn = document.querySelector('#adminBtn');
+	if (adminBtn) {
+		adminBtn.addEventListener('click', function() {
+			location.href = "/Admin/home";
+		});
+	}
+	
 }); // DOMContentLoaded

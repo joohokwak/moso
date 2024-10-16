@@ -20,6 +20,7 @@
 
 <!-- 멤버 -->
 <link rel="stylesheet" href="/css/login.css?v=${version }">
+<link rel="stylesheet" href="/css/admin.css?v=${version }">
 
 <!-- 헤더/푸터 -->
 <link rel="stylesheet" href="/css/header.css?v=${version }">

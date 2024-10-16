@@ -1,5 +1,8 @@
 package serviceImpl;
 
+import java.util.List;
+
+import common.Pagination;
 import dao.MemberDAO;
 import dto.MemberDTO;
 import service.MemberService;
@@ -39,6 +42,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updateMember(MemberDTO member) {
 		return dao.updateMember(member);
+	}
+
+	@Override
+	public List<MemberDTO> selectMemberAll(Pagination pg) {
+		return dao.selectMemberAll(pg);
+	}
+
+	@Override
+	public MemberDTO selectMember(String id) {
+		return dao.selectMember(id);
 	}
 
 }

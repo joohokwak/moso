@@ -1,6 +1,5 @@
-/common/
-/controller/
 /dao/
-/dto/
-/service/
 /serviceImpl/
+/controller/
+/service/
+/dto/
