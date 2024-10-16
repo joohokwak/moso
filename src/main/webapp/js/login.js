@@ -357,16 +357,6 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 	
-	// 멤버 리스트 (관리자 페이지)
-	const memberListBtn = document.querySelector('#memberListBtn');
-	if (memberListBtn) {
-		memberListBtn.addEventListener('click', function(e) {
-			e.preventDefault();
-			// TODO: 해야할 목록!!
-			alert(1);
-		});
-	}
-	
 }); // DOMContentLoaded
 
 // 닫기 공통

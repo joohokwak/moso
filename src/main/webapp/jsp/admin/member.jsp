@@ -19,7 +19,7 @@
 		</tr>
 		<c:forEach var="list" items="${list }">
 		<tr>
-			<td align="center"><label class="checkbox"><input type="checkbox" class="blind member_chk" data-ids="${list.id }"></label></td>
+			<td align="center"><label class="checkbox"><input type="checkbox" class="blind chks" data-no="${list.id }"></label></td>
 			<td><a href="#" class="mem_id">${list.id }</a></td>
 			<td>${list.name }</td>
 			<td>${list.email }</td>
@@ -37,7 +37,7 @@
 </div>
 
 <div class="btn_wrap">
-	<button type="button" class="btn join_btn">회원등록</button>
+	<button type="button" class="btn" onclick="location.href='/Member/join?isadmin=Y'">회원등록</button>
 	<button type="button" class="btn delete_btn">선택삭제</button>
-	<button type="button" class="btn down_btn">다운로드</button>
+	<button type="button" class="btn down_btn" onclick="location.href='/Admin/excelDown'">다운로드</button>
 </div>

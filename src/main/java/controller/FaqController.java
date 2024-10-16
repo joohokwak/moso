@@ -57,7 +57,14 @@ public class FaqController extends HttpServlet {
 		} else if (action.equals("/updateOk")) {
 			FaqDTO dto = Common.convert(req, new FaqDTO());
 			fs.updateFaq(dto);
-			resp.sendRedirect("/Faq/list");
+			
+			String isadmin = req.getParameter("isadmin");
+			if ("Y".equals(isadmin)) {
+				resp.sendRedirect("/Admin/faq");
+			} else {
+				resp.sendRedirect("/Faq/list");
+			}
+			
 			return;
 		}
 		

@@ -8,8 +8,6 @@
 	<title>MOSO::ZINUS</title>
 	<jsp:include page="/template/link.jsp" />
 	<jsp:include page="/template/script.jsp" />
-	<script src="/js/xlsx.full.min.js"></script>
-	<script src="/js/FileSaver.min.js"></script>
 </head>
 <body>
 	<header>

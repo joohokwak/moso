@@ -97,7 +97,13 @@ public class CatalogController extends HttpServlet {
 			cs.updateCatalog(dto);
 			cs.updateCatalogfile();
 			
-			resp.sendRedirect("/Catalog/list");
+			String isadmin = req.getParameter("isadmin");
+			if ("Y".equals(isadmin)) {
+				resp.sendRedirect("/Admin/catalog");
+			} else {
+				resp.sendRedirect("/Catalog/list");
+			}
+			
 			return;
 		
 		// 삭제하기
