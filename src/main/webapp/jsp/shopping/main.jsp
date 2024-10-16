@@ -3,43 +3,43 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
- <div id="shopping">
-   <div class="view">
-     <img class="main_img" src="/images/shopping/mattress.jpg" alt="mattress">
-	<div class="title">
-		<h2>Mattress</h2>
-		<p>완벽한 숙면을 위한 선택</p>
-		<a href="#">제품 바로보기</a>
-	</div>
-   </div>
-   <div class="go_menu">
-     <ul class="inner">
-		<li class="box">
-			<div class="box_inner">
-				<h4>Memory Foam<br>Mattress</h4>
-				<h5>메모리폼 매트릭스</h5>
-				<p>어떤 수면 자세에도<br>몸 전체를 빈틈없이 받쳐주는 편안함</p>
-				<a href="#">SHOP</a>
-			</div>
-		</li>
-		<li class="box">
-			<div class="box_inner">
-				<h4>Spring<br>Mattress</h4>
-				<h5>스프링 매트릭스</h5>
-				<p>아이코일* 기술 적용,<br>흔들림을 최소화한 안정적인 지지력</p>
-				<a href="#">SHOP</a>
-			</div>
-		</li>
-		<li class="box">
-			<div class="box_inner">
-				<h4>Topper</h4>
-				<h5>토퍼</h5>
-				<p>매트리스 위에서도, 바닥에서도<br>오래도록 느낄 수 있는 포근함</p>
-				<a href="#">SHOP</a>
-			</div>
-		</li>
-     </ul>
-   </div>
+<div id="shopping">
+  <div class="view">
+    <img class="main_img" src="/images/shopping/mattress.jpg" alt="mattress">
+		<div class="title">
+			<h2>Mattress</h2>
+			<p>완벽한 숙면을 위한 선택</p>
+			<a href="#">제품 바로보기</a>
+		</div>
+  </div>
+  <div class="go_menu">
+    <ul class="inner">
+			<li class="box">
+				<div class="box_inner">
+					<h4>Memory Foam<br>Mattress</h4>
+					<h5>메모리폼 매트릭스</h5>
+					<p>어떤 수면 자세에도<br>몸 전체를 빈틈없이 받쳐주는 편안함</p>
+					<a href="#">SHOP</a>
+				</div>
+			</li>
+			<li class="box">
+				<div class="box_inner">
+					<h4>Spring<br>Mattress</h4>
+					<h5>스프링 매트릭스</h5>
+					<p>아이코일* 기술 적용,<br>흔들림을 최소화한 안정적인 지지력</p>
+					<a href="#">SHOP</a>
+				</div>
+			</li>
+			<li class="box">
+				<div class="box_inner">
+					<h4>Topper</h4>
+					<h5>토퍼</h5>
+					<p>매트리스 위에서도, 바닥에서도<br>오래도록 느낄 수 있는 포근함</p>
+					<a href="#">SHOP</a>
+				</div>
+			</li>
+    </ul>
+  </div>
 <div class="shopping_view">
 	<div class="inner">	
 		<div id="location" class="location">
@@ -84,11 +84,8 @@
 			
 			<ul class="rank">
 				<li class="${param.ordered eq 'pop' ? 'active' : '' }">
-   					<a href="javascript:void(0);" onclick="window.location.href='/Shop/main?${typecheck}ordered=pop'" class="sort">
-   				    	인기순
- 				   </a>
+					<a href="javascript:void(0);" onclick="window.location.href='/Shop/main?${typecheck}ordered=pop'" class="sort">인기순</a>
 				</li>
-
 				<li class="${param.ordered eq 'new' ? 'active' : '' }">
 					<a href="javascript:void(0)" onclick="window.location.href='/Shop/main?${typecheck }ordered=new'" class="sort">
 						신상품순
@@ -145,7 +142,7 @@
 						<c:if test="${list.point eq 'M' }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
 						<c:if test="${list.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
 					</div>
-				<`>
+				</li>
 			</ul>
 			</c:forEach>
 		</div>

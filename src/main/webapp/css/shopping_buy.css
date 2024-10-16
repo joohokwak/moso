@@ -659,6 +659,18 @@ text-align: center;
 .shopping_borad .board_body td a {
   color: var(--point-color2);
 }
+#view_review .board_body tr.display.none {
+  display: none;
+}
+#view_review .board_body .rating {
+  width: 86px;
+  height: 18px;
+  display: flex;
+}
+#view_review .board_body .board_content .rating img {
+  height: 100%;
+  width: 100%;
+}
 #view_review .board_body .board_content img {
   margin: 4px;
   width: 7px;
@@ -667,7 +679,20 @@ text-align: center;
 #view_question .board_body .board_content img {
   margin: 4px;
   width: 11px;
-  height: 13px;
+  height: 100%;
+}
+#view_review .board_body .board_content strong {
+  font-weight: 700;
+}
+#view_review .board_body .board_content .board_main_content {
+  color: #444;
+  line-height: 1.8;
+}
+#view_review .board_body .board_content .file_name {
+  font-size: 11px;
+  color: #717171;
+  font-style: normal;
+  margin: 0 6px;
 }
 .shopping_borad .board_body .center {
   text-align: center;

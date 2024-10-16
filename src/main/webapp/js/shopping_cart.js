@@ -52,5 +52,5 @@ window.addEventListener('DOMContentLoaded', function() {
 				item.classList.toggle('on');
 			});
 		});
-	}
+	}	
 });

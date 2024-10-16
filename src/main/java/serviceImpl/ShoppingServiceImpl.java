@@ -4,6 +4,7 @@ import java.util.List;
 
 import common.Pagination;
 import dao.ShoppingDAO;
+import dto.ItemReviewDTO;
 import dto.ShoppingDTO;
 import service.ShoppingService;
 
@@ -25,13 +26,19 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public ShoppingDTO buyMain(String num) {
+	public ShoppingDTO buyMain(int num) {
 		return dao.buyMain(num);
 	}
 
 	@Override
-	public List<String> imageName(String num) {
+	public List<String> imageName(int num) {
 		return dao.imageName(num);
+	}
+
+	@Override
+	public List<ItemReviewDTO> buyReview(int num) {
+		
+		return dao.buyReview(num);
 	}
 	
 	

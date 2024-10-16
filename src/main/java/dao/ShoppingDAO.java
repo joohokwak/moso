@@ -9,6 +9,7 @@ import java.util.List;
 import common.DBCP;
 import common.Order;
 import common.Pagination;
+import dto.ItemReviewDTO;
 import dto.ShoppingDTO;
 
 public class ShoppingDAO extends DBCP {
@@ -163,26 +164,27 @@ public class ShoppingDAO extends DBCP {
 	}
 
 	// 상품 상세 조회
-	public ShoppingDTO buyMain(String num) {
+	public ShoppingDTO buyMain(int num) {
 		ShoppingDTO dto = null;
 		
 		try {
 			conn = getConn();
 			
 			String sql = "";
-			sql += " SELECT i.NO			";
-			sql += "	  , i.NAME			";
-			sql += "	  , i.TYPE			";
-			sql += "	  , i.TEXT			";
-			sql += "	  , i.PRICE			";
-			sql += "	  , i.POINT			";
-			sql += "	  , i.REGDATE		";
-			sql += "	  , i.SIZENAME		";
-			sql += "	  , i.POSTER		";
-			sql += " FROM ITEM i			";
-			sql += " WHERE i.NO = " + num 	 ;
+			sql += " SELECT NO				";
+			sql += "	  , NAME			";
+			sql += "	  , TYPE			";
+			sql += "	  , TEXT			";
+			sql += "	  , PRICE			";
+			sql += "	  , POINT			";
+			sql += "	  , REGDATE			";
+			sql += "	  , SIZENAME		";
+			sql += "	  , POSTER			";
+			sql += " FROM ITEM 				";
+			sql += " WHERE NO = ?";
 			
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, num);
 			
 			rs = ps.executeQuery();
 			
@@ -209,7 +211,7 @@ public class ShoppingDAO extends DBCP {
 	}
 	
 	// 상품 상세보기 이미지 리스트
-	public List<String> imageName(String num) {
+	public List<String> imageName(int num) {
 		List<String> images = new ArrayList<>();
 		
 		try {
@@ -217,15 +219,15 @@ public class ShoppingDAO extends DBCP {
 			
 			String sql = "";
 			sql += "SELECT *				";
-			sql += "  FROM ITEM_IMAGE		";
-			sql += " WHERE ITEMNO = ?		";
+			sql += " FROM ITEM_IMAGE		";
+			sql += " WHERE ITEMNO = ?";
 			
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, Integer.parseInt(num));
+			ps.setInt(1, num);
 			
 			rs = ps.executeQuery();
 			
-			if (rs.next()) {
+			while (rs.next()) {
 				images.add(rs.getString("NAME"));
 			}
 			
@@ -236,6 +238,58 @@ public class ShoppingDAO extends DBCP {
 		}
 		
 		return images;
+	}
+	
+	// 리뷰 정보 가져오기
+	
+	public List<ItemReviewDTO> buyReview(int num){
+		List<ItemReviewDTO> list = new ArrayList<>();
+		
+		try {
+			conn = getConn();
+			
+			String sql = "";
+			
+			sql += "SELECT                ";
+			sql += "  irf.NO               ";
+			sql += ", ir.TITLE            ";
+			sql += ", ir.WRITER           ";
+			sql += ", ir.REGDATE          ";
+			sql += ", ir.CONTENT          ";
+			sql += ", ir.RATING           ";
+			sql += ", ir.ITEMNO           ";
+			sql += ", irf.OFILE           ";
+			sql += ", irf.NFILE           ";
+			sql += " FROM ITEM_REVIEW ir LEFT OUTER JOIN ITEM_REVIEW_FILE irf ON IR.NO = IRF.REVIEWNO " ;
+			sql += " WHERE ir.ITEMNO = ?";
+			
+			
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, num);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				ItemReviewDTO dto = new ItemReviewDTO();
+				
+				dto.setNo(rs.getInt("no"));
+				dto.setTitle(rs.getString("title"));
+				dto.setRating(rs.getInt("rating"));
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setContent(rs.getString("content"));
+				dto.setItemno(rs.getInt("itemno"));
+				dto.setOfile(rs.getString("ofile"));
+				dto.setNfile(rs.getString("nfile"));
+				
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		return list;
 	}
 	
 }

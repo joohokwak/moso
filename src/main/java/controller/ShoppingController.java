@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import common.Common;
 import common.Pagination;
+import dto.ItemReviewDTO;
 import dto.MemberDTO;
 import dto.ShoppingDTO;
 import service.ShoppingService;
@@ -71,13 +72,32 @@ public class ShoppingController extends HttpServlet {
 		// 상품상세 페이지
 		} else if (action.equals("/buy")) {		
 			//	main에서 클릭한 객체
-			String num = req.getParameter("num");
-			ShoppingDTO dto = shopSer.buyMain(num);
-			//	客體 이미지
-			List<String> images = shopSer.imageName(num);
+			int number = Integer.parseInt(req.getParameter("num"));
+			String numuri = "num=" + number + "&";
 			
+			List<ItemReviewDTO> reviewAll = null;
+			ShoppingDTO dto = shopSer.buyMain(number);
+			//	客體 이미지
+			List<String> images = shopSer.imageName(number);
+			//	review
+			reviewAll = shopSer.buyReview(number);
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			req.setAttribute("numuri", numuri);
 			req.setAttribute("dto", dto);
 			req.setAttribute("images", images);
+			if(reviewAll != null) req.setAttribute("review", reviewAll);
+
 			
 		// 좋아요
 		} else if (action.equals("/like")) {
@@ -87,10 +107,13 @@ public class ShoppingController extends HttpServlet {
 			if (user != null) {
 				int result = shopSer.insertLike(no, id);
 				Common.jsonResponse(resp, result);
-				
 			}
 			return;
-		}
+		// 장바구니
+		} 
+//		else if (action.equals("/cart")) {
+			
+//		}
 		
 		req.setAttribute("layout", "/shopping" + action);
 		req.getRequestDispatcher("/layout.jsp").forward(req, resp);
