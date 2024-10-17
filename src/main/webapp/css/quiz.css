@@ -1,11 +1,3 @@
-:root {
-	--point-color1: #003628;
-	--point-color2: #717171;
-	--gray-400: #717171;
-	--gray-500: #003628;
-	--gray-600: #000;
-}
-
 #quiz_content {
 	padding: 0 0 60px 0;
 	background: url(/images/quiz/bg_quiz.png) repeat center top;

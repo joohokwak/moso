@@ -1,205 +1,237 @@
 #shopping_write .goods h4 {
-  font-size: 18px;
-  color: #000;
-  padding: 20px;
-  font-weight: 700;
+	font-size: 18px;
+	color: #000;
+	padding: 20px;
+	font-weight: 700;
 }
+
 #shopping_write .goods_info {
-  padding: 20px;
-  display: flex;
-  gap: 45px;
-  border-bottom: 1px solid #e5e5e5;
+	padding: 20px;
+	display: flex;
+	gap: 45px;
+	border-bottom: 1px solid #e5e5e5;
 }
+
 #shopping_write .goods_info .goods_img {
-  width: 20%;
+	width: 20%;
 }
+
 #shopping_write .goods .goods_info .goods_img img {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
+
 #shopping_write .goods .goods_info strong {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.1;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 1.1;
 }
+
 #shopping_write .goods .goods_info p {
-  margin-top: 10px;
-  color: #a9a9a9;
+	margin-top: 10px;
+	color: #a9a9a9;
 }
-#shopping_write .container{
-  padding: 20px;
-  border-bottom: 1px solid #e5e5e5;
+
+#shopping_write .container {
+	padding: 20px;
+	border-bottom: 1px solid #e5e5e5;
 }
+
 #shopping_write .container th {
-  color: #555;
-  font-weight: 700;
-  text-align: left;
-  table-layout: auto;
-  width: 16%;
-  height: 42px;
-  vertical-align: middle;
-  line-height: 28px;
+	color: #555;
+	font-weight: 700;
+	text-align: left;
+	table-layout: auto;
+	width: 16%;
+	height: 42px;
+	vertical-align: middle;
+	line-height: 28px;
 }
+
 #shopping_write .container .select_wrap1 {
-  position: relative;
+	position: relative;
 }
-#shopping_write .container .select_wrap1 button{
-  width: 127px;
-  border: 1px solid #ccc;
-  background: #fff;
-  padding: 0 10px;
-  text-align: left;
-  height: 30px;
-  position: relative;
-  color: #444;
+
+#shopping_write .container .select_wrap1 button {
+	width: 127px;
+	border: 1px solid #ccc;
+	background: #fff;
+	padding: 0 10px;
+	text-align: left;
+	height: 30px;
+	position: relative;
+	color: #444;
 }
+
 #shopping_write .container .select_wrap1 button::after {
-  background: url(/images/shopping/select-arrow-down.png) no-repeat center;
-  position: absolute;
-  content: "";
-  right: 0;
-  top: 0;
-  width: 26px;
-  height: 28px;
+	background: url(/images/shopping/select-arrow-down.png) no-repeat center;
+	position: absolute;
+	content: "";
+	right: 0;
+	top: 0;
+	width: 26px;
+	height: 28px;
 }
+
 #shopping_write .container .select_wrap1.on button::after {
-  transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 
 #shopping_write .container .select_wrap1 .option1 {
-  position: absolute;
-  top: 35px;
-  left: 0;
-  width: 127px;
-  background: #fff;
-  overflow: hidden;
-  max-height: 0;
-  color: #444;
-
+	position: absolute;
+	top: 35px;
+	left: 0;
+	width: 127px;
+	background: #fff;
+	overflow: hidden;
+	max-height: 0;
+	color: #444;
 }
+
 #shopping_write .container .select_wrap1.on .option1 {
-  max-height: fit-content;
-  border: 1px solid #ccc;
+	max-height: fit-content;
+	border: 1px solid #ccc;
+}
 
-}
 #shopping_write .container .select_wrap1 .option1 li {
-  padding: 6px;
-  line-height: 15px;
+	padding: 6px;
+	line-height: 15px;
 }
+
 #shopping_write .container .select_wrap1 .option1 li:hover {
-  background: #e9e9e9;
+	background: #e9e9e9;
 }
+
 #shopping_write .container .input_txt {
-  width: 100%;
+	width: 100%;
 }
-#shopping_write .container .input_txt input[type=text], 
-#shopping_write .container input[type=password] {
-  height: 30px;
-  width: 100%;
-  line-height: 28px;
-  border: 1px solid #ccc;
-  color: #717171;
+
+#shopping_write .container .input_txt input[type=text], #shopping_write .container input[type=password]
+	{
+	height: 30px;
+	width: 100%;
+	line-height: 28px;
+	border: 1px solid #ccc;
+	color: #717171;
 }
+
 #shopping_write .container .content {
-  font-size: 11px;
-  padding-top: 7px;
+	font-size: 11px;
+	padding-top: 7px;
 }
+
 #shopping_write .checkbox1_wrap {
-  position: relative;
-  display: inline-block;
-  width: fit-content;
+	position: relative;
+	display: inline-block;
+	width: fit-content;
 }
-#shopping_write .checkbox1_wrap .checkbox1{
-  padding-left: 25px;
-  color: #777;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 11px;
+
+#shopping_write .checkbox1_wrap .checkbox1 {
+	padding-left: 25px;
+	color: #777;
+	font-weight: 700;
+	cursor: pointer;
+	font-size: 11px;
 }
+
 #shopping_write .checkbox1_wrap::after {
-  background: url(/images/shopping/shopping_cart/check-off-s.png) no-repeat center;
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 16px;
-  height: 16px;
+	background: url(/images/shopping/shopping_cart/check-off-s.png)
+		no-repeat center;
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 16px;
+	height: 16px;
 }
+
 #shopping_write .checkbox1_wrap:hover::after {
-  background: url(/images/shopping/shopping_cart/check-ov-s.png);
+	background: url(/images/shopping/shopping_cart/check-ov-s.png);
 }
+
 #shopping_write .checkbox1_wrap.on::after {
-  background: url(/images/shopping/shopping_cart/check-on-s.png);
+	background: url(/images/shopping/shopping_cart/check-on-s.png);
 }
+
 #shopping_write .container .content p {
-  padding: 5px 0;
+	padding: 5px 0;
 }
-#shopping_write .container .content  textarea{
-  height: 123px;
-  width: 100%;
-  border: 1px solid #ccc;
-  padding: 10px;
-  color: #777;
-  font-size: 12px;
+
+#shopping_write .container .content  textarea {
+	height: 123px;
+	width: 100%;
+	border: 1px solid #ccc;
+	padding: 10px;
+	color: #777;
+	font-size: 12px;
 }
-#shopping_write .file_upload input[type="text"]{
-  height: 30px;
-  border: 1px solid #ccc;
-  width: 250px;
+
+#shopping_write .file_upload input[type="text"] {
+	height: 30px;
+	border: 1px solid #ccc;
+	width: 250px;
 }
+
 #shopping_write .file_upload label {
-  border: 1px solid #979797;
-  background: #979797;
-  line-height: 28px;
-  padding: 0 10px;
-  font-size: 12px;
-  color: #fff;
-  display: inline-block;
+	border: 1px solid #979797;
+	background: #979797;
+	line-height: 28px;
+	padding: 0 10px;
+	font-size: 12px;
+	color: #fff;
+	display: inline-block;
 }
+
 #shopping_write .file_upload button {
-  border: 1px solid #e6e3dd;
-  line-height: 28px;
-  padding: 0 10px;
-  font-size: 12px;
-  color: #6c6c6c;
+	border: 1px solid #e6e3dd;
+	line-height: 28px;
+	padding: 0 10px;
+	font-size: 12px;
+	color: #6c6c6c;
 }
 
 #shopping_write .allow {
-  padding: 20px 17px 20px 10px;
+	padding: 20px 17px 20px 10px;
 }
+
 #shopping_write .allow h6 {
-  font-size: 12px;
-  padding-bottom: 12px;
-  color: #555;
-  font-weight: 700;
+	font-size: 12px;
+	padding-bottom: 12px;
+	color: #555;
+	font-weight: 700;
 }
+
 #shopping_write .allow p {
-  height: 81px;
-  border: 1px solid #ccc;
-  padding: 16px;
-  line-height: 1.8;
-  overflow: scroll;
-  margin-bottom: 13px;
+	height: 81px;
+	border: 1px solid #ccc;
+	padding: 16px;
+	line-height: 1.8;
+	overflow: scroll;
+	margin-bottom: 13px;
 }
+
 #shopping_write .allow a {
-  font-size: 11px;
-  color: #3e3d3c;
-  text-decoration: underline;
-  font-weight: 700;
+	font-size: 11px;
+	color: #3e3d3c;
+	text-decoration: underline;
+	font-weight: 700;
 }
+
 #shopping_write .bottom {
-  margin: 0 auto;
-  width: fit-content;
+	margin: 0 auto;
+	width: fit-content;
 }
+
 #shopping_write .bottom button {
-  width: 120px;
-  height: 40px;
-  border: 1px solid #003628;
-  background: #003628;
-  color: #fff;
+	width: 120px;
+	height: 40px;
+	border: 1px solid #003628;
+	background: #003628;
+	color: #fff;
 }
+
 #shopping_write .bottom button:first-child {
-  background: #fff;
-  color: #003628;
-  margin-left: 5px;
+	background: #fff;
+	color: #003628;
+	margin-left: 5px;
 }
