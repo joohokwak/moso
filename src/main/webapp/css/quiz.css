@@ -132,7 +132,12 @@
 	margin-right: 20px;
 }
 
-#quiz_content .quiz_answer .item input[type=radio]+label div {
+#quiz_content .quiz_answer .item input[type=radio]+label span {
+	position: relative;
+	display: inline-block;
+	line-height: 1.2;
+	font-size: 20px;
+	font-weight: 700;
 	width: 170px;
 	height: 170px;
 	display: table-cell;
@@ -146,17 +151,9 @@
 	cursor: pointer;
 }
 
-#quiz_content .quiz_answer .item input[type=radio]:checked+label div {
+#quiz_content .quiz_answer .item input[type=radio]:checked+label span {
 	background: var(--point-color1);
 	color: #fff;
-}
-
-#quiz_content .quiz_answer .item input[type=radio]+label span {
-	position: relative;
-	display: inline-block;
-	line-height: 1.2;
-	font-size: 20px;
-	font-weight: 700;
 }
 
 #quiz_content .quiz_answer .item input[type=radio]:checked+label span::before

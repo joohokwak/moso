@@ -28,29 +28,29 @@
 					<div class="result_tit">
 						<h2>당신을 위한 추천 매트리스</h2>
 						<p>퀴즈를 모두 푸셨군요. 당신의 인생 매트리스를 추천해 드립니다.</p>
-						<a href="#">매트리스 전 제품 보러가기</a>
+						<a href="/Shop/main">매트리스 전 제품 보러가기</a>
 					</div>
 					<div class="result_box">
 						<h2>Your Mattress Fit</h2>
 						<div class="recommend_wrap">
 							<c:forEach var="m" items="${quiz }">
 							<div class="recommend">
-								<a href="#">
-									<div class="img_wrap">
+								<a href="/Shop/buy?num=${m.no }">
+									<span class="img_wrap">
 										<img src="/images/quiz/${m.poster }" alt="얼티마 하이브리드 스프링 매트리스" title="얼티마 하이브리드 스프링 매트리스">
-									</div>
-									<div class="info">
-										<h3>${m.name }</h3>
-										<p class="summary">
+									</span>
+									<b class="info">
+									${m.name }
+										<em class="summary">
 											${m.text }
-										</p>
-										<span class="bar"></span>
-										<p class="price">
+										</em>
+										<em class="bar"></em>
+										<em class="price">
 											최저
 											<span><fmt:formatNumber value="${m.price }" pattern="#,###" /></span>
 											원
-										</p>
-									</div>
+										</em>
+									</b>
 								</a>
 							</div>
 							</c:forEach>

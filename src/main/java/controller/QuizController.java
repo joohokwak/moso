@@ -32,7 +32,6 @@ public class QuizController extends HttpServlet {
 			String q3 = req.getParameter("Q3");
 			String q4 = req.getParameter("Q4");
 			String sumQ = q1 + q2 + q3 + q4;
-			System.out.println(sumQ);
 
 			List<QuizDTO> list = qs.mattressQuiz(sumQ);
 			
