@@ -10,12 +10,12 @@ window.addEventListener('DOMContentLoaded', function () {
 	
 			if (scrollY > 50) {
 				content.classList.add('fixed');
-				admin.classList.add('on');
-				con.classList.add('on');
+				if (admin) admin.classList.add('on');
+				if (con) con.classList.add('on');
 			} else {
 				content.classList.remove('fixed');
-				admin.classList.remove('on');
-				con.classList.remove('on');
+				if (admin) admin.classList.remove('on');
+				if (con) con.classList.remove('on');
 			}
 		});
 	}
