@@ -80,7 +80,6 @@ public class ShoppingController extends HttpServlet {
 			//	客體 이미지
 			List<String> images = shopSer.imageName(number);
 			//	review
-			reviewAll = shopSer.buyReview(number);
 
 			
 			

@@ -9,7 +9,6 @@ import java.util.List;
 import common.DBCP;
 import common.Order;
 import common.Pagination;
-import dto.ItemReviewDTO;
 import dto.ShoppingDTO;
 
 public class ShoppingDAO extends DBCP {
@@ -239,57 +238,4 @@ public class ShoppingDAO extends DBCP {
 		
 		return images;
 	}
-	
-	// 리뷰 정보 가져오기
-	
-	public List<ItemReviewDTO> buyReview(int num){
-		List<ItemReviewDTO> list = new ArrayList<>();
-		
-		try {
-			conn = getConn();
-			
-			String sql = "";
-			
-			sql += "SELECT                ";
-			sql += "  irf.NO               ";
-			sql += ", ir.TITLE            ";
-			sql += ", ir.WRITER           ";
-			sql += ", ir.REGDATE          ";
-			sql += ", ir.CONTENT          ";
-			sql += ", ir.RATING           ";
-			sql += ", ir.ITEMNO           ";
-			sql += ", irf.OFILE           ";
-			sql += ", irf.NFILE           ";
-			sql += " FROM ITEM_REVIEW ir LEFT OUTER JOIN ITEM_REVIEW_FILE irf ON IR.NO = IRF.REVIEWNO " ;
-			sql += " WHERE ir.ITEMNO = ?";
-			
-			
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, num);
-			
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				ItemReviewDTO dto = new ItemReviewDTO();
-				
-				dto.setNo(rs.getInt("no"));
-				dto.setTitle(rs.getString("title"));
-				dto.setRating(rs.getInt("rating"));
-				dto.setRegdate(rs.getString("regdate"));
-				dto.setContent(rs.getString("content"));
-				dto.setItemno(rs.getInt("itemno"));
-				dto.setOfile(rs.getString("ofile"));
-				dto.setNfile(rs.getString("nfile"));
-				
-				list.add(dto);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps, rs);
-		}
-		return list;
-	}
-	
 }
