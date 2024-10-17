@@ -59,6 +59,22 @@ public class NoticeDAO extends DBCP {
 		return list;
 	}
 	
+	public void getVisitCount(int no) {
+		try {
+			conn = getConn();
+			String sql = "UPDATE NOTICE SET VISITCOUNT = VISITCOUNT + 1 WHERE NO=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			
+			ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+	}
+	
 	public NoticeDTO getSelectOne(int num) {
 		NoticeDTO dto = null;
 		
@@ -155,22 +171,28 @@ public class NoticeDAO extends DBCP {
 		return result;
 	}
 	
-	public int getDeleteView(String no) {
+	public int getNoticeUpdate (NoticeDTO dto) {
 		int result = 0;
 		try {
 			conn = getConn();
-			String sql = "DELETE FROM NOTICE WHERE NO=?";
-			
+			String sql = "UPDATE NOTICE SET TITLE=?, CONTENT=? WHERE NO=?";
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, Integer.parseInt(no));
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getContent());
+			ps.setInt(3, dto.getNo());
 			
 			result = ps.executeUpdate();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		} finally {
 			close(conn, ps, rs);
 		}
 		return result;
 	}
 }
+
+
+
+
+

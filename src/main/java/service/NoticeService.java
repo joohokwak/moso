@@ -14,5 +14,5 @@ public interface NoticeService {
 	
 	boolean deleteNotice(String[] selNo);
 	
-	boolean deleteView(String no);
+	boolean noticeUpdate(NoticeDTO dto);
 }

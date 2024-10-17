@@ -45,8 +45,8 @@
 									<c:if test="${not empty list.ofile }"><img src="/images/notice/icon_board_attach_file.png"></c:if>
 								</a>
 							</td>
-							<td>${list.regdate }</td>
-							<td>${list.visitcount }</td>
+							<td class="notice_date">${list.regdate }</td>
+							<td class="notice_visit">${list.visitcount }</td>
 						</tr>
 					</c:forEach>
 					</tbody>
