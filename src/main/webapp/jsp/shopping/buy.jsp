@@ -108,7 +108,7 @@
 						</div>
 						<div class="buttons">
 							<a href="#" class="payment">결제하기</a>
-							<a href="/Shop/Cart" class="cart">장바구니</a>
+							<a href="#" class="cart" data-item="${dto }">장바구니</a>
 							<a href="#" class="like" data-no="${dto.no }" data-islogin="${not empty member }">
 								<img src="${(dto.id eq member.id) and (dto.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요">
 							</a>
