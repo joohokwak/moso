@@ -18,7 +18,7 @@
 						<a href="board/list.php?bdId=investor" class="fw">IR</a>
 					</li>
 					<li>
-						<a href="https://www.zinus.co.kr/board/list.php?bdId=notice" class="fw">공지사항</a>
+						<a href="/Notice/list" class="fw">공지사항</a>
 					</li>
 					<li>
 						<a href="board/write.php?&bdId=cooperation" class="fw">제휴 문의</a>

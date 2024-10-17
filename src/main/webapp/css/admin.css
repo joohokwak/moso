@@ -60,6 +60,9 @@
 	background-color: var(--point-color1);
 	padding: 30px 15px;
 	border-radius: 10px;
+	height: 450px;
+	position: sticky;
+	top: 100px;
 }
 
 .admin_content_left ul>li {
