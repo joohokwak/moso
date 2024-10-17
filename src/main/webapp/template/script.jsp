@@ -30,6 +30,7 @@
 
 <!-- 매거진 -->
 <script src="/js/brand.js?v=${version }"></script>
+<script src="/js/quiz.js?v=${version }"></script>
 
 <!-- 공지사항 -->
 <script src="/js/notice.js?v=${version }"></script>

@@ -79,7 +79,7 @@ public class QuizDAO extends DBCP {
 					sql += " WHERE (POSTER LIKE '%050%' OR POSTER LIKE '%053%') ";
 					break;
 					
-				case "2121": case "2122": case "2321": case "2322":
+				case "2121": case "2122": case "2321": case "2322": case "2331":
 					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%071%') ";
 					break;
 					
@@ -95,6 +95,65 @@ public class QuizDAO extends DBCP {
 					sql += " WHERE (POSTER LIKE '%025%')						";
 					break;
 					
+				case "2332":
+					sql += " WHERE (POSTER LIKE '%032%' OR POSTER LIKE '%071%') ";
+					break;
+					
+				case "3111": case "3112": case "3222": case "3321": case "3322":
+					sql += " WHERE (POSTER LIKE '%058%' OR POSTER LIKE '%082%') ";
+					break;
+					
+				case "3121":
+					sql += " WHERE (POSTER LIKE '%069%' OR POSTER LIKE '%082%') ";
+					break;
+					
+				case "3122":
+					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%032%') ";
+					break;
+					
+				case "3131":
+					sql += " WHERE (POSTER LIKE '%071%' OR POSTER LIKE '%096%') ";
+					break;
+					
+				case "3132":
+					sql += " WHERE (POSTER LIKE '%050%' OR POSTER LIKE '%071%') ";
+					break;
+					
+				case "3211": case "3212": case "3311": case "3312":
+					sql += " WHERE (POSTER LIKE '%048%' OR POSTER LIKE '%073%') ";
+					break;
+					
+				case "3221":
+					sql += " WHERE (POSTER LIKE '%058%' OR POSTER LIKE '%087%') ";
+					break;
+					
+				case "3231": case "3232": case "3331": case "3332":
+					sql += " WHERE (POSTER LIKE '%053%' OR POSTER LIKE '%085%') ";
+					break;
+					
+				case "4111": case "4112": case "4231": case "4232":
+					sql += " WHERE (POSTER LIKE '%025%') ";
+					break;
+					
+				case "4121": case "4122": case "4131": case "4321": case "4322": case "4331":
+					sql += " WHERE (POSTER LIKE '%071%') ";
+					break;
+					
+				case "4132": case "4332":
+					sql += " WHERE (POSTER LIKE '%050%') ";
+					break;
+					
+				case "4211": case "4212": 
+					sql += " WHERE (POSTER LIKE '%073%' OR POSTER LIKE '%087%') ";
+					break;
+					
+				case "4221": 
+					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%069%') ";
+					break;
+					
+				case "4222": case "4311": case "4312":
+					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%032%') ";
+					break;
 				
 				default: break;
 			}
