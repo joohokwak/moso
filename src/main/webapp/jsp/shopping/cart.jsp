@@ -78,7 +78,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th>
+						<th align="center">
 							<div class="checkbox1_wrap">
 								<label class="checkbox1"></label> <input type="checkbox">
 							</div>
@@ -100,7 +100,7 @@
 				<p>
 					<strong>합계 금액</strong><br>( 상품금액 + 설치배송비 )
 				</p>
-				<span>1,182,000</span> <i></i>
+				<span>0</span> <i></i>
 			</div>
 			<div>
 				<p>할인 금액 합계</p>
@@ -108,11 +108,11 @@
 			</div>
 			<div>
 				<p>배송비</p>
-				<span>0</span> <i class="i3"></i>
+				<span>0원</span> <i class="i3"></i>
 			</div>
 			<div>
 				<p>결제 예정 금액</p>
-				<span>1,182,000</span>
+				<span>0</span>
 			</div>
 		</div>
 		<div class="button_tab">
