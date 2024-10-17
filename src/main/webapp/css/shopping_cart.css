@@ -28,7 +28,7 @@
 
 #shopping_cart td {
 	border-bottom: 1px solid #ededed;
-	padding: 10px;
+	padding: 10px 0;
 }
 
 #shopping_cart .checkbox1_wrap {
@@ -80,6 +80,7 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 10px;
+	padding-left: 10px;
 }
 
 #shopping_cart .goods_info .info {
