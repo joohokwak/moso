@@ -47,15 +47,19 @@ window.addEventListener('DOMContentLoaded', function() {
 				noneBro(e.currentTarget).forEach((i) => {
 					i.classList.remove('active');
 				});
-
+				
 				sizes[idx].classList.add('active');
 
-				if (sizes[0].classList.contains('active')) {
-					addPr = 80 / 100;
-				} else if (sizes[1].classList.contains('active')) {
-					addPr = 90 / 100;
-				} else if (sizes[2].classList.contains('active')) {
+				if (this.textContent === 'S') {
+					addPr = 0.8;
+				} else if (this.textContent === 'SS') {
+					addPr = 0.9;
+				} else if (this.textContent === 'Q') {
 					addPr = 1;
+				} else if (this.textContent === 'K') {
+					addPr = 1.1;
+				} else if (this.textContent === 'LK') {
+					addPr = 1.2;
 				} else {
 					addPr = 0;
 				}
