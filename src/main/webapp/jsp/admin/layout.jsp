@@ -44,7 +44,6 @@
 									<li><a href="#" data-tit="materials"class="${menu eq 'materials'? 'active' : '' }">조립설명서</a></li>
 									<li><a href="#" data-tit="catalog" 	class="${menu eq 'catalog' 	? 'active' : '' }">카탈로그</a></li>
 									<li><a href="#" data-tit="notice" 	class="${menu eq 'notice' 	? 'active' : '' }">공지사항</a></li>
-									<li><a href="#" data-tit="partner" 	class="${menu eq 'partner' 	? 'active' : '' }">매장</a></li>
 								</ul>
 							</div>
 							<div class="admin_content_right">
