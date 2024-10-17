@@ -55,7 +55,7 @@ window.addEventListener('DOMContentLoaded', function () {
 		contentNo.addEventListener('click', function(){
 			const cntNo = this.dataset.no;
 			confirm('글을 삭제하시겠습니까?', ()=>{
-				location.href='/Notice/deleteView?no=' + cntNo;
+				location.href='/Notice/delete?no=' + cntNo;
 				})
 		})
 	}

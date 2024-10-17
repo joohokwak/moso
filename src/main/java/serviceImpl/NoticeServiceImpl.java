@@ -21,6 +21,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public NoticeDTO selectOne(int no) {
+		dao.getVisitCount(no);
 		return dao.getSelectOne(no);
 	}
 
@@ -35,8 +36,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public boolean deleteView(String no) {
-		return dao.getDeleteView(no) > 0;
+	public boolean noticeUpdate(NoticeDTO dto) {
+		return dao.getNoticeUpdate(dto) > 0;
 	}
 
 }

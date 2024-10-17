@@ -12,28 +12,30 @@
 					<li><a href="#">공지사항/공시</a></li>
 				</ul>
 			</div>
-			<table class="notice_view_table">
-				<tbody>
-					<tr>
-						<td class="tit" width="15%">제목</td>
-						<td width="80%">${dto.title }</td>
-					</tr>
-					<tr>
-						<td class="tit" width="15%">등록일</td>
-						<td width="80%">${dto.regdate }</td>
-					</tr>
-					<tr>
-						<td class="tit" width="15%">조회수</td>
-						<td width="80%">${dto.visitcount }</td>
-					</tr>
-				</tbody>
-			</table>
-					<div class="view_content">${dto.content }</div>
-
-			<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
-				<button class="btn write_btn">수정</button>
-				<button class="btn delete_btn" data-no="${dto.no }">삭제</button>
+			<div class="notice_view_wrap">
+				<div class="notice_view_head">
+					<div class="notice_view_tit">
+						<strong>제목</strong>
+						<h2>${dto.title }</h2>
+					</div>
+					<div class="notice_view_info">
+						<strong>등록일</strong>
+						<h2>${dto.regdate }</h2>
+					</div>
+					<div class="notice_view_info">
+						<strong>조회수</strong>
+						<h2>${dto.visitcount }</h2>
+					</div>
+				</div>
 			</div>
+			<div class="notice_view_body">${dto.content }</div>
+		</div>
+		<div class="back_to_list">
+			<a href="/Notice/list">목록보기</a>
+		</div>
+		<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
+			<button class="btn update_btn" onclick="location.href='/Notice/update?no=${dto.no}'" >수정</button>
+			<button class="btn delete_btn" data-no="${dto.no }">삭제</button>
 		</div>
 	</div>
 </div>

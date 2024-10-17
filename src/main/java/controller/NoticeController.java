@@ -67,24 +67,22 @@ public class NoticeController extends HttpServlet {
 			sc.deleteNotice(selNo.split(","));
 			resp.sendRedirect("/Notice/list");
 			return;
-		
-		// 상세보기 글삭제
-		} else if (action.equals("/deleteView")) {
-			String viewNo = req.getParameter("no");
-			//System.out.println(viewNo);
-			
-			sc.deleteView(viewNo);
-			resp.sendRedirect("/Notice/list");
-			return;
 			
 		// 글수정
 		} else if (action.equals("/update")) {
+			int no = Integer.parseInt(req.getParameter("no"));
+			NoticeDTO dto = new NoticeDTO();
 			
+			dto = sc.selectOne(no);
+			req.setAttribute("dto", dto);
 			
 		// 글수정OK
 		} else if (action.equals("/updateOk")) {
+			NoticeDTO dto = Common.convert(req, new NoticeDTO());
+			sc.noticeUpdate(dto);
 			
-			
+			resp.sendRedirect("/Notice/list");
+			return;
 		}
 		
 		req.setAttribute("layout", "/notice" + action);
