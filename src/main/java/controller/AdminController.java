@@ -14,11 +14,13 @@ import common.Pagination;
 import dto.MemberDTO;
 import service.CatalogService;
 import service.FaqService;
+import service.MagazineService;
 import service.MaterialsService;
 import service.MemberService;
 import service.NoticeService;
 import serviceImpl.CatalogServiceImpl;
 import serviceImpl.FaqServiceImpl;
+import serviceImpl.MagazineServiceImpl;
 import serviceImpl.MaterialsServiceImpl;
 import serviceImpl.MemberServiceImpl;
 import serviceImpl.NoticeServiceImpl;
@@ -61,6 +63,17 @@ public class AdminController extends HttpServlet {
 			req.setAttribute("layout", "/member" + action);
 			req.getRequestDispatcher("/layout.jsp").forward(req, resp);
 			return;
+			
+			
+		// 매거진 목록
+		} else if (action.equals("/brand")) {
+			MagazineService ms = new MagazineServiceImpl();
+			
+			Pagination pg = Common.getParameter(req);
+			pg.setPageSize(4);
+			
+			req.setAttribute("list", ms.magazineList(pg));
+			req.setAttribute("paging", pg.paging(req));
 			
 		// FAQ 목록
 		} else if (action.equals("/faq")) {
