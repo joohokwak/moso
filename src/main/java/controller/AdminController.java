@@ -7,15 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.Common;
 import common.Pagination;
+import dto.MemberDTO;
 import service.CatalogService;
 import service.FaqService;
+import service.MaterialsService;
 import service.MemberService;
 import service.NoticeService;
 import serviceImpl.CatalogServiceImpl;
 import serviceImpl.FaqServiceImpl;
+import serviceImpl.MaterialsServiceImpl;
 import serviceImpl.MemberServiceImpl;
 import serviceImpl.NoticeServiceImpl;
 
@@ -27,6 +31,14 @@ public class AdminController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html; charset=utf-8");
+		
+		// 로그인 되어 있지 않거나, 관리자가 아닌경우 진입하지 못하도록
+		HttpSession session = req.getSession();
+		MemberDTO user = (MemberDTO) session.getAttribute("member");
+		if (user == null || !"Y".equals(user.getIsadmin()))  {
+			resp.sendRedirect("/");
+			return;
+		}
 		
 		String action = req.getPathInfo();
 		
@@ -66,6 +78,16 @@ public class AdminController extends HttpServlet {
 			Pagination pg = Common.getParameter(req);
 			
 			req.setAttribute("list", cs.selectList(pg));
+			req.setAttribute("paging", pg.paging(req));
+			
+		// 조립설명서 목록
+		} else if (action.equals("/materials")) {
+			MaterialsService ms = new MaterialsServiceImpl();
+			
+			Pagination pg = Common.getParameter(req);
+			pg.setPageSize(5);
+			
+			req.setAttribute("list", ms.selectList(pg));
 			req.setAttribute("paging", pg.paging(req));
 			
 		// 공지사항 목록
