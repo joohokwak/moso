@@ -35,7 +35,7 @@ public class QuizDAO extends DBCP {
 					break;
 					
 				case "1122": case "2111": case "2112": case "2222": 
-				case "2231": case "2311": case "2312":
+				case "2311": case "2312":
 					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%032%') ";
 					break;
 					
@@ -79,7 +79,7 @@ public class QuizDAO extends DBCP {
 					sql += " WHERE (POSTER LIKE '%050%' OR POSTER LIKE '%053%') ";
 					break;
 					
-				case "2121": case "2122": case "2231": case "2321":
+				case "2121": case "2122": case "2321": case "2322":
 					sql += " WHERE (POSTER LIKE '%025%' OR POSTER LIKE '%071%') ";
 					break;
 					
@@ -95,9 +95,6 @@ public class QuizDAO extends DBCP {
 					sql += " WHERE (POSTER LIKE '%025%')						";
 					break;
 					
-				case "2322":
-					sql += " WHERE (POSTER LIKE '%0%' OR POSTER LIKE '%0%')		";
-					break;
 				
 				default: break;
 			}
