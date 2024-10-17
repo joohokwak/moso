@@ -41,7 +41,7 @@
 									<li><a href="#" data-tit="shop" 	class="${menu eq 'shop' 	? 'active' : '' }">쇼핑</a></li>
 									<li><a href="#" data-tit="brand" 	class="${menu eq 'brand' 	? 'active' : '' }">브랜드</a></li>
 									<li><a href="#" data-tit="faq" 		class="${menu eq 'faq' 		? 'active' : '' }">FAQ</a></li>
-									<li><a href="#" data-tit="material"	class="${menu eq 'material'	? 'active' : '' }">조립설명서</a></li>
+									<li><a href="#" data-tit="materials"class="${menu eq 'materials'? 'active' : '' }">조립설명서</a></li>
 									<li><a href="#" data-tit="catalog" 	class="${menu eq 'catalog' 	? 'active' : '' }">카탈로그</a></li>
 									<li><a href="#" data-tit="notice" 	class="${menu eq 'notice' 	? 'active' : '' }">공지사항</a></li>
 									<li><a href="#" data-tit="partner" 	class="${menu eq 'partner' 	? 'active' : '' }">매장</a></li>

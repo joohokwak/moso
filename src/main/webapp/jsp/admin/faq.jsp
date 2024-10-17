@@ -23,6 +23,6 @@
 </div>
 
 <div class="btn_wrap">
-	<button type="button" class="btn write_btn">글쓰기</button>
+	<button type="button" class="btn write_btn">FAQ 등록</button>
 	<button type="button" class="btn delete_btn">선택삭제</button>
 </div>

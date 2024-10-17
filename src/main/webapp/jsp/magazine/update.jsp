@@ -32,6 +32,7 @@
 								</ul>
 								<input type="hidden" name="mtype" value="${magazine.mtype }">
 								<input type="hidden" name="no" value="${magazine.no }">
+								<input type="hidden" name="isadmin" value="${param.isadmin }">
 							</div>
 						</li>
 						<li><span>제목</span>

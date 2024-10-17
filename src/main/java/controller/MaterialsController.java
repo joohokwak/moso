@@ -95,7 +95,14 @@ public class MaterialsController extends HttpServlet {
 			}
 			
 			ms.updateMaterial(dto);
-			resp.sendRedirect("/Materials/list");
+			
+			String isadmin = req.getParameter("isadmin");
+			if ("Y".equals(isadmin)) {
+				resp.sendRedirect("/Admin/materials");
+			} else {
+				resp.sendRedirect("/Materials/list");
+			}
+			
 			return;
 		}
 		
