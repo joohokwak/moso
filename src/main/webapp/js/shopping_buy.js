@@ -71,31 +71,22 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	if (delivery.length) {
 		let price = priceEm.innerText;
-		let clickCnt = 0;
 		
 		delivery.forEach((item, idx) => {
 			item.addEventListener('click', function(e) {
 				e.preventDefault();
-				clickCnt++;
 
 				noneBro(e.currentTarget).forEach((i) => {
 					i.classList.remove('active');
 				});
 
 				// active동안 sizes값 변경 방지
-				delivery[idx].classList.add('active');
-				if (clickCnt === 2) {
-					delivery[idx].classList.remove('active');
-					clickCnt = 0;
-				}
+				delivery[idx].classList.toggle('active');
 				
-				if (clickCnt === 0) {
-					for (n = 0; n < sizes.length; n++) {
-						sizes[n].style.cssText = 'pointer-events: auto';
-					}
-					
-					detail.classList.remove('view');
+				for (n = 0; n < sizes.length; n++) {
+					sizes[n].style.cssText = 'pointer-events: auto';
 				}
+				detail.classList.toggle('view');
 
 				// 가격보기
 				if (delivery[idx].classList.contains('active')) {
