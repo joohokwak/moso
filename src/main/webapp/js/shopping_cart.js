@@ -21,6 +21,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			theadCheck.addEventListener('click', function() {
 				theadCheck.classList.toggle('on');
 				
+				// 하위 체크박스
 				const tbodyCheck = document.querySelectorAll('#cartItemBody .checkbox1_wrap');
 				if (this.classList.contains('on'))
 					tbodyCheck.forEach(v => v.classList.add('on'));
@@ -122,8 +123,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
 // 장바구니 아이템 세팅
 function setCartItem(itemList) {
-	let data = '';
-	let sumPrice = 0;
+	let data = '';		// 동적으로 생성될 요소 구성 변수
+	let sumPrice = 0;	// 합계 금액 처리 변수
 
 	if (itemList && itemList.length) {
 		for (const item of itemList) {
@@ -181,25 +182,28 @@ function setCartItem(itemList) {
 	}
 	
 	const cartItemBody = document.querySelector('#cartItemBody');
+	// 하위 목록 삭제 후 재구성
 	cartItemBody.replaceChildren();
 	cartItemBody.innerHTML = data;
 }
 
 // 상품삭제
 function deleteCartItem(itemList) {
-	console.log(itemList);
 	if (itemList && itemList.length) {
+		// 하위 체크 박스의 체크 여부 확인
 		const cartChkBtns = document.querySelectorAll('#shopping_cart td .checkbox1_wrap');
 		
 		const delArr = [];
+		// 체크된 목록의 인덱스값 얻기
 		cartChkBtns.forEach((v, i) => {
 			if (v.classList.contains('on')) {
 				delArr.push(i);
 			}
 		});
 		
+		// 체크된 값이 있다면
 		if (delArr.length) {
-			// 선택목록 필터링
+			// 체크 목록 필터링하여 기존 변수에 담기
 			itemList = itemList.filter((_, i) => !delArr.includes(i));
 			
 			// 스토리지에 다시 세팅
