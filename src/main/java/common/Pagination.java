@@ -81,6 +81,17 @@ public class Pagination {
 	public String paging(HttpServletRequest request) {
 		StringBuilder sb = new StringBuilder();
 		
+		// 첫페이지
+		if (hasFirstPage) {
+			sb.append("<a class='page_num' href='");
+			sb.append(request.getRequestURI());
+			sb.append("?pageNum=");
+			sb.append(1);
+			sb.append("'>");
+			sb.append("&lt;&lt;");
+			sb.append("</a>");
+		}
+		
 		// 이전페이지
 		if (hasPrevPage) {
 			sb.append("<a class='page_num' href='");
@@ -150,6 +161,17 @@ public class Pagination {
 			
 			sb.append("'>");
 			sb.append("&gt;");
+			sb.append("</a>");
+		}
+		
+		// 끝 페이지
+		if (hasLastPage) {
+			sb.append("<a class='page_num' href='");
+			sb.append(request.getRequestURI());
+			sb.append("?pageNum=");
+			sb.append(totalPage);
+			sb.append("'>");
+			sb.append("&gt;&gt;");
 			sb.append("</a>");
 		}
 		
