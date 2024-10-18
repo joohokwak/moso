@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import common.DBCP;
 import common.Order;
@@ -152,12 +154,11 @@ public class ShoppingDAO extends DBCP {
 			ps.setString(2, id);
 			
 			result = ps.executeUpdate();
-			
-			if (ps != null) ps.close();
-			if (conn != null) conn.close();
-			
+						
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
 		}
 		
 		return result;
@@ -241,7 +242,7 @@ public class ShoppingDAO extends DBCP {
 	}
 	
 	
-	public List<ItemReviewDTO> reviewAll(int num) {
+	public List<ItemReviewDTO> reviewAll(int num, Pagination pg) {
 		
 		conn = getConn();
 		List<ItemReviewDTO> list = new ArrayList<>();
@@ -254,12 +255,14 @@ public class ShoppingDAO extends DBCP {
 				sql += "	NO				       ";
 				sql += " , TITLE                   ";
 				sql += " , WRITER                  ";
-				sql += " , REGDATE                 ";
+				sql += " , TO_CHAR(REGDATE, 'yyyy-mm-dd') AS REGDATE";
 				sql += " , CONTENT                 ";
 				sql += " , RATING                  ";
 				sql += " , ITEMNO                  ";
 				sql += " FROM ITEM_REVIEW          ";
-				sql += " WHERE itemno = ?          ";
+				sql += " WHERE itemno = " + num;
+
+			sql = pg.getQuery(conn, sql);
 			
 			ps = conn.prepareStatement(sql);
 			
@@ -269,9 +272,13 @@ public class ShoppingDAO extends DBCP {
 				
 				ItemReviewDTO dto = new ItemReviewDTO();
 				
-				
-				
-				
+				dto.setNo(rs.getInt("NO"));
+				dto.setTitle(rs.getString("TITLE"));
+				dto.setWriter(rs.getString("WRITER"));
+				dto.setRegdate(rs.getString("REGDATE"));
+				dto.setContent(rs.getString("CONTENT"));
+				dto.setRating(rs.getInt("RATING"));
+				dto.setItemno(rs.getInt("ITEMNO")); 
 				
 				list.add(dto);
 			}
@@ -281,18 +288,78 @@ public class ShoppingDAO extends DBCP {
 		} finally {
 			close(conn, ps, rs);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		return list;
 	}
 	
+	public ShoppingDTO qnaItem(int itemno) {
+		
+		conn = getConn();
+		ShoppingDTO dto = new ShoppingDTO();
+		
+		try {
+			
+			String sql = "";
+			sql += "SELECT NO 				";
+				sql	+= " , NAME  			";
+				sql	+= " , TEXT				";
+				sql	+= " , POSTER 			";
+				sql	+= " FROM ITEM 			";
+				sql	+= " WHERE NO = ?		";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, itemno);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				dto.setNo(rs.getInt("NO"));
+				dto.setName(rs.getString("NAME"));
+				dto.setText(rs.getString("TEXT"));
+				dto.setPoster(rs.getString("POSTER"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		return dto;
+	}
+
+	public int quaCreate(ItemReviewDTO qnaCre) {
+		int rsu = 0;
+		conn = getConn();
+		try {
+			
+			String sql = "";
+				sql +="	INSERT INTO QNA VALUES(             ";
+				sql +="			SEQ_QNA.NEXTVAL             ";
+				sql +="			, ?        			        ";
+				sql +="			, ?        	   		        ";
+				sql +="			, ?         		        ";
+				sql +="			, ?            		        ";
+				sql +="			, ?  						";
+				sql +="			, SYSDATE                   ";
+				sql +="			, ?                         ";
+				sql +="				)                       ";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, qnaCre.getCate());
+			ps.setString(2, qnaCre.getWriter());
+			ps.setString(3, qnaCre.getPass());
+			ps.setString(4, qnaCre.getTitle());
+			ps.setString(5, qnaCre.getContent());
+			ps.setInt(6, qnaCre.getItemno());
+			
+			rsu = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		return rsu;
+	}
 	
 	
 }

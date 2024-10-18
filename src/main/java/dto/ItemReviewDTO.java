@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemReviewDTO {	
 	private int no;
+	private String cate;
 	private String title;
 	private String writer;
+	private String pass;
 	private String regdate;
 	private String content;
 	private int rating;
 	private int itemno;
-	private String ofile;
-	private String nfile;
 }

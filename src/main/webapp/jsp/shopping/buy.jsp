@@ -108,7 +108,7 @@
 						</div>
 						<div class="buttons">
 							<a href="#" class="payment">결제하기</a>
-							<a href="#" class="cart" data-item="${dto }">장바구니</a>
+							<a href="/Shop/cart?itemno=${dto.no }" class="cart" data-item="${dto }">장바구니</a>
 							<a href="#" class="like" data-no="${dto.no }" data-islogin="${not empty member }">
 								<img src="${(dto.id eq member.id) and (dto.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요">
 							</a>
@@ -425,7 +425,6 @@
 							<col style="width: 112px; text-align: center;">
 							<col style="width: 112px;">
 						</colgroup>
-						
 						<c:forEach var="rv" items="${review }">
 							<tbody class="display_view">
 								<tr>
@@ -440,21 +439,21 @@
 										</span>
 									</td>
 									<td class="board_content">
-										<a href="/Shop/buy?reviewNum=${rv.no}">good</a>
+										<a href="#">${rv.title }</a>
 										<span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span>
 									</td>
 									<td>
-										<p>이용준</p>
+										<p>${rv.writer }</p>
 									</td>
 									<td>
-										<p class="center">2024.05.31</p>
+										<p class="center">${rv.regdate }</p>
 									</td>
 								</tr>
 								<tr class="display none">
 									<td></td>
 									<td class="board_content">
 										<div class="board_main_content">
-											${rv.title }
+											${rv.content }
 										</div>
 										<div>
 											<p><span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span><strong>첨부파일</strong><i class="file_name">jpg</i></p>
@@ -465,46 +464,12 @@
 								</tr>
 							</tbody>
 						</c:forEach>
-						
-						<tbody class="board_body">
-							<tr>
-								<td>
-									<span class="rating">
-										<img src="/images/shopping/star-fill.png" alt="별점">
-										<img src="/images/shopping/star-fill.png" alt="별점">
-										<img src="/images/shopping/star-fill.png" alt="별점">
-										<img src="/images/shopping/star-fill.png" alt="별점">
-										<img src="/images/shopping/star-fill.png" alt="별점">
-									</span>
-								</td>
-								<td class="board_content">
-									<a href="#">푹신해서 너무 좋아요</a>
-										<span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span>
-									</td>
-								<td>
-									<p>이용준</p>
-								</td>
-								<td>
-									<p class="center">2024.05.31</p>
-								</td>
-							</tr>
-						</tbody>
 					</table>
 					<div class="pagination">
-						<span class="page_num active">1</span>
-						<span class="page_num">
-							<a href="#">2</a>
-						</span>
-						<span class="page_num">
-							<a href="#">3</a>
-						</span>
-						<span class="page_num">
-							<a href="#">4</a>
-						</span>
+						${paging }
 					</div>
 				</div>
 			</div>
-
 			<div id="view_question" class="shopping_borad">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>
@@ -514,10 +479,10 @@
 				</div>
 				<div class="board_inner">
 					<div class="board_top">
-						<h3>리뷰</h3>
+						<h3>Q&A</h3>
 						<div class="board_btn">
 							<button class="board_all">고객센터</button>
-							<button class="board_write" type="button" onclick="window.location.href='/shopping_wirte'">Q&amp;A 등록</button>
+							<button class="board_write qna" type="button" data-no="${dto.no }">Q&amp;A 등록</button>
 						</div>
 					</div>
 					<table class="board_body">
@@ -576,13 +541,11 @@
 					
 					<!-- 페이징 -->
 					<div class="pagination">
-						<span class="page_num active">1</span>
-						<span class="page_num"><a href="#">2</a></span>
-						<span class="page_num"><a href="#">3</a></span>
-						<span class="page_num"><a href="#">4</a></span>
+						
 					</div>
 				</div>
 			</div>
+			
 			
 			<div id="view_service">
 				<div class="shopping_go_tab">
@@ -694,7 +657,6 @@
 					</p>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>

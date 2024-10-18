@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', function() {
 								this.children[0].src = src.replace('wish_off.png', 'wish_on.png');
 							} else {
 								this.children[0].src = src.replace('wish_on.png', 'wish_off.png');
-							}	
+							}
 						}
 					}).catch(err => console.log(err));
 					
