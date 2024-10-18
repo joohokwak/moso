@@ -19,4 +19,18 @@ window.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 	}
+	
+	const magazinedelete = document.querySelectorAll('.brand_section .delete_btn');
+	
+	if(magazinedelete) {
+		magazinedelete.forEach(btn => {
+			btn.addEventListener('click', function(e) {
+				e.preventDefault();
+				confirm('삭제하시겠습니까?', () => {
+					location.href='/Magazine/delete?no=' + this.dataset.no;
+				});
+			});
+		});
+	}
+	
 });

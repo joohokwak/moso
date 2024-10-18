@@ -34,7 +34,7 @@
 						<a href="/Magazine/magazine">목록</a>
 						<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
 							<a href="/Magazine/update?no=${magazine.no }">수정</a>
-							<a href="#">삭제</a>
+							<a href="#" class="delete_btn" data-no=${magazine.no }>삭제</a>
 						</div>
 					</div>
 				</div>

@@ -54,7 +54,7 @@ public class MagazineController extends HttpServlet {
 			req.setAttribute("magazine", mgs.magazineList(pg));
 			req.setAttribute("paging", pg.paging(req));
 			
-		// 수정페이지
+		// 글수정
 		} else if (action.equals("/update")) {
 			String no = req.getParameter("no");
 			int mu = Integer.parseInt(no);
@@ -69,6 +69,29 @@ public class MagazineController extends HttpServlet {
 			resp.sendRedirect("/Magazine/view?no=" + dto.getNo());
 			return;
 			
+		// 글쓰기
+		} else if(action.equals("/writeOk")) {
+//			System.out.println(req.getParameter("title"));
+//			System.out.println(req.getParameter("text"));
+//			System.out.println(req.getParameter("poster"));
+//			System.out.println(req.getParameter("content"));
+//			System.out.println(req.getParameter("mtype"));
+			
+			MagazineDTO dto = Common.convert(req, new MagazineDTO());
+			
+			mgs.magazineWriteOk(dto);
+			
+			resp.sendRedirect("/Magazine/magazine");
+			return;
+			
+		// 글삭제
+		} else if (action.equals("/delete")) {
+			int no = Integer.parseInt(req.getParameter("no"));
+			mgs.magazineDelete(no);
+			
+			resp.sendRedirect("/Magazine/magazine");
+			return;
+		
 		}
 		
 		req.setAttribute("layout", "/magazine" + action);

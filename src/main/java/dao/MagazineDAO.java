@@ -108,4 +108,54 @@ public class MagazineDAO extends DBCP {
 		return result;
 	}
 	
+	// 글쓰기
+	public int magazineWriteOk(MagazineDTO dto) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			String sql = "INSERT INTO MAGAZINE VALUES(SEQ_MAGAZINE.NEXTVAL, ?, ?, ?, ?, SYSDATE, ?)";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getText());
+			ps.setString(3, dto.getPoster());
+			ps.setString(4, dto.getContent());
+			ps.setString(5, dto.getMtype());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
+	}
+	
+	// 글삭제
+	public int magazineDelete(int no) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			String sql = "DELETE FROM MAGAZINE WHERE NO=?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
+	}
+	
 }
