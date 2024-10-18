@@ -34,20 +34,62 @@ window.addEventListener('DOMContentLoaded', function() {
 		const showOption = document.querySelector('#shopping_cart .select_option');
 		const changBtn = document.querySelectorAll('#shopping_cart .goods_info .change_btn ');
 		const closeBtn = document.querySelector('#shopping_cart .select_option .top .close_btn');
+		const cartModal = document.querySelector('.cart_modal_dim');
 		
-		// 수정
+		// 옵션/수량변경 버튼 클릭시 옵션 모달 열기
 		if (changBtn) {
 			changBtn.forEach((item) => {
 				item.addEventListener('click', function() {
 					showOption.classList.remove('off');
+					cartModal.classList.add('on');
+					
+					const $item = JSON.parse(this.dataset.option);
+					const $idx = this.dataset.idx;
+					
+					// 모달창 옵션 세팅
+					const modalSizeName = document.querySelector('.select_tab .size_names');
+					modalSizeName.replaceChildren();
+					let _sizeData = `<button data-idx='${$idx}'>${$item.size}</button>`;
+					_sizeData += `<ul class="option1">`;
+					_sizeData += `<li>= 사이즈 선택 =</li>`;
+					
+					const _sizeArr = $item.sizename.split(',');
+					for (const _s of _sizeArr) {
+						_sizeData += `<li>${_s}</li>`;
+					}
+					_sizeData += `</ul>`;
+					modalSizeName.innerHTML = _sizeData;
+					
+					// 배송설치 옵션 세팅
+					const modalShippings = document.querySelector('.select_tab .shippings');
+					modalShippings.replaceChildren();
+					let _shippingData = `<button data-idx='${$idx}'>${$item.loc} : +${$item.plusPrice} : 36개</button>`;
+					_shippingData += `<ul class="option1">`;
+					_shippingData += `<li>= 설치배송여부 선택 : 가격 : 재고 =</li>`;
+					_shippingData += `<li><span>미신청</span> : <span>0</span> : 150개</li>`;
+					_shippingData += `<li><span>수도권</span> : <span>+16,000원</span> : 36개</li>`;
+					_shippingData += `<li><span>지방</span> : <span>+30,000원</span> : 36개</li>`;
+					_shippingData += `<li><span>제주도</span> : <span>+46,000원</span> : 37개</li>`;
+					_shippingData += `</ul>`;
+					modalShippings.innerHTML = _shippingData;
+					
+					// 선택금액 세팅
+					const _cost1 = document.querySelector('#shopping_cart .cost1 span');
+					_cost1.innerHTML = comma($item.totalPrice);
+					
+					// 최종금액 세팅
+					const _cost2 = document.querySelector('#shopping_cart .cost2 span');
+					_cost2.innerHTML = comma($item.totalPrice);
+					
 				});
 			});
 		}
 		
-		// 닫기
+		// 옵션/수량 변경 모달 닫기
 		if (closeBtn) {
 			closeBtn.addEventListener('click', function() {
 				showOption.classList.add('off');
+				cartModal.classList.remove('on');
 			});
 		}
 		
@@ -58,6 +100,45 @@ window.addEventListener('DOMContentLoaded', function() {
 				item.addEventListener('click', function() {
 					item.classList.toggle('on');
 				});
+			});
+		}
+		
+		// 옵션 내부 확인 버튼
+		const modalOkBtn = document.querySelector('#shopping_cart .op_update');
+		if (modalOkBtn) {
+			modalOkBtn.addEventListener('click', function() {
+				const $size = selectOp[0].children[0];
+				const $sipp = selectOp[1].children[0];
+				const $idxs = $size.dataset.idx;
+				
+				$item.size = $size.textContent;
+				$item.loc = $sipp.textContent.split(":")[0].trim();
+				$item.plusPrice = parseInt($sipp.textContent.split(":")[1].trim());
+				
+				// TODO: 아씨 머리가 안돌아 간다!!!!!!!!!!!!!!!!
+				
+				storageItem[$idxs] = $item;
+				setCartItem(storageItem);
+				closeBtn.click();
+			});
+		}
+		
+		// 옵션 선택
+		const _sizeOpSelected = document.querySelectorAll('#shopping_cart .select_option .select_wrap1 li');
+		if (_sizeOpSelected) {
+			_sizeOpSelected.forEach(v => {
+				v.addEventListener('click', function() {
+					console.log(11);
+					v.closest('.select_wrap1').children[0].innerText = v.textContent;
+				});
+			});
+		}
+		
+		// 옵션 내부 취소 버튼
+		const modalCancelBtn = document.querySelector('#shopping_cart .op_cancel');
+		if (modalCancelBtn) {
+			modalCancelBtn.addEventListener('click', function() {
+				closeBtn.click();
 			});
 		}
 	}
@@ -125,10 +206,13 @@ window.addEventListener('DOMContentLoaded', function() {
 function setCartItem(itemList) {
 	let data = '';		// 동적으로 생성될 요소 구성 변수
 	let sumPrice = 0;	// 합계 금액 처리 변수
+	let idx = 0;
 
 	if (itemList && itemList.length) {
 		for (const item of itemList) {
 			sumPrice += parseInt(item.totalPrice);
+			const _op = JSON.stringify(item);
+			
 			data += `
 				<tr>
 					<td align="center">
@@ -155,7 +239,7 @@ function setCartItem(itemList) {
 								</li>
 							</ul>
 						</div>
-						<button type="button" class="change_btn">옵션/수량변경</button>
+						<button type="button" class="change_btn" data-idx='${idx}' data-option='${_op}'>옵션/수량변경</button>
 					</td>
 					<td class="number_input"><input type="text" value="1">
 						<button type="button">수정</button>
@@ -166,6 +250,8 @@ function setCartItem(itemList) {
 					<td class="total_cost">${comma(parseInt(item.totalPrice))}원</td>
 				</tr>
 			`;
+			
+			idx++;
 		}
 		
 		// 합계 금액

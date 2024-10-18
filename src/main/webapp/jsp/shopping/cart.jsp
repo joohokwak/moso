@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="shopping_cart">
+	<div class="cart_modal_dim"></div>
 	<div class="select_option off">
 		<div class="top">
 			<h3>옵션선택</h3>
@@ -21,7 +22,7 @@
 				</div>
 				<div class="select_tab">
 					<span>사이즈</span>
-					<div class="select_wrap1">
+					<div class="select_wrap1 size_names">
 						<button>Q</button>
 						<ul class="option1">
 							<li>= 사이즈 선택 =</li>
@@ -31,14 +32,14 @@
 						</ul>
 					</div>
 					<span>설치배송여부</span>
-					<div class="select_wrap1">
+					<div class="select_wrap1 shippings">
 						<button>수도권 : +172,000 : 36개</button>
 						<ul class="option1">
 							<li>= 설치배송여부 선택 : 가격 : 재고 =</li>
-							<li>미신청 : +150,000 : 150개</li>
-							<li>수도권 : +172,000 : 36개</li>
-							<li>지방 : +191,000 : 36개</li>
-							<li>제주도 : +214,000 : 37개</li>
+							<li><span>미신청</span> : <span>0</span> : 150개</li>
+							<li><span>수도권</span> : <span>+16,000원</span> : 36개</li>
+							<li><span>지방</span> : <span>+30,000원</span> : 36개</li>
+							<li><span>제주도</span> : <span>+46,000원</span> : 37개</li>
 						</ul>
 					</div>
 				</div>
@@ -54,12 +55,13 @@
 				<div class="cost">
 					<div class="cost1">
 						<p>
-							<strong> 선택금액 </strong> <span>1,182,000</span> 원
+							<strong> 선택금액 </strong>
+							<span>0</span> 원
 						</p>
 					</div>
 					<div class="cost2">
 						<p>
-							<span>1,182,000</span> 원
+							<span>0</span> 원
 						</p>
 					</div>
 				</div>
@@ -67,8 +69,8 @@
 		</div>
 		
 		<div class="bottom">
-			<button type="button">취소</button>
-			<button type="button">확인</button>
+			<button type="button" class="op_cancel">취소</button>
+			<button type="button" class="op_update">확인</button>
 		</div>
 	</div>
 	
