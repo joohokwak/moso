@@ -4,7 +4,7 @@
 		<div class="top">
 			<h3>옵션선택</h3>
 			<span class="close_btn">
-				<img src="/images/shopping/shopping_cart/layer-close.png" alt="">
+				<img src="/images/shopping/layer-close.png" alt="">
 			</span>
 		</div>
 		
@@ -44,11 +44,11 @@
 				</div>
 				<div class="num_btn">
 					<button type="button">
-						<img src="/images/shopping/shopping_cart/count-minus.png" alt="빼기">
+						<img src="/images/shopping/count-minus.png" alt="빼기">
 					</button>
 					<input type="text" value="1">
 					<button type="button">
-						<img src="/images/shopping/shopping_cart/count-plus.png" alt="더하기">
+						<img src="/images/shopping/count-plus.png" alt="더하기">
 					</button>
 				</div>
 				<div class="cost">

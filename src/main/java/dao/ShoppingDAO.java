@@ -9,6 +9,7 @@ import java.util.List;
 import common.DBCP;
 import common.Order;
 import common.Pagination;
+import dto.ItemReviewDTO;
 import dto.ShoppingDTO;
 
 public class ShoppingDAO extends DBCP {
@@ -238,4 +239,60 @@ public class ShoppingDAO extends DBCP {
 		
 		return images;
 	}
+	
+	
+	public List<ItemReviewDTO> reviewAll(int num) {
+		
+		conn = getConn();
+		List<ItemReviewDTO> list = new ArrayList<>();
+		
+		try {
+			
+			String sql = "";
+			
+				sql += "SELECT			           ";
+				sql += "	NO				       ";
+				sql += " , TITLE                   ";
+				sql += " , WRITER                  ";
+				sql += " , REGDATE                 ";
+				sql += " , CONTENT                 ";
+				sql += " , RATING                  ";
+				sql += " , ITEMNO                  ";
+				sql += " FROM ITEM_REVIEW          ";
+				sql += " WHERE itemno = ?          ";
+			
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				ItemReviewDTO dto = new ItemReviewDTO();
+				
+				
+				
+				
+				
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return list;
+	}
+	
+	
+	
 }

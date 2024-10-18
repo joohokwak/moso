@@ -135,7 +135,7 @@
 }
 
 #shopping_write .checkbox1_wrap::after {
-	background: url(/images/shopping/shopping_cart/check-off-s.png)
+	background: url(/images/shopping/check-off-s.png)
 		no-repeat center;
 	content: "";
 	position: absolute;
@@ -146,11 +146,11 @@
 }
 
 #shopping_write .checkbox1_wrap:hover::after {
-	background: url(/images/shopping/shopping_cart/check-ov-s.png);
+	background: url(/images/shopping/check-ov-s.png);
 }
 
 #shopping_write .checkbox1_wrap.on::after {
-	background: url(/images/shopping/shopping_cart/check-on-s.png);
+	background: url(/images/shopping/check-on-s.png);
 }
 
 #shopping_write .container .content p {
