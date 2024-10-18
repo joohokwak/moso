@@ -51,4 +51,9 @@ public class CatalogServiceImpl implements CatalogService {
 	public boolean deleteCatalog(CatalogDTO dto) {
 		return dao.deleteCatalog(dto) > 0;
 	}
+
+	@Override
+	public boolean deleteCatalog(String[] no) {
+		return dao.deleteCatalog(no) > 0;
+	}
 }

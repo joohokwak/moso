@@ -329,4 +329,32 @@ public class CatalogDAO extends DBCP {
 		
 		return result;
 	}
+	
+	public int deleteCatalog(String[] no) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			for (String num : no) {
+				String sql = "DELETE FROM CATALOG_FILE WHERE CATALNO = ?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, Integer.parseInt(num));
+				ps.executeUpdate();
+				
+				sql = "DELETE FROM CATALOG WHERE NO = ?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, Integer.parseInt(num));
+				result = ps.executeUpdate();
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
+	}
 }

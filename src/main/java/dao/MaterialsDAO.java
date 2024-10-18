@@ -138,6 +138,31 @@ public class MaterialsDAO extends DBCP {
 		return result;
 	}
 	
+	// delete
+	public int deleteMaterial(String[] no) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			for (String num : no) {
+				String sql = "DELETE FROM MATERIALS WHERE NO = ?";
+				
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, Integer.parseInt(num));
+				
+				result = ps.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
+	}
+	
 	// 상세조회
 	public MaterialsDTO selectOne(int no) {
 		MaterialsDTO dto = null;

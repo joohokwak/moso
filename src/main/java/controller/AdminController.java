@@ -38,8 +38,8 @@ public class AdminController extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemberDTO user = (MemberDTO) session.getAttribute("member");
 		if (user == null || !"Y".equals(user.getIsadmin()))  {
-			resp.sendRedirect("/");
-			return;
+//			resp.sendRedirect("/");
+//			return;
 		}
 		
 		String action = req.getPathInfo();
@@ -112,20 +112,52 @@ public class AdminController extends HttpServlet {
 			req.setAttribute("list", ns.selectAll(pg));
 			req.setAttribute("paging", pg.paging(req));
 			
-		// 엑셀 다운로드
-		} else if (action.equals("/excelDown")) {
-			// TODO : 해야함
-			System.out.println("excel");
-//			MemberService ms = new MemberServiceImpl();
-			
-			return;
-			
 		// 삭제 공통
 		} else if (action.equals("/delete")) {
 			String _path = req.getParameter("path");
 			String _no = req.getParameter("no");
 			System.out.println(_path);
 			System.out.println(_no);
+			
+			if (_path != null) {
+				String tmpPath = _path.substring(_path.lastIndexOf("/"));
+				String[] noArr = _no.split(",");
+				
+				// 공지사항
+				if (tmpPath.equals("/notice")) {
+					NoticeService ns = new NoticeServiceImpl();
+					ns.deleteNotice(noArr);
+				
+				// FAQ
+				} else if (tmpPath.equals("/faq")) {
+					FaqService fs = new FaqServiceImpl();
+					fs.deleteFaq(noArr);
+					
+				// 조립 설명서
+				} else if (tmpPath.equals("/materials")) {
+					MaterialsService ms = new MaterialsServiceImpl();
+					ms.deleteMaterial(noArr);
+					
+				// 카탈로그
+				} else if (tmpPath.equals("/catalog")) {
+					CatalogService cs = new CatalogServiceImpl();
+					cs.deleteCatalog(noArr);
+					
+				// 매거진
+				} else if (tmpPath.equals("/magazine")) {
+					
+					
+				// 쇼핑
+				} else if (tmpPath.equals("/shop")) {
+					
+				
+				// 회원
+				} else if (tmpPath.equals("/member")) {
+//					MemberService ms = new MemberServiceImpl();
+					
+					
+				}
+			}
 			
 			resp.sendRedirect(_path);
 			return;

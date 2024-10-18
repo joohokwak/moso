@@ -38,5 +38,5 @@
 
 <div class="btn_wrap">
 	<button type="button" class="btn" onclick="location.href='/Member/join?isadmin=Y'">회원등록</button>
-	<button type="button" class="btn delete_btn">선택삭제</button>
+	<button type="button" class="btn delete_btn">선택 회원탈퇴</button>
 </div>
