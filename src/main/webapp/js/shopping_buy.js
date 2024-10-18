@@ -115,6 +115,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
+
 	// 좋아요 버튼
 	const detail = document.querySelector('#shopping_buy .select_detail');
 	const likeBtn = document.querySelector('#shopping_buy .buttons .like');
@@ -179,9 +180,25 @@ window.addEventListener('DOMContentLoaded', function() {
 			detailBox.classList.remove('show_img');
 		});
 	}
+	
+
+	const qna = document.querySelector('.shopping_borad .board_top .board_btn .qna');
+	if(qna) {
+		qna.addEventListener('click', function() {
+			window.location.href = `/Shop/write?itemno=${this.dataset.no}`;
+		});
+		console.log(qna);
+	}
+
+	
 });
 
 // 콤마 변환 함수
 function comma(str) {
 	return str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+
+
+
+
+

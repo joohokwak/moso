@@ -107,13 +107,13 @@
 			<c:forEach var="list" items="${list }">
 			<ul class="product">
 				<li class="product_img">
-					<a href="/Shop/buy?num=${list.no }">
+					<a href="/Shop/buy?itemno=${list.no }">
 						<img src="/images/shopping/${list.poster }" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
 					</a>
 					<a href="#" class="wish" data-no="${list.no }" data-islogin="${not empty member }"><img src="${(list.id eq member.id) and (list.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요"></a> 
 				</li>
 				<li class="discription">
-					<a href="/Shop/buy?num=${list.no }">
+					<a href="/Shop/buy?itemno=${list.no }">
 						<strong>
 							${list.name} 
 						</strong>

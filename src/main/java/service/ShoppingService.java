@@ -16,5 +16,9 @@ public interface ShoppingService {
 
 	List<String> imageName(int num);
 	
-	List<ItemReviewDTO> reviewAll(int num);
+	List<ItemReviewDTO> reviewAll(int num, Pagination pg);
+
+	ShoppingDTO qnaItem(int itemno);
+
+	boolean qnaCreate(ItemReviewDTO qnaCre);
 }

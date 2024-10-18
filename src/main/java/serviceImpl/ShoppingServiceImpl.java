@@ -36,8 +36,19 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public List<ItemReviewDTO> reviewAll(int num) {
+	public List<ItemReviewDTO> reviewAll(int num, Pagination pg) {
 		// TODO Auto-generated method stub
-		return dao.reviewAll(num);
+		return dao.reviewAll(num, pg);
+	}
+
+	@Override
+	public ShoppingDTO qnaItem(int itemno) {
+		// TODO Auto-generated method stub
+		return dao.qnaItem(itemno);
+	}
+
+	@Override
+	public boolean qnaCreate(ItemReviewDTO qnaCre) {
+		return dao.quaCreate(qnaCre) > 0;
 	}
 }

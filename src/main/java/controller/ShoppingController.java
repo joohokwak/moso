@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import service.ShoppingService;
 import serviceImpl.ShoppingServiceImpl;
 
 @WebServlet("/Shop/*")
+@MultipartConfig
 public class ShoppingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -72,34 +74,33 @@ public class ShoppingController extends HttpServlet {
 		// 상품상세 페이지
 		} else if (action.equals("/buy")) {		
 			//	main에서 클릭한 객체
-			int number = Integer.parseInt(req.getParameter("num"));
-			String numuri = "num=" + number + "&";
+			int itemNo = Integer.parseInt(req.getParameter("itemno"));
+			String numuri = "num=" + itemNo + "&";
 			
-			List<ItemReviewDTO> reviewAll = null;
-			ShoppingDTO dto = shopSer.buyMain(number);
+			ShoppingDTO dto = shopSer.buyMain(itemNo);
 			//	客體 이미지
-			List<String> images = shopSer.imageName(number);
-			//	review
+			List<String> images = shopSer.imageName(itemNo);
+			
+			Pagination pg = new Pagination();
+			
+			int pageno = 1;			
+			String pagenum = req.getParameter("pageNum");
+			if(pagenum != null) pageno = Integer.parseInt(pagenum);
+			
+			pg.setPageSize(3);
+			pg.setPageNum(pageno);
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			List<ItemReviewDTO> reviewAll = shopSer.reviewAll(itemNo, pg);
 			
 			
 			req.setAttribute("numuri", numuri);
 			req.setAttribute("dto", dto);
 			req.setAttribute("images", images);
 			if(reviewAll != null) req.setAttribute("review", reviewAll);
-
+			req.setAttribute("paging", pg.paging(req));
 			
 		// 좋아요
-		} else if (action.equals("/like")) {
+		}  else if (action.equals("/like")) {
 			String like = req.getParameter("like");
 			int no = Integer.parseInt(like);
 
@@ -108,11 +109,25 @@ public class ShoppingController extends HttpServlet {
 				Common.jsonResponse(resp, result);
 			}
 			return;
-		// 장바구니
-		} 
-//		else if (action.equals("/cart")) {
 			
-//		}
+		// qna page
+		} else if (action.equals("/write")) {
+			int itemno = Integer.parseInt(req.getParameter("itemno"));
+			ShoppingDTO qnaItem = shopSer.qnaItem(itemno);
+			
+						
+			req.setAttribute("item", qnaItem);
+		// qna 등록
+		} else if (action.equals("/writeOk")) {
+			String itemno = req.getParameter("itemno");
+			ItemReviewDTO qnaCre = Common.convert(req, new ItemReviewDTO());
+			
+			shopSer.qnaCreate(qnaCre);
+			System.out.println(qnaCre);
+			
+			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
+			return;
+		}
 		
 		req.setAttribute("layout", "/shopping" + action);
 		req.getRequestDispatcher("/layout.jsp").forward(req, resp);
