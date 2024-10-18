@@ -295,7 +295,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			if (id.length > 0) {
 				post('/Member/idCheck', { id }, (data) => {
 					let msg = '사용가능한 아이디입니다.';
-					
+				
 					if (data !== 'ok') {
 						msg = '이미 등록된 아이디입니다. 다른 아이디를 입력해 주세요.';
 						this.focus();
@@ -310,6 +310,35 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 		});
 	}
+	
+	// 회원가입 아이디 유효성 체크
+//	if (user_idEl) {
+//			user_idEl.addEventListener('blur', function() {
+//				const id = user_idEl.value.trim();
+//				
+//				if (id.length) {
+//					post('/Member/idCheck', { id }, (data) => {
+//						let msg = '사용가능한 아이디입니다.';
+//					
+//						if (data !== 'ok') {
+//							msg = '아이디는 12글자 이하로 만들어주세요.';
+//							this.focus();
+//						}
+//						
+//						this.nextElementSibling.innerHTML = msg;
+//						this.nextElementSibling.classList.add('ok');
+//					});
+//					
+//				} else {
+//					this.nextElementSibling.classList.remove('ok');
+//				}
+//			});
+//		}
+		
+		
+	// 회원정보 수정
+	
+
 	
 	// 비밀번호 확인
 //	const user_pass1El = document.querySelector('#pass');
@@ -354,6 +383,15 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 			emailEl.value += '@' + domainVal;
 			if (!domainVal) emailEl.focus();
+		});
+	}
+	
+	const withdrawEl = document.querySelector('.join_btns .withdraw_btn')
+	if(withdrawEl) {
+		withdrawEl.addEventListener('click', function(){
+			confirm('정말 탈퇴하시겠습니까?', ()=>{
+				location.href='/Member/withdraw';
+			});
 		});
 	}
 	

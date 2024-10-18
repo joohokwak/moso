@@ -65,9 +65,16 @@ public class MemberDAO extends DBCP {
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
-			
+			 
 			rs = ps.executeQuery();
 			if (rs.next()) result = true;
+			
+//			String sqlLen = "SELECT * FROM MEMBER WHERE LENGTH(?) >= 12";
+//			
+//			ps = conn.prepareStatement(sqlLen);
+//			ps.setString(1, id);
+//
+//			if(rs.next()) result = false;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -249,11 +256,10 @@ public class MemberDAO extends DBCP {
 			conn = getConn();
 			
 			String sql = "";
-			sql += "UPDATE MEMBER                         					";
-			sql += "SET PASS = ?, NAME = ?, EMAIL = ?, PHONE = ?, TEL = ?	";
-			sql += "ZIPCODE = ?, ADDRESS = ?, ADDR_DETAIL = ?, GENDER = ?	";
-			sql += "GENDER = ?, BIRTH = ?									";
-			sql += "WHERE ID = ?											";
+			sql += "UPDATE MEMBER                         								";
+			sql += "SET PASS = ?, NAME = ?, EMAIL = ?, PHONE = ?, TEL = ?,				";
+			sql += "ZIPCODE = ?, ADDRESS = ?, ADDR_DETAIL = ?, GENDER = ?, BIRTH = ?,	";
+			sql += "WHERE ID = ?														";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, member.getPass());
@@ -276,6 +282,31 @@ public class MemberDAO extends DBCP {
 			close(conn, ps, rs);
 		}
 		
+		return result;
+	}
+	
+	public int deleteMember(String id) {
+		int result = 0;
+		try {
+			conn = getConn();
+			
+			String sqlItem = "DELETE FROM ITEM_LIKE WHERE MEMBER_ID=?";
+			
+			ps = conn.prepareStatement(sqlItem);
+			ps.setString(1, id);
+			ps.executeUpdate();
+			
+			String sql = "DELETE FROM MEMBER WHERE ID=?";
+				
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+				
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
 		return result;
 	}
 

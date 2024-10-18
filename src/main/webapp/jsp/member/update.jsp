@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:if test="${not empty msg }">
 	<script>alert(`${msg }`);</script>
@@ -49,7 +50,8 @@
 				<tr>
 					<th class="required">이메일</th>
 					<td>
-						<input type="text" id="email" name="email" title="이메일" autocomplete="off" value="${member.email }">
+						<c:set var="member_email" value="${member.email }" />
+						<input type="text" id="email" name="email" title="이메일" autocomplete="off" value="${fn:substringBefore(member_email, '@')}">
 						<select name="domain" title="이메일 도메인">
 							<option value="">직접입력</option>
 							<option value="naver.com">naver.com</option>
@@ -133,6 +135,7 @@
 		<div class="join_btns">
 			<button type="reset" >취소</button>
 			<button type="submit">정보수정</button>
+			<button type="button" class="withdraw_btn">회원탈퇴</button>
 		</div>
 	</form>
 </div>

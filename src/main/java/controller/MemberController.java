@@ -25,7 +25,6 @@ public class MemberController extends HttpServlet {
 		resp.setContentType("text/html; charset=utf-8");
 		
 		String action = req.getPathInfo();
-		
 		MemberService mService = new MemberServiceImpl();
 		
 		// 아이디 중복체크
@@ -105,11 +104,23 @@ public class MemberController extends HttpServlet {
 		} else if (action.equals("/updateOk")) {
 			MemberDTO dto = Common.convert(req, new MemberDTO());
 			int re = mService.updateMember(dto);
-			
 			if (re > 0) req.setAttribute("msg", "정상적으로 변경되었습니다.");
 			else req.setAttribute("msg", "회원정보 변경에 실패하였습니다. 잠시후 다시 시도 하시거나 관리자에게 문의하세요.");
 			
 			action = "/update";
+		
+		// 회원탈퇴
+		} else if (action.equals("/withdraw")) {
+			HttpSession session = req.getSession();
+			MemberDTO user = (MemberDTO) session.getAttribute("member");
+			if (user != null && user.getId() != null)  {
+				int re = mService.memberDelete(user.getId());
+				if(re > 0) {
+					req.getSession().invalidate();
+				}
+			}
+			resp.sendRedirect("/");
+			return;
 		}
 		
 		
