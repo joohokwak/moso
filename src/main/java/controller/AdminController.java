@@ -66,7 +66,7 @@ public class AdminController extends HttpServlet {
 			
 			
 		// 매거진 목록
-		} else if (action.equals("/brand")) {
+		} else if (action.equals("/magazine")) {
 			MagazineService ms = new MagazineServiceImpl();
 			
 			Pagination pg = Common.getParameter(req);
