@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				
 				const $txt = this.innerText;
 				divisionBtn.children[0].innerText = $txt;
-				document.querySelector('.main_field input[name=cate]').value = $txt;
+				this.closest('.main_field').children[2].value = $txt;
 				
 				divisionBtn.click();
 			});
