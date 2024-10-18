@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.DBCP;
+import common.Pagination;
 import dto.QuizDTO;
 
 public class QuizDAO extends DBCP {
@@ -14,6 +15,7 @@ public class QuizDAO extends DBCP {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
+	// Quiz 경우의 수 && 결과
 	public List<QuizDTO> mattressQuiz(String sumQ) {
 		List<QuizDTO> list = new ArrayList<QuizDTO>();
 		
@@ -160,6 +162,40 @@ public class QuizDAO extends DBCP {
 
 			ps = conn.prepareStatement(sql);
 			
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				int no = rs.getInt("NO");
+				String name = rs.getString("NAME");
+				String type = rs.getString("TYPE");
+				String text = rs.getString("TEXT");
+				int price = rs.getInt("PRICE");
+				String point = rs.getString("POINT");
+				String regdate = rs.getString("REGDATE");
+				String sizename = rs.getString("SIZENAME");
+				String poster = rs.getString("POSTER");
+				
+				list.add(new QuizDTO(no, name, type, text, price, point, regdate, sizename, poster));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return list;
+	}
+	
+	// search 페이지
+	public List<QuizDTO> setGoods(Pagination pg) {
+		List<QuizDTO> list = new ArrayList<QuizDTO>();
+		try {
+			conn = getConn();
+			
+			String sql = pg.getQuery(conn, "SELECT * FROM ITEM");
+			
+			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {

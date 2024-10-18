@@ -289,3 +289,230 @@ header .top_util .cart {
 	width: 23px;
 	height: 18px;
 }
+
+/* search.css */
+#search_content {
+	background: url(/images/shopping/bg_dots_green.png) repeat center top;
+	padding-bottom: 90px;
+}
+
+#search_content .inner {
+	width: 1120px;
+	margin: 0 auto;
+	padding-top: 30px;
+}
+
+#search_content strong {
+	font-size: 20px;
+	color: #303030;
+	font-weight: 700;
+}
+
+#search_content .search_input {
+	height: 70px;
+	margin: 30px 0 0;
+	padding: 20px 0;
+	border-top: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	text-align: right;
+}
+
+#search_content .research_form {
+	position: relative;
+	display: inline-block;
+	height: 15px;
+	margin-right: 10px;
+}
+
+#search_content .research_form .checkbox {
+	display: none;
+}
+
+#search_content .research_form label {
+	position: relative;
+	color: #717171;
+	font-weight: 500;
+	vertical-align: middle;
+}
+
+#search_content .research_form label::before {
+	width: 15px;
+	height: 15px;
+}
+
+#search_content .search_input .select_type {
+	position: relative;
+	border: 1px solid #D0D0D0;
+	line-height: 28px;
+	padding: 0 10px;
+	width: 120px;
+	color: #444;
+	cursor: pointer;
+	background: url(/images/shopping/select-arrow-down-11x7.png) no-repeat;
+	background-position: 94px center;
+}
+#search_content .search_input .select_type.on {
+  background: url(/images/shopping/select-arrow-up-11x7.png) no-repeat;
+  background-position: 94px center;
+}
+
+#search_content .txt_field {
+	width: 228px;
+	display: inline-block;
+	margin: 0 5px;
+}
+
+#search_content .txt_field .text_keyword {
+	height: 30px;
+	padding: 0 10px;
+	border: 1px solid #D0D0D0;
+	width: 100%;
+}
+
+#search_content .search_input .search_btn {
+	width: 100px;
+	line-height: 28px;
+	background: var(--point-color1);
+	border: 1px solid var(--point-color1);
+	color: #fff;
+	font-size: 13px;
+}
+
+#search_content .search_input .search_btn img {
+	margin: 0 0 0 4px;
+	padding-top: 9px;
+}
+
+#search_content .sort_wrap {
+	display: flex;
+	justify-content: flex-end;
+	margin: 40px 0;
+	height: 40px;
+	align-items: center;
+}
+
+#search_content .sort_wrap li label {
+	margin: 0 0 0 15px;
+	color: #A3A3A3;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+#search_content .search_result {
+	border-bottom: 1px solid #DADADA;
+}
+
+#search_content .search_result>ul {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+}
+
+#search_content .search_result>ul>li {
+	padding: 0 0 50px;
+	text-align: center;
+}
+
+#search_content .goods_space {
+	position: relative;
+	background: F2F1EE;
+}
+
+#search_content .thumbnail a {
+	position: relative;
+	display: block;
+}
+
+#search_content .thumbnail a::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0);
+	transition: all 0.5s;
+}
+
+#search_content .thumbnail a:hover::after {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.2);
+	transition: all .5s;
+}
+
+#search_content .thumbnail .wish {
+	position: absolute;
+	display: block;
+	top: 10px;
+	right: 10px;
+	width: 30px;
+	height: 30px;
+	background: url(/images/shopping/wish_off.png) no-repeat center;
+	text-indent: -9999px;
+	z-index: 1;
+}
+
+#search_content .thumbnail .wish.active {
+	background: url(/images/shopping/wish_on.png) no-repeat center;
+}
+
+#search_content .goods_space .txt_wrap {
+	text-align: left;
+	color: var(--point-color1);
+	font-size: 14px;
+	margin: 20px 0 0;
+}
+
+
+#search_content .goods_space .txt_wrap a {
+	display: inline-block;
+}
+#search_content .goods_space .txt_wrap a:hover {
+	text-decoration: underline;
+}
+
+#search_content .goods_space .txt_wrap strong {
+	color: var(--point-color1);
+	font-size: 16px;
+	line-height: 20px;
+	word-break: break-all;
+	letter-spacing: -.5px;
+}
+
+#search_content .goods_space .txt_wrap span {
+	display: block;
+	margin-top: 10px;
+	line-height: 20px;
+	height: 62px;
+	border-bottom: 1px dotted #F5F5F5;
+	color: #6C6B63;
+}
+
+#search_content .goods_space .lowest_price {
+	padding: 10px 0 0;
+	text-align: left;
+}
+
+#search_content .goods_space .lowest_price span {
+	color: #6C6B63;
+	font-size: 15px;
+}
+
+#search_content .goods_space .lowest_price strong {
+	color: #6C6B63;
+	font-size: 17px;
+}
+
+#search_content .goods_space .type {
+	text-align: left;
+	margin-top: 10px;
+	min-height: 30px;
+}
+
+#search_content .goods_space .type img {
+	display: inline-block;
+	margin-right: 5px;
+	height: 30px;
+}

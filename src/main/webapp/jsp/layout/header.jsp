@@ -278,11 +278,11 @@
 	</ul>
 	<div class="top_util">
 		<div class="search_wrap">
-			<form>
+			<form action="/Quiz/search">
 				<fieldset>
-					<legend></legend>
-						<input type="text" placeholder="검색어를 입력하세요">
-						<button type="button" class="search_btn" title="검색"></button>
+					<legend>검색영역</legend>
+					<input type="text" placeholder="검색어를 입력하세요" title="검색어 입력" name="name" autocomplete="off">
+					<button class="search_btn" title="검색"></button>
 				</fieldset>
 			</form>
 		</div>

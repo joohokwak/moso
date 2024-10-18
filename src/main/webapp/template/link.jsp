@@ -47,6 +47,7 @@
 <link rel="stylesheet" href="/css/catalog.css?v=${version }">
 <link rel="stylesheet" href="/css/catalog_view.css?v=${version }">
 <link rel="stylesheet" href="/css/materials.css?v=${version }">
+<link rel="stylesheet" href="/css/search.css?v=${version }">
 
 <!-- 비즈니스 -->
 <link rel="stylesheet" href="/css/notice.css?v=${version }">

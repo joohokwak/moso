@@ -7,6 +7,7 @@ window.addEventListener('DOMContentLoaded', function () {
 	const banners = document.querySelectorAll('header .banner');
 	const titles = document.querySelectorAll('header .depth3_tit1');
 	
+	
 	// header depth2_bg
 	if (navEl) {
 		navEl.addEventListener('mouseenter', function() {
@@ -118,6 +119,17 @@ window.addEventListener('DOMContentLoaded', function () {
 			});
 		});
 	}
+	
+	// 검색 폼
+	const _topSearch = document.querySelector('header .search_btn');
+	const _topInput = document.querySelector('header .search_wrap input[type=text]');
+	_topSearch.addEventListener('click', function(e) {
+		if (_topInput.value.length === 0 ) {
+			e.preventDefault();
+			alert('검색어를 입력하세요.');
+		};
+	});
+	
 	
 	// 관리자 페이지
 	const adminBtn = document.querySelector('#adminBtn');
