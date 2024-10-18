@@ -28,5 +28,15 @@ public class MagazineServiceImpl implements MagazineService {
 	public int magazineUpdateOk(MagazineDTO dto) {
 		return dao.magazineUpdateOk(dto);
 	}
+	
+	@Override
+	public int magazineWriteOk(MagazineDTO dto) {
+		return dao.magazineWriteOk(dto);
+	}
+		
+	@Override
+	public int magazineDelete(int no) {
+		return dao.magazineDelete(no);
+	}
 }
  
