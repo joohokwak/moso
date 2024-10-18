@@ -127,6 +127,31 @@ public class FaqDAO extends DBCP {
 		return result;
 	}
 	
+	// 글삭제
+	public int deleteFaq(String[] no) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			for (String num : no) {
+				String sql = "DELETE FROM FAQ WHERE NO = ?";
+				
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, Integer.parseInt(num));
+				
+				result = ps.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
+	}
+	
 	// 글수정
 	public int updateFaq(FaqDTO dto) {
 		int result = 0;

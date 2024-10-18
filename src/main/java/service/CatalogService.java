@@ -21,4 +21,6 @@ public interface CatalogService {
 	void updateCatalogfile();
 
 	boolean deleteCatalog(CatalogDTO dto);
+	
+	boolean deleteCatalog(String[] no);
 }

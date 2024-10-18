@@ -10,5 +10,6 @@ public interface FaqService {
 	FaqDTO selectFaq(int no);
 	boolean insertFaq(FaqDTO dto);
 	boolean deleteFaq(int no);
+	boolean deleteFaq(String[] no);
 	boolean updateFaq(FaqDTO dto);
 }

@@ -63,9 +63,11 @@ window.addEventListener('DOMContentLoaded', function() {
 	const adminDelBtn = document.querySelector('.admin_content_right .delete_btn');
 	if (adminDelBtn) {
 		adminDelBtn.addEventListener('click', function() {
-			if (deleteListArr.length > 0) {
-				const $memList = deleteListArr.join();
-				location.href = `/Admin/delete?path=${location.pathname}&no=${$memList}`;
+			if (deleteListArr.length) {
+				confirm('선택항목을 삭제하시겠습니까?', () => {
+					const $memList = deleteListArr.join();
+					location.href = `/Admin/delete?path=${location.pathname}&no=${$memList}`;
+				});
 			} else {
 				alert('삭제할 회원을 선택해주세요');
 			}
