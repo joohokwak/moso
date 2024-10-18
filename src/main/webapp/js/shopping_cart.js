@@ -143,7 +143,7 @@ function setCartItem(itemList) {
 							</a>
 							<ul>
 								<li>
-									<a href="#"><img src="/images/shopping/shopping_cart/coupon-apply.png" alt="쿠폰적용"></a>
+									<a href="#"><img src="/images/shopping/coupon-apply.png" alt="쿠폰적용"></a>
 								</li>
 								<li class="goods_tit">
 									<a href="#">${item.name}</a>
