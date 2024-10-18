@@ -14,4 +14,5 @@ public interface MemberService {
 	int updateMember(MemberDTO member);
 	List<MemberDTO> selectMemberAll(Pagination pg);
 	MemberDTO selectMember(String id);
+	int memberDelete(String id);
 }

@@ -427,7 +427,7 @@
 }
 
 .join_btns {
-	padding: 40px 0 0;
+	padding: 40px 0 20px 0;
 	font-size: 0;
 	text-align: center;
 }
@@ -435,6 +435,16 @@
 .join_btns button {
 	border: 1px solid var(--point-color1);
 	color: var(--gray-500);
+	background: none;
+	width: 203px;
+	height: 55px;
+	line-height: 53px;
+	font-size: 14px;
+}
+
+.withdraw_btn {
+	border: 1px solid #e6e6e6;
+	color: #e6e6e6;
 	background: none;
 	width: 203px;
 	height: 55px;
