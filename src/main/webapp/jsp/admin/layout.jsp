@@ -39,7 +39,7 @@
 									<li><a href="#" data-tit="home" 	class="${menu eq 'home' 	? 'active' : '' }">관리자 홈</a></li>
 									<li><a href="#" data-tit="member" 	class="${menu eq 'member' 	? 'active' : '' }">회원</a></li>
 									<li><a href="#" data-tit="shop" 	class="${menu eq 'shop' 	? 'active' : '' }">쇼핑</a></li>
-									<li><a href="#" data-tit="brand" 	class="${menu eq 'brand' 	? 'active' : '' }">브랜드</a></li>
+									<li><a href="#" data-tit="magazine"	class="${menu eq 'magazine'	? 'active' : '' }">매거진</a></li>
 									<li><a href="#" data-tit="faq" 		class="${menu eq 'faq' 		? 'active' : '' }">FAQ</a></li>
 									<li><a href="#" data-tit="materials"class="${menu eq 'materials'? 'active' : '' }">조립설명서</a></li>
 									<li><a href="#" data-tit="catalog" 	class="${menu eq 'catalog' 	? 'active' : '' }">카탈로그</a></li>
