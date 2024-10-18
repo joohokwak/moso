@@ -46,7 +46,7 @@
 								<!-- Slides -->
 								<c:forEach var="image" items="${images }">
 									<div class="swiper-slide">
-										<img src="/images/shopping/shopping_buy/${image}" alt="상세보기">
+										<img src="/images/shopping/${image}" alt="상세보기">
 									</div>
 								</c:forEach>
 							</div>
@@ -133,7 +133,7 @@
 					<a href="#view_service">배송/반품/설치</a>
 				</div>
 				<div class="ad_more">
-					<img src="/images/shopping/shopping_buy/spec_bg.png" alt="침대">
+					<img src="/images/shopping/spec_bg.png" alt="침대">
 					<div class="ad_txt">
 						<div class="txt_par">
 							<p class="txt1">ADAPTIVE® FABRIC</p>
@@ -165,7 +165,7 @@
 				<div class="ad_image">
 					<div class="image">
 						<div class="image_img">
-							<img src="/images/shopping/shopping_buy/img_cut01.gif" alt="이미지">
+							<img src="/images/shopping/img_cut01.gif" alt="이미지">
 						</div>
 						<div class="image_desc">
 							<h4>내 몸을 편안히 받쳐줄 메모리폼</h4>
@@ -177,7 +177,7 @@
 					</div>
 					<div class="image">
 						<div class="image_img">
-							<img src="/images/shopping/shopping_buy/img_cut02.png" alt="이미지">
+							<img src="/images/shopping/img_cut02.png" alt="이미지">
 						</div>
 						<div class="image_desc">
 							<h4>청정 수면 환경, 코퍼 메모리폼</h4>
@@ -189,7 +189,7 @@
 					</div>
 					<div class="image">
 						<div class="image_img">
-							<img src="/images/shopping/shopping_buy/img_cut03.png" alt="이미지">
+							<img src="/images/shopping/img_cut03.png" alt="이미지">
 						</div>
 						<div class="image_desc">
 							<h4>온도 변화에 민감한 어댑티브 패브릭</h4>
@@ -200,7 +200,7 @@
 					</div>
 					<div class="image">
 						<div class="image_img">
-							<img src="/images/shopping/shopping_buy/img_cut04.gif" alt="이미지">
+							<img src="/images/shopping/img_cut04.gif" alt="이미지">
 						</div>
 						<div class="image_desc">
 							<h4>편안하고 풍성한 퀼팅</h4>
@@ -212,7 +212,7 @@
 					</div>
 					<div class="image">
 						<div class="image_img">
-							<img src="/images/shopping/shopping_buy/img_cut05.png" alt="이미지">
+							<img src="/images/shopping/img_cut05.png" alt="이미지">
 						</div>
 						<div class="image_desc">
 							<h4>푹신한 볼륨감을 느끼게 해줄 그랜드탑</h4>
@@ -224,7 +224,7 @@
 					</div>
 					<div class="image">
 						<div class="image_img">
-							<img src="/images/shopping/shopping_buy/img_cut06.png" alt="이미지">
+							<img src="/images/shopping/img_cut06.png" alt="이미지">
 						</div>
 						<div class="image_desc">
 							<h4>화재로부터 안전한 난연 소재</h4>
@@ -236,7 +236,7 @@
 					</div>
 					<div class="image">
 						<div class="image_img">
-							<img src="/images/shopping/shopping_buy/img_cut07.png" alt="이미지">
+							<img src="/images/shopping/img_cut07.png" alt="이미지">
 						</div>
 						<div class="image_desc">
 							<h4>다양한 제품 안전 인증 테스트 완료</h4>
@@ -251,42 +251,42 @@
 				<div class="show_performance">
 					<div class="per">
 						<div>
-							<img src="/images/shopping/shopping_buy/ico_fa01.png" alt="효과/성능">
+							<img src="/images/shopping/ico_fa01.png" alt="효과/성능">
 						</div>
 						<strong>온도에 따라 변화하는 어댑티브 패브릭</strong>
 						<p>온도가 높아지면 섬유가 수축하여 열을 밖으로 분출하고, 온도가 낮아지면 열기를 섬유 안에 가둬 쾌적한 수면 환경을 유지해 줍니다.</p>
 					</div>
 					<div class="per">
 						<div>
-							<img src="/images/shopping/shopping_buy/ico_fa02.png" alt="효과/성능">
+							<img src="/images/shopping/ico_fa02.png" alt="효과/성능">
 						</div>
 						<strong>구리 성분이 포함된 코퍼 메모리폼</strong>
 						<p>세계 최대 검사 기관인 intertek으로부터 구리성분을 통한 항균 기능 96%을 입증 받았습니다.</p>
 					</div>
 					<div class="per">
 						<div>
-							<img src="/images/shopping/shopping_buy/ico_fa03.png" alt="효과/성능">
+							<img src="/images/shopping/ico_fa03.png" alt="효과/성능">
 						</div>
 						<strong>하이브리드 매트리스</strong>
 						<p>폼 매트리스의 안락함과 스프링 매트리스의 탄탄함을 동시에 경험할 수 있습니다.</p>
 					</div>
 					<div class="per">
 						<div>
-							<img src="/images/shopping/shopping_buy/ico_fa04.png" alt="효과/성능">
+							<img src="/images/shopping/ico_fa04.png" alt="효과/성능">
 						</div>
 						<strong>프리미엄급 인케이스드 폼</strong>
 						<p>고밀도폼이 포켓 스프링의 4면과 상/하단을 모두 감싸 주어 더욱 견고하게 지지해주며, 어느 위치에서도 편안하고 넓은 수면 면적을 제공합니다.</p>
 					</div>
 					<div class="per">
 						<div>
-							<img src="/images/shopping/shopping_buy/ico_fa05.png" alt="효과/성능">
+							<img src="/images/shopping/ico_fa05.png" alt="효과/성능">
 						</div>
 						<strong>지누스 파이어 가드</strong>
 						<p>화재 발생 시에 매트리스가 불에 잘 타지 않도록 도와주는 특수한 안전 소재인 지누스 파이어 가드 소재가 사용되었습니다.</p>
 					</div>
 					<div class="per">
 						<div>
-							<img src="/images/shopping/shopping_buy/ico_fa06.png" alt="효과/성능">
+							<img src="/images/shopping/ico_fa06.png" alt="효과/성능">
 						</div>
 						<strong>Sanitized® 항균 기능</strong>
 						<p>Sanitized AG로부터 항균 기능을 인증 받은 폼을 사용하였습니다. Sanitized® 항균 처리 기술은 위생 기능과 소재 보호를 통해 제품의 안전성을 보증합니다.</p>
@@ -294,48 +294,48 @@
 				</div>
 
 				<div class="single_content">
-					<img src="/images/shopping/shopping_buy/firmness_3step.png" alt="단단함 정도">
+					<img src="/images/shopping/firmness_3step.png" alt="단단함 정도">
 				</div>
 
 				<div class="layering">
 					<h3>Layering</h3>
 					<p>매트리스 코어가 어떻게 구성되는지 확인하세요.</p>
-					<img src="/images/shopping/shopping_buy/img_layer01.png" alt="레이어링">
+					<img src="/images/shopping/img_layer01.png" alt="레이어링">
 				</div>
 
 				<div class="materials">
 					<div class="mat_inner">
 						<div class="mat">
 							<div>
-								<img src="/images/shopping/shopping_buy/ico_sp01.png" alt="재료">
+								<img src="/images/shopping/ico_sp01.png" alt="재료">
 							</div>
 							<p class="green">Green Tea</p>
 							<p class="gray">천연 녹차 추출물 성분이 항상 쾌적한 상태로 유지</p>
 						</div>
 						<div class="mat">
 							<div>
-								<img src="/images/shopping/shopping_buy/ico_sp02.png" alt="재료">
+								<img src="/images/shopping/ico_sp02.png" alt="재료">
 							</div>
 							<p class="green">BioFoam</p>
 							<p class="gray">천연 식물성유 함유로 안전하게 사용 가능</p>
 						</div>
 						<div class="mat">
 							<div>
-								<img src="/images/shopping/shopping_buy/ico_sp03.png" alt="재료">
+								<img src="/images/shopping/ico_sp03.png" alt="재료">
 							</div>
 							<p class="green">ActivCharcoal</p>
 							<p class="gray">흡착성 강한 활성탄이 안전하고 효율적으로 악취 제거 및 습기 흡수</p>
 						</div>
 						<div class="mat">
 							<div>
-								<img src="/images/shopping/shopping_buy/ico_sp04.png" alt="재료">
+								<img src="/images/shopping/ico_sp04.png" alt="재료">
 							</div>
 							<p class="green">Memory Foam</p>
 							<p class="gray">체형과 체중에 맞게 최적화되는 편안함</p>
 						</div>
 						<div class="mat">
 							<div>
-								<img src="/images/shopping/shopping_buy/ico_sp05.png" alt="재료">
+								<img src="/images/shopping/ico_sp05.png" alt="재료">
 							</div>
 							<p class="green">CertiPUR-US®</p>
 							<p class="gray">내구성, 성능, 소재 안전성 검사인 미국 CertiPUR-US 인증 통과</p>
@@ -350,7 +350,7 @@
 							<p class="sub_tit">MATERIALS</p>
 						</div>
 						<div class="more_size">
-							<img src="/images/shopping/shopping_buy/img_size.png" alt="사이즈">
+							<img src="/images/shopping/img_size.png" alt="사이즈">
 						</div>
 						<div class="table">
 							<h6>
@@ -379,7 +379,7 @@
 				</div>
 				<div class="view_benefit">
 					<div class="benefit">
-						<img src="/images/shopping/shopping_buy/ico_deli01.png" alt="무료배송">
+						<img src="/images/shopping/ico_deli01.png" alt="무료배송">
 						<h6>무료 배송</h6>
 						<p>
 							지누스는 무료로 택배를<br> 배송해드립니다.<br> (제주 및 도서산간지역 배송 시에는<br>
@@ -387,14 +387,14 @@
 						</p>
 					</div>
 					<div class="benefit">
-						<img src="/images/shopping/shopping_buy/ico_deli02.png" alt="무료배송">
+						<img src="/images/shopping/ico_deli02.png" alt="무료배송">
 						<h6>5년 품질 보증</h6>
 						<p>
 							지누스는 제조 시 발생한 결함에 대해서<br> 구입일로부터 5년간 보증을 제공합니다.
 						</p>
 					</div>
 					<div class="benefit">
-						<img src="/images/shopping/shopping_buy/ico_deli03.png" alt="무료배송">
+						<img src="/images/shopping/ico_deli03.png" alt="무료배송">
 						<h6>설치 배송</h6>
 						<p>
 							설치배송을 선택하시면 지누스<br>설치배송 기사님이 직접<br>원하시는 위치에 설치해 드립니다.<br>(설치배송비는
@@ -432,18 +432,16 @@
 									<td>
 										<span class="rating">
 											<c:forEach var="rat" begin="1" end="${rv.rating }">
-												<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
+												<img src="/images/shopping/star-fill.png" alt="별점">
 											</c:forEach>
 											<c:forEach var="rat" begin="1" end="${ 5 - rv.rating }">
-												<img src="/images/shopping/shopping_buy/star-bg.png" alt="별점">
+												<img src="/images/shopping/star-bg.png" alt="별점">
 											</c:forEach>
-										
-											
 										</span>
 									</td>
 									<td class="board_content">
 										<a href="/Shop/buy?reviewNum=${rv.no}">good</a>
-										<span><img src="/images/shopping/shopping_buy/icon_board_attach_file.png"alt="file"></span>
+										<span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span>
 									</td>
 									<td>
 										<p>이용준</p>
@@ -456,10 +454,10 @@
 									<td></td>
 									<td class="board_content">
 										<div class="board_main_content">
-											아이구 먹다보니 시간을 모른 채로 막 먹고 그래버렸네요
+											${rv.title }
 										</div>
 										<div>
-											<p><span><img src="/images/shopping/shopping_buy/icon_board_attach_file.png"alt="file"></span><strong>첨부파일</strong><i class="file_name">jpg</i></p>
+											<p><span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span><strong>첨부파일</strong><i class="file_name">jpg</i></p>
 										</div>
 									</td>
 									<td></td>
@@ -472,16 +470,16 @@
 							<tr>
 								<td>
 									<span class="rating">
-										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
-										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
-										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
-										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
-										<img src="/images/shopping/shopping_buy/star-fill.png" alt="별점">
+										<img src="/images/shopping/star-fill.png" alt="별점">
+										<img src="/images/shopping/star-fill.png" alt="별점">
+										<img src="/images/shopping/star-fill.png" alt="별점">
+										<img src="/images/shopping/star-fill.png" alt="별점">
+										<img src="/images/shopping/star-fill.png" alt="별점">
 									</span>
 								</td>
 								<td class="board_content">
 									<a href="#">푹신해서 너무 좋아요</a>
-										<span><img src="/images/shopping/shopping_buy/icon_board_attach_file.png"alt="file"></span>
+										<span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span>
 									</td>
 								<td>
 									<p>이용준</p>
@@ -531,7 +529,7 @@
 						</colgroup>
 						<tr>
 							<td class="board_content">
-								<span><img src="/images/shopping/shopping_buy/icon_board_secret.png" alt="비밀글"></span>
+								<span><img src="/images/shopping/icon_board_secret.png" alt="비밀글"></span>
 								<a href="#">배송관련</a>
 							</td>
 							<td>
@@ -546,7 +544,7 @@
 						</tr>
 						<tr>
 							<td class="board_content">
-								<span><img src="/images/shopping/shopping_buy/icon_board_secret.png" alt="비밀글"></span>
+								<span><img src="/images/shopping/icon_board_secret.png" alt="비밀글"></span>
 								<a href="#">배송관련</a>
 							</td>
 							<td>
@@ -561,7 +559,7 @@
 						</tr>
 						<tr>
 							<td class="board_content">
-								<span><img src="/images/shopping/shopping_buy/icon_board_secret.png" alt="비밀글"></span>
+								<span><img src="/images/shopping/icon_board_secret.png" alt="비밀글"></span>
 								<a href="#">배송관련</a>
 							</td>
 							<td>

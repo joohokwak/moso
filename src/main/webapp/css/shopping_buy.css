@@ -1,5 +1,5 @@
 #shopping_buy .shopping_goods {
-	background: url(/images/shopping/shopping_buy/bg_detail.png);
+	background: url(/images/shopping/bg_detail.png);
 	width: 100%;
 	padding: 40px;
 }
@@ -174,7 +174,7 @@
 	content: "";
 	position: absolute;
 	left: -20px;
-	background: url(/images/shopping/shopping_buy/slide_prev.png) no-repeat;
+	background: url(/images/shopping/slide_prev.png) no-repeat;
 	width: 25px;
 	height: 25px;
 	overflow: visible;
@@ -184,7 +184,7 @@
 	content: "";
 	position: absolute;
 	left: 20px;
-	background: url(/images/shopping/shopping_buy/slide_next.png) no-repeat;
+	background: url(/images/shopping/slide_next.png) no-repeat;
 	width: 25px;
 	height: 25px;
 }
@@ -586,7 +586,7 @@
 }
 
 #view_info .detail_more_box {
-	background: url(/images/shopping/shopping_buy/bg_spec.png) repeat;
+	background: url(/images/shopping/bg_spec.png) repeat;
 	padding: 80px 0;
 	margin-top: 80px;
 }
@@ -668,7 +668,7 @@
 	left: 0;
 	width: 16px;
 	height: 16px;
-	background: url(/images/shopping/shopping_buy/ico-info.png) no-repeat;
+	background: url(/images/shopping/ico-info.png) no-repeat;
 }
 
 #view_info .detail_more_box .table div {

@@ -61,17 +61,17 @@
 	content: '';
 	width: 15px;
 	height: 15px;
-	background: url(/images/shopping/shopping_cart/check-off-s.png)
+	background: url(/images/shopping/check-off-s.png)
 		no-repeat 50% 50%/100%;
 }
 
 #shopping_cart .checkbox1_wrap:hover .checkbox1::before {
-	background: url(/images/shopping/shopping_cart/check-ov-s.png) no-repeat
+	background: url(/images/shopping/check-ov-s.png) no-repeat
 		50% 50%/100%;
 }
 
 #shopping_cart .checkbox1_wrap.on .checkbox1::before {
-	background: url(/images/shopping/shopping_cart/check-on-s.png) no-repeat
+	background: url(/images/shopping/check-on-s.png) no-repeat
 		50% 50%/100%;
 }
 
@@ -213,17 +213,17 @@
 	height: 30px;
 	z-index: 10;
 	transform: translateY(-50%);
-	background: url(/images/shopping/shopping_cart/minus.png) no-repeat
+	background: url(/images/shopping/minus.png) no-repeat
 		center/cover;
 }
 
 #shopping_cart .calc_cost i.i2 {
-	background: url(/images/shopping/shopping_cart/plus.png) no-repeat
+	background: url(/images/shopping/plus.png) no-repeat
 		center/cover;
 }
 
 #shopping_cart .calc_cost i.i3 {
-	background: url(/images/shopping/shopping_cart/total.png) no-repeat
+	background: url(/images/shopping/total.png) no-repeat
 		center/cover;
 }
 
@@ -347,7 +347,7 @@
 	right: 10px;
 	width: 15px;
 	height: 15px;
-	background: url(/images/shopping/shopping_cart/gotop.png) no-repeat
+	background: url(/images/shopping/gotop.png) no-repeat
 		center;
 	transform: rotate(180deg) translateY(50%);
 }
