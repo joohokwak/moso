@@ -45,6 +45,11 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 		}
 		
+		/* 
+			동적 생성 태그 이므로 이벤트를 정적 태그를 통해서 접근할수 있도록 설정해야 하며
+			다시 만들어 지는 태그 및 이벤트 이므로 기존 이벤트리스터를 제거 해야 여러번
+			호출되는 이슈를 해결할 수 있음.!!
+	 	*/
 		// 옵션 내부 선택 이벤트
 		const selectOp = document.querySelectorAll('#shopping_cart .select_option .select_wrap1');
 		if (selectOp) {
@@ -61,23 +66,14 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 		}
 		
-		// 수정 버튼 이벤트
-		const cntUpdateBtns = document.querySelectorAll('#cartItemBody .number_input button');
+ 		// 수정 버튼 이벤트
+		const cntUpdateBtns = document.querySelector('#cartItemBody');
 		if (cntUpdateBtns) {
-			cntUpdateBtns.forEach(v => {
-				v.addEventListener('click', function() {
-					const cntEl = v.closest('.number_input').children[0];
-					const cntVal = parseInt(cntEl.value);
-					
-					cartItem = JSON.parse(v.dataset.item);
-					
-					if (cntVal > 0) {
-						cartItem.cnt = cntVal;
-						modalOkBtn.click();
-					} else {
-						alert('상품 개수는 1개 이상이어야 합니다.');
-						cntEl.value = cartItem.cnt
-					}
+			cntUpdateBtns.addEventListener('click', function() {
+				this.querySelectorAll('.number_input button').forEach(v => {
+					// 이미 존재하는 이벤트 리스너 제거
+					v.removeEventListener('click', itemCntChange);
+					v.addEventListener('click', itemCntChange);
 				});
 			});
 		}
@@ -312,6 +308,22 @@ function setCartItem() {
 	cartItemBody.innerHTML = data;
 }
 
+// 상품 수량 수정
+function itemCntChange(e) {
+	const cntEl = e.target.closest('.number_input').children[0];
+	const cntVal = parseInt(cntEl.value);
+	
+	cartItem = JSON.parse(e.target.dataset.item);
+	
+	if (cntVal > 0) {
+		cartItem.cnt = cntVal;
+		document.querySelector('#shopping_cart .select_option .op_update').click();
+	} else {
+		alert('상품 개수는 1개 이상이어야 합니다.');
+		cntEl.value = cartItem.cnt
+	}
+}
+
 // 상품삭제
 function deleteCartItem() {
 	let itemList = JSON.parse(localStorage.getItem('itemList'));
@@ -416,4 +428,15 @@ function plusCartItemCnt(op) {
 	// 금액 세팅
 	document.querySelector('.select_option .cost1 span').innerHTML = comma(modalItemCnt.value * parseInt(cartItem.totalPrice));
 	document.querySelector('.select_option .cost2 span').innerHTML = comma(modalItemCnt.value * parseInt(cartItem.totalPrice));
+}
+
+// 주문하기 버튼
+function orderItem() {
+	const prepareCommonImg = document.querySelector('#prepareCommonWrap');
+	prepareCommonImg.style.display = 'flex';
+	document.body.classList.add('on');
+	setTimeout(() => {
+		prepareCommonImg.style.display = 'none';
+		document.body.classList.remove('on');
+	}, 3000);
 }
