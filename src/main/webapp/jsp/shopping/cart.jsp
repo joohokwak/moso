@@ -5,7 +5,7 @@
 		<div class="top">
 			<h3>옵션선택</h3>
 			<span class="close_btn">
-				<img src="/images/shopping/layer-close.png" alt="">
+				<img src="/images/shopping/layer-close.png" alt="닫기버튼">
 			</span>
 		</div>
 		
@@ -15,8 +15,8 @@
 			</div>
 			<div>
 				<div>
-					<strong>포레스트 워크S 하이브리드 스프링 매트리스 / 30cm</strong>
-					<p>
+					<strong class="body_name">포레스트 워크S 하이브리드 스프링 매트리스 / 30cm</strong>
+					<p class="body_text">
 						*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br> *부드러운 퀼팅으로 마감된 타이트탑
 					</p>
 				</div>
@@ -33,22 +33,22 @@
 					</div>
 					<span>설치배송여부</span>
 					<div class="select_wrap1 shippings">
-						<button>수도권 : +172,000 : 36개</button>
+						<button>수도권 : +172,000</button>
 						<ul class="option1">
-							<li>= 설치배송여부 선택 : 가격 : 재고 =</li>
-							<li><span>미신청</span> : <span>0</span> : 150개</li>
-							<li><span>수도권</span> : <span>+16,000원</span> : 36개</li>
-							<li><span>지방</span> : <span>+30,000원</span> : 36개</li>
-							<li><span>제주도</span> : <span>+46,000원</span> : 37개</li>
+							<li>= 설치배송여부 선택 : 가격 =</li>
+							<li><span>미신청</span> : <span>0</span></li>
+							<li><span>수도권</span> : <span>+16,000원</span></li>
+							<li><span>지방</span> 	: <span>+30,000원</span></li>
+							<li><span>제주도</span> : <span>+46,000원</span></li>
 						</ul>
 					</div>
 				</div>
 				<div class="num_btn">
-					<button type="button">
+					<button type="button" onclick="plusCartItemCnt('minus')">
 						<img src="/images/shopping/count-minus.png" alt="빼기">
 					</button>
-					<input type="text" value="1">
-					<button type="button">
+					<input type="text" value="1" class="item_cnt">
+					<button type="button" onclick="plusCartItemCnt('plus')">
 						<img src="/images/shopping/count-plus.png" alt="더하기">
 					</button>
 				</div>
@@ -76,27 +76,28 @@
 	
 	<div class="inner">
 		<h2 class="tit">장바구니</h2>
-		<form>
-			<table>
-				<thead>
-					<tr>
-						<th align="center">
-							<div class="checkbox1_wrap">
-								<label class="checkbox1"></label> <input type="checkbox">
-							</div>
-						</th>
-						<th>상품정보</th>
-						<th>수량</th>
-						<th>상품금액</th>
-						<th>혜택</th>
-						<th>배송비</th>
-						<th>합계금액</th>
-					</tr>
-				</thead>
-				<tbody id="cartItemBody"></tbody>
-			</table>
-		</form>
-		<button class="delete_btn" type="button">선택 상품 삭제</button>
+		<table>
+			<thead>
+				<tr>
+					<th>
+						<div class="checkbox1_wrap">
+							<label class="checkbox1"></label>
+							<input type="checkbox">
+						</div>
+					</th>
+					<th>상품정보</th>
+					<th>수량</th>
+					<th>상품금액</th>
+					<th>혜택</th>
+					<th>배송비</th>
+					<th>합계금액</th>
+				</tr>
+			</thead>
+			<tbody id="cartItemBody"></tbody>
+		</table>
+		
+		<button class="delete_btn" type="button" onclick="deleteCartItem();">선택 상품 삭제</button>
+		
 		<div class="calc_cost">
 			<div>
 				<p>
