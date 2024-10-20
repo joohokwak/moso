@@ -1,10 +1,8 @@
 window.addEventListener('DOMContentLoaded', function() {
 	new Swiper('#shopping_buy .swiper', {
-		// Optional parameters
 		direction: 'horizontal',
 		loop: true,
 		slidesPerView: 5,
-		// Navigation arrows
 		navigation: {
 			nextEl: '.swiper-button-next',
 			prevEl: '.swiper-button-prev',
@@ -154,11 +152,16 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
+	// 리뷰 내용 보기
 	const reviewView = document.querySelectorAll('#view_review .board_body .display_view');
-	const reviewNone = document.querySelector('#view_review .board_body .display_view .display');
 	if (reviewView) {
 		reviewView.forEach((item) => {
-			item.addEventListener('click', function() {
+			item.addEventListener('click', function(e) {
+				e.preventDefault();
+				
+				// 하위 목록 선택 되도록 클릭시 이벤트 리스너 추가
+				const reviewNone = item.querySelector('.display');
+				
 				if (reviewNone.classList.contains('none')) {
 					reviewNone.classList.remove('none');
 				} else {
@@ -181,7 +184,6 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 	
-
 	const qna = document.querySelector('.shopping_borad .board_top .board_btn .qna');
 	if(qna) {
 		qna.addEventListener('click', function() {
@@ -190,6 +192,29 @@ window.addEventListener('DOMContentLoaded', function() {
 		console.log(qna);
 	}
 
+	// 리뷰 페이징
+	const reviewPaing = document.querySelectorAll('#view_review .page_num');
+	if (reviewPaing) {
+		reviewPaing.forEach(v => {
+			v.addEventListener('click', function(e) {
+				e.preventDefault();
+				
+				if (!v.classList.contains('active')) {
+					const viewReview = document.querySelector('#view_review');
+					const params = {'ITEMNO': viewReview.dataset.itemno, 'PAGENUM' : v.innerText};
+					
+					post('/Shop/review', params, (data) => {
+						// 요소 추가
+						handleSetReview(data);
+						
+						// active 처리
+						reviewPaing.forEach(rp => rp.classList.remove('active'));
+						v.classList.add('active');
+					});
+				}
+			});
+		});
+	}
 	
 });
 
@@ -198,7 +223,55 @@ function comma(str) {
 	return str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-
-
-
-
+// 리뷰 페이징 처리
+function handleSetReview(data) {
+	if (data) {
+		let reviewTxt = '';
+		
+		for (const rv of data) {
+			reviewTxt += `
+				<tbody class="display_view">
+					<tr>
+						<td width="110">
+							<span class="rating">
+								<c:forEach var="rat" begin="1" end="${rv.rating }">
+									<img src="/images/shopping/star-fill.png" alt="별점">
+								</c:forEach>
+								<c:forEach var="rat" begin="1" end="${5 - rv.rating }">
+									<img src="/images/shopping/star-bg.png" alt="별점">
+								</c:forEach>
+							</span>
+						</td>
+						<td class="board_content">
+							<a href="#">${rv.title }</a>
+							<span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span>
+						</td>
+						<td width="112" align="center">
+							<p>${rv.writer }</p>
+						</td>
+						<td width="112">
+							<p class="center">${rv.regdate }</p>
+						</td>
+					</tr>
+					<tr class="display none">
+						<td></td>
+						<td class="board_content">
+							<div class="board_main_content">
+								${rv.content }
+							</div>
+							<div>
+								<p><span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span><strong>첨부파일</strong><i class="file_name">jpg</i></p>
+							</div>
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			`;
+		}
+		
+		const reviewBody = document.querySelector('#view_review .board_body');
+		reviewBody.innerHTML = reviewTxt;
+	}
+	
+}

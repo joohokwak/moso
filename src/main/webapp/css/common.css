@@ -799,11 +799,13 @@ caption.nohead {
 	font-weight: 700;
 	color: var(--gray-500);
 	margin: 0 2px;
+	cursor: pointer;
 }
 
 .page_num.active {
 	color: #fff;
 	background: var(--point-color1);
+	cursor: auto;
 }
 
 /* TOP Button */

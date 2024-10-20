@@ -403,7 +403,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="view_review" class="shopping_borad">
+			<div id="view_review" class="shopping_borad" data-itemno="${dto.no }">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>
 					<a href="#view_review" class="underline">리뷰 (2)</a>
@@ -419,21 +419,15 @@
 						</div>
 					</div>
 					<table class="board_body">
-						<colgroup>
-							<col style="width: 110px;">
-							<col>
-							<col style="width: 112px; text-align: center;">
-							<col style="width: 112px;">
-						</colgroup>
 						<c:forEach var="rv" items="${review }">
 							<tbody class="display_view">
 								<tr>
-									<td>
+									<td width="110">
 										<span class="rating">
 											<c:forEach var="rat" begin="1" end="${rv.rating }">
 												<img src="/images/shopping/star-fill.png" alt="별점">
 											</c:forEach>
-											<c:forEach var="rat" begin="1" end="${ 5 - rv.rating }">
+											<c:forEach var="rat" begin="1" end="${5 - rv.rating }">
 												<img src="/images/shopping/star-bg.png" alt="별점">
 											</c:forEach>
 										</span>
@@ -442,10 +436,10 @@
 										<a href="#">${rv.title }</a>
 										<span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span>
 									</td>
-									<td>
+									<td width="112" align="center">
 										<p>${rv.writer }</p>
 									</td>
-									<td>
+									<td width="112">
 										<p class="center">${rv.regdate }</p>
 									</td>
 								</tr>

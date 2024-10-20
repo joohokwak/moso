@@ -156,6 +156,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 });
 
+// 사이즈별 금액 변경
 function handleSizeOption(txt) {
 	let result = -1;
 	
@@ -171,6 +172,7 @@ function handleSizeOption(txt) {
 	return result;
 }
 
+// 지역별 설치배송 금액 변경
 function handleShipOption(txt) {
 	let result = -1;
 	let setTxt = '';
@@ -195,6 +197,7 @@ function handleShipOption(txt) {
 	return result;
 }
 
+// 옵션/수량 변경 모달에서 사이즈/설치배송 옵션 변경 클릭
 function handleOptionClick(e) {
 	let price = cartItem.price;
 	
