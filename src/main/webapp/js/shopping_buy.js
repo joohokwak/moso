@@ -48,25 +48,19 @@ window.addEventListener('DOMContentLoaded', function() {
 				
 				sizes[idx].classList.add('active');
 
-				if (this.textContent === 'S') {
-					addPr = 0.8;
-				} else if (this.textContent === 'SS') {
-					addPr = 0.9;
-				} else if (this.textContent === 'Q') {
-					addPr = 1;
-				} else if (this.textContent === 'K') {
-					addPr = 1.1;
-				} else if (this.textContent === 'LK') {
-					addPr = 1.2;
-				} else {
-					addPr = 0;
-				}
+				// 추가 가격 설정
+	            const sizePriceMapping = {
+	                'S': 0.8,
+	                'SS': 0.9,
+	                'Q': 1,
+	                'K': 1.1,
+	                'LK': 1.2
+	            };
 
-				if (sizes[idx].classList.contains('active')) {
-					detail.classList.add('on');
-				} else if (detail.classList.contains('on')) {
-					detail.classList.remove('on');
-				}
+	            addPr = sizePriceMapping[this.textContent] || 0; // 기본값 0 설정
+
+				// 상세 정보 표시 관리
+				detail.classList.toggle('on', sizes[idx].classList.contains('active'));
 			});
 		});
 	}
@@ -160,12 +154,8 @@ window.addEventListener('DOMContentLoaded', function() {
 	        if (target) {
 	            e.preventDefault();
 				
-				const display = e.target.closest('.display_view').children[1];
-				if (display.classList.contains('none')) {
-					display.classList.remove('none');
-				} else {
-					display.classList.add('none');
-				}
+				const display = e.target.closest('.display_view').querySelector('tr + .display');
+				if (display) display.classList.toggle('none');
 	        }
 		});
 	}
@@ -174,13 +164,17 @@ window.addEventListener('DOMContentLoaded', function() {
 	const detailBox = document.querySelector('#view_info .detail_more_box');
 	const detailImage = document.querySelector('#view_info .detail_more_box .more_size');
 	if (detailBox) {
-		showDetail.addEventListener('click', function() {
-			detailBox.classList.add('show_img');
-		});
+	    if (showDetail) { // null 체크 추가
+	        showDetail.addEventListener('click', function() {
+	            detailBox.classList.add('show_img');
+	        });
+	    }
 
-		detailImage.addEventListener('click', function() {
-			detailBox.classList.remove('show_img');
-		});
+	    if (detailImage) {
+	        detailImage.addEventListener('click', function() {
+	            detailBox.classList.remove('show_img');
+	        });
+	    }
 	}
 	
 	const qna = document.querySelector('.shopping_borad .board_top .board_btn .qna');
@@ -235,15 +229,8 @@ function handleSetReview(data) {
 		let reviewTxt = '';
 		
 		for (const rv of data) {
-			// 별점
-			let star = '';
-			for (let i = 0; i < rv.rating; i++) {
-				star += '<img src="/images/shopping/star-fill.png" alt="별점">';
-			}
-			
-			for (let i = 0; i < (5 - rv.rating); i++) {
-				star += '<img src="/images/shopping/star-bg.png" alt="별점">';
-			}
+			// 별점 생성
+	        const star = createStarRating(rv.rating);
 			
 			reviewTxt += `
 				<tbody class="display_view">
@@ -284,5 +271,20 @@ function handleSetReview(data) {
 		const reviewBody = document.querySelector('#view_review .board_body');
 		reviewBody.innerHTML = reviewTxt;
 	}
-	
+}
+
+// 별점 생성 함수
+function createStarRating(rating) {
+    let stars = '';
+
+    // 별점 이미지 생성
+    for (let i = 0; i < rating; i++) {
+        stars += '<img src="/images/shopping/star-fill.png" alt="별점">';
+    }
+
+    for (let i = 0; i < (5 - rating); i++) {
+        stars += '<img src="/images/shopping/star-bg.png" alt="별점">';
+    }
+
+    return stars;
 }

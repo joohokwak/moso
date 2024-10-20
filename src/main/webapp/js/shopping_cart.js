@@ -397,18 +397,7 @@ function plusCartItemCnt(operation) {
     updatePriceDisplay(modalItemCnt.value * parseInt(cartItem.totalPrice));
 }
 
-// 주문하기 버튼
-function orderItem() {
-    const prepareCommonImg = document.querySelector('#prepareCommonWrap');
-    prepareCommonImg.style.display = 'flex';
-    document.body.classList.add('on');
-    
-    setTimeout(() => {
-        prepareCommonImg.style.display = 'none';
-        document.body.classList.remove('on');
-    }, 3000);
-}
-
+// 옵션 변경 확인버튼
 function updateCartItem() {
     const itemList = JSON.parse(localStorage.getItem('itemList')) || [];
     

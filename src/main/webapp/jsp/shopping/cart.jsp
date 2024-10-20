@@ -120,7 +120,7 @@
 		</div>
 		<div class="button_tab">
 			<button type="button" onclick="location.href = '/Shop/main'">쇼핑 계속하기</button>
-			<button type="button" class="btn2" onclick="orderItem();">주문하기</button>
+			<button type="button" class="btn2" onclick="showPrepare();">주문하기</button>
 		</div>
 	</div>
 </div>
