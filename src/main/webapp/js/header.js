@@ -109,13 +109,7 @@ window.addEventListener('DOMContentLoaded', function () {
 				e.preventDefault();
 				if (this.getAttribute('id')) return false;
 				
-				const prepareCommonImg = document.querySelector('#prepareCommonWrap');
-				prepareCommonImg.style.display = 'flex';
-				document.body.classList.add('on');
-				setTimeout(() => {
-					prepareCommonImg.style.display = 'none';
-					document.body.classList.remove('on');
-				}, 3000);
+				showPrepare();
 			});
 		});
 	}
@@ -140,3 +134,15 @@ window.addEventListener('DOMContentLoaded', function () {
 	}
 	
 }); // DOMContentLoaded
+
+// 준비중 화면 표시
+function showPrepare() {
+	const prepareCommonImg = document.querySelector('#prepareCommonWrap');
+    prepareCommonImg.style.display = 'flex';
+    document.body.classList.add('on');
+    
+    setTimeout(() => {
+        prepareCommonImg.style.display = 'none';
+        document.body.classList.remove('on');
+    }, 3000);
+}

@@ -9,14 +9,14 @@ window.addEventListener('DOMContentLoaded', function() {
 	
 	// 구분 하위목록 선택
 	const divisionEl = document.querySelectorAll('.inquiry_section .division a');
-	if (divisionEl) {
+	if (divisionEl.length) {
 		divisionEl.forEach(btn => {
 			btn.addEventListener('click', function(e) {
 				e.preventDefault();
 				
 				const $txt = this.innerText;
-				divisionBtn.children[0].innerText = $txt;
-				this.closest('.main_field').children[2].value = $txt;
+				divisionBtn.querySelector('p').innerText = $txt;
+				this.closest('.main_field').querySelector('input[type=hidden]').value = $txt;
 				
 				divisionBtn.click();
 			});
