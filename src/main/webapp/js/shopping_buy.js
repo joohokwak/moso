@@ -153,20 +153,14 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 
 	// 리뷰 내용 보기
-	const reviewView = document.querySelectorAll('#view_review .board_body .display_view');
+	const reviewView = document.querySelector('#view_review .board_body');
 	if (reviewView) {
-		reviewView.forEach((item) => {
-			item.addEventListener('click', function(e) {
-				e.preventDefault();
-				
-				// 하위 목록 선택 되도록 클릭시 이벤트 리스너 추가
-				const reviewNone = item.querySelector('.display');
-				
-				if (reviewNone.classList.contains('none')) {
-					reviewNone.classList.remove('none');
-				} else {
-					reviewNone.classList.add('none');
-				}
+		reviewView.addEventListener('click', function(e) {
+			e.preventDefault();
+			const displayViews = reviewView.querySelectorAll('.display_view .board_content a');
+			
+			displayViews.forEach(v => {
+				v.addEventListener('click', handleReviewView);
 			});
 		});
 	}
@@ -201,7 +195,10 @@ window.addEventListener('DOMContentLoaded', function() {
 				
 				if (!v.classList.contains('active')) {
 					const viewReview = document.querySelector('#view_review');
-					const params = {'ITEMNO': viewReview.dataset.itemno, 'PAGENUM' : v.innerText};
+					const pageNum = v.innerText;
+					if (!pageNum) pageNum = 1;
+					
+					const params = {'ITEMNO': viewReview.dataset.itemno, 'PAGENUM' : pageNum};
 					
 					post('/Shop/review', params, (data) => {
 						// 요소 추가
@@ -223,23 +220,39 @@ function comma(str) {
 	return str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
+function handleReviewView(e) {
+	console.log(e);
+	const display = e.target.closest('.display_view').children[1];
+	
+	if (display.classList.contains('none')) {
+		display.classList.remove('none');
+	} else {
+		display.classList.add('none');
+	}
+}
+
 // 리뷰 페이징 처리
 function handleSetReview(data) {
 	if (data) {
 		let reviewTxt = '';
 		
 		for (const rv of data) {
+			// 별점
+			let star = '';
+			for (let i = 0; i < rv.rating; i++) {
+				star += '<img src="/images/shopping/star-fill.png" alt="별점">';
+			}
+			
+			for (let i = 0; i < (5 - rv.rating); i++) {
+				star += '<img src="/images/shopping/star-bg.png" alt="별점">';
+			}
+			
 			reviewTxt += `
 				<tbody class="display_view">
 					<tr>
 						<td width="110">
 							<span class="rating">
-								<c:forEach var="rat" begin="1" end="${rv.rating }">
-									<img src="/images/shopping/star-fill.png" alt="별점">
-								</c:forEach>
-								<c:forEach var="rat" begin="1" end="${5 - rv.rating }">
-									<img src="/images/shopping/star-bg.png" alt="별점">
-								</c:forEach>
+								${star}
 							</span>
 						</td>
 						<td class="board_content">
