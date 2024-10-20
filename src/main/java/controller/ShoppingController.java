@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -115,8 +116,8 @@ public class ShoppingController extends HttpServlet {
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
 			ShoppingDTO qnaItem = shopSer.qnaItem(itemno);
 			
-						
 			req.setAttribute("item", qnaItem);
+			
 		// qna 등록
 		} else if (action.equals("/writeOk")) {
 			String itemno = req.getParameter("itemno");
@@ -126,6 +127,21 @@ public class ShoppingController extends HttpServlet {
 			System.out.println(qnaCre);
 			
 			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
+			return;
+			
+		// 리뷰 페이징
+		} else if (action.equals("/review")) {
+			Map<String, Object> rdata = Common.jsonConvert(req);
+			int itemno = Integer.parseInt(rdata.get("ITEMNO") + "");
+			int pageNum = Integer.parseInt(rdata.get("PAGENUM") + "");
+			
+			Pagination pg = new Pagination();
+			pg.setPageSize(3);
+			pg.setPageNum(pageNum);
+			
+			List<ItemReviewDTO> reviewAll = shopSer.reviewAll(itemno, pg);
+			
+			Common.jsonResponse(resp, reviewAll);
 			return;
 		}
 		
