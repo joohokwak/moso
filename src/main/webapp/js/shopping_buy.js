@@ -156,12 +156,17 @@ window.addEventListener('DOMContentLoaded', function() {
 	const reviewView = document.querySelector('#view_review .board_body');
 	if (reviewView) {
 		reviewView.addEventListener('click', function(e) {
-			e.preventDefault();
-			const displayViews = reviewView.querySelectorAll('.display_view .board_content a');
-			
-			displayViews.forEach(v => {
-				v.addEventListener('click', handleReviewView);
-			});
+	        const target = e.target.closest('.display_view .board_content a');
+	        if (target) {
+	            e.preventDefault();
+				
+				const display = e.target.closest('.display_view').children[1];
+				if (display.classList.contains('none')) {
+					display.classList.remove('none');
+				} else {
+					display.classList.add('none');
+				}
+	        }
 		});
 	}
 
@@ -195,10 +200,14 @@ window.addEventListener('DOMContentLoaded', function() {
 				
 				if (!v.classList.contains('active')) {
 					const viewReview = document.querySelector('#view_review');
-					const pageNum = v.innerText;
+					let pageNum = v.innerText;
+					// 기본값 설정
 					if (!pageNum) pageNum = 1;
 					
-					const params = {'ITEMNO': viewReview.dataset.itemno, 'PAGENUM' : pageNum};
+					const params = {
+						'ITEMNO': viewReview.dataset.itemno, 
+						'PAGENUM' : pageNum
+					};
 					
 					post('/Shop/review', params, (data) => {
 						// 요소 추가
@@ -218,17 +227,6 @@ window.addEventListener('DOMContentLoaded', function() {
 // 콤마 변환 함수
 function comma(str) {
 	return str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-function handleReviewView(e) {
-	console.log(e);
-	const display = e.target.closest('.display_view').children[1];
-	
-	if (display.classList.contains('none')) {
-		display.classList.remove('none');
-	} else {
-		display.classList.add('none');
-	}
 }
 
 // 리뷰 페이징 처리
