@@ -1,3 +1,6 @@
+// 삭제 목록
+let deleteListArr = [];
+
 window.addEventListener('DOMContentLoaded', function() {
 	// 관리자 페이지 왼쪽 메뉴 선택
 	const adminLeftMenus = document.querySelectorAll('.admin_content_left a');
@@ -11,43 +14,38 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
-	let deleteListArr = [];
 	// 회원 전체 선택 체크박스 (공통)
 	const adminChkAll = document.querySelector('#chkAll');
 	const _chks = document.querySelectorAll('.admin_list_wrap td .chks');
-
+	// 전체 선택 체크박스 클릭 이벤트 리스너
 	if (adminChkAll) {
-		adminChkAll.addEventListener('click', function() {
-			_chks.forEach(chk => {
-				chk.checked = this.checked;
-
-				if (chk.checked) deleteListArr.push(chk.dataset.no);
-			});
-
-			if (!this.checked) deleteListArr = [];
-		});
+	    adminChkAll.addEventListener('click', function() {
+			// 전체 체크박스 상태
+	        const isChecked = this.checked;
+	        _chks.forEach(chk => {
+				// 개별 체크박스 상태를 전체 체크박스와 동기화
+	            chk.checked = isChecked;
+				
+				// 삭제 리스트 업데이트
+	            updateDeleteList(chk.dataset.no, isChecked);
+	        });
+	    });
 	}
 
 	// 개별 선택 체크박스 (공통)
 	if (_chks) {
-		_chks.forEach(chk => {
-			chk.addEventListener('click', function() {
-				const _no = this.dataset.no;
-				if (this.checked) deleteListArr.push(_no);
-				else deleteListArr.splice(deleteListArr.indexOf(_no), 1);
-
-				let _tmp = false;
-				for (const checkbox of _chks) {
-					if (checkbox.checked) _tmp = true;
-					else {
-						_tmp = false;
-						break;
-					}
-				}
-
-				adminChkAll.checked = _tmp;
-			});
-		});
+	    _chks.forEach(chk => {
+	        chk.addEventListener('click', function() {
+				// 체크박스에 저장된 데이터 번호
+	            const itemNo = this.dataset.no;
+				
+				// 삭제 리스트 업데이트
+	            updateDeleteList(itemNo, this.checked);
+	            
+	            // 전체 선택 체크박스 상태 업데이트
+	            adminChkAll.checked = areAllCheckboxesChecked(_chks);
+	        });
+	    });
 	}
 
 	// 글쓰기 버튼 (공통)
@@ -74,39 +72,62 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 	
-	// 회원명 클릭 시 수정페이지 이동 (개인정보 이기 때문에 POST 방식으로 전달하기 위해)
+	// 회원명 클릭 시 수정 페이지로 이동 (개인정보 이기 때문에 POST 방식으로 전달하기 위해)
 	const memberIdClick = document.querySelectorAll('#adminMemberList .mem_id');
 	if (memberIdClick) {
-		memberIdClick.forEach(btn => {
-			btn.addEventListener('click', function(e) {
-				e.preventDefault();
-				
-				// 동적 form 태그 생성하여 전달
-				const form = document.createElement("form");
-				form.setAttribute("action", "/Admin/update");
-				form.setAttribute("method", "POST");
-				
-				const hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", "id");
-				hiddenField.setAttribute("value", this.innerText);
-				form.appendChild(hiddenField);
-				
-				const hiddenField2 = document.createElement("input");
-				hiddenField2.setAttribute("type", "hidden");
-				hiddenField2.setAttribute("name", "isadmin");
-				hiddenField2.setAttribute("value", "Y");
-				form.appendChild(hiddenField2);
-				
-				document.body.appendChild(form);
-				form.submit();
-			});
-		});
+	    memberIdClick.forEach(btn => {
+	        btn.addEventListener('click', function(e) {
+	            e.preventDefault();
+
+	            // 동적 폼 생성 및 데이터 전송
+	            createAndSubmitForm('/Admin/update', {
+	                id: this.innerText,
+	                isadmin: 'Y'
+	            });
+	        });
+	    });
 	}
 
 });
 
+// 삭제 리스트 업데이트 함수
+function updateDeleteList(itemNo, isChecked) {
+    if (isChecked) {
+        if (!deleteListArr.includes(itemNo)) {
+            deleteListArr.push(itemNo); // 체크된 경우 추가
+        }
+    } else {
+        const index = deleteListArr.indexOf(itemNo);
+        if (index > -1) {
+            deleteListArr.splice(index, 1); // 체크 해제된 경우 삭제
+        }
+    }
+}
+
+// 모든 체크박스가 체크되었는지 확인하는 함수
+function areAllCheckboxesChecked(checkboxes) {
+    return Array.from(checkboxes).every(checkbox => checkbox.checked);
+}
+
 // 두번째 글자만 대문자로 변환
 function capitalize(word) {
 	return word.charAt(0) + word.charAt(1).toUpperCase() + word.slice(2);
+}
+
+// 폼 생성 및 제출 함수
+function createAndSubmitForm(actionUrl, data) {
+    const form = document.createElement("form");
+    form.setAttribute("action", actionUrl);
+    form.setAttribute("method", "POST");
+
+    for (const key in data) {
+        const hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", data[key]);
+        form.appendChild(hiddenField);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
 }
