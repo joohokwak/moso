@@ -1,7 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.Common;
 import common.Pagination;
 import dto.QuizDTO;
 import service.QuizService;
@@ -41,11 +43,30 @@ public class QuizController extends HttpServlet {
 			
 		// search 페이지
 		} else if (action.equals("/search")) {
-			Pagination pg = Common.getParameter(req);
-			pg.setPageSize(12);
+			String headerSearch = req.getParameter("name");
+			String key = req.getParameter("key");
+			String keyword = req.getParameter("keyword");
 			
-			List<QuizDTO> list = qs.setGoods(pg);
-			req.setAttribute("search", list);
+			if (headerSearch != null) {
+				key = "goodsName";
+				keyword = headerSearch;
+			}
+			
+			Pagination pg = new Pagination();
+			pg.setPageSize(12);
+			List<QuizDTO> searchAll = qs.setGoods(pg, key, keyword);
+			Map<String, Object> searchMap = new HashMap<>();
+			List<Map<String, Object>> listMap = new ArrayList<>();
+			
+			
+			searchMap.put("keyword", keyword);
+			
+			listMap.add(searchMap);
+			
+			System.out.println(searchMap);
+			
+			
+			req.setAttribute("search", searchAll);
 			req.setAttribute("paging", pg.paging(req));
 		}
 		

@@ -4,11 +4,11 @@
 	<div id="search_content">
 		<div class="inner">
 			<strong>
-				<span>"${param.name }"</span>
-				검색결과 13개
+				<span>"${param.keyword}${param.name }"</span>
+				검색결과 ${search[0].totalCount}개
 			</strong>
 			<div class="search_input">
-				<form>
+				<form action="/Quiz/search" method="post">
 					<fieldset>
 						<legend>검색 폼</legend>
 							<span class="research_form">
@@ -16,15 +16,12 @@
 								<label for="rescan">결과 내 재검색</label>
 							</span>
 							<select class="select_type" name="key" id="check-s">
-								<option value="goodsName">상품명</option>
-								<option value="goodsNo">상품코드</option>
-								<option value="goodsSelfNo">자체상품코드</option>
-								<option value="makerName">제조사</option>
-								<option value="originName">원산지</option>
-								<option value="goodsSearchWord">검색키워드</option>
+								<option value="goodsName" ${param.key eq 'goodsName' ? 'selected' : '' }>상품명</option>
+								<option value="goodsNo"   ${param.key eq 'goodsNo' 	 ? 'selected' : '' }>상품코드</option>
+								<option value="goodsText" ${param.key eq 'goodsText' ? 'selected' : '' }>상품설명</option>
 							</select>
 							<div class="txt_field">
-								<input type="text" name="keyword" class="text_keyword" autocomplete="off">
+								<input type="text" name="keyword" class="text_keyword" autocomplete="off" value="${param.keyword }">
 							</div>
 							<button type="submit" class="search_btn">
 								검색

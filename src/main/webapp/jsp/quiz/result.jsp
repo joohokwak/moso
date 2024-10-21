@@ -35,9 +35,9 @@
 						<div class="recommend_wrap">
 							<c:forEach var="m" items="${quiz }">
 							<div class="recommend">
-								<a href="/Shop/buy?num=${m.no }">
+								<a href="/Shop/buy?itemno=${m.no }">
 									<span class="img_wrap">
-										<img src="/images/shopping/shopping_buy/${m.poster }" alt="얼티마 하이브리드 스프링 매트리스" title="얼티마 하이브리드 스프링 매트리스">
+										<img src="/images/shopping/${m.poster }" alt="얼티마 하이브리드 스프링 매트리스" title="얼티마 하이브리드 스프링 매트리스">
 									</span>
 									<b class="info">
 									${m.name }

@@ -65,84 +65,6 @@ public class CatalogDAO extends DBCP {
 		return list;
 	}
 
-//	public List<CatalogDTO> selectList(int pageNum, String title) {
-//		List<CatalogDTO> list = new ArrayList<CatalogDTO>();
-//
-//		try {
-//			conn = getConn();
-//
-//			// 2. sql Query문 작성
-//			String sql = "SELECT a.*";
-//			sql += "	FROM (";
-//			sql += "		SELECT ROW_NUMBER() over(ORDER BY c.NO desc) rn, c.no, to_char(c.regdate,'YYYY-MM-DD') regdate, c.title, c.visitcount, cf.ofile, cf.nfile ";
-//			sql += "		FROM CATALOG c LEFT OUTER JOIN CATALOG_FILE cf ";
-//			sql += "		ON c.NO = cf.CATALNO";
-//			if (title != null) {
-//				sql += " WHERE UPPER(c.title) like UPPER('%'||?||'%')";
-//			}
-//			
-//			sql += ") a";
-//			sql += "	WHERE rn BETWEEN ? AND ?";
-//			
-//			// 3. preparedstatement 연결
-//			ps = conn.prepareStatement(sql);
-//			if(title != null) {
-//				ps.setString(1, title);
-//				ps.setInt(2, (pageNum - 1) * 10 + 1);
-//				ps.setInt(3, pageNum * 10);
-//			} else {
-//				ps.setInt(1, (pageNum - 1) * 10 + 1);
-//				ps.setInt(2, pageNum * 10);
-//			}
-//			
-//
-//			// 4. mapping
-//
-//			// 5. Query문 실행
-//			rs = ps.executeQuery();
-//
-//			while (rs.next()) {
-//				int no = rs.getInt("NO");
-//				String title2 = rs.getString("TITLE");
-//				String regdate = rs.getString("REGDATE");
-//				int visitcount = rs.getInt("VISITCOUNT");
-//				String ofile = rs.getString("OFILE");
-//				String nfile = rs.getString("NFILE");
-//
-//				list.add(new CatalogDTO(no, title2, null, regdate, visitcount, ofile, nfile));
-//			}
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(conn, ps, rs);
-//		}
-//
-//		return list;
-//	}
-
-//	public int totalPage() {
-//		int result = 0;
-//		try {
-//			conn = getConn();
-//
-//			String sql = "SELECT COUNT(NO) FROM CATALOG";
-//
-//			ps = conn.prepareStatement(sql);
-//
-//			rs = ps.executeQuery();
-//			if (rs.next())
-//				result = rs.getInt(1);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(conn, ps, rs);
-//		}
-//
-//		return result;
-//	}
-
 	public CatalogDTO selectOne(int num) {
 		CatalogDTO dto = null;
 
@@ -202,7 +124,7 @@ public class CatalogDAO extends DBCP {
 
 	public int insertCatalog(CatalogDTO dto) {
 		int result = 0;
-		
+
 		try {
 			conn = getConn();
 
@@ -253,12 +175,12 @@ public class CatalogDAO extends DBCP {
 						if (result > 0) {
 							conn.commit();
 
-						// 실패하면 catalog, catalog_file 모두 롤백
+							// 실패하면 catalog, catalog_file 모두 롤백
 						} else {
 							conn.rollback();
 						}
 
-					// 파일 업로드 없이 커밋
+						// 파일 업로드 없이 커밋
 					} else {
 						conn.commit();
 					}
@@ -273,88 +195,117 @@ public class CatalogDAO extends DBCP {
 
 		return result;
 	}
-	
+
 	public int updateCatalog(CatalogDTO dto) {
 		int result = 0;
-		
+
 		try {
 			conn = getConn();
-			
-			String sql = "UPDATE CATALOG SET TITLE = ?, CONTENT = ? WHERE NO = ?";
-			
+
+			conn.setAutoCommit(false);
+
+			String sql = "UPDATE CATALOG c SET TITLE = ?, CONTENT = ? WHERE NO = ?";
+
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getContent());
 			ps.setInt(3, dto.getNo());
-			
+
 			result = ps.executeUpdate();
-			
-			
+
+			// update 성공했다면 파일 업로드 여부 체크
+			if (result > 0) {
+				// 파일 업로드를 할 때
+				if (dto.getOfile() != null) {
+
+					sql = "UPDATE CATALOG_FILE SET ofile = ?, nfile = ? where no = ? and catalno = ?";
+
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, dto.getOfile());
+					ps.setString(2, dto.getNfile());
+					ps.setInt(3, dto.getNo());
+
+					result = ps.executeUpdate();
+
+					// update 성공하면 커밋
+					if (result > 0) {
+						conn.commit();
+
+						// 실패하면 catalog, catalog_file 모두 롤백
+					} else {
+						conn.rollback();
+					}
+
+					// 파일 업로드 없이 커밋
+				} else {
+					conn.commit();
+				}
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);
 		}
-		
+
 		return result;
 	}
 
 	public int deleteCatalog(CatalogDTO dto) {
 		int result = 0;
-		
+
 		try {
 			conn = getConn();
-			
+
 			String sql = "DELETE FROM CATALOG_FILE WHERE CATALNO = ?";
-			
+
 			ps = conn.prepareStatement(sql);
-			
+
 			ps.setInt(1, dto.getNo());
-			
+
 			ps.executeUpdate();
-			
+
 			sql = "DELETE FROM CATALOG WHERE NO = ?";
-			
+
 			ps = conn.prepareStatement(sql);
-			
+
 			ps.setInt(1, dto.getNo());
-			
+
 			result = ps.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);
 		}
-		
+
 		return result;
 	}
-	
+
 	public int deleteCatalog(String[] no) {
 		int result = 0;
-		
+
 		try {
 			conn = getConn();
-			
+
 			for (String num : no) {
 				String sql = "DELETE FROM CATALOG_FILE WHERE CATALNO = ?";
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, Integer.parseInt(num));
 				ps.executeUpdate();
-				
+
 				sql = "DELETE FROM CATALOG WHERE NO = ?";
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, Integer.parseInt(num));
 				result = ps.executeUpdate();
 			}
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);
 		}
-		
+
 		return result;
 	}
 }
