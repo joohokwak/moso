@@ -74,8 +74,7 @@ public class DBCP {
 	public void close(Connection conn, Statement st, ResultSet rs) {
 		try {
 			if (rs != null) rs.close();
-			if (st != null) st.close();
-			if (conn != null) conn.close();
+			close(conn, st); // 재사용
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

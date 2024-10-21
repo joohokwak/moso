@@ -22,53 +22,41 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 public class Common {
 	// parameter to class
-	@SuppressWarnings("unchecked")
-	public static <T> T convert(HttpServletRequest request, T t) {
-		Map<String, Object> map = new HashMap<>();
-		
-		Enumeration<String> em = request.getParameterNames();
-		
-		// 요청된 파라미터 개수 만큼 반복
-		while (em.hasMoreElements()) {
-			// 파라미터명 얻기
-			String key = em.nextElement();
-
-			// 전달된 name 값이 여러개 인지 체크
-			if (request.getParameterValues(key).length > 1) {
-				String[] tmp = request.getParameterValues(key);
-				
-				StringBuilder sb = new StringBuilder();
-				for (int i = 0; i < tmp.length; i++) {
-					if (i == tmp.length - 1) {
-						sb.append(tmp[i]);
-						break;
-					}
-					sb.append(tmp[i]).append(", ");
-				}
-				
-				map.put(key, sb.toString());
-				
-			} else {
-				map.put(key, request.getParameter(key));
-			}
-		}
-		
-		if (!map.isEmpty()) {
-			Gson gson = new Gson();
-			// 맵 데이터를 jsonElement로 변환
-			JsonElement jsonElement = gson.toJsonTree(map);
-			// jsonElement를 원하는 객체 타입으로 변환
-			t = (T) gson.fromJson(jsonElement, t.getClass());
-			
-			return t;
-		}
-		
-		return null;
-	}
+	public static <T> T convert(HttpServletRequest request, Class<T> clazz) {
+        Map<String, Object> map = new HashMap<>();
+        
+        Enumeration<String> em = request.getParameterNames();
+        
+        // 요청된 파라미터 개수 만큼 반복
+        while (em.hasMoreElements()) {
+            // 파라미터명 얻기
+            String key = em.nextElement();
+            String[] values = request.getParameterValues(key);
+            
+            // 전달된 name 값이 여러 개인지 체크
+            if (values.length > 1) {
+                StringBuilder sb = new StringBuilder();
+                for (String value : values) {
+                    sb.append(value).append(", ");
+                }
+                sb.setLength(sb.length() - 2); // 마지막 ", " 제거
+                map.put(key, sb.toString());
+            } else {
+                map.put(key, request.getParameter(key));
+            }
+        }
+        
+        if (!map.isEmpty()) {
+            Gson gson = new Gson();
+            // 맵 데이터를 원하는 객체 타입으로 변환
+            return gson.fromJson(gson.toJson(map), clazz);
+        }
+        
+        return null; // 빈 객체를 반환할 수도 있음
+    }
 	
 	// json type data to map
 	@SuppressWarnings("unchecked")

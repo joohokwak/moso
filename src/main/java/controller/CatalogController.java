@@ -59,7 +59,7 @@ public class CatalogController extends HttpServlet {
 			
 		// 글쓰기
 		} else if (action.equals("/writeOk")) {
-			CatalogDTO dto = Common.convert(req, new CatalogDTO());
+			CatalogDTO dto = Common.convert(req, CatalogDTO.class);
 			Map<String, String> map = Common.fileUpload(req, "files/catalog");
 			
 			if (map != null) {
@@ -83,7 +83,7 @@ public class CatalogController extends HttpServlet {
 			
 		// 수정 버튼 클릭
 		} else if (action.equals("/updateOk")) {
-			CatalogDTO dto = Common.convert(req, new CatalogDTO());
+			CatalogDTO dto = Common.convert(req, CatalogDTO.class);
 			Map<String, String> map = Common.fileUpload(req, "files/catalog");
 			
 			if (map != null) {
@@ -108,7 +108,7 @@ public class CatalogController extends HttpServlet {
 		
 		// 삭제하기
 		} else if (action.equals("/deleteOk")) {
-			CatalogDTO dto = Common.convert(req, new CatalogDTO());
+			CatalogDTO dto = Common.convert(req, CatalogDTO.class);
 			
 			cs.deleteCatalog(dto);
 			resp.sendRedirect("/Catalog/list");

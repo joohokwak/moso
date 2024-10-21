@@ -36,7 +36,7 @@ public class FaqController extends HttpServlet {
 			
 		// 글쓰기
 		} else if (action.equals("/writeOk")) {
-			FaqDTO dto = Common.convert(req, new FaqDTO());
+			FaqDTO dto = Common.convert(req, FaqDTO.class);
 			fs.insertFaq(dto);
 			resp.sendRedirect("/Faq/list");
 			return;
@@ -55,7 +55,7 @@ public class FaqController extends HttpServlet {
 			
 		// 글수정OK
 		} else if (action.equals("/updateOk")) {
-			FaqDTO dto = Common.convert(req, new FaqDTO());
+			FaqDTO dto = Common.convert(req, FaqDTO.class);
 			fs.updateFaq(dto);
 			
 			String isadmin = req.getParameter("isadmin");
