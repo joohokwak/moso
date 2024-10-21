@@ -175,7 +175,7 @@ public class QuizDAO extends DBCP {
 				String sizename = rs.getString("SIZENAME");
 				String poster = rs.getString("POSTER");
 				
-				list.add(new QuizDTO(no, name, type, text, price, point, regdate, sizename, poster));
+				list.add(new QuizDTO(no, name, type, text, price, point, regdate, sizename, poster, 0));
 			}
 			
 		} catch (Exception e) {
@@ -188,14 +188,47 @@ public class QuizDAO extends DBCP {
 	}
 	
 	// search 페이지
-	public List<QuizDTO> setGoods(Pagination pg) {
+	public List<QuizDTO> setGoods(Pagination pg, String key, String keyword) {
 		List<QuizDTO> list = new ArrayList<QuizDTO>();
 		try {
 			conn = getConn();
+			// 숫자 외엔 검색 막기
+			String regExp = "^[0-9]+$";
 			
-			String sql = pg.getQuery(conn, "SELECT * FROM ITEM");
+			String tmp = "SELECT * FROM ITEM WHERE 1 = 1";
+			// 검색 단어가 있으면
+			if (keyword != null && keyword.length() > 0) {
+				// 검색 옵션이 상품명일 때
+				if (key.equals("goodsName")) {
+					tmp += " AND UPPER(NAME) LIKE UPPER('%" + keyword + "%')";
+				// 검색 옵션이 상품 코드일 때
+				} else if (key.equals("goodsNo") && keyword.matches(regExp)) {
+					tmp += " AND NO = " + keyword; 
+				// 검색 옵션이 상품 설명일 때
+				} else if (key.equals("goodsText")) {
+					tmp += " AND UPPER(TEXT) LIKE UPPER('%" + keyword + "%')"; 
+				}
+			}
+			
+			// 검색 결과 개수
+			String tc = "";
+			tc += "SELECT count(a.no) cnt";
+			tc += " FROM ( ";
+			tc += tmp;
+			tc += " ) a";
+			
+			ps = conn.prepareStatement(tc);
+			
+			rs = ps.executeQuery();
+			
+			int totalCount = 0;
+			if (rs.next()) totalCount = rs.getInt("cnt");
+			
+			
+			String sql = pg.getQuery(conn, tmp);
 			
 			ps = conn.prepareStatement(sql);
+			
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -209,7 +242,7 @@ public class QuizDAO extends DBCP {
 				String sizename = rs.getString("SIZENAME");
 				String poster = rs.getString("POSTER");
 				
-				list.add(new QuizDTO(no, name, type, text, price, point, regdate, sizename, poster));
+				list.add(new QuizDTO(no, name, type, text, price, point, regdate, sizename, poster, totalCount));
 			}
 			
 		} catch (Exception e) {
