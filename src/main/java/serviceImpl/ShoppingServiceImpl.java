@@ -42,13 +42,25 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public ShoppingDTO qnaItem(int itemno) {
+	public ShoppingDTO writeItem(int itemno) {
 		// TODO Auto-generated method stub
-		return dao.qnaItem(itemno);
+		return dao.writeItem(itemno);
 	}
 
 	@Override
 	public boolean qnaCreate(ItemReviewDTO qnaCre) {
-		return dao.quaCreate(qnaCre) > 0;
+		return dao.qnaCreate(qnaCre) > 0;
+	}
+
+	@Override
+	public List<ItemReviewDTO> qnaAll(int num) {
+		// TODO Auto-generated method stub
+		return dao.qnaAll(num);
+	}
+
+	@Override
+	public ItemReviewDTO qnaOne(int qnano) {
+		
+		return dao.qnaOne(qnano);
 	}
 }

@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="shopping_write">
   <div class="goods">
     <h4>상품문의 쓰기</h4>
@@ -21,7 +22,7 @@
 	          <th>
 	            구분
 	          </th>
-	          <td class="select_wrap1 ">
+	          <td class="select_wrap1">
 	            <button class="cateBtn">상품</button>
 	            <ul class="option1">
 	              <li>상품</li>
@@ -30,47 +31,36 @@
 	              <li>교환/변경</li>
 	              <li>기타</li>
 	            </ul>
-	            <input type="hidden" name="cate" value="상품">
+	            <input type="hidden" name="cate" id="cateBtn" value="상품">
 	          </td>
 	        </tr>
 	        <tr>
 	          <th>작성자</th>
-	          <td class="input_txt"><input type="text" name="writer"></td>
+	          <td class="input_txt"><input type="text" name="writer" value="${qna.writer != null ? qna.writer : '' }"></td>
 	        </tr>
 	        <tr>
 	          <th>비밀번호</th>
-	          <td class="input_txt"><input type="password" name="pass"></td>
+	          <td class="input_txt"><input type="password" name="pass" value="${qna.pass != null ? qna.pass : '' }"></td>
 	        </tr>
 	        <tr>
 	          <th>제목</th>
 	          <td class="input_txt">
-	            <input type="text" placeholder="제목 입력" name="title">
+	            <input type="text" placeholder="제목 입력" name="title" value="${qna.title != null? qna.title : ''}">
 	          </td>
 	        </tr>
 	        <tr>
 	          <th>내용</th>
 	          <td class="content">
-	            <div class="checkbox1_wrap">
-	              <label class="checkbox1">비밀글</label>
-	              <input type="checkbox">
+	            <div class="checkbox1_wrap" >
+	              <label class="checkbox1" for="check1" >비밀글</label>
+	              <input type="checkbox" id="check1" name="secrite" value="1">
 	            </div>
 	            <p>
 	              ※ 네이버 등 기타 온라인몰에서 구매하신 고객분들께서는 구매처에 문의를 부탁드립니다. <br>
 	              ※ 올려주신 상품후기는 사진과 함께 마케팅 용도로 활용될 수 있습니다. <br>
 	              ※ 상품후기를 올리실 경우 이에 동의하시는 걸로 간주됩니다.
 	            </p>
-	            <textarea id="content" name="content" data-editor></textarea>
-	          </td>
-	        </tr>
-	        <tr class="file_upload">
-	          <th>첨부파일</th>
-	          <td class="file_upload">
-	            <input type="text">
-	            <label for="input-file">
-	              찾아보기
-	            </label>
-	            <input type="file" id="input-file" style="display:none">
-	            <button type="button">+ 추가</button>
+	            <textarea id="content" name="question" data-editor='${qna.question}'>${qna.question}</textarea>
 	          </td>
 	        </tr>
 	      </table>
@@ -85,15 +75,15 @@
 	        </p>
 	      <div >
 	        <div class="checkbox1_wrap">
-	          <label class="checkbox1">위 내용에 동의합니다.</label>
-	          <input type="checkbox">
+	          <label class="checkbox1" for="check2">위 내용에 동의합니다.</label>
+	          <input type="checkbox" id="check2">
 	        </div>
 	        <a href="#">전체보기></a>
 	      </div>
 	    </div>
 	  <div class="bottom">
 	    <button	onclick="javascript:history.go(-1);">취소</button>
-	    <button>등록</button>
+	    <button id="req_btn">등록</button>
 	  </div>
     </form>
   </div>

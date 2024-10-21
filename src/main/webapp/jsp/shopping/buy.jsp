@@ -128,8 +128,8 @@
 				<div class="shopping_go_tab">
 					<!-- db에 따라 리뷰, q&a 숫자 변경 설정할 것 -->
 					<a href="#view_info" class="underline">상세정보</a>
-					<a href="#view_review">리뷰 (2)</a>
-					<a href="#view_question">Q&amp;A(24)</a>
+					<a href="#view_review">리뷰 (${review[0].cnt })</a>
+					<a href="#view_question">Q&amp;A(${qnaAll[0].cnt })</a>
 					<a href="#view_service">배송/반품/설치</a>
 				</div>
 				<div class="ad_more">
@@ -406,8 +406,8 @@
 			<div id="view_review" class="shopping_borad" data-itemno="${dto.no }">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>
-					<a href="#view_review" class="underline">리뷰 (2)</a>
-					<a href="#view_question">Q&amp;A(24)</a>
+					<a href="#view_review" class="underline">리뷰 (${review[0].cnt })</a>
+					<a href="#view_question">Q&amp;A(${qnaAll[0].cnt })</a>
 					<a href="#view_service">배송/반품/설치</a>
 				</div>
 				<div class="board_inner">
@@ -467,13 +467,13 @@
 			<div id="view_question" class="shopping_borad">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>
-					<a href="#view_review">리뷰 (2)</a>
-					<a href="#view_question" class="underline">Q&amp;A (24)</a>
+					<a href="#view_review">리뷰 (${review[0].cnt })</a>
+					<a href="#view_question" class="underline">Q&amp;A (${qnaAll[0].cnt })</a>
 					<a href="#view_service">배송/반품/설치</a>
 				</div>
 				<div class="board_inner">
 					<div class="board_top">
-						<h3>Q&A</h3>
+						<h3>Q&amp;A</h3>
 						<div class="board_btn">
 							<button class="board_all">고객센터</button>
 							<button class="board_write qna" type="button" data-no="${dto.no }">Q&amp;A 등록</button>
@@ -486,51 +486,46 @@
 							<col style="width: 112px;">
 							<col style="width: 112px;">
 						</colgroup>
-						<tr>
-							<td class="board_content">
-								<span><img src="/images/shopping/icon_board_secret.png" alt="비밀글"></span>
-								<a href="#">배송관련</a>
-							</td>
-							<td>
-								<p>김도영</p>
-							</td>
-							<td>
-								<p class="center">2024.05.31</p>
-							</td>
-							<td>
-								<p class="center">답변완료</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="board_content">
-								<span><img src="/images/shopping/icon_board_secret.png" alt="비밀글"></span>
-								<a href="#">배송관련</a>
-							</td>
-							<td>
-								<p>김도영</p>
-							</td>
-							<td>
-								<p class="center">2024.05.31</p>
-							</td>
-							<td>
-								<p class="center">답변완료</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="board_content">
-								<span><img src="/images/shopping/icon_board_secret.png" alt="비밀글"></span>
-								<a href="#">배송관련</a>
-							</td>
-							<td>
-								<p>김도영</p>
-							</td>
-							<td>
-								<p class="center">2024.05.31</p>
-							</td>
-							<td>
-								<p class="center">답변완료</p>
-							</td>
-						</tr>
+						<c:forEach var="qna" items="${qnaAll }">
+							<tbody class="display_view">						
+								<tr>
+									<td class="board_content">										
+										<span data-sr='${qna.secrite }'>
+											<img src="/images/shopping/icon_board_secret.png" alt="비밀글">
+										</span>
+										<a href="#">${qna.title }</a>
+									</td>
+									<td>
+										<p>${qna.writer }</p>
+									</td>
+									<td>
+										<p class="center">${qna.regdate }</p>
+									</td>
+									<td>
+										<p class="center">답변완료</p>
+									</td>
+								</tr>
+								<tr >
+									<td colspan='3' class="board_content display_none">
+										<span><img src="/images/shopping/q.png" alt="질문"></span>
+										<p>${qna.question }</p>
+									</td>
+									<td class="display_none" >
+										<div class="qna_btn">
+											<a href="/Shop/write?itemno=${dto.no }&qnano=${qna.no }">수정</a>
+											<a href="#">삭제</a>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan='4' class="board_content display_none">
+										<span><img src="/images/shopping/a.png" alt="답변"></span>
+										<p>${qna.answre }</p>
+									</td>
+								</tr>
+							</tbody>
+						</c:forEach>
+
 					</table>
 					
 					<!-- 페이징 -->
@@ -544,8 +539,8 @@
 			<div id="view_service">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>
-					<a href="#view_review">리뷰 (2)</a>
-					<a href="#view_question">Q&amp;A (24)</a>
+					<a href="#view_review">리뷰 (${review[0].cnt })</a>
+					<a href="#view_question">Q&amp;A (${qnaAll[0].cnt })</a>
 					<a href="#view_service" class="underline">배송/반품/설치</a>
 				</div>
 				<div class="service_info">
