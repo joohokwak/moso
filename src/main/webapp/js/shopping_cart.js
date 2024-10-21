@@ -7,19 +7,16 @@ window.addEventListener('DOMContentLoaded', function() {
         setCartItem();
         
         // 전체 체크
-        const theadCheck = document.querySelector('#shopping_cart thead .checkbox1_wrap');
-        if (theadCheck) {
-            theadCheck.addEventListener('click', function() {
-				// 전체 체크박스 상태 토글
-		        const isChecked = this.classList.toggle('on');
+		clickEvent('#shopping_cart thead .checkbox1_wrap', function() {
+			// 전체 체크박스 상태 토글
+	        const isChecked = this.classList.toggle('on');
 
-		        // 하위 체크박스 선택
-		        const tbodyCheck = document.querySelectorAll('#cartItemBody .checkbox1_wrap');
-		        tbodyCheck.forEach(v => {
-		            v.classList.toggle('on', isChecked); // 전체 체크 상태에 따라 하위 체크박스 상태 설정
-		        });
-            });
-        }
+	        // 하위 체크박스 선택
+	        const tbodyCheck = document.querySelectorAll('#cartItemBody .checkbox1_wrap');
+	        tbodyCheck.forEach(v => {
+	            v.classList.toggle('on', isChecked); // 전체 체크 상태에 따라 하위 체크박스 상태 설정
+	        });
+		});
         
         // 옵션 관련 기능
         initOptionModal();
@@ -28,12 +25,7 @@ window.addEventListener('DOMContentLoaded', function() {
         initUpdateButtons();
         
         // 확인 이벤트
-        const modalOkBtn = document.querySelector('#shopping_cart .select_option .op_update');
-        if (modalOkBtn) {
-            modalOkBtn.addEventListener('click', function() {
-                updateCartItem();
-            });
-        }
+		clickEvent('#shopping_cart .select_option .op_update', () => updateCartItem());
     }
 
     // 상품 상세페이지에서 장바구니에 담기 클릭
@@ -139,12 +131,19 @@ function parseItemData(itemStr) {
 
 // 배송비 계산
 function getShippingPrice(location) {
-    switch(location) {
-        case '수도권': return 16000;
-        case '지방': return 30000;
-        case '제주도': return 46000;
-        default: return 0;
-    }
+	const locations = ['미신청', '수도권', '지방', '제주도'];
+	
+	// 설치배송 여부 세팅
+	for (const loc of locations) {
+	    if (location.includes(loc)) {
+			switch(location) {
+		        case '수도권': return 16000;
+		        case '지방': return 30000;
+		        case '제주도': return 46000;
+		        default: return 0;
+		    }
+	    }
+	}
 }
 
 // 장바구니 아이템 세팅
@@ -225,8 +224,20 @@ function handleShipOption(location) {
         '지방': 30000,
         '제주도': 46000
     };
+	
+	const locations = ['미신청', '수도권', '지방', '제주도'];
 
-    cartItem.loc = location.includes('미신청') ? '미신청' : location; // 설치배송 여부 세팅
+	// 설치배송 여부 세팅
+	for (const loc of locations) {
+	    if (location.includes(loc)) {
+	        cartItem.loc = loc;
+	        break;
+	    }
+	}
+	
+	// 변경된 금액 정보 세팅
+	cartItem.plusPrice = shippingCosts[cartItem.loc];
+	
     return shippingCosts[cartItem.loc] || 0; // 기본값 0 반환
 }
 

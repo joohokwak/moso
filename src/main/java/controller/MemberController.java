@@ -36,7 +36,7 @@ public class MemberController extends HttpServlet {
 		
 		// 회원가입
 		} else if (action.equals("/joinOk")) {
-			MemberDTO member = Common.convert(req, new MemberDTO());
+			MemberDTO member = Common.convert(req, MemberDTO.class);
 			if (member != null) {
 				String domain = req.getParameter("domain");
 				String email = member.getEmail() + "@" + domain;
@@ -102,7 +102,7 @@ public class MemberController extends HttpServlet {
 			
 		// 회원정보 수정
 		} else if (action.equals("/updateOk")) {
-			MemberDTO dto = Common.convert(req, new MemberDTO());
+			MemberDTO dto = Common.convert(req, MemberDTO.class);
 			int re = mService.updateMember(dto);
 			if (re > 0) req.setAttribute("msg", "정상적으로 변경되었습니다.");
 			else req.setAttribute("msg", "회원정보 변경에 실패하였습니다. 잠시후 다시 시도 하시거나 관리자에게 문의하세요.");

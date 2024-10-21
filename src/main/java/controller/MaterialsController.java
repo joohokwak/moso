@@ -49,7 +49,7 @@ public class MaterialsController extends HttpServlet {
 			
 		// 글쓰기
 		} else if (action.equals("/writeOk")) {
-			MaterialsDTO dto = Common.convert(req, new MaterialsDTO());
+			MaterialsDTO dto = Common.convert(req, MaterialsDTO.class);
 			
 			Map<String, String> rData = Common.fileUpload(req, "files/materials");
 			if (!rData.isEmpty()) {
@@ -86,12 +86,15 @@ public class MaterialsController extends HttpServlet {
 			
 		// 글수정 실행
 		} else if (action.equals("/updateOk")) {
-			MaterialsDTO dto = Common.convert(req, new MaterialsDTO());
+			MaterialsDTO dto = Common.convert(req, MaterialsDTO.class);
 			
 			Map<String, String> rData = Common.fileUpload(req, "files/materials");
 			if (rData != null && !rData.isEmpty()) {
 				dto.setOfile(rData.get("ofile"));
 				dto.setNfile(rData.get("nfile"));
+				
+				// 기존 파일 제거
+				Common.fileDelete(req, "files/materials", ms.selectOne(dto.getNo()).getNfile());
 			}
 			
 			ms.updateMaterial(dto);

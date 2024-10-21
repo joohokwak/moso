@@ -48,7 +48,7 @@ public class NoticeController extends HttpServlet {
 			
 		// 글쓰기OK
 		} else if (action.equals("/writeOk")) {
-			NoticeDTO dto = Common.convert(req, new NoticeDTO());
+			NoticeDTO dto = Common.convert(req, NoticeDTO.class);
 			Map<String, String> map = Common.fileUpload(req, "files/notice");
 			if(map != null && !map.isEmpty()) {
 				dto.setOfile(map.get("ofile"));
@@ -78,7 +78,7 @@ public class NoticeController extends HttpServlet {
 			
 		// 글수정OK
 		} else if (action.equals("/updateOk")) {
-			NoticeDTO dto = Common.convert(req, new NoticeDTO());
+			NoticeDTO dto = Common.convert(req, NoticeDTO.class);
 			sc.noticeUpdate(dto);
 			
 			resp.sendRedirect("/Notice/list");

@@ -124,12 +124,13 @@ public class ShoppingController extends HttpServlet {
 				req.setAttribute("qna", dto);
 			}
 			
-			
 			req.setAttribute("item", writeItem);
+			
 		// qna 등록
 		} else if (action.equals("/writeOk")) {
 			String itemno = req.getParameter("itemno");
-			ItemReviewDTO qnaCre = Common.convert(req, new ItemReviewDTO.class);
+
+			ItemReviewDTO qnaCre = Common.convert(req, ItemReviewDTO.class);
 			
 			shopSer.qnaCreate(qnaCre);
 			
