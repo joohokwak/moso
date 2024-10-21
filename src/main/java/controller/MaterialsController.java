@@ -92,6 +92,9 @@ public class MaterialsController extends HttpServlet {
 			if (rData != null && !rData.isEmpty()) {
 				dto.setOfile(rData.get("ofile"));
 				dto.setNfile(rData.get("nfile"));
+				
+				// 기존 파일 제거
+				Common.fileDelete(req, "files/materials", ms.selectOne(dto.getNo()).getNfile());
 			}
 			
 			ms.updateMaterial(dto);

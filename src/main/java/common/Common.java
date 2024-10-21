@@ -207,6 +207,18 @@ public class Common {
 		}
 	}
 	
+	// 파일 삭제
+	public static void fileDelete(HttpServletRequest request, String path, String fileName) {
+		// 파일 경로
+		String ATTACHED_DIR = request.getServletContext().getRealPath(path);
+		// 파일 경로 및 저장된 파일명을 file 객체로 얻기
+		File file = new File(ATTACHED_DIR + File.separator + fileName);
+		
+		if (file.exists()) {
+			file.delete();
+		}
+	}
+	
 	// 검색 + 페이징 처리로직 공통
 	public static Pagination getParameter(HttpServletRequest request) {
 		Pagination pg = new Pagination();
