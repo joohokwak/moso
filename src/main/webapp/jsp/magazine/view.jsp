@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<div class="external">
+<div class="b_external">
 	<div class="brand_wrap">
 		<div class="brand_content">
 			<div class="brand_menu">

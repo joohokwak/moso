@@ -88,14 +88,15 @@ public class MagazineDAO extends DBCP {
 		try {
 			conn = getConn();
 			
-			String sql = "UPDATE MAGAZINE SET TITLE = ?, TEXT = ?, CONTENT = ?, MTYPE = ? WHERE NO = ?";
+			String sql = "UPDATE MAGAZINE SET TITLE = ?, TEXT = ?, POSTER = ?, CONTENT = ?, MTYPE = ? WHERE NO = ?";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getText());
-			ps.setString(3, dto.getContent());
-			ps.setString(4, dto.getMtype());
-			ps.setInt(5, dto.getNo());
+			ps.setString(3, dto.getPoster());
+			ps.setString(4, dto.getContent());
+			ps.setString(5, dto.getMtype().equals("매거진") ? "magazine" : "review");
+			ps.setInt(6, dto.getNo());
 			
 			result = ps.executeUpdate();
 			
@@ -122,7 +123,7 @@ public class MagazineDAO extends DBCP {
 			ps.setString(2, dto.getText());
 			ps.setString(3, dto.getPoster());
 			ps.setString(4, dto.getContent());
-			ps.setString(5, dto.getMtype());
+			ps.setString(5, dto.getMtype().equals("매거진") ? "magazine" : "review");
 			
 			result = ps.executeUpdate();
 			

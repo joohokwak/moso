@@ -7,7 +7,7 @@
 }
 
 .inquiry_wrap {
-	background: url(/images/inquiry/bg_board_top.png) repeat-x left 156px top;
+	background: url(/images/inquiry/bg_board_top.png) repeat-x left top;
 }
 
 .inquiry_wrap.on {
@@ -164,7 +164,7 @@
 }
 
 .section_main .main_field .field_file {
-	border: none;
+	width: 930px;
 }
 
 .section_bottom {

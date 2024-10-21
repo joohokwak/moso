@@ -7,7 +7,7 @@
 		<div class="brand_menu">
 			<ul class="tabs">
 				<li><a href="#">이벤트</a></li>
-				<li><a href="#">매거진</a></li>
+				<li><a href="/Magazine/magazine">매거진</a></li>
 				<li><a href="#">지누스 스토리</a></li>
 				<li><a href="#">Mattress in a Box</a></li>
 				<li><a href="#">제품안전인증</a></li>

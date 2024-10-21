@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', function () {
 		window.addEventListener('scroll', function () {
 			const scrollY = window.scrollY;
 	
-			if (scrollY > 50) {
+			if (scrollY > 0) {
 				content.classList.add('fixed');
 				if (admin) admin.classList.add('on');
 				if (con) con.classList.add('on');

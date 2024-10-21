@@ -25,7 +25,7 @@
 									<li><a href="#">매거진</a></li>
 									<li><a href="#">월간 리뷰</a></li>
 								</ul>
-								<input type="hidden" name="type" value="매거진">
+								<input type="hidden" name="mtype" value="매거진">
 							</div>
 						</li>
 						<li><span>제목</span>
@@ -48,7 +48,7 @@
 						<li>
 							<span>POSTER</span>
 							<div class="main_field">
-								<input type="file" class="field_file" name="poster" />
+								<input type="text" class="field_file" name="poster" />
 							</div>
 						</li>
 					</ul>
