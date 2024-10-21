@@ -92,10 +92,12 @@ public class MaterialsDAO extends DBCP {
 	        sql += "UPDATE MATERIALS SET ";
         	sql += " TITLE = ?, TXT = ?, MSIZE = ?, POSTER = ? ";
         	
-        	if (dto.getOfile() != null) sql += ", OFILE = " + dto.getOfile();
-        	if (dto.getNfile() != null) sql += ", NFILE = " + dto.getNfile();
+        	if (dto.getOfile() != null) sql += ", OFILE = '" + dto.getOfile() + "'";
+        	if (dto.getNfile() != null) sql += ", NFILE = '" + dto.getNfile() + "'";
         	
         	sql += " WHERE NO = ?";
+        	
+        	System.out.println(sql);
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
