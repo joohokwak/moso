@@ -258,7 +258,7 @@ public class MemberDAO extends DBCP {
 			String sql = "";
 			sql += "UPDATE MEMBER                         								";
 			sql += "SET PASS = ?, NAME = ?, EMAIL = ?, PHONE = ?, TEL = ?,				";
-			sql += "ZIPCODE = ?, ADDRESS = ?, ADDR_DETAIL = ?, GENDER = ?, BIRTH = ?,	";
+			sql += "ZIPCODE = ?, ADDRESS = ?, ADDR_DETAIL = ?, GENDER = ?, BIRTH = ?	";
 			sql += "WHERE ID = ?														";
 			
 			ps = conn.prepareStatement(sql);

@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:if test="${not empty msg }">
 	<script>alert(`${msg }`);</script>
@@ -36,7 +36,7 @@
 				<tr>
 					<th class="required">비밀번호</th>
 					<td>
-						<input type="password" id="pass" name="pass" title="비밀번호">
+						<input type="password" id="pass" name="pass" title="비밀번호" value=${member.pass }>
 						<i class="password_icon"></i>
 						<div class="join_id_msg">사용불가! 영문대/소문자, 숫자, 특수문자 중 2가지 이상 조합하세요.</div>
 					</td>
@@ -50,8 +50,7 @@
 				<tr>
 					<th class="required">이메일</th>
 					<td>
-						<c:set var="member_email" value="${member.email }" />
-						<input type="text" id="email" name="email" title="이메일" autocomplete="off" value="${fn:substringBefore(member_email, '@')}">
+						<input type="text" id="email" name="email" title="이메일" autocomplete="off" value="${member.email}">
 						<select name="domain" title="이메일 도메인">
 							<option value="">직접입력</option>
 							<option value="naver.com">naver.com</option>
@@ -101,7 +100,6 @@
 		<div class="join_tit">
 			<h3>부가 정보</h3>
 		</div>
-
 		<table>
 			<colgroup>
 				<col width="163px">
@@ -112,11 +110,11 @@
 					<th class="required">성별</th>
 					<td>
 						<span>
-							<input type="radio" id="male" name="gender" value="M" ${member.gender eq 'M' ? 'checked' : '' }>
+							<input type="radio" id="male" class="blind" name="gender" value="M" ${member.gender eq 'M' ? 'checked' : '' } />
 							<label for="male">남자</label>
-						</span>
+						</span>&nbsp;&nbsp;&nbsp;
 						<span>
-							<input type="radio" id="female" name="gender" value="F" ${member.gender eq 'F' ? 'checked' : '' }>
+							<input type="radio" id="female" class="blind" name="gender" value="F" ${member.gender eq 'F' ? 'checked' : '' } />
 							<label for="female">여자</label>
 						</span>
 					</td>
@@ -125,7 +123,12 @@
 					<th>생일</th>
 					<td>
 						<div class="calendar_wrap">
-							<input type="date" class="join_calendar" name="birth" placeholder="예시) 2015-09-03" autocomplete="off" value="${member.birth }">
+							<c:set var="birth" value="${member.birth }" />
+							<c:set var="year" value="${birth.substring(0,4) }" />
+							<c:set var="month" value="${birth.substring(4,6) }" />
+							<c:set var="day" value="${birth.substring(6,8) }" />
+							<c:set var="formattedDate" value="${year }-${month }-${day }" />
+							<input type="date" class="join_calendar" name="birth" placeholder="예시) 2015-09-03" autocomplete="off" value="${formattedDate }">
 						</div>
 					</td>
 				</tr>

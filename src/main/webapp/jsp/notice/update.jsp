@@ -30,7 +30,8 @@
 						<li>
 							<span>파일</span>
 							<div class="main_field">
-								<input type="file" class="field_file" name="file" />
+								
+								<input type="file" class="field_file" name="file" value="${dto.ofile }" />
 							</div>
 						</li>
 					</ul>
