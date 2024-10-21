@@ -59,6 +59,17 @@ function post(url, reqData, callback) {
 	fetch(url, options).then(res => res.json()).then(data => callback(data)).catch(err => console.log(err));
 }
 
+// 공통 클릭 이벤트 처리 함수
+function clickEvent(selector, callback) {
+    const element = document.querySelector(selector);
+    if (element) {
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+            callback.call(this);
+        });
+    }
+}
+
 // 입력값에 특정 문자가 포함되었는지 체크
 function isContains(target, chars) {
 	for (var i = 0; i < target.value.length; i++) {

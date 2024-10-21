@@ -1,31 +1,13 @@
 window.addEventListener('DOMContentLoaded', function() {
 	// 로그인 버튼 (헤더 영역 아이콘)
-	const loginBtn = document.querySelector('#loginbtn');
-	if (loginBtn) {
-		loginBtn.addEventListener('click', function(e) {
-			e.preventDefault();
-			loginMainBtn.click();
-		});
-	}
+	clickEvent('#loginbtn', () => loginMainBtn.click());
 	
 	// 개인정보 수정 버튼 (헤더 영역 아이콘)
-	const updateBtn = document.querySelector('#updateBtn');
-	if (updateBtn) {
-		updateBtn.addEventListener('click', function(e) {
-			e.preventDefault();
-			location.href = '/Member/update';
-		});
-	}
-
+	clickEvent('#updateBtn', () => location.href = '/Member/update');
+	
 	// 로그인 버튼(회원가입 완료 페이지)
-	const loginbtnJoin = document.querySelector('#loginbtnJoin');
-	if (loginbtnJoin) {
-		loginbtnJoin.addEventListener('click', function(e) {
-			e.preventDefault();
-			loginMainBtn.click();
-		});
-	}
-
+	clickEvent('#loginbtnJoin', () => loginMainBtn.click());
+	
 	// 닫기 버튼 (공통)
 	const closeBtns = document.querySelectorAll('.login_wrap .login_close');
 	if (closeBtns) {
@@ -38,19 +20,17 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 		});
 	}
-
+	
 	// 로그인 메인 (화면 활성화)
 	const loginMainBtn = document.querySelector('.btn_login_main');
 	if (loginMainBtn) {
 		loginMainBtn.addEventListener('click', function(e) {
 			e.preventDefault();
 			closeFn(this);
-
+			
 			// 아이디 / 패스워드 초기화
-			const idEl = document.querySelector('.login_info input[name=id]');
-			idEl.value = '';
-			document.querySelector('.login_info input[name=pass]').value = '';
-	
+			resetLoginFields();
+			
 			// 로그인 영역 활성화
 			document.querySelector('.login_main').classList.add('on');
 			
@@ -58,29 +38,21 @@ window.addEventListener('DOMContentLoaded', function() {
 			document.body.classList.add('on');
 			
 			// 포커스
-			idEl.focus();
+			document.querySelector('.login_info input[name=id]').focus();
 		});
 	}
 	
 	// 찾은 아이디 페이지 에서 로그인하기 버튼
-	const loginMainBtn2 = document.querySelector('.btn_login_main2');
-	if (loginMainBtn2) {
-		loginMainBtn2.addEventListener('click', function(e) {
-			e.preventDefault();
-			closeFn(this);
-			loginMainBtn.click();
-		});
-	}
+	clickEvent('.btn_login_main2', function () {
+	    closeFn(this);
+	    loginMainBtn.click();
+	});
 	
 	// 찾은 비밀번호 페이지 에서 로그인하기 버튼
-		const loginMainBtn3 = document.querySelector('.btn_login_main3');
-		if (loginMainBtn3) {
-			loginMainBtn3.addEventListener('click', function(e) {
-				e.preventDefault();
-				closeFn(this);
-				loginMainBtn.click();
-			});
-		}
+	clickEvent('.btn_login_main3', function () {
+	    closeFn(this);
+	    loginMainBtn.click();
+	});
 
 	// 아이디 찾기 버튼 (화면 활성화)
 	const findIdBtns = document.querySelectorAll('.login_wrap .btn_find_id');
@@ -91,8 +63,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				closeFn(this);
 				
 				// 이름 / 이메일 초기화
-				document.querySelector('.login_find_id input[name=name]').value = '';
-				document.querySelector('.login_find_id input[name=email]').value = '';
+				resetLoginFields();
 				
 				// 아이디 찾기 영역 활성화
 				document.querySelector('.login_find_id').classList.add('on');
@@ -126,21 +97,23 @@ window.addEventListener('DOMContentLoaded', function() {
 	// 비밀번호 찾기 (실행)
 	const loginFindedId = document.querySelector('.login_find_pw_info input[name=id]');
 	const loginFindedBtn = document.querySelector('#loginFindedBtn');
+	
 	if (loginFindedBtn) {
 		loginFindedBtn.addEventListener('click', function() {
 			if (loginFindedId.value.trim()) {
-				const params = {id : loginFindedId.value};
+				const params = { id : loginFindedId.value };
 				
 				post('/Member/pwFined', params, (data) => {
 					if (data) {
 						const loginFindedOkEl = document.querySelector('.login_find_pw_ok');
 						loginFindedOkEl.children[0].innerHTML = data;
 						
-						// 현재 페이지 닫기			
+						// 현재 페이지 닫기
 						closeFn(this);
 						
 						// 비밀번호 찾은페이지 영역 활성화
 						loginFindedOkEl.classList.add('on');
+						
 					} else {
 						alert('등록된 아이디가 없습니다.', () => {
 							loginFindedId.value = '';
@@ -160,111 +133,95 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 	
 	// 임시 비밀번호 복사
-	const btnFindedCopy = document.querySelector('.login_find_pw_ok .btn_finded_copy');
-	if (btnFindedCopy) {
-		btnFindedCopy.addEventListener('click', function() {
-			const _pass = document.querySelector('.login_find_pw_ok > .finded_pw > strong').innerText;
-			window.navigator.clipboard.writeText(_pass).then(() => {alert('찾은 비밀번호를 복사하였습니다.')});
-		});
-	}
+	clickEvent('.login_find_pw_ok .btn_finded_copy', () => {
+		const _pass = document.querySelector('.login_find_pw_ok > .finded_pw > strong').innerText;
+		window.navigator.clipboard.writeText(_pass).then(() => {alert('찾은 비밀번호를 복사하였습니다.')});
+	});
 
 	// 로그인하기 (실제 로그인 진행)
-	const memberLoginBtn = document.querySelector('#memberLoginBtn');
-	if (memberLoginBtn) {
-		memberLoginBtn.addEventListener('click', function(e) {
-			e.preventDefault();
-			const idEl = document.querySelector('.login_main input[name=id]');
-			const pwEl = document.querySelector('.login_main input[name=pass]');
-			const id = idEl.value.trim();
-			const pw = pwEl.value.trim();
-	
-			if (id.length <= 0) {
-				alert('아이디를 입력해주세요', () => idEl.focus());
-			} else if (pw.length <= 0) {
-				alert('패스워드를 입력해주세요', () => pwEl.focus());
-			} else {
-				post('/Member/login', { id, pw }, (data) => {
-					if (data === -1) {
-						alert('회원정보를 찾을 수 없습니다.', () => idEl.focus());
-					} else {
-						if (location.pathname === '/Member/joinOk') location.href = "/Main";
-						else location.reload();
-					}
-				});
-			}
-		});
-	}
+	clickEvent('#memberLoginBtn', () => {
+		const idEl = document.querySelector('.login_main input[name=id]');
+		const pwEl = document.querySelector('.login_main input[name=pass]');
+		const id = idEl.value.trim();
+		const pw = pwEl.value.trim();
+
+		if (id.length <= 0) {
+			alert('아이디를 입력해주세요', () => idEl.focus());
+		} else if (pw.length <= 0) {
+			alert('패스워드를 입력해주세요', () => pwEl.focus());
+		} else {
+			post('/Member/login', { id, pw }, (data) => {
+				if (data === -1) {
+					alert('회원정보를 찾을 수 없습니다.', () => idEl.focus());
+				} else {
+					if (location.pathname === '/Member/joinOk') location.href = "/Main";
+					else location.reload();
+				}
+			});
+		}
+	});
 	
 	// 비밀번호에서 엔터키 이벤트 (로그인)
 	const passBtnEl = document.querySelector('.login_info input[name=pass]');
 	if (passBtnEl) {
 		passBtnEl.addEventListener('keyup', function(e) {
-			if (e.key === 'Enter') memberLoginBtn.click()
+			if (e.key === 'Enter') document.querySelector('#memberLoginBtn').click()
 		});
 	}
 
 	// 아이디 찾기 (실행)
-	const findedIdBtn = document.querySelector('#findedIdBtn');
-	if (findedIdBtn) {
-		findedIdBtn.addEventListener('click', function(e) {
-			e.preventDefault();
-			const nameEl = document.querySelector('.login_find_id input[name=name]');
-			const emailEl = document.querySelector('.login_find_id input[name=email]');
-			const name = nameEl.value.trim();
-			const email = emailEl.value.trim();
-	
-			if (name.length <= 0) {
-				alert('이름을 입력해주세요', () => nameEl.focus());
-			} else if (email.length <= 0) {
-				alert('이메일을 입력해주세요', () => emailEl.focus());
-			} else {
-				post('/Member/idFined', { name, email }, (data) => {
-					if (data) {
-						const loginFindOk = document.querySelector('.login_find_id_ok');
-						loginFindOk.children[0].innerHTML = data;
-						loginFindOk.classList.add('on');
-					} else {
-						alert('회원정보를 찾을 수 없습니다.')
-					}
-				});
-			}
-		});
-	}
+	clickEvent('#findedIdBtn', () => {
+		const nameEl = document.querySelector('.login_find_id input[name=name]');
+		const emailEl = document.querySelector('.login_find_id input[name=email]');
+		const name = nameEl.value.trim();
+		const email = emailEl.value.trim();
+		
+		if (name.length <= 0) {
+			alert('이름을 입력해주세요', () => nameEl.focus());
+		} else if (email.length <= 0) {
+			alert('이메일을 입력해주세요', () => emailEl.focus());
+		} else {
+			post('/Member/idFined', { name, email }, (data) => {
+				if (data) {
+					const loginFindOk = document.querySelector('.login_find_id_ok');
+					loginFindOk.children[0].innerHTML = data;
+					loginFindOk.classList.add('on');
+				} else {
+					alert('회원정보를 찾을 수 없습니다.')
+				}
+			});
+		}
+	});
 	
 	// 이메일에서 엔터 이벤트 (아이디 찾기)
 	const findedIdEnter = document.querySelector('.login_find_id input[name=email]');
 	if (findedIdEnter) {
 		findedIdEnter.addEventListener('keyup', function(e) {
-			if (e.key === 'Enter') findedIdBtn.click()
+			if (e.key === 'Enter') document.querySelector('#findedIdBtn').click()
 		});
 	}
 	
 	// 회원가입 (약관) 다음단계
-	const btnNextStep = document.querySelector('#btnNextStep');
-	if (btnNextStep) {
-		btnNextStep.addEventListener('click', function() {
-			const termsAgree1 = document.querySelector('#termsAgree1').checked;
-			const termsAgree2 = document.querySelector('#termsAgree2').checked;
-	
-			if (termsAgree1 && termsAgree2) {
-				location.href = '/Member/join';
-			} else {
-				document.querySelector('.join_msg').classList.add('on');
-				alert('(필수)이용약관을 체크해주세요.');
-			}
-		});
-	}
+	clickEvent('#btnNextStep', () => {
+		const termsAgree1 = document.querySelector('#termsAgree1').checked;
+		const termsAgree2 = document.querySelector('#termsAgree2').checked;
+
+		if (termsAgree1 && termsAgree2) {
+			location.href = '/Member/join';
+		} else {
+			document.querySelector('.join_msg').classList.add('on');
+			alert('(필수)이용약관을 체크해주세요.');
+		}
+	});
 
 	// 회원가입 약관동의 전체 선택
 	const allAgree = document.querySelector('#allAgree');
 	const agreeCheckboxs = document.querySelectorAll('.join_terms_view input[type=checkbox]');
 	if (allAgree) {
 		allAgree.addEventListener('click', function() {
-			for (const checkbox of agreeCheckboxs) {
-				if (this.checked) checkbox.checked = true;
-				else checkbox.checked = false;
-			}
-			
+			agreeCheckboxs.forEach(checkbox => {
+	            checkbox.checked = this.checked;
+	        });
 		});
 	}
 	
@@ -272,16 +229,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	if (agreeCheckboxs) {
 		agreeCheckboxs.forEach(b => {
 			b.addEventListener('click', function() {
-				let tmp = false;
-				for (const checkbox of agreeCheckboxs) {
-					if (checkbox.checked) tmp = true;
-					else { 
-						tmp = false;
-						break;
-					}
-				}
-				
-				allAgree.checked = tmp;
+				allAgree.checked = Array.from(agreeCheckboxs).every(checkbox => checkbox.checked);
 			});
 		});
 	}
@@ -386,14 +334,11 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 	
-	const withdrawEl = document.querySelector('.join_btns .withdraw_btn')
-	if(withdrawEl) {
-		withdrawEl.addEventListener('click', function(){
-			confirm('정말 탈퇴하시겠습니까?', ()=>{
-				location.href='/Member/withdraw';
-			});
+	clickEvent('.join_btns .withdraw_btn', () => {
+		confirm('정말 탈퇴하시겠습니까?', () => {
+			location.href = '/Member/withdraw';
 		});
-	}
+	});
 	
 }); // DOMContentLoaded
 
@@ -401,6 +346,12 @@ window.addEventListener('DOMContentLoaded', function() {
 function closeFn(btn) {
 	const parentEl = btn.closest('.on');
 	if (parentEl) parentEl.classList.remove('on');
+}
+
+// 로그인 필드 초기화 함수
+function resetLoginFields() {
+    document.querySelector('.login_info input[name=id]').value = '';
+    document.querySelector('.login_info input[name=pass]').value = '';
 }
 
 // postcode API
