@@ -1,10 +1,10 @@
 /* ---------------------- 브랜드 공통 ---------------------- */
-.external {
+.b_external {
 	background: url(/images/magazine/bg_board.png) repeat-y center;
 }
 
 .brand_wrap {
-	background: url(/images/magazine/bg_board_top.png) repeat-x left 156px
+	background: url(/images/magazine/bg_board_top.png) repeat-x left 0
 		top 60px;
 }
 

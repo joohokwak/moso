@@ -15,6 +15,9 @@
 				</div>
 				
 				<form action="/Magazine/updateOk" class="section_main" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="no" value="${magazine.no }">
+					<input type="hidden" name="isadmin" value="${param.isadmin }">
+					
 					<ul>
 						<li>
 							<span>구분</span>
@@ -31,8 +34,6 @@
 									<li><a href="#">월간 리뷰</a></li>
 								</ul>
 								<input type="hidden" name="mtype" value="${magazine.mtype }">
-								<input type="hidden" name="no" value="${magazine.no }">
-								<input type="hidden" name="isadmin" value="${param.isadmin }">
 							</div>
 						</li>
 						<li><span>제목</span>
@@ -55,7 +56,7 @@
 						<li>
 							<span>POSTER</span>
 							<div class="main_field">
-								<input type="file" class="field_file" name="poster" />
+								<input type="text" class="field_file" name="poster" value="${magazine.poster }" />
 							</div>
 						</li>
 					</ul>

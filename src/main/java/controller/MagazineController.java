@@ -71,14 +71,7 @@ public class MagazineController extends HttpServlet {
 			
 		// 글쓰기
 		} else if(action.equals("/writeOk")) {
-//			System.out.println(req.getParameter("title"));
-//			System.out.println(req.getParameter("text"));
-//			System.out.println(req.getParameter("poster"));
-//			System.out.println(req.getParameter("content"));
-//			System.out.println(req.getParameter("mtype"));
-			
 			MagazineDTO dto = Common.convert(req, MagazineDTO.class);
-			
 			mgs.magazineWriteOk(dto);
 			
 			resp.sendRedirect("/Magazine/magazine");
@@ -91,9 +84,9 @@ public class MagazineController extends HttpServlet {
 			
 			resp.sendRedirect("/Magazine/magazine");
 			return;
-		
+			
 		}
-		
+
 		req.setAttribute("layout", "/magazine" + action);
 		req.getRequestDispatcher("/layout.jsp").forward(req, resp);
 	}

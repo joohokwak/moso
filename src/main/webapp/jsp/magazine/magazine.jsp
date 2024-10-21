@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="external">
+<div class="b_external">
 	<div class="brand_wrap">
 		<div class="brand_content">
 			<div class="brand_menu">
@@ -11,7 +11,7 @@
 					<li><a href="#">지누스 스토리</a></li>
 					<li><a href="#">Mattress in a Box</a></li>
 					<li><a href="#">제품안전인증</a></li>
-					<li><a href="#">내게 맞는 매트리스 찾기</a></li>
+					<li><a href="/Quiz/home">내게 맞는 매트리스 찾기</a></li>
 					<li><a href="#">현대백화점 그룹</a></li>
 				</ul>
 			</div>
