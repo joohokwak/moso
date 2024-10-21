@@ -232,6 +232,7 @@
 }
 
 .back_to_list a {
+	display: block;
 	line-height: 40px;
 }
 

@@ -121,11 +121,11 @@
 					<th class="required">성별</th>
 					<td>
 						<span>
-							<input type="radio" id="male" name="gender" value="M" checked>
+							<input type="radio" id="male" name="gender" value="M" class="blind" checked>
 							<label for="male">남자</label>
-						</span>
+						</span>&nbsp;&nbsp;&nbsp;
 						<span>
-							<input type="radio" id="female" name="gender" value="F">
+							<input type="radio" id="female" name="gender" class="blind" value="F">
 							<label for="female">여자</label>
 						</span>
 					</td>
