@@ -92,13 +92,14 @@ public class ShoppingController extends HttpServlet {
 			pg.setPageNum(pageno);
 
 			List<ItemReviewDTO> reviewAll = shopSer.reviewAll(itemNo, pg);
-			
+			List<ItemReviewDTO> qnaAll = shopSer.qnaAll(itemNo);
 			
 			req.setAttribute("numuri", numuri);
 			req.setAttribute("dto", dto);
 			req.setAttribute("images", images);
-			if(reviewAll != null) req.setAttribute("review", reviewAll);
+			req.setAttribute("review", reviewAll);
 			req.setAttribute("paging", pg.paging(req));
+			req.setAttribute("qnaAll", qnaAll);
 			
 		// 좋아요
 		}  else if (action.equals("/like")) {
@@ -114,17 +115,23 @@ public class ShoppingController extends HttpServlet {
 		// qna page
 		} else if (action.equals("/write")) {
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
-			ShoppingDTO qnaItem = shopSer.qnaItem(itemno);
+			ShoppingDTO writeItem = shopSer.writeItem(itemno);
+			if(req.getParameter("qnano") != null) {
+				int qnano = Integer.parseInt(req.getParameter("qnano"));
+				
+				ItemReviewDTO dto = shopSer.qnaOne(qnano);
+				
+				req.setAttribute("qna", dto);
+			}
 			
-			req.setAttribute("item", qnaItem);
 			
+			req.setAttribute("item", writeItem);
 		// qna 등록
 		} else if (action.equals("/writeOk")) {
 			String itemno = req.getParameter("itemno");
-			ItemReviewDTO qnaCre = Common.convert(req, new ItemReviewDTO());
+			ItemReviewDTO qnaCre = Common.convert(req, new ItemReviewDTO.class);
 			
 			shopSer.qnaCreate(qnaCre);
-			System.out.println(qnaCre);
 			
 			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
 			return;
@@ -143,8 +150,9 @@ public class ShoppingController extends HttpServlet {
 			
 			Common.jsonResponse(resp, reviewAll);
 			return;
+		} else if(action.equals("writeDel")) {
+			
 		}
-		
 		req.setAttribute("layout", "/shopping" + action);
 		req.getRequestDispatcher("/layout.jsp").forward(req, resp);
 	}

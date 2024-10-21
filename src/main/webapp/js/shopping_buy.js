@@ -95,13 +95,13 @@ window.addEventListener('DOMContentLoaded', function() {
 				
 				// 가격 더하기
 				if (delivery[1].classList.contains('active')) {
-					priceEm.innerText = comma(Number(price) * addPr + 16000);
+					priceEm.innerText = comma(parseInt(price * addPr + 16000));
 				} else if (delivery[2].classList.contains('active')) {
-					priceEm.innerText = comma(Number(price) * addPr + 30000);
+					priceEm.innerText = comma(parseInt(price * addPr + 30000));
 				} else if (delivery[3].classList.contains('active')) {
-					priceEm.innerText = comma(Number(price) * addPr + 46000);
+					priceEm.innerText = comma(parseInt(price * addPr + 46000));
 				} else {
-					priceEm.innerText = comma(Number(price) * addPr);
+					priceEm.innerText = comma(parseInt(price * addPr));
 				}
 			});
 		});
@@ -215,6 +215,17 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 		});
 	}
+	
+	const qnaView = document.querySelectorAll('#view_question .board_body .display_view');
+	const qnaViewA = document.querySelectorAll('#view_question .board_body .board_content a');
+	
+	qnaViewA.forEach((item, idx) => {
+		item.addEventListener('click', function(e) {
+			e.preventDefault();
+			
+			qnaView[idx].classList.toggle('on');
+		});
+	});
 	
 });
 

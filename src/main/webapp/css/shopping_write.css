@@ -165,31 +165,6 @@
 	color: #777;
 	font-size: 12px;
 }
-
-#shopping_write .file_upload input[type="text"] {
-	height: 30px;
-	border: 1px solid #ccc;
-	width: 250px;
-}
-
-#shopping_write .file_upload label {
-	border: 1px solid #979797;
-	background: #979797;
-	line-height: 28px;
-	padding: 0 10px;
-	font-size: 12px;
-	color: #fff;
-	display: inline-block;
-}
-
-#shopping_write .file_upload button {
-	border: 1px solid #e6e3dd;
-	line-height: 28px;
-	padding: 0 10px;
-	font-size: 12px;
-	color: #6c6c6c;
-}
-
 #shopping_write .allow {
 	padding: 20px 17px 20px 10px;
 }
