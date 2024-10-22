@@ -106,3 +106,24 @@ function confirm(str, callback) {
 		}
 	});
 }
+
+// prompt(공통)
+function prompt(str, callback) {
+	Swal.fire({
+		title: str,
+		input: "text",
+		inputAttributes: {
+			autocapitalize: "off"
+		},
+		showCancelButton: true,
+		confirmButtonText: "확인",
+		cancelButtonText: "취소",
+		showLoaderOnConfirm: true,
+		preConfirm: () => { },
+		allowOutsideClick: () => !Swal.isLoading()
+	}).then((result) => {
+		if (result.isConfirmed) {
+			if (callback) callback();
+		}
+	});
+}
