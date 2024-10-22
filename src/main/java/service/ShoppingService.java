@@ -20,7 +20,7 @@ public interface ShoppingService {
 	List<ItemReviewDTO> reviewAll(int num, Pagination pg);
 	
 	// qna
-	List<ItemReviewDTO> qnaAll(int num);
+	List<ItemReviewDTO> qnaAll(int num, Pagination pg);
 	
 	ShoppingDTO writeItem(int itemno);
 

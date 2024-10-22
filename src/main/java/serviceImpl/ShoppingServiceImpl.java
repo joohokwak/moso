@@ -37,30 +37,27 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	@Override
 	public List<ItemReviewDTO> reviewAll(int num, Pagination pg) {
-		// TODO Auto-generated method stub
 		return dao.reviewAll(num, pg);
 	}
 
 	@Override
 	public ShoppingDTO writeItem(int itemno) {
-		// TODO Auto-generated method stub
 		return dao.writeItem(itemno);
 	}
-
+	
+	// 타입지정은 개발 시 경로, 대처, 조건을 위해 필요
 	@Override
 	public boolean qnaCreate(ItemReviewDTO qnaCre) {
 		return dao.qnaCreate(qnaCre) > 0;
 	}
 
 	@Override
-	public List<ItemReviewDTO> qnaAll(int num) {
-		// TODO Auto-generated method stub
-		return dao.qnaAll(num);
+	public List<ItemReviewDTO> qnaAll(int num, Pagination pg) {
+		return dao.qnaAll(num, pg);
 	}
 
 	@Override
 	public ItemReviewDTO qnaOne(int qnano) {
-		
 		return dao.qnaOne(qnano);
 	}
 }

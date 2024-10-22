@@ -123,7 +123,8 @@ function prompt(str, callback) {
 		allowOutsideClick: () => !Swal.isLoading()
 	}).then((result) => {
 		if (result.isConfirmed) {
-			if (callback) callback();
+			const inputVal = result.value;
+			if (callback) callback(inputVal);
 		}
 	});
 }
