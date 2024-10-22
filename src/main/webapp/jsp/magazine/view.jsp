@@ -22,8 +22,8 @@
 			<div class="brand_section">
 				<div class="section_header">
 					<ul>
-						<li class="on"><a href="/Magazine/magazine">매거진</a></li>
-						<li><a href="/Magazine/review">월간 리뷰</a></li>
+						<li class="${magazine.mtype eq 'magazine' ? 'on' : '' }"><a href="/Magazine/magazine">매거진</a></li>
+						<li class="${magazine.mtype eq 'review'   ? 'on' : '' }"><a href="/Magazine/review">월간 리뷰</a></li>
 					</ul>
 				</div>
 				<div class="section_main">
