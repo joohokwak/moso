@@ -25,7 +25,7 @@
 								<button type="button" class="division_btn">
 									<p>
 										<c:if test="${magazine.mtype eq 'magazine' }">매거진</c:if>
-										<c:if test="${magazine.mtype eq 'review' }">월간 리뷰</c:if>
+										<c:if test="${magazine.mtype eq 'review'   }">월간 리뷰</c:if>
 									</p>
 									<b></b>
 								</button>
