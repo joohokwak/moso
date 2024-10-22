@@ -177,14 +177,6 @@ window.addEventListener('DOMContentLoaded', function() {
 	    }
 	}
 	
-	const qna = document.querySelector('.shopping_borad .board_top .board_btn .qna');
-	if(qna) {
-		qna.addEventListener('click', function() {
-			window.location.href = `/Shop/write?itemno=${this.dataset.no}`;
-		});
-		console.log(qna);
-	}
-
 	// 리뷰 페이징
 	const reviewPaing = document.querySelectorAll('#view_review .page_num');
 	if (reviewPaing) {
@@ -216,16 +208,113 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 	
-	const qnaView = document.querySelectorAll('#view_question .board_body .display_view');
-	const qnaViewA = document.querySelectorAll('#view_question .board_body .board_content a');
-	
-	qnaViewA.forEach((item, idx) => {
-		item.addEventListener('click', function(e) {
-			e.preventDefault();
-			
-			qnaView[idx].classList.toggle('on');
+	// Q&A 등록 버튼
+	const qna = document.querySelector('.shopping_borad .board_top .board_btn .qna');
+	if(qna) {
+		qna.addEventListener('click', function() {
+			window.location.href = `/Shop/write?itemno=${this.dataset.no}`;
 		});
-	});
+	}
+	// Q&A 글 내용 토글
+	// 정적 태그
+	const qnaView = document.querySelector('#view_question .board_body');
+	if(qnaView) {
+		qnaView.addEventListener('click', function(e) {
+		// 동적 태그 (접근 방식)
+        const target = e.target.closest('.display_view .board_content a');
+        if (target) {
+            e.preventDefault();
+			if(target.dataset.secret === 'false') {
+				target.closest('.display_view').classList.toggle('on');
+			} else {
+				prompt('글작성 시 설정한 비밀번호를 입력하세요.', (pass) => {
+					if(item.dataset.pass === pass) {
+						item.closest('.display_view').classList.add('on');
+					} else {
+						alert('비밀번호가 일치하지 않습니다.');
+					}
+				});
+			}
+			const display = e.target.closest('.display_view').querySelector('tr + .display');
+			if (display) display.classList.toggle('on');
+        }
+
+		});
+	}
+	
+	// Q&A 수정버튼 비밀번호 체크 후 이동
+	const qnaBtn = document.querySelectorAll('#view_question .board_body .display_view .qna_btn a');
+	if(qnaBtn){
+		qnaBtn.forEach(btn => {
+			btn.addEventListener('click', function(e) {
+				e.preventDefault();
+				
+				const no = btn.dataset.no;
+				const itemno = btn.dataset.itemno;
+				
+				prompt('글작성 시 설정한 비밀번호를 입력하세요.', (pass) => {
+					if (pass) {
+//						post('/Shop/check', {no, pass}, (data) => {
+//							console.log(data);
+//							if(data === '0') {
+//								location.href = `/Shop/write?no=${no}`;
+//							} else {
+//								alert('비밀번호가 일치하지 않습니다.');
+//							}
+//						});
+						fetch('/Shop/check', {
+							method: 'post',
+							headers: {
+								"Content-Type": "application/json",
+							},
+							// 'key' : value 동일 
+							body: JSON.stringify({no, pass})
+						}).then(res => res.json()).then(data => {
+				
+							if(data === '1') {
+								location.href = `/Shop/update?itemno=${itemno}&qnano=${no}`;
+							} else {
+								alert('비밀번호가 일치하지 않습니다.');
+							}
+							
+						}).catch(err => console.log(err));
+					}
+				});
+				
+			});
+		});
+	}
+	
+	// Q&A 페이징
+	const qnaPaing = document.querySelectorAll('#view_question .page_num');
+		if (qnaPaing) {
+			qnaPaing.forEach(v => {
+				v.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					if (!v.classList.contains('active')) {
+						const viewQuest = document.querySelector('#view_question');
+						let pageNum = v.innerText;
+						// 기본값 설정
+						if (!pageNum) pageNum = 1;
+						
+						const params = {
+							'ITEMNO': viewQuest.dataset.itemno, 
+							'PAGENUM' : pageNum
+						};
+						
+						post('/Shop/qna', params, (data) => {
+							// 요소 추가
+							handleSetQna(data);
+							
+							// active 처리
+							qnaPaing.forEach(rp => rp.classList.remove('active'));
+							v.classList.add('active');
+						});
+					}
+				});
+			});
+		}
 	
 });
 
@@ -298,4 +387,60 @@ function createStarRating(rating) {
     }
 
     return stars;
+}
+
+// qna 페이징
+function handleSetQna(data) {
+	if(data) {
+		let qnaTxt = '';
+		for(const qna of data )	{
+			let tmp = '';
+			if(qna.secret > 0) {
+				tmp = '<img src="/images/shopping/icon_board_secret.png" alt="비밀글">';
+			}
+			
+			qnaTxt += `
+				<tbody class="display_view">						
+					<tr>
+						<td class="board_content">
+							<span>
+							 	${tmp}
+							</span>
+							<a href="#" data-secret='${qna.secret > 0}'>${qna.title }</a>
+						</td>
+						<td width="112">
+							<p>${qna.writer }</p>
+						</td>
+						<td width="112">
+							<p class="center">${qna.regdate }</p>
+						</td>
+						<td width="112">
+							<p class="center">답변완료</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='3' class="board_content display_none">
+							<span><img src="/images/shopping/q.png" alt="질문"></span>
+							<p>${qna.question }</p>
+						</td>
+						<td class="display_none" >
+							<div class="qna_btn">
+								<a href="#" data-itemno="${qna.itemno }" data-no="${qna.no }" >수정</a>
+								<a href="#">삭제</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='4' class="board_content display_none">
+							<span><img src="/images/shopping/a.png" alt="답변"></span>
+							<p>${qna.answre }&nbsp;</p>
+						</td>
+					</tr>
+				</tbody>
+			`;
+		}
+		const qnaBody = document.querySelector('#view_question .board_body');
+		qnaBody.innerHTML = qnaTxt;
+	}
+	
 }

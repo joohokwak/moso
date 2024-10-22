@@ -292,12 +292,13 @@ public class ShoppingDAO extends DBCP {
 		return list;
 	}
 	
-	public List<ItemReviewDTO> qnaAll(int itemNo) {
+	public List<ItemReviewDTO> qnaAll(int itemNo, Pagination pg) {
 	
 		List<ItemReviewDTO> list = new ArrayList<>();
 		conn = getConn();
 		
 		try {
+			
 			String sql = "";                                               
 			 sql += " SELECT 										   ";
 			 sql += " (SELECT COUNT(q.NO) FROM QNA q) AS CNT 		   ";                                           
@@ -310,13 +311,12 @@ public class ShoppingDAO extends DBCP {
 			 sql += " , ANSWRE                                         ";
 			 sql += " , TO_CHAR(REGDATE, 'yyyy-mm-dd') AS REGDATE      ";
 			 sql += " , ITEMNO                                         ";
-			 sql += " , SECRITE                                        ";
+			 sql += " , SECRET                                         ";
 			 sql += " FROM QNA                                         ";
-			 sql += " WHERE itemno = ?                                 ";
+			 sql += " WHERE itemno = " + itemNo;
 			
-			
+			sql = pg.getQuery(conn, sql);
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, itemNo);
 			
 			rs = ps.executeQuery();
 			
@@ -334,6 +334,7 @@ public class ShoppingDAO extends DBCP {
 				dto.setAnswre(rs.getString("ANSWRE"));
 				dto.setRegdate(rs.getString("REGDATE"));
 				dto.setItemno(rs.getInt("ITEMNO")); 
+				dto.setSecret(rs.getInt("SECRET"));
 				
 				list.add(dto);
 			}
@@ -364,7 +365,7 @@ public class ShoppingDAO extends DBCP {
 			 sql += " , ANSWRE                                         ";
 			 sql += " , TO_CHAR(REGDATE, 'yyyy-mm-dd') AS REGDATE      ";
 			 sql += " , ITEMNO                                         ";
-			 sql += " , SECRITE                                        ";
+			 sql += " , SECRET                                        ";
 			 sql += " FROM QNA                                         ";
 			 sql += " WHERE NO = ?                                 ";
 			
@@ -383,7 +384,8 @@ public class ShoppingDAO extends DBCP {
 				dto.setQuestion(rs.getString("QUESTION"));
 				dto.setAnswre(rs.getString("ANSWRE"));
 				dto.setRegdate(rs.getString("REGDATE"));
-				dto.setItemno(rs.getInt("ITEMNO")); 
+				dto.setItemno(rs.getInt("ITEMNO"));
+				dto.setSecret(rs.getInt("SECRET"));
 				
 			}
 
@@ -435,39 +437,39 @@ public class ShoppingDAO extends DBCP {
 
 	public int qnaCreate(ItemReviewDTO qnaCre) {
 		
-		int rsu = 0;
 		conn = getConn();
-		try {
-			
-			String sql = "";
-				sql +="	INSERT INTO (NO, CATE, TITLE, WRITER, PASS, REGDATE, QUESTION, SECRITE, ITEMNO) QNA VALUES(             ";
-				sql +="			SEQ_QNA.NEXTVAL             ";
-				sql +="			, ?        			        ";
-				sql +="			, ?        	   		        ";
-				sql +="			, ?         		        ";
-				sql +="			, ?            		        ";
-				sql +="			, ?  						";
-				sql +="			, SYSDATE                   ";
-				sql +="			, ?                         ";
-				sql +="			, ?                         ";
-				sql +="				)                       ";
-			
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, qnaCre.getCate());
-			ps.setString(2, qnaCre.getTitle());
-			ps.setString(3, qnaCre.getWriter());
-			ps.setString(4, qnaCre.getPass());
-			ps.setString(5, qnaCre.getQuestion());
-			ps.setInt(6, qnaCre.getSecrite());
-			ps.setInt(7, qnaCre.getItemno());
-			
-			rsu = ps.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps, rs);
-		}
+		int rsu = 0;
+			try {
+				
+				String sql = "";
+					sql +="	INSERT INTO QNA (NO, CATE, TITLE, WRITER, PASS, QUESTION, REGDATE, ITEMNO, SECRET) VALUES(             ";
+					sql +="			SEQ_QNA.NEXTVAL             ";
+					sql +="			, ?        			        ";
+					sql +="			, ?        	   		        ";
+					sql +="			, ?         		        ";
+					sql +="			, ?            		        ";
+					sql +="			, ?  						";
+					sql +="			, SYSDATE                   ";
+					sql +="			, ?                         ";
+					sql +="			, ?                         ";
+					sql +="		)             		            ";
+				
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, qnaCre.getCate());
+				ps.setString(2, qnaCre.getTitle());
+				ps.setString(3, qnaCre.getWriter());
+				ps.setString(4, qnaCre.getPass());
+				ps.setString(5, qnaCre.getQuestion());
+				ps.setInt(6, qnaCre.getItemno());
+				ps.setInt(7, qnaCre.getSecret());
+				
+				rsu = ps.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(conn, ps, rs);
+			}
 		return rsu;
 	}
 	

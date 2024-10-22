@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="contain">
-  <form action="/Shop/writeOk" method="post" enctype="multipart/form-data">
+  <form action="/Shop/updateOk" method="post" enctype="multipart/form-data">
   	<input type="hidden" name="itemno" value="${param.itemno}">
 	    <div class="container">
 	      <table>
@@ -36,16 +36,16 @@
 	        </tr>
 	        <tr>
 	          <th>작성자</th>
-	          <td class="input_txt"><input type="text" name="writer" ></td>
+	          <td class="input_txt"><input type="text" name="writer" value="${qna.writer}"></td>
 	        </tr>
 	        <tr>
 	          <th>비밀번호</th>
-	          <td class="input_txt"><input type="password" name="pass" ></td>
+	          <td class="input_txt"><input type="password" name="pass" value="${qna.pass}"></td>
 	        </tr>
 	        <tr>
 	          <th>제목</th>
 	          <td class="input_txt">
-	            <input type="text" placeholder="제목 입력" name="title" >
+	            <input type="text" placeholder="제목 입력" name="title" value="${qna.title}">
 	          </td>
 	        </tr>
 	        <tr>
@@ -60,7 +60,7 @@
 	              ※ 올려주신 상품후기는 사진과 함께 마케팅 용도로 활용될 수 있습니다. <br>
 	              ※ 상품후기를 올리실 경우 이에 동의하시는 걸로 간주됩니다.
 	            </p>
-	            <textarea id="content" name="question" data-editor></textarea>
+	            <textarea id="content" name="question" data-editor='${qna.question}'>${qna.question}</textarea>
 	          </td>
 	        </tr>
 	      </table>

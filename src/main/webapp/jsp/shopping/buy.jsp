@@ -464,7 +464,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="view_question" class="shopping_borad">
+			<div id="view_question" class="shopping_borad" data-itemno="${dto.no }">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>
 					<a href="#view_review">리뷰 (${review[0].cnt })</a>
@@ -480,39 +480,35 @@
 						</div>
 					</div>
 					<table class="board_body">
-						<colgroup>
-							<col>
-							<col style="width: 112px;">
-							<col style="width: 112px;">
-							<col style="width: 112px;">
-						</colgroup>
 						<c:forEach var="qna" items="${qnaAll }">
 							<tbody class="display_view">						
 								<tr>
-									<td class="board_content">										
-										<span data-sr='${qna.secrite }'>
-											<img src="/images/shopping/icon_board_secret.png" alt="비밀글">
+									<td class="board_content">
+										<span>
+										 	<c:if test="${qna.secret > 0}">
+												<img src="/images/shopping/icon_board_secret.png" alt="비밀글">
+										 	</c:if>										
 										</span>
-										<a href="#">${qna.title }</a>
+										<a href="#" data-secret='${qna.secret > 0}'>${qna.title }</a>
 									</td>
-									<td>
+									<td width="112">
 										<p>${qna.writer }</p>
 									</td>
-									<td>
+									<td width="112">
 										<p class="center">${qna.regdate }</p>
 									</td>
-									<td>
+									<td width="112">
 										<p class="center">답변완료</p>
 									</td>
 								</tr>
-								<tr >
+								<tr>
 									<td colspan='3' class="board_content display_none">
 										<span><img src="/images/shopping/q.png" alt="질문"></span>
 										<p>${qna.question }</p>
 									</td>
 									<td class="display_none" >
 										<div class="qna_btn">
-											<a href="/Shop/write?itemno=${dto.no }&qnano=${qna.no }">수정</a>
+											<a href="#" data-itemno="${dto.no }" data-no="${qna.no }" >수정</a>
 											<a href="#">삭제</a>
 										</div>
 									</td>
@@ -520,21 +516,19 @@
 								<tr>
 									<td colspan='4' class="board_content display_none">
 										<span><img src="/images/shopping/a.png" alt="답변"></span>
-										<p>${qna.answre }</p>
+										<p>${qna.answre }&nbsp;</p>
 									</td>
 								</tr>
 							</tbody>
 						</c:forEach>
-
 					</table>
 					
 					<!-- 페이징 -->
 					<div class="pagination">
-						
+						${paging2}
 					</div>
 				</div>
 			</div>
-			
 			
 			<div id="view_service">
 				<div class="shopping_go_tab">
