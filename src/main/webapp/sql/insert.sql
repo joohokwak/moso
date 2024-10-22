@@ -272,3 +272,12 @@ INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '그린티 플러스 메모리폼 매
 INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '얼티마 메모리폼 매트리스', '메모리폼 매트리스', '사용자의 수면 중 움직임에 따라 유연하게 변형되며 신체를 지지, 부드러움과 포근함, 탄탄한 지지력을 동시에 제공', '264000', '적당히 푹신한', SYSDATE, 'Q,SS,S', '1000000037_detail_085.jpg'
 );
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- << NOTICE >> --
+INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '지누스 중견기업확인서 (2019.03.31)', '', SYSDATE, 0);
+INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '지누스 중견기업확인서 (2020.03.31)', '', SYSDATE, 0);
+INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '전자증권 전환대상 주권 등의 권리자 보호 안내', '', SYSDATE, 0);
+INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '신주발행공고(안)', '', SYSDATE, 0);
+INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '신주발행공고(안)', '', SYSDATE, 0);
+INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '신주발행공고(안)', '', SYSDATE, 0);
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

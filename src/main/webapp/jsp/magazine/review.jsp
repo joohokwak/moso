@@ -28,7 +28,9 @@
 					</ul>
 				</div>
 				<div class="section_search">
-					<input class="search" type="text" placeholder="Search" title="검색어입력">
+					<form action="/Magazine/review" method="post">
+						<input class="search" type="text" name="title" placeholder="Search" title="검색어입력" value="${m.title }">
+					</form>
 				</div>
 				<div class="section_main">
 					<div class="category">
