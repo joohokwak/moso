@@ -1,10 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,6 +43,7 @@ public class QuizController extends HttpServlet {
 			String headerSearch = req.getParameter("name");
 			String key = req.getParameter("key");
 			String keyword = req.getParameter("keyword");
+			String sort = req.getParameter("sort");
 			
 			if (headerSearch != null) {
 				key = "goodsName";
@@ -55,19 +53,11 @@ public class QuizController extends HttpServlet {
 			Pagination pg = new Pagination();
 			pg.setPageSize(12);
 			List<QuizDTO> searchAll = qs.setGoods(pg, key, keyword);
-			Map<String, Object> searchMap = new HashMap<>();
-			List<Map<String, Object>> listMap = new ArrayList<>();
-			
-			
-			searchMap.put("keyword", keyword);
-			
-			listMap.add(searchMap);
-			
-			System.out.println(searchMap);
-			
 			
 			req.setAttribute("search", searchAll);
 			req.setAttribute("paging", pg.paging(req));
+			
+			System.out.println(sort);
 		}
 		
 		req.setAttribute("layout", "/quiz" + action);
