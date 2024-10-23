@@ -167,7 +167,6 @@ public class ShoppingController extends HttpServlet {
 			Map<String, Object> qdata = Common.jsonConvert(req);
 			int itemno = Integer.parseInt(qdata.get("ITEMNO") + "");
 			int pageNum = Integer.parseInt(qdata.get("PAGENUM") + "");
-			System.out.println(itemno);
 			
 			Pagination pg2 = new Pagination();
 			
@@ -203,7 +202,7 @@ public class ShoppingController extends HttpServlet {
 			if(qnaOne.getPass().equals(pass)) {
 				check = '1';
 			}
-			
+			System.out.println(check);
 			Common.jsonResponse(resp, check);
 			return;
 			
@@ -215,9 +214,17 @@ public class ShoppingController extends HttpServlet {
 			int qnano = Integer.parseInt(req.getParameter("qnano"));
 			ItemReviewDTO dto = shopSer.qnaOne(qnano);
 			
-			System.out.println(writeItem.getPoster());
 			req.setAttribute("qna", dto);
 			req.setAttribute("item", writeItem);
+		
+		// Q&A 삭제
+		} else if (action.equals("/qnadelete")) {
+			Map<String, Object> ddata = Common.jsonConvert(req);
+			int no = Integer.parseInt(ddata.get("no") + "");
+			int qnaDel = shopSer.qnaDel(no);
+			
+			Common.jsonResponse(resp, qnaDel);
+			return;
 		}
 		
 		req.setAttribute("layout", "/shopping" + action);

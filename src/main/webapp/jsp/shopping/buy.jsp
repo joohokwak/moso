@@ -489,7 +489,7 @@
 												<img src="/images/shopping/icon_board_secret.png" alt="비밀글">
 										 	</c:if>										
 										</span>
-										<a href="#" data-secret='${qna.secret > 0}'>${qna.title }</a>
+										<a href="#" data-no="${qna.no }" data-secret='${qna.secret > 0}'>${qna.title }</a>
 									</td>
 									<td width="112">
 										<p>${qna.writer }</p>
@@ -508,8 +508,8 @@
 									</td>
 									<td class="display_none" >
 										<div class="qna_btn">
-											<a href="#" data-itemno="${dto.no }" data-no="${qna.no }" >수정</a>
-											<a href="#">삭제</a>
+											<a href="#" data-itemno="${dto.no }" data-no="${qna.no }" class="qna_modify" >수정</a>
+											<a href="#" data-no="${qna.no }" class="qna_delete">삭제</a>
 										</div>
 									</td>
 								</tr>
