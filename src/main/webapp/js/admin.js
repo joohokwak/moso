@@ -49,28 +49,27 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 
 	// 글쓰기 버튼 (공통)
-	const adminWriteBtn = document.querySelector('.admin_content_right .write_btn');
-	if (adminWriteBtn) {
-		adminWriteBtn.addEventListener('click', function() {
-			const $path = location.pathname.substring(location.pathname.lastIndexOf("/"));
-			location.href = capitalize($path) + "/write?isadmin=Y";
-		});
-	}
+	clickEvent('.admin_content_right .write_btn', function() {
+		const $path = location.pathname.substring(location.pathname.lastIndexOf("/"));
+		location.href = capitalize($path) + "/write?isadmin=Y";
+	});
 	
 	// 삭제 버튼 (공통)
-	const adminDelBtn = document.querySelector('.admin_content_right .delete_btn');
-	if (adminDelBtn) {
-		adminDelBtn.addEventListener('click', function() {
-			if (deleteListArr.length) {
-				confirm('선택항목을 삭제하시겠습니까?', () => {
-					const $memList = deleteListArr.join();
-					location.href = `/Admin/delete?path=${location.pathname}&no=${$memList}`;
-				});
-			} else {
-				alert('삭제할 회원을 선택해주세요');
-			}
-		});
-	}
+	clickEvent('.admin_content_right .delete_btn', function() {
+		if (deleteListArr.length) {
+			confirm('선택항목을 삭제하시겠습니까?', () => {
+				const delList = deleteListArr.join();
+				// 삭제시 페이징 상태라면 다시 해당 페이지로 이동할수 있도록 처리
+				if (location.search) {
+					location.href = `/Admin/delete${location.search}&path=${location.pathname}&no=${delList}`;
+				} else {
+					location.href = `/Admin/delete?path=${location.pathname}&no=${delList}`;
+				}
+			});
+		} else {
+			alert('삭제할 회원을 선택해주세요');
+		}
+	});
 	
 	// 회원명 클릭 시 수정 페이지로 이동 (개인정보 이기 때문에 POST 방식으로 전달하기 위해)
 	const memberIdClick = document.querySelectorAll('#adminMemberList .mem_id');
@@ -87,17 +86,18 @@ window.addEventListener('DOMContentLoaded', function() {
 	        });
 	    });
 	}
-
+	
 });
 
 // 삭제 리스트 업데이트 함수
 function updateDeleteList(itemNo, isChecked) {
+	const index = deleteListArr.indexOf(itemNo);
+	
     if (isChecked) {
-        if (!deleteListArr.includes(itemNo)) {
+        if (index === -1) {
             deleteListArr.push(itemNo); // 체크된 경우 추가
         }
     } else {
-        const index = deleteListArr.indexOf(itemNo);
         if (index > -1) {
             deleteListArr.splice(index, 1); // 체크 해제된 경우 삭제
         }

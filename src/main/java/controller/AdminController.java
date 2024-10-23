@@ -116,8 +116,7 @@ public class AdminController extends HttpServlet {
 		} else if (action.equals("/delete")) {
 			String _path = req.getParameter("path");
 			String _no = req.getParameter("no");
-			System.out.println(_path);
-			System.out.println(_no);
+			String _pageNum = req.getParameter("pageNum");
 			
 			if (_path != null) {
 				String tmpPath = _path.substring(_path.lastIndexOf("/"));
@@ -153,11 +152,12 @@ public class AdminController extends HttpServlet {
 				
 				// 회원
 				} else if (tmpPath.equals("/member")) {
-//					MemberService ms = new MemberServiceImpl();
 					
 					
 				}
 			}
+			
+			if (_pageNum != null) _path += "?pageNum=" + _pageNum;
 			
 			resp.sendRedirect(_path);
 			return;

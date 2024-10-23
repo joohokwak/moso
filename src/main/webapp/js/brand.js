@@ -6,28 +6,20 @@ window.addEventListener('DOMContentLoaded', function () {
 
 	if (content) {
 		window.addEventListener('scroll', function () {
-			const scrollY = window.scrollY;
-	
-			if (scrollY > 0) {
-				content.classList.add('fixed');
-				if (admin) admin.classList.add('on');
-				if (con) con.classList.add('on');
-			} else {
-				content.classList.remove('fixed');
-				if (admin) admin.classList.remove('on');
-				if (con) con.classList.remove('on');
-			}
+			const isScrolled = window.scrollY > 0;
+			content.classList.toggle('fixed', isScrolled);
+			if (admin) admin.classList.toggle('on', isScrolled);
+			if (con) con.classList.toggle('on', isScrolled);
 		});
 	}
 	
 	const magazinedelete = document.querySelectorAll('.brand_section .delete_btn');
-	
 	if(magazinedelete) {
 		magazinedelete.forEach(btn => {
 			btn.addEventListener('click', function(e) {
 				e.preventDefault();
 				confirm('삭제하시겠습니까?', () => {
-					location.href='/Magazine/delete?no=' + this.dataset.no;
+					location.href = '/Magazine/delete?no=' + this.dataset.no;
 				});
 			});
 		});
