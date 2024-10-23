@@ -102,7 +102,7 @@ public class Common {
 	public static Map<String, String> fileUpload(HttpServletRequest request, String path) {
 		String ATTACHED_DIR = request.getServletContext().getRealPath(path);
 		
-		Map<String, String> map = null;
+		Map<String, String> map = new HashMap<>();
 		
 		try {
 			// 요청 타입 확인
@@ -117,9 +117,8 @@ public class Common {
 					// 컬렉션 데이터가 파일인지 체크
 					if (part.getHeader("Content-Disposition").contains("filename=")) {
 						// 파일데이터가 있는지 체크
+						
 						if (part.getSize() > 0) {
-							map = new HashMap<>();
-							
 							// 파일명을 얻기위에 메서드 호출
 							String fileName = extractFileName(part.getHeader("Content-Disposition"));
 							if (fileName != null) {
@@ -136,7 +135,7 @@ public class Common {
 								
 								// 디렉토리가 없으면 생성!!
 								File file = new File(ATTACHED_DIR);
-								if (!file.exists()) file.mkdir();
+								if (!file.exists()) file.mkdirs();
 								
 								// 설정경로에 파일 업로드
 								part.write(ATTACHED_DIR + File.separator + newFileName);
@@ -171,27 +170,34 @@ public class Common {
 		// 파일 경로 및 저장된 파일명을 file 객체로 얻기
 		File file = new File(path, saveFileName);
 		
-		// 파일을 찾아 입력 스트림 생성
+		// 파일 존재 여부 확인
+	    if (!file.exists()) {
+	        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	        return;
+	    }
+		
+		// 파일 다운로드를 위한 스트림 생성
 		try (InputStream inStream = new FileInputStream(file); OutputStream outStream = response.getOutputStream();) {
 
-			// 한글 파일명 깨짐 방지
-			originFileName = URLEncoder.encode(originFileName, "UTF-8").replaceAll("\\+", "%20");
+			// 한글 파일명 인코딩
+			originFileName = URLEncoder.encode(originFileName, "UTF-8").replaceAll("+", "%20");
 			
-			// 파일 다운로드용 응답 헤더 설정
+			// 응답 헤더 설정
 			response.reset();
 			response.setContentType("application/octet-stream");
 			response.setHeader("Content-Disposition", "attachment; filename=\"" + originFileName + "\"");
-			response.setHeader("Content-Length", file.length() + "");
+			response.setHeader("Content-Length", String.valueOf(file.length()));
 
-			// 출력 스트림을 이용해 다운로드 하기
+			// 버퍼를 사용하여 파일 다운로드
 			byte b[] = new byte[(int) file.length()];
-			int readBuffer = 0;
-			while ((readBuffer = inStream.read(b)) > 0) {
-				outStream.write(b, 0, readBuffer);
-			}
+			int bytesRead;
+	        while ((bytesRead = inStream.read(b)) != -1) {
+	            outStream.write(b, 0, bytesRead);
+	        }
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -200,7 +206,7 @@ public class Common {
 		// 파일 경로
 		String ATTACHED_DIR = request.getServletContext().getRealPath(path);
 		// 파일 경로 및 저장된 파일명을 file 객체로 얻기
-		File file = new File(ATTACHED_DIR + File.separator + fileName);
+		File file = new File(ATTACHED_DIR, fileName);
 		
 		if (file.exists()) {
 			file.delete();
@@ -212,21 +218,19 @@ public class Common {
 		Pagination pg = new Pagination();
 		
 		String pn = request.getParameter("pageNum");
-		int pageNum = 1;
-		if (pn != null) pageNum = Integer.parseInt(pn);
-		
-		pg.setPageNum(pageNum);
+		int pageNum = (pn != null && !pn.isBlank()) ? Integer.parseInt(pn) : 1;
+	    pg.setPageNum(pageNum);
 
 		Map<String, String> map = new HashMap<>();
 		Enumeration<String> em = request.getParameterNames();
+		
 		while (em.hasMoreElements()) {
 			String key = em.nextElement();
 			String val = request.getParameter(key);
 			
-			if ("pageNum".equalsIgnoreCase(key)) continue;
-			if (val.isBlank()) continue;
-			
-			map.put(key, val);
+			if (!"pageNum".equalsIgnoreCase(key) && !val.isBlank()) {
+	            map.put(key, val);
+	        }
 		}
 		
 		pg.setSearchMap(map);
@@ -235,28 +239,28 @@ public class Common {
 	}
 	
 	// 임시 비밀번호 생성로직
-	private static final char[] rndAllCharacters = new char[]{
-		//number
+	private static final char[] rndAllCharacters = {
+		// 숫자
 		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-		//uppercase
+		// 대문자
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-		//lowercase
+		// 소문자
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 		'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-		//special symbols
+		// 특수 기호
 		'@', '$', '!', '%', '*', '?', '&'
 	};
 
 	public static String getRandomPassword(int length) {
 		SecureRandom random = new SecureRandom();
-		StringBuilder stringBuilder = new StringBuilder();
-
-		int rndAllCharactersLength = rndAllCharacters.length;
+		StringBuilder stringBuilder = new StringBuilder(length);
+		
 		for (int i = 0; i < length; i++) {
-			stringBuilder.append(rndAllCharacters[random.nextInt(rndAllCharactersLength)]);
+			int index = random.nextInt(rndAllCharacters.length);
+	        stringBuilder.append(rndAllCharacters[index]);
 		}
-
+		
 		return stringBuilder.toString();
 	}
 	

@@ -3,9 +3,7 @@ package common;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -99,15 +97,7 @@ public class Pagination {
 			sb.append("?pageNum=");
 			sb.append(prevPage);
 			
-			// 검색
-			if (searchMap != null && !searchMap.isEmpty()) {
-				for (Map.Entry<String, String> entry : searchMap.entrySet()) {
-					sb.append("&");
-					sb.append(entry.getKey());
-					sb.append("=");
-					sb.append(entry.getValue());
-				}
-			}
+			appendPageLink(sb);
 			
 			sb.append("'>");
 			sb.append("&lt;");
@@ -126,15 +116,7 @@ public class Pagination {
 				sb.append("?pageNum=");
 				sb.append(i);
 				
-				// 검색
-				if (searchMap != null && !searchMap.isEmpty()) {
-					for (Map.Entry<String, String> entry : searchMap.entrySet()) {
-						sb.append("&");
-						sb.append(entry.getKey());
-						sb.append("=");
-						sb.append(entry.getValue());
-					}
-				}
+				appendPageLink(sb);
 				
 				sb.append("'>");
 				sb.append(i);
@@ -149,15 +131,7 @@ public class Pagination {
 			sb.append("?pageNum=");
 			sb.append(nextPage);
 			
-			// 검색
-			if (searchMap != null && !searchMap.isEmpty()) {
-				for (Map.Entry<String, String> entry : searchMap.entrySet()) {
-					sb.append("&");
-					sb.append(entry.getKey());
-					sb.append("=");
-					sb.append(entry.getValue());
-				}
-			}
+			appendPageLink(sb);
 			
 			sb.append("'>");
 			sb.append("&gt;");
@@ -178,6 +152,19 @@ public class Pagination {
 		return sb.toString();
 	}
 	
+	// 페이징(view) 공통 처리
+	private void appendPageLink(StringBuilder sb) {
+		// 검색
+		if (searchMap != null && !searchMap.isEmpty()) {
+			for (Map.Entry<String, String> entry : searchMap.entrySet()) {
+				sb.append("&");
+				sb.append(entry.getKey());
+				sb.append("=");
+				sb.append(entry.getValue());
+			}
+		}
+	}
+	
 	
 	// 기본 쿼리문 전달받아 페이징 처리되는 쿼리문으로 변경하는 메서드
 	public String getQuery(Connection conn, String query) {
@@ -189,18 +176,7 @@ public class Pagination {
 		sb.append("WITH QDATA AS ( ");
 		sb.append(query);
 		
-		// 검색
-		if (searchMap != null && !searchMap.isEmpty()) {
-			sb.append(" WHERE 1 = 1 ");
-			
-			for (Map.Entry<String, String> entry : searchMap.entrySet()) {
-				sb.append(" AND UPPER(");
-				sb.append(entry.getKey());
-				sb.append(") LIKE UPPER('%");
-				sb.append(entry.getValue());
-				sb.append("%') ");
-			}
-		}
+		appendSearchConditions(sb);
 		
 		sb.append(" ) ");
 		sb.append("SELECT xx.* ");
@@ -221,48 +197,39 @@ public class Pagination {
 		return sb.toString();
 	}
 	
+	// 검색 조건 공통 처리
+	private void appendSearchConditions(StringBuilder sb) {
+	    if (searchMap != null && !searchMap.isEmpty()) {
+	        sb.append(" WHERE 1 = 1 ");
+	        
+	        for (Map.Entry<String, String> entry : searchMap.entrySet()) {
+	            sb.append(" AND UPPER(");
+	            sb.append(entry.getKey());
+	            sb.append(") LIKE UPPER('%");
+	            sb.append(entry.getValue());
+	            sb.append("%') ");
+	        }
+	    }
+	}
+	
+	// 전체 레코드 개수
 	public void totalRecord(Connection conn, String query) {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("WITH QCNT AS ( ");
+		sb.append(query);
 		
-		try {
-			StringBuilder sb = new StringBuilder();
-			
-			sb.append("WITH QCNT AS ( ");
-			sb.append(query);
-			
-			if (searchMap != null && !searchMap.isEmpty()) {
-				sb.append(" WHERE 1 = 1 ");
-				
-				for (Entry<String, String> entry : searchMap.entrySet()) {
-					sb.append(" AND UPPER(");
-					sb.append(entry.getKey());
-					sb.append(") LIKE UPPER('%");
-					sb.append(entry.getValue());
-					sb.append("%') ");
-				}
-			}
-			
-			sb.append(" ) ");
-			sb.append("SELECT /*+ full(A) parallel(A 8) */ COUNT(1) FROM QCNT ");
-			
-			ps = conn.prepareStatement(sb.toString());
-			rs = ps.executeQuery();
-			
+		appendSearchConditions(sb);
+		
+		sb.append(" ) ");
+		sb.append("SELECT /*+ full(A) parallel(A 8) */ COUNT(1) FROM QCNT ");
+		
+		try (PreparedStatement ps = conn.prepareStatement(sb.toString()); ResultSet rs = ps.executeQuery()) {
 			if (rs.next()) {
 				this.totalRecord = rs.getInt(1);
 				calculation();
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) rs.close();
-				if (ps != null) ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }
