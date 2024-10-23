@@ -28,8 +28,12 @@
 						</li>
 						<li>
 							<span>파일</span>
-							<div class="main_field">
-								<input type="file" class="field_file" name="file" />
+							<div class="main_field_notice">
+								<label for="notice_file_input">파일선택</label>
+								<input class="notice_file_input" />
+								<input type="file" name="file" id="notice_file_input" style="display: none;" />
+								<button id="cancel_btn" class="notice_cancel_btn" style="display: none;">X</button>
+								<span id="file_name_display" class="file_name_display"></span>
 							</div>
 						</li>
 					</ul>

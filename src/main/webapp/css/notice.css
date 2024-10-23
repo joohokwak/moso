@@ -217,6 +217,10 @@
 	color: #003628;
 }
 
+.notice_view_head .notice_view_info .filename {
+	text-decoration: underline;
+}
+
 .notice_view_body {
 	width: 100%;
 	min-height: 350px;
@@ -235,4 +239,60 @@
 	display: block;
 	line-height: 40px;
 }
+
+.main_field_notice {
+	display: flex;
+	width: 30%;
+	position: relative;
+}
+
+.notice_cancel_btn {
+	position: absolute;
+	right: 0;
+	margin-top: 6px;
+	display: block;
+	color: red;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #e5e5e5; 
+}
+
+.main_field_notice .notice_file_input {
+	display: none;
+    height: 30px;
+    padding: 0 5px;
+    border: none;
+    width: 78%;
+    color: #999999;
+}
+
+.main_field_notice .file_name_display {
+	display: inline-block;
+}
+
+.main_field_notice .update_file_name_display {
+	display: inline-block;
+}
+
+.main_field_notice .notice_file_update {
+	display: block;
+    height: 30px;
+    padding: 0 5px;
+    border: none;
+    width: 78%;
+    color: #999999;
+}
+
+.main_field_notice label {
+	color: #fff;
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    width: 80px;
+    border: 1px solid #e5e5e5;
+    margin-right: 10px;
+	background: #808080   
+}
+
 

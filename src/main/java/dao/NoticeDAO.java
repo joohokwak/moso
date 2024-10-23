@@ -127,13 +127,57 @@ public class NoticeDAO extends DBCP {
 		try {
 			conn = getConn();
 			
-			String sql = "INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, ?, ?, SYSDATE, 0)";
+			// 글쓰기의 첨부파일 여부를 확인하고 첨부파일이 있으면 첨부파일의 fileNo와 새 글의 no를 일치시키야 함
+			// 글쓰기 번호를 더미테이블을 통해 확인 후 생성된 새 글의 no를 첨부파일 여부 체크 후 fileNo에 삽입하는 순서
 			
+			// 1. dummy table을 통해 seq_no 생성
+			String sql = "SELECT SEQ_NOTICE.NEXTVAL FROM DUAL";
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, dto.getTitle());
-			ps.setString(2, dto.getContent());
+			rs = ps.executeQuery();
 			
-			result = ps.executeUpdate();
+			int insertNo = 0;
+			
+			if(rs.next()) {
+				insertNo = rs.getInt(1);
+			}
+			
+			// 2. 글쓰기 시 seq_no 반영 및 글쓰기 완료 후 Connection 자동 commit 방지(첨부파일 여부 확인해야 하므로)
+			if(insertNo > 0) {
+				conn.setAutoCommit(false);
+				
+				sql = "INSERT INTO NOTICE VALUES(?, ?, ?, SYSDATE, 0)";
+				
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, insertNo);
+				ps.setString(2, dto.getTitle());
+				ps.setString(3, dto.getContent());
+				
+				result = ps.executeUpdate();
+			
+			// 3. 첨부파일 여부 체크 및 Notice_File table 생성
+				if(result > 0) {
+					if(dto.getOfile() != null) {
+						sql = "INSERT INTO NOTICE_FILE VALUES(SEQ_NOTICE_FILE.nextval, ?, ?, SYSDATE, ?)";
+						ps = conn.prepareStatement(sql);
+						ps.setString(1, dto.getOfile());
+						ps.setString(2, dto.getNfile());
+						ps.setInt(3, insertNo);
+						
+						result = ps.executeUpdate();
+						
+						// 최종 insert 완료되면 commit
+						if(result > 0) {
+							conn.commit();
+						// 실패하면 catalog, catalog_file 모두 롤백
+						} else {
+							conn.rollback();
+						} 
+					// 첨부파일 없으면 그냥 commit
+					} else {
+						conn.commit();
+					}
+				}
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="external">
 	<div class="inquiry_wrap">
@@ -29,10 +30,15 @@
 						</li>
 						<li>
 							<span>파일</span>
-							<div class="main_field">
-								
-								<input type="file" class="field_file" name="file" value="${dto.ofile }" />
+							<div class="main_field_notice">
+								<label for="notice_file_update">파일선택</label>
+								<input class="notice_file_update" value="${dto.ofile }" placeholder="첨부파일" />
+								<input type="file" name="file" id="notice_file_update" style="display: none" />
+								<c:if test="${fn: length(dto.ofile) > 0 }">
+									<button type="button" id="cancel_btn_update" class="notice_cancel_btn">X</button>
+								</c:if>
 							</div>
+							
 						</li>
 					</ul>
 					

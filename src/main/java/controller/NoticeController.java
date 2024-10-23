@@ -68,6 +68,10 @@ public class NoticeController extends HttpServlet {
 			resp.sendRedirect("/Notice/list");
 			return;
 			
+		// 글 첨부파일 삭제
+		} else if(action.equals("/deleteFile")) {
+			
+			
 		// 글수정
 		} else if (action.equals("/update")) {
 			int no = Integer.parseInt(req.getParameter("no"));
@@ -79,9 +83,30 @@ public class NoticeController extends HttpServlet {
 		// 글수정OK
 		} else if (action.equals("/updateOk")) {
 			NoticeDTO dto = Common.convert(req, NoticeDTO.class);
+			// 글 수정시 기존파일 제거 로직 추가 해야함!
+			Map<String, String> nData = Common.fileUpload(req, "files/notice");
+			System.out.println(nData);
+			if(nData != null && !nData.isEmpty()) {
+				dto.setOfile("ofile");
+				dto.setNfile("nfile");
+				
+				Common.fileDelete(req, "files/notice", sc.selectOne(dto.getNo()).getNfile());
+			}
+			
 			sc.noticeUpdate(dto);
 			
+			
+			
+			// 관리자 페이지에서 수정한경우 관리자 페이지로 이동해야함!!
 			resp.sendRedirect("/Notice/list");
+			return;
+		
+		// 첨부파일 다운로드
+		} else if(action.equals("/filedownload")) {
+			NoticeDTO dto = Common.convert(req, NoticeDTO.class);
+			String path = req.getServletContext().getRealPath("files/notice");
+			
+			Common.fileDownLoad(resp, path, dto.getNfile(), dto.getOfile());
 			return;
 		}
 		

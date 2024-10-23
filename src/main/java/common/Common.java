@@ -180,7 +180,7 @@ public class Common {
 		try (InputStream inStream = new FileInputStream(file); OutputStream outStream = response.getOutputStream();) {
 
 			// 한글 파일명 인코딩
-			originFileName = URLEncoder.encode(originFileName, "UTF-8").replaceAll("+", "%20");
+			originFileName = URLEncoder.encode(originFileName, "UTF-8").replaceAll("\\+", "%20");
 			
 			// 응답 헤더 설정
 			response.reset();
