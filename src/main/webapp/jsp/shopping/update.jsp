@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="shopping_write">
   <div class="goods">
-    <h4>상품문의 쓰기</h4>
+    <h4>상품문의 수정</h4>
     <div class="goods_info">
       <div class="goods_img">
         <img src="/images/shopping/${item.poster }" alt="이미지">
@@ -15,6 +15,7 @@
   </div>
   <div class="contain">
   <form action="/Shop/updateOk" method="post" enctype="multipart/form-data">
+  	<input type="hidden" name="no" value="${qna.no}">
   	<input type="hidden" name="itemno" value="${param.itemno}">
 	    <div class="container">
 	      <table>
@@ -74,14 +75,14 @@
 	          그 밖의 사항은 지누스 개인정보처리방침을 준수합니다.
 	        </p>
 	      <div >
-	        <div class="checkbox1_wrap">
+	        <div class="checkbox1_wrap on">
 	          <label class="checkbox1" for="check2">위 내용에 동의합니다.</label>
-	          <input type="checkbox" id="check2">
+	          <input type="checkbox" id="check2" checked>
 	        </div>
 	        <a href="#">전체보기></a>
 	      </div>
 	    </div>
-	  <div class="bottom">
+	  <div class="bottom" style="padding-bottom: 20px">
 	    <button	onclick="javascript:history.go(-1);">취소</button>
 	    <button id="req_btn" type="button">등록</button>
 	  </div>
@@ -89,4 +90,3 @@
   </div>
   
 </div>
->

@@ -795,9 +795,32 @@
 }
 #view_question .board_body .display_view.on .display_none {
 	display: table-cell;
+	place-content: start;
 }
 #view_question .board_body .display_view .display_none {
 	display:none;
+}
+#admin_ans {
+	display:none;
+}
+#admin_ans.active {
+	display:flex;
+	gap: 5px;
+	justify-content: center;
+}
+#admin_ans .ansBtn {
+	font-size: 12px;
+	padding: 0 10px;
+    height: 20px;
+    line-height: 20px;
+    background: #c7c7c7;
+    color:#fff;
+    display: block;
+    text-align: center;
+    border: none;
+}
+#admin_ans .ansBtn:hover {
+	background: #003628;
 }
 #view_question .board_body .display_view .qna_btn {
 	display: flex;

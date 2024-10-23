@@ -480,7 +480,7 @@
 						</div>
 					</div>
 					<table class="board_body">
-						<c:forEach var="qna" items="${qnaAll }">
+						<c:forEach var="qna" items="${qnaAll }" varStatus="vs">
 							<tbody class="display_view">						
 								<tr>
 									<td class="board_content">
@@ -489,7 +489,7 @@
 												<img src="/images/shopping/icon_board_secret.png" alt="비밀글">
 										 	</c:if>										
 										</span>
-										<a href="#" data-no="${qna.no }" data-secret='${qna.secret > 0}'>${qna.title }</a>
+										<a href="#" data-no="${qna.no }" data-secret='${qna.secret > 0}' data-user="${member.isadmin == 'Y'? 'isadmintrue' : '' }" >${qna.title }</a>
 									</td>
 									<td width="112">
 										<p>${qna.writer }</p>
@@ -498,7 +498,7 @@
 										<p class="center">${qna.regdate }</p>
 									</td>
 									<td width="112">
-										<p class="center">답변완료</p>
+										<p class="center">${qna.answre != null? '답변완료' : ''}</p>
 									</td>
 								</tr>
 								<tr>
@@ -516,13 +516,16 @@
 								<tr>
 									<td colspan='4' class="board_content display_none">
 										<span><img src="/images/shopping/a.png" alt="답변"></span>
-										<p>${qna.answre }&nbsp;</p>
+										<p>${qna.answre != null? qna.answre : '&nbsp;' }</p>
+										<div id="admin_ans" class="${member.isadmin == 'Y'? 'active' : '' }">
+											<button onclick="location.href='/Shop/answre?itemno=${dto.no }&qnano=${qna.no}'" data-itemno="${dto.no }" data-no="${qna.no }" class="ansBtn" >작성/수정</button>
+											<button onclick="location.href='/Shop/ansdelete?itemno=${dto.no }&qnano=${qna.no}'" class="ansBtn" >삭제</button>
+										</div>
 									</td>
 								</tr>
 							</tbody>
 						</c:forEach>
 					</table>
-					
 					<!-- 페이징 -->
 					<div class="pagination">
 						${paging2}

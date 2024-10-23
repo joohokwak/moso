@@ -46,6 +46,8 @@ public class ShoppingController extends HttpServlet {
 			id = member.getId();
 		}
 		
+		
+		
 		// 상품 리스트 페이지
 		if (action.equals("/main")) {
 			//	정렬하기
@@ -206,7 +208,7 @@ public class ShoppingController extends HttpServlet {
 			Common.jsonResponse(resp, check);
 			return;
 			
-		// qna 수정하기
+		// qna 수정하기 페이지
 		} else if(action.equals("/update")) {
 			
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
@@ -216,7 +218,17 @@ public class ShoppingController extends HttpServlet {
 			
 			req.setAttribute("qna", dto);
 			req.setAttribute("item", writeItem);
-		
+			
+		// Q&A수정
+		} else if(action.equals("/updateOk")) {
+			String itemno =req.getParameter("itemno");
+			ItemReviewDTO qnaUp = Common.convert(req, ItemReviewDTO.class);
+			
+			shopSer.qnaUpdate(qnaUp);
+			
+			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
+			return;
+			
 		// Q&A 삭제
 		} else if (action.equals("/qnadelete")) {
 			Map<String, Object> ddata = Common.jsonConvert(req);
@@ -224,6 +236,36 @@ public class ShoppingController extends HttpServlet {
 			int qnaDel = shopSer.qnaDel(no);
 			
 			Common.jsonResponse(resp, qnaDel);
+			return;
+		// 답변 페이지
+		} else if (action.equals("/answre")) {
+			int num = Integer.parseInt(req.getParameter("qnano"));
+			int itemno = Integer.parseInt(req.getParameter("itemno"));
+		
+			ItemReviewDTO qnaOne = shopSer.qnaOne(num);
+			ShoppingDTO writeItem = shopSer.writeItem(itemno);
+			
+			req.setAttribute("qna", qnaOne);
+			req.setAttribute("item", writeItem);
+		
+		// 답변 달기 
+		} else if(action.equals("/answreOk")) {
+			int num = Integer.parseInt(req.getParameter("no"));
+			int itemno = Integer.parseInt(req.getParameter("itemno"));
+			String ans = req.getParameter("answre");
+			shopSer.ansCreate(num, ans);
+			
+			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
+			return;
+		} else if (action.equals("/ansdelete")) {
+
+			int num = Integer.parseInt(req.getParameter("qnano"));
+			int itemno = Integer.parseInt(req.getParameter("itemno"));
+			
+			String ans = "";
+			shopSer.ansCreate(num, ans);
+			
+			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
 			return;
 		}
 		
