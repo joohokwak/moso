@@ -1,6 +1,11 @@
 window.addEventListener('DOMContentLoaded', function () {
+	// 슬라이더 초기화 함수
+	function initSwiper(selector, options) {
+		return new Swiper(selector, options);
+	}
+	
 	// 메인 슬라이더
-	let mainSlider = new Swiper('.main_slider .swiper', {
+	const mainSlider = initSwiper('.main_slider .swiper', {
 		simulateTouch: true,
 		loop: true,
 		speed: 800,
@@ -19,42 +24,38 @@ window.addEventListener('DOMContentLoaded', function () {
 			prevEl: '.swiper-button-prev',
 		},
 	});
-
+	
 	// 재생 / 정지 버튼
-	const toggleBtn = document.querySelector('.main_slider .toggle_btn');
-	if (toggleBtn) {
-		toggleBtn.addEventListener('click', function(e) {
-			e.preventDefault();
-			this.classList.toggle('on');
-
-			if (this.classList.contains('on')) {
-				mainSlider.autoplay.stop();
-			} else {
-				mainSlider.autoplay.start();
-			}
-		});
-	}
-
+	clickEvent('.main_slider .toggle_btn', function() {
+		this.classList.toggle('on');
+		
+		if (mainSlider.autoplay.running) {
+			mainSlider.autoplay.stop();
+		} else {
+			mainSlider.autoplay.start();
+		}
+	});
+	
 	// 매거진 슬라이더
-	let magazineSlider = new Swiper('.magazine_slider .swiper', {
+	initSwiper('.magazine_slider .swiper', {
 		simulateTouch: true,
 		loop: true,
 		slidesPerView: 3,
 		spaceBetween: 50,
-
+		
 		navigation: {
 			nextEl: '.swiper-button-next',
 			prevEl: '.swiper-button-prev',
 		},
 	});
-
+	
 	// 리뷰 슬라이더
-	let reviewSlider = new Swiper('.reivew_slider .swiper', {
+	initSwiper('.reivew_slider .swiper', {
 		simulateTouch: true,
 		loop: true,
 		slidesPerView: 1.7,
 		spaceBetween: 50,
-
+		
 		pagination: {
 			el: '.review_wrap .swiper_btn .swiper-pagination',
 			clickable: true,
@@ -79,39 +80,28 @@ window.addEventListener('DOMContentLoaded', function () {
 			prevEl: '.review_wrap .swiper_btn .swiper-button-prev',
 		},
 	});
-  
-	// TOP 버튼
+  	
+	// TOP 버튼 (스크롤)
   	const float_btn = document.querySelector('.float_btn');
 	if (float_btn) {
 		window.addEventListener('scroll', function () {
-			const scrollY = window.scrollY;
-	
 			// 스크롤y 값 = 510
-			if (scrollY > 510) {
-				float_btn.classList.add('fixed');
-			} else {
-				float_btn.classList.remove('fixed');
-			}
+			float_btn.classList.toggle('fixed', window.scrollY > 510);
 		});
-	
-		// 위로가기 버튼
-		const goTopBtn = document.querySelector('.go_top');
-		if (goTopBtn) {
-			goTopBtn.addEventListener('click', function(e) {
-				e.preventDefault();
-				window.scrollTo({ top: 0, behavior: 'smooth' });
-			});
-		}
 	}
+	
+	// TOP 버튼 (클릭)
+	clickEvent('.go_top', function() {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	});
 	
 	// 공통 버튼 (글쓰기)
 	const writeBtns = document.querySelectorAll('.admin_btn_wrap .write_btn');
 	if (writeBtns) {
 		writeBtns.forEach(writeBtn => {
 			writeBtn.addEventListener('click', function() {
-				let $path = location.pathname;
-				$path = $path.substring(0, $path.lastIndexOf("/"));
-				location.href = $path + "/write";
+				const path = location.pathname.substring(0, location.pathname.lastIndexOf("/"));
+				location.href = `${path}/write`;
 			});
 		});
 	}
