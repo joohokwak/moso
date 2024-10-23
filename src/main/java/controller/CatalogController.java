@@ -93,10 +93,9 @@ public class CatalogController extends HttpServlet {
 				dto.setOfile(ofile);
 				dto.setNfile(nfile);
 			}
-
+			
 			cs.updateCatalog(dto);
-			cs.updateCatalogfile();
-
+			
 			String isadmin = req.getParameter("isadmin");
 			if ("Y".equals(isadmin)) {
 				resp.sendRedirect("/Admin/catalog");
@@ -110,7 +109,7 @@ public class CatalogController extends HttpServlet {
 		} else if (action.equals("/deleteOk")) {
 			CatalogDTO dto = Common.convert(req, CatalogDTO.class);
 
-			cs.deleteCatalog(dto);
+			cs.deleteCatalog(dto.getNo() + "");
 			resp.sendRedirect("/Catalog/list");
 			return;
 		}

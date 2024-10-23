@@ -144,18 +144,20 @@ public class MagazineDAO extends DBCP {
 	}
 	
 	// 글삭제
-	public int magazineDelete(int no) {
+	public int magazineDelete(String...no) {
 		int result = 0;
 		
 		try {
 			conn = getConn();
 			
-			String sql = "DELETE FROM MAGAZINE WHERE NO=?";
-			
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, no);
-			
-			result = ps.executeUpdate();
+			for (String num : no) {
+				String sql = "DELETE FROM MAGAZINE WHERE NO = ?";
+				
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, Integer.parseInt(num));
+				
+				result = ps.executeUpdate();
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

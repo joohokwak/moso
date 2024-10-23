@@ -43,8 +43,7 @@ public class FaqController extends HttpServlet {
 			
 		// 글삭제
 		} else if (action.equals("/delete")) {
-			int no = Integer.parseInt(req.getParameter("no"));
-			fs.deleteFaq(no);
+			fs.deleteFaq(req.getParameter("no"));
 			resp.sendRedirect("/Faq/list");
 			return;
 			

@@ -35,7 +35,7 @@ public class MagazineServiceImpl implements MagazineService {
 	}
 		
 	@Override
-	public int magazineDelete(int no) {
+	public int magazineDelete(String...no) {
 		return dao.magazineDelete(no);
 	}
 }
