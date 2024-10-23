@@ -57,5 +57,51 @@ window.addEventListener('DOMContentLoaded', function () {
 				location.href = '/Notice/delete?no=' + cntNo;
 			});
 		});
+	};
+	
+	// view 페이지에서 파일첨부 
+	const fileInputView = document.getElementById('notice_file_input');
+	const cancelBtnView = document.getElementById('cancel_btn');
+	const fileNamDisplayEl = document.getElementById('file_name_display');
+	if (fileInputView) {
+		fileInputView.addEventListener('change', function(){
+			if(fileInputView.files.length > 0) {
+				fileNamDisplayEl.textContent = fileInputView.files[0].name; 
+				cancelBtnView.style.display = 'inline-block';
+			} else {
+				console.log('파일이 선택되지 않았습니다.');
+				cancelBtnView.style.display = 'none';
+			}
+		});
+	};
+	
+	// view 페이지에서 파일삭제 (DB에서는 삭제되지 않음)
+	if(cancelBtnView){
+		cancelBtnView.addEventListener('click', function(e){
+			e.preventDefault();
+			
+			fileNamDisplayEl.textContent = '';
+			cancelBtnView.style.display = 'none';
+		});
+	};
+	
+	// 업데이트 페이지 접근 시, 파일삭제 버튼 생성 및 파일삭제
+	const cancelBtnUpdate = document.getElementById('cancel_btn_update');
+	const noticeUpdate = document.querySelector('.notice_file_update');
+	const noticeUpdateId = document.getElementById('notice_file_update');
+	if(cancelBtnUpdate){
+		cancelBtnUpdate.addEventListener('click', function(e){
+			e.preventDefault();
+			noticeUpdate.value = '';
+			cancelBtnUpdate.style.display = 'none';
+			noticeUpdateId.value = '';
+		});
 	}
+	
+	if(noticeUpdateId) {
+		noticeUpdateId.addEventListener('change', function(){
+			noticeUpdate.value = noticeUpdateId.files[0].name;
+			cancelBtnUpdate.style.display = 'inline-block';
+		});
+	};
 });
