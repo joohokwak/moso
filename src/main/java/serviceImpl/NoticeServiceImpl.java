@@ -31,7 +31,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public boolean deleteNotice(String[] selNo) {
+	public boolean deleteNotice(String...selNo) {
 		return dao.getDeleteNotice(selNo) > 0;
 	}
 
