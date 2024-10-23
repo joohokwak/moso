@@ -8,5 +8,5 @@ import dto.QuizDTO;
 public interface QuizService {
 
 	List<QuizDTO> mattressQuiz(String sumQ);
-	List<QuizDTO> setGoods(Pagination pg, String key, String keyword);
+	List<QuizDTO> setGoods(Pagination pg, String key, String keyword, String sort);
 }

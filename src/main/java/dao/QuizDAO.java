@@ -188,7 +188,7 @@ public class QuizDAO extends DBCP {
 	}
 	
 	// search 페이지
-	public List<QuizDTO> setGoods(Pagination pg, String key, String keyword) {
+	public List<QuizDTO> setGoods(Pagination pg, String key, String keyword, String sort) {
 		List<QuizDTO> list = new ArrayList<QuizDTO>();
 		try {
 			conn = getConn();
@@ -209,6 +209,26 @@ public class QuizDAO extends DBCP {
 					tmp += " AND UPPER(TEXT) LIKE UPPER('%" + keyword + "%')"; 
 				}
 			}
+			
+			// 상품 검색 결과 정렬 기준
+			// 인기순
+//			if (sort.equals("visit_desc")) {
+//				tmp = "SELECT *"
+//					+ " FROM ITEM i LEFT OUTER JOIN ITEM_LIKE il"
+//					+ " ON i.NO = il.ITEM_NO"
+//					+ " WHERE i.NO = 13";	
+//			// 신상품순
+//			} else if (sort.equals("regdate_desc")) {
+//				pg.setOrderName("REGDATE");
+//				pg.setOrder(Order.DESC_NULLS_LAST.getOrder());
+//			// 가격순
+//			} else if (sort.equals("price_desc")) {
+//				pg.setOrderName("PRICE");
+//				pg.setOrder(Order.ASC_NULLS_LAST.getOrder());
+//			// 상품평순
+//			} else if (sort.equals("review_desc")) {
+//				pg.setOrderName("REVIEW");
+//			}
 			
 			// 검색 결과 개수
 			String tc = "";
