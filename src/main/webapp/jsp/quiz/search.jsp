@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="search_content">
 	<div class="inner">
@@ -31,24 +32,26 @@
 			</form>
 		</div>
 		<div class="order_sort">
-			<ul class="sort_wrap">
-				<li>
-					<input type="radio" id="sort1" name="sort" value="visit_desc">
-					<label for="sort1">인기순</label>
-				</li>
-				<li>
-					<input type="radio" id="sort2" name="sort" value="regdate_desc">
-					<label for="sort2">신상품순</label>
-				</li>
-				<li>
-					<input type="radio" id="sort3" name="sort" value="price_desc">
-					<label for="sort3">가격순</label>
-				</li>
-				<li>
-					<input type="radio" id="sort4" name="sort" value="review_desc">
-					<label for="sort4">상품평순</label>
-				</li>
-			</ul>
+			<form action="/Quiz/search" method="post" name="sortFrm">
+				<ul class="sort_wrap">
+					<li class="on">
+						<input type="radio" id="sort1" name="sort" value="visit_desc" checked>
+						<label for="sort1">인기순</label>
+					</li>
+					<li>
+						<input type="radio" id="sort2" name="sort" value="regdate_desc">
+						<label for="sort2">신상품순</label>
+					</li>
+					<li>
+						<input type="radio" id="sort3" name="sort" value="price_desc">
+						<label for="sort3">가격순</label>
+					</li>
+					<li>
+						<input type="radio" id="sort4" name="sort" value="review_desc">
+						<label for="sort4">상품평순</label>
+					</li>
+				</ul>
+			</form>
 		</div>
 		<div class="search_result">
 			<ul>
@@ -68,7 +71,7 @@
 							</a>
 						</div>
 						<div class="lowest_price">
-							<span>최저 <strong>${item.price }</strong>원</span>
+							<span>최저 <strong><fmt:formatNumber value="${item.price }" pattern="#,###"/></strong>원</span>
 						</div>
 						<div class="type">
 							<img src="/images/shopping/S_03.png" alt="이곳에 사이즈를 넣어주세요">

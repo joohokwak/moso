@@ -115,10 +115,10 @@ window.addEventListener('DOMContentLoaded', function () {
 	}
 	
 	// 검색 폼
-	const _topSearch = document.querySelector('header .search_btn');
-	const _topInput = document.querySelector('header .search_wrap input[type=text]');
-	_topSearch.addEventListener('click', function(e) {
-		if (_topInput.value.length === 0 ) {
+	const _headerSearchBtn = document.querySelector('header .search_btn');
+	const _headerInput = document.querySelector('header .search_wrap input[type=text]');
+	_headerSearchBtn.addEventListener('click', function(e) {
+		if (_headerInput.value.length === 0 ) {
 			e.preventDefault();
 			alert('검색어를 입력하세요.');
 		};
