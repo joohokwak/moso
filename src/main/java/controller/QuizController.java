@@ -63,6 +63,7 @@ public class QuizController extends HttpServlet {
 
 			Pagination pg = new Pagination();
 			pg.setPageSize(12);
+			
 			List<QuizDTO> searchAll = qs.setGoods(pg, key, keyword, sort);
 			req.setAttribute("search", searchAll);
 			req.setAttribute("paging", pg.paging(req));

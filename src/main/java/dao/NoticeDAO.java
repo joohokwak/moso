@@ -16,6 +16,7 @@ public class NoticeDAO extends DBCP {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
+	// 전체조회
 	public List<NoticeDTO> getSelectAll(Pagination pg){
 		List<NoticeDTO> list = new ArrayList<>();
 		
@@ -60,6 +61,7 @@ public class NoticeDAO extends DBCP {
 		return list;
 	}
 	
+	// 조회수
 	public void getVisitCount(int no) {
 		try {
 			conn = getConn();
@@ -76,6 +78,7 @@ public class NoticeDAO extends DBCP {
 		}
 	}
 	
+	// 상세조회
 	public NoticeDTO getSelectOne(int num) {
 		NoticeDTO dto = null;
 		
@@ -121,6 +124,7 @@ public class NoticeDAO extends DBCP {
 		return dto;
 	}
 	
+	// 공지 등록
 	public int getInsertNotice(NoticeDTO dto) {
 		int result = 0;
 		
@@ -137,12 +141,12 @@ public class NoticeDAO extends DBCP {
 			
 			int insertNo = 0;
 			
-			if(rs.next()) {
+			if (rs.next()) {
 				insertNo = rs.getInt(1);
 			}
 			
 			// 2. 글쓰기 시 seq_no 반영 및 글쓰기 완료 후 Connection 자동 commit 방지(첨부파일 여부 확인해야 하므로)
-			if(insertNo > 0) {
+			if (insertNo > 0) {
 				conn.setAutoCommit(false);
 				
 				sql = "INSERT INTO NOTICE VALUES(?, ?, ?, SYSDATE, 0)";
@@ -154,10 +158,10 @@ public class NoticeDAO extends DBCP {
 				
 				result = ps.executeUpdate();
 			
-			// 3. 첨부파일 여부 체크 및 Notice_File table 생성
-				if(result > 0) {
-					if(dto.getOfile() != null) {
-						sql = "INSERT INTO NOTICE_FILE VALUES(SEQ_NOTICE_FILE.nextval, ?, ?, SYSDATE, ?)";
+				// 3. 첨부파일 여부 체크 및 Notice_File table 생성
+				if (result > 0) {
+					if (dto.getOfile() != null) {
+						sql = "INSERT INTO NOTICE_FILE VALUES(SEQ_NOTICE_FILE.NEXTVAL, ?, ?, SYSDATE, ?)";
 						ps = conn.prepareStatement(sql);
 						ps.setString(1, dto.getOfile());
 						ps.setString(2, dto.getNfile());
@@ -166,9 +170,9 @@ public class NoticeDAO extends DBCP {
 						result = ps.executeUpdate();
 						
 						// 최종 insert 완료되면 commit
-						if(result > 0) {
+						if (result > 0) {
 							conn.commit();
-						// 실패하면 catalog, catalog_file 모두 롤백
+						// 실패하면 notice, notice_file 모두 롤백
 						} else {
 							conn.rollback();
 						} 
@@ -188,22 +192,24 @@ public class NoticeDAO extends DBCP {
 		return result;
 	}
 	
-	public int getDeleteNotice(String[] selNo) {
+	// 글삭제
+	public int getDeleteNotice(String...selNo) {
 		int result = 0;
 		
 		try {
 			conn = getConn();
-			for(int i =0; i < selNo.length ; i++) {
+			
+			for (String no : selNo) {
 				String delSql = "DELETE FROM NOTICE_FILE WHERE NOTICENO = ?";
 				ps = conn.prepareStatement(delSql);
-				ps.setInt(1, Integer.parseInt(selNo[i]));
+				ps.setInt(1, Integer.parseInt(no));
 				
 				ps.executeUpdate();
 				
 				String sql = "DELETE FROM NOTICE WHERE NO = ?";
 				
 				ps = conn.prepareStatement(sql);
-				ps.setInt(1, Integer.parseInt(selNo[i]));
+				ps.setInt(1, Integer.parseInt(no));
 				
 				result = ps.executeUpdate();
 			}
@@ -213,13 +219,17 @@ public class NoticeDAO extends DBCP {
 		} finally {
 			close(conn, ps, rs);
 		}
+		
 		return result;
 	}
 	
-	public int getNoticeUpdate (NoticeDTO dto) {
+	// 글 수정
+	public int getNoticeUpdate(NoticeDTO dto) {
 		int result = 0;
+		
 		try {
 			conn = getConn();
+			
 			String sql = "UPDATE NOTICE SET TITLE=?, CONTENT=? WHERE NO=?";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
@@ -229,15 +239,11 @@ public class NoticeDAO extends DBCP {
 			result = ps.executeUpdate();
 			
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);
 		}
+		
 		return result;
 	}
 }
-
-
-
-
-

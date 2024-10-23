@@ -38,8 +38,8 @@ public class AdminController extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemberDTO user = (MemberDTO) session.getAttribute("member");
 		if (user == null || !"Y".equals(user.getIsadmin()))  {
-//			resp.sendRedirect("/");
-//			return;
+			resp.sendRedirect("/");
+			return;
 		}
 		
 		String action = req.getPathInfo();

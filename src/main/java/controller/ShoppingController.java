@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.google.gson.Gson;
 
 import common.Common;
 import common.Pagination;
@@ -45,7 +42,6 @@ public class ShoppingController extends HttpServlet {
 			MemberDTO member = (MemberDTO) user;
 			id = member.getId();
 		}
-		
 		
 		
 		// 상품 리스트 페이지
@@ -87,20 +83,19 @@ public class ShoppingController extends HttpServlet {
 			//	客體 이미지
 			List<String> images = shopSer.imageName(itemNo);
 			
-			Pagination pg = new Pagination();
-			
 			int pageno = 1;			
 			String pagenum = req.getParameter("pageNum");
 			if(pagenum != null) pageno = Integer.parseInt(pagenum);
 			
+			// 리뷰 페이징
+			Pagination pg = new Pagination();
 			pg.setPageSize(3);
 			pg.setPageNum(pageno);
 			
+			// QNA 페이징
 			Pagination pg2 = new Pagination();
-			
 			pg2.setPageSize(10);
 			pg2.setPageNum(pageno);
-			
 
 			List<ItemReviewDTO> reviewAll = shopSer.reviewAll(itemNo, pg);
 			List<ItemReviewDTO> qnaAll = shopSer.qnaAll(itemNo, pg2);
@@ -124,7 +119,7 @@ public class ShoppingController extends HttpServlet {
 			}
 			return;
 			
-		// qna page
+		// QNA PAGE
 		} else if (action.equals("/write")) {
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
 			ShoppingDTO writeItem = shopSer.writeItem(itemno);
@@ -138,7 +133,7 @@ public class ShoppingController extends HttpServlet {
 			
 			req.setAttribute("item", writeItem);
 			
-		// qna 등록
+		// QNA 등록
 		} else if (action.equals("/writeOk")) {
 			String itemno = req.getParameter("itemno");
 
@@ -160,7 +155,6 @@ public class ShoppingController extends HttpServlet {
 			pg.setPageNum(pageNum);
 			
 			List<ItemReviewDTO> reviewAll = shopSer.reviewAll(itemno, pg);
-			
 			Common.jsonResponse(resp, reviewAll);
 			return;
 			
@@ -176,21 +170,7 @@ public class ShoppingController extends HttpServlet {
 			pg2.setPageNum(pageNum);
 			
 			List<ItemReviewDTO> qnaAll = shopSer.qnaAll(itemno, pg2);
-//			Common.jsonResponse(resp, qnaAll);
-			
-			resp.setContentType("application/json; charset=utf-8");
-			
-			try (PrintWriter pw = resp.getWriter();) {
-				// Gson 객체를 이용해 json 형태로 변환
-				Gson gson = new Gson();
-				String resData = gson.toJson(qnaAll);
-				
-				// 응답
-				pw.write(resData);
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			Common.jsonResponse(resp, qnaAll);
 			return;
 			
 		// 체크
@@ -201,14 +181,14 @@ public class ShoppingController extends HttpServlet {
 			char check = '0';
 			ItemReviewDTO qnaOne = shopSer.qnaOne(no);
 			
-			if(qnaOne.getPass().equals(pass)) {
+			if (qnaOne.getPass().equals(pass)) {
 				check = '1';
 			}
-			System.out.println(check);
+			
 			Common.jsonResponse(resp, check);
 			return;
 			
-		// qna 수정하기 페이지
+		// QNA 수정하기 페이지
 		} else if(action.equals("/update")) {
 			
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
@@ -237,6 +217,7 @@ public class ShoppingController extends HttpServlet {
 			
 			Common.jsonResponse(resp, qnaDel);
 			return;
+			
 		// 답변 페이지
 		} else if (action.equals("/answre")) {
 			int num = Integer.parseInt(req.getParameter("qnano"));
@@ -257,8 +238,9 @@ public class ShoppingController extends HttpServlet {
 			
 			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
 			return;
+			
+		// 답변 삭제
 		} else if (action.equals("/ansdelete")) {
-
 			int num = Integer.parseInt(req.getParameter("qnano"));
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
 			

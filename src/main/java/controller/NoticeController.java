@@ -62,7 +62,6 @@ public class NoticeController extends HttpServlet {
 		// 글삭제
 		} else if (action.equals("/delete")) {
 			String selNo = req.getParameter("no");
-			//System.out.println(selNo);
 			
 			sc.deleteNotice(selNo.split(","));
 			resp.sendRedirect("/Notice/list");

@@ -12,7 +12,7 @@ public interface NoticeService {
 	
 	boolean insertNotice(NoticeDTO dto);
 	
-	boolean deleteNotice(String[] selNo);
+	boolean deleteNotice(String...selNo);
 	
 	boolean noticeUpdate(NoticeDTO dto);
 }
