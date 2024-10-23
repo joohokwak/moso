@@ -450,17 +450,15 @@ header .top_util .cart {
 #search_content .thumbnail .wish {
 	position: absolute;
 	display: block;
-	top: 10px;
-	right: 10px;
+	top: 0;
+	right: 0;
+	margin: 7px 7px 0 0;
 	width: 30px;
 	height: 30px;
-	background: url(/images/shopping/wish_off.png) no-repeat center;
-	text-indent: -9999px;
 	z-index: 1;
 }
-
-#search_content .thumbnail .wish.active {
-	background: url(/images/shopping/wish_on.png) no-repeat center;
+#search_content .thumbnail .wish img {
+	width: 100%;
 }
 
 #search_content .goods_space .txt_wrap {

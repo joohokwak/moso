@@ -34,19 +34,19 @@
 		<div class="order_sort">
 			<form action="/Quiz/search" method="post" name="sortFrm">
 				<ul class="sort_wrap">
-					<li class="on">
+					<li class="${param.sort eq 'visit_desc' ? 'on' : '' }">
 						<input type="radio" id="sort1" name="sort" value="visit_desc" checked>
 						<label for="sort1">인기순</label>
 					</li>
-					<li>
+					<li class="${param.sort eq 'regdate_desc' ? 'on' : '' }">
 						<input type="radio" id="sort2" name="sort" value="regdate_desc">
 						<label for="sort2">신상품순</label>
 					</li>
-					<li>
+					<li class="${param.sort eq 'price_desc' ? 'on' : '' }">
 						<input type="radio" id="sort3" name="sort" value="price_desc">
 						<label for="sort3">가격순</label>
 					</li>
-					<li>
+					<li class="${param.sort eq 'review_desc' ? 'on' : '' }">
 						<input type="radio" id="sort4" name="sort" value="review_desc">
 						<label for="sort4">상품평순</label>
 					</li>
@@ -59,13 +59,15 @@
 				<li>
 					<div class="goods_space">
 						<div class="thumbnail">
-							<a href="#" class="wish">위시리스트</a>
-							<a href="#">
+							<a href="#" class="wish" data-no="${item.no }" data-islogin="${not empty member }">
+							<img alt="위시리스트" src="/images/shopping/${(list.id eq member.id) and (list.no eq list.itemnum) ? 'wish_on.png' : 'wish_off.png'}">
+							</a>
+							<a href="/Shop/buy?itemno=${item.no }">
 								<img src="/images/shopping/${item.poster }" alt="${item.name }">
 							</a>
 						</div>
 						<div class="txt_wrap">
-							<a href="#">
+							<a href="/Shop/buy?itemno=${item.no }">
 								<strong>${item.name }</strong>
 								<span>${item.text }</span>
 							</a>
