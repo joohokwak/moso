@@ -63,11 +63,7 @@ public class MaterialsController extends HttpServlet {
 			
 		// 글삭제
 		} else if (action.equals("/delete")) {
-			String strNo = req.getParameter("no");
-			if (strNo != null) {
-				int no = Integer.parseInt(strNo);
-				ms.deleteMaterial(no);
-			}
+			ms.deleteMaterial(req.getParameter("no"));
 			
 			resp.sendRedirect("/Materials/list");
 			return;

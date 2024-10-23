@@ -9,7 +9,6 @@ public interface FaqService {
 	List<FaqDTO> selectList(Pagination pg);
 	FaqDTO selectFaq(int no);
 	boolean insertFaq(FaqDTO dto);
-	boolean deleteFaq(int no);
-	boolean deleteFaq(String[] no);
+	boolean deleteFaq(String...no);
 	boolean updateFaq(FaqDTO dto);
 }

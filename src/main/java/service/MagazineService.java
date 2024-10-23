@@ -10,5 +10,5 @@ public interface MagazineService {
 	MagazineDTO magazineView(int no);
 	int magazineUpdateOk(MagazineDTO dto);
 	int magazineWriteOk(MagazineDTO dto);
-	int magazineDelete(int no);
+	int magazineDelete(String...no);
 }

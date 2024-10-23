@@ -118,30 +118,7 @@ public class MaterialsDAO extends DBCP {
 	}
 	
 	// delete
-	public int deleteMaterial(int no) {
-		int result = 0;
-		
-		try {
-			conn = getConn();
-			
-	        String sql = "DELETE FROM MATERIALS WHERE NO = ?";
-			
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, no);
-			
-			result = ps.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps, rs);
-		}
-		
-		return result;
-	}
-	
-	// delete
-	public int deleteMaterial(String[] no) {
+	public int deleteMaterial(String...no) {
 		int result = 0;
 		
 		try {

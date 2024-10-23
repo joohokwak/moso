@@ -79,8 +79,7 @@ public class MagazineController extends HttpServlet {
 			
 		// 글삭제
 		} else if (action.equals("/delete")) {
-			int no = Integer.parseInt(req.getParameter("no"));
-			mgs.magazineDelete(no);
+			mgs.magazineDelete(req.getParameter("no"));
 			
 			resp.sendRedirect("/Magazine/magazine");
 			return;

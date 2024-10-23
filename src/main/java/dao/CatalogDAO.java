@@ -15,6 +15,7 @@ public class CatalogDAO extends DBCP {
 	private PreparedStatement ps;
 	private ResultSet rs;
 
+	// 리스트
 	public List<CatalogDTO> selectList(Pagination pg) {
 		List<CatalogDTO> list = new ArrayList<CatalogDTO>();
 
@@ -65,13 +66,14 @@ public class CatalogDAO extends DBCP {
 		return list;
 	}
 
+	// 상세조회
 	public CatalogDTO selectOne(int num) {
 		CatalogDTO dto = null;
 
 		try {
 			conn = getConn();
 
-			String sql = "SELECT * FROM CATALOG c, CATALOG_FILE cf WHERE c.NO = cf.CATALNO (+) AND c.NO = ?";
+			String sql = "SELECT * FROM CATALOG c, CATALOG_FILE cf WHERE c.NO = cf.CATALNO(+) AND c.NO = ?";
 
 			ps = conn.prepareStatement(sql);
 
@@ -99,6 +101,7 @@ public class CatalogDAO extends DBCP {
 		return dto;
 	}
 
+	// 조회수
 	public int plusVisitCount(int num) {
 		int result = 0;
 
@@ -122,6 +125,7 @@ public class CatalogDAO extends DBCP {
 		return result;
 	}
 
+	// 추가
 	public int insertCatalog(CatalogDTO dto) {
 		int result = 0;
 
@@ -161,7 +165,6 @@ public class CatalogDAO extends DBCP {
 				if (result > 0) {
 					// 파일 업로드를 할 때
 					if (dto.getOfile() != null) {
-
 						sql = "INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, ?, ?, SYSDATE, ?)";
 
 						ps = conn.prepareStatement(sql);
@@ -175,7 +178,7 @@ public class CatalogDAO extends DBCP {
 						if (result > 0) {
 							conn.commit();
 
-							// 실패하면 catalog, catalog_file 모두 롤백
+						// 실패하면 catalog, catalog_file 모두 롤백
 						} else {
 							conn.rollback();
 						}
@@ -196,6 +199,7 @@ public class CatalogDAO extends DBCP {
 		return result;
 	}
 
+	// 수정
 	public int updateCatalog(CatalogDTO dto) {
 		int result = 0;
 
@@ -217,8 +221,7 @@ public class CatalogDAO extends DBCP {
 			if (result > 0) {
 				// 파일 업로드를 할 때
 				if (dto.getOfile() != null) {
-
-					sql = "UPDATE CATALOG_FILE SET ofile = ?, nfile = ? where no = ? and catalno = ?";
+					sql = "UPDATE CATALOG_FILE SET OFILE = ?, NFILE = ? WHERE NO = ? AND CATALNO = ?";
 
 					ps = conn.prepareStatement(sql);
 					ps.setString(1, dto.getOfile());
@@ -231,7 +234,7 @@ public class CatalogDAO extends DBCP {
 					if (result > 0) {
 						conn.commit();
 
-						// 실패하면 catalog, catalog_file 모두 롤백
+					// 실패하면 catalog, catalog_file 모두 롤백
 					} else {
 						conn.rollback();
 					}
@@ -251,43 +254,13 @@ public class CatalogDAO extends DBCP {
 		return result;
 	}
 
-	public int deleteCatalog(CatalogDTO dto) {
+	// 삭제
+	public int deleteCatalog(String...no) {
 		int result = 0;
 
 		try {
 			conn = getConn();
-
-			String sql = "DELETE FROM CATALOG_FILE WHERE CATALNO = ?";
-
-			ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, dto.getNo());
-
-			ps.executeUpdate();
-
-			sql = "DELETE FROM CATALOG WHERE NO = ?";
-
-			ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, dto.getNo());
-
-			result = ps.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps, rs);
-		}
-
-		return result;
-	}
-
-	public int deleteCatalog(String[] no) {
-		int result = 0;
-
-		try {
-			conn = getConn();
-
+			
 			for (String num : no) {
 				String sql = "DELETE FROM CATALOG_FILE WHERE CATALNO = ?";
 				ps = conn.prepareStatement(sql);

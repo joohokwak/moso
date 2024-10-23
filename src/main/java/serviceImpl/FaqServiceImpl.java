@@ -30,17 +30,12 @@ public class FaqServiceImpl implements FaqService {
 	}
 
 	@Override
-	public boolean deleteFaq(int no) {
-		return dao.deleteFaq(no) > 0;
-	}
-
-	@Override
 	public boolean updateFaq(FaqDTO dto) {
 		return dao.updateFaq(dto) > 0;
 	}
 
 	@Override
-	public boolean deleteFaq(String[] no) {
+	public boolean deleteFaq(String...no) {
 		return dao.deleteFaq(no) > 0;
 	}
 

@@ -105,30 +105,7 @@ public class FaqDAO extends DBCP {
 	}
 	
 	// 글삭제
-	public int deleteFaq(int no) {
-		int result = 0;
-		
-		try {
-			conn = getConn();
-			
-			String sql = "DELETE FROM FAQ WHERE NO = ?";
-			
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, no);
-			
-			result = ps.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps, rs);
-		}
-		
-		return result;
-	}
-	
-	// 글삭제
-	public int deleteFaq(String[] no) {
+	public int deleteFaq(String...no) {
 		int result = 0;
 		
 		try {

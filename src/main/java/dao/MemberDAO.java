@@ -285,28 +285,32 @@ public class MemberDAO extends DBCP {
 		return result;
 	}
 	
-	public int deleteMember(String id) {
+	// 회원 탈퇴
+	public int deleteMember(String...ids) {
 		int result = 0;
+		
 		try {
 			conn = getConn();
 			
-			String sqlItem = "DELETE FROM ITEM_LIKE WHERE MEMBER_ID=?";
-			
-			ps = conn.prepareStatement(sqlItem);
-			ps.setString(1, id);
-			ps.executeUpdate();
-			
-			String sql = "DELETE FROM MEMBER WHERE ID=?";
+			for (String id : ids) {
+				String sqlItem = "DELETE FROM ITEM_LIKE WHERE MEMBER_ID = ?";
+				ps = conn.prepareStatement(sqlItem);
+				ps.setString(1, id);
+				ps.executeUpdate();
 				
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, id);
+				String sql = "DELETE FROM MEMBER WHERE ID = ?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, id);
 				
-			result = ps.executeUpdate();
+				result = ps.executeUpdate();
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);
 		}
+		
 		return result;
 	}
 
@@ -350,7 +354,5 @@ public class MemberDAO extends DBCP {
 		
 		return list;
 	}
-	
-	
 	
 }

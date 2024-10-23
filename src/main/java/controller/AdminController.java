@@ -144,7 +144,8 @@ public class AdminController extends HttpServlet {
 					
 				// 매거진
 				} else if (tmpPath.equals("/magazine")) {
-					
+					MagazineService ms = new MagazineServiceImpl();
+					ms.magazineDelete(noArr);
 					
 				// 쇼핑
 				} else if (tmpPath.equals("/shop")) {
@@ -152,7 +153,8 @@ public class AdminController extends HttpServlet {
 				
 				// 회원
 				} else if (tmpPath.equals("/member")) {
-					
+					MemberService ms = new MemberServiceImpl();
+					ms.memberDelete(noArr);
 					
 				}
 			}

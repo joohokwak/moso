@@ -25,11 +25,6 @@ public class MaterialsServiceImpl implements MaterialsService {
 	}
 
 	@Override
-	public int deleteMaterial(int no) {
-		return dao.deleteMaterial(no);
-	}
-
-	@Override
 	public int insertMaterial(MaterialsDTO dto) {
 		return dao.insertMaterial(dto);
 	}
@@ -40,7 +35,7 @@ public class MaterialsServiceImpl implements MaterialsService {
 	}
 
 	@Override
-	public int deleteMaterial(String[] no) {
+	public int deleteMaterial(String...no) {
 		return dao.deleteMaterial(no);
 	}
 
