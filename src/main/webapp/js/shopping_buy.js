@@ -228,10 +228,15 @@ window.addEventListener('DOMContentLoaded', function() {
 				target.closest('.display_view').classList.toggle('on');
 			} else {
 				prompt('글작성 시 설정한 비밀번호를 입력하세요.', (pass) => {
-					if(item.dataset.pass === pass) {
-						item.closest('.display_view').classList.add('on');
-					} else {
-						alert('비밀번호가 일치하지 않습니다.');
+					if(pass) {						
+						post('/Shop/check', {no, pass}, data => {
+							console.log(pass);
+							if(data === '1') {
+								target.closest('.display_view').classList.add('on');
+							} else {
+								alert('비밀번호가 일치하지 않습니다.');
+							}
+						});
 					}
 				});
 			}
@@ -242,13 +247,14 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 	
-	// Q&A 수정버튼 비밀번호 체크 후 이동
+	// Q&A 수정/삭제 버튼 비밀번호 체크 후 이동(forEach버전) 
 	const qnaBtn = document.querySelectorAll('#view_question .board_body .display_view .qna_btn a');
 	if(qnaBtn){
 		qnaBtn.forEach(btn => {
 			btn.addEventListener('click', function(e) {
 				e.preventDefault();
 				
+				const delBtn = e.target.closest('.qna_delete');
 				const no = btn.dataset.no;
 				const itemno = btn.dataset.itemno;
 				
@@ -272,7 +278,13 @@ window.addEventListener('DOMContentLoaded', function() {
 						}).then(res => res.json()).then(data => {
 				
 							if(data === '1') {
-								location.href = `/Shop/update?itemno=${itemno}&qnano=${no}`;
+								if(delBtn) {
+									post('/Shop/qnadelete', {no}, (data) => {
+										location.reload();
+									});
+								} else {								
+									location.href = `/Shop/update?itemno=${itemno}&qnano=${no}`;
+								}
 							} else {
 								alert('비밀번호가 일치하지 않습니다.');
 							}
@@ -284,6 +296,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 		});
 	}
+			
 	
 	// Q&A 페이징
 	const qnaPaing = document.querySelectorAll('#view_question .page_num');

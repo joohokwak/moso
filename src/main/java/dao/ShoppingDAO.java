@@ -468,10 +468,32 @@ public class ShoppingDAO extends DBCP {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				close(conn, ps, rs);
+				close(conn, ps);
 			}
 		return rsu;
 	}
 	
+	public int qnaDel(int no) {
+		conn = getConn();
+		int result = 0;
+		
+		try {
+			
+			String sql = "";
+			sql += "DELETE QNA WHERE NO = ?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		
+		return result;
+	}
 	
 }

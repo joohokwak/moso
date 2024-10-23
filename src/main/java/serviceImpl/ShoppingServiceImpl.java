@@ -60,4 +60,9 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public ItemReviewDTO qnaOne(int qnano) {
 		return dao.qnaOne(qnano);
 	}
+
+	@Override
+	public int qnaDel(int no) {
+		return dao.qnaDel(no);
+	}
 }

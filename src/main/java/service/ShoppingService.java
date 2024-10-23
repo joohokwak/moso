@@ -27,4 +27,6 @@ public interface ShoppingService {
 	boolean qnaCreate(ItemReviewDTO qnaCre);
 	
 	ItemReviewDTO qnaOne(int qnano);
+	
+	int qnaDel(int no);
 }
