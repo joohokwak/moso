@@ -81,7 +81,7 @@
 	        <a href="#">전체보기></a>
 	      </div>
 	    </div>
-	  <div class="bottom">
+	  <div class="bottom" style="padding-bottom: 20px">
 	    <button	onclick="javascript:history.go(-1);">취소</button>
 	    <button id="req_btn" type="button">등록</button>
 	  </div>
@@ -89,4 +89,3 @@
   </div>
   
 </div>
->

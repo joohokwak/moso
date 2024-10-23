@@ -42,7 +42,7 @@
 						<li>
 							<span>내용</span>
 							<div class="main_field">
-								<textarea id="writeEditor" name="content" class="field_txt" data-editor></textarea>
+								<textarea id="writeEditor" name="question" class="field_txt" data-editor></textarea>
 							</div>
 						</li>
 						<li>

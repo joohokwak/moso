@@ -26,7 +26,12 @@ public interface ShoppingService {
 
 	boolean qnaCreate(ItemReviewDTO qnaCre);
 	
+	boolean qnaUpdate(ItemReviewDTO qnaUp);
+	
 	ItemReviewDTO qnaOne(int qnano);
 	
 	int qnaDel(int no);
+	
+	int ansCreate(int no, String ans);
+	
 }

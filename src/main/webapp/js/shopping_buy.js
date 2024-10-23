@@ -222,28 +222,28 @@ window.addEventListener('DOMContentLoaded', function() {
 		qnaView.addEventListener('click', function(e) {
 		// 동적 태그 (접근 방식)
         const target = e.target.closest('.display_view .board_content a');
+		const no = target.dataset.no;
+		const admin = target.dataset.user;
         if (target) {
             e.preventDefault();
 			if(target.dataset.secret === 'false') {
 				target.closest('.display_view').classList.toggle('on');
+			} else if (admin == 'isadmintrue') {
+				target.closest('.display_view').classList.toggle('on');
 			} else {
 				prompt('글작성 시 설정한 비밀번호를 입력하세요.', (pass) => {
-					if(pass) {						
-						post('/Shop/check', {no, pass}, data => {
-							console.log(pass);
-							if(data === '1') {
-								target.closest('.display_view').classList.add('on');
-							} else {
-								alert('비밀번호가 일치하지 않습니다.');
-							}
-						});
-					}
+					post('/Shop/check', {no, pass}, data => {						
+						if(data === '1') {
+							target.closest('.display_view').classList.add('on');
+						} else {
+							alert('비밀번호가 일치하지 않습니다.');
+						}
+					});
 				});
 			}
 			const display = e.target.closest('.display_view').querySelector('tr + .display');
 			if (display) display.classList.toggle('on');
         }
-
 		});
 	}
 	
@@ -276,10 +276,10 @@ window.addEventListener('DOMContentLoaded', function() {
 							// 'key' : value 동일 
 							body: JSON.stringify({no, pass})
 						}).then(res => res.json()).then(data => {
-				
+							
 							if(data === '1') {
 								if(delBtn) {
-									post('/Shop/qnadelete', {no}, (data) => {
+									post('/Shop/qnadelete', {no}, () => {
 										location.reload();
 									});
 								} else {								
@@ -296,7 +296,33 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 		});
 	}
-			
+	
+	// Q&A 삭제(target.closest 버전)
+//	const qnaBtn = document.querySelector('#view_question .board_body .display_view .qna_btn');
+//	if(qnaBtn) {
+//		qnaBtn.addEventLister('click', function(e) {	
+//			const delBtn = e.target.closest('.display_view .qna_btn .qna_delete');
+//			const no = btn.dataset.no;
+//			const itemno = btn.dataset.itemno;
+//			
+//			
+//			prompt('글작성 시 설정한 비밀번호를 입력하세요', (pass) => {
+//				if(pass) {
+//					post('/Shop/check', {no, pass}, (data) => {
+//						console.log(data);
+//						if(data === '0') {
+//							location.href = `/Shop/update?itemno=${itemno}&qnano=${no}`;
+//						} else {
+//							alert('비밀번호가 일치하지 않습니다.');
+//						}
+//					}).catch(err => console.error(err));
+//				}
+//			});
+//			
+//		});
+//	}
+	
+		
 	
 	// Q&A 페이징
 	const qnaPaing = document.querySelectorAll('#view_question .page_num');
@@ -328,6 +354,9 @@ window.addEventListener('DOMContentLoaded', function() {
 				});
 			});
 		}
+
+		
+		
 	
 });
 

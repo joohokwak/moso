@@ -494,6 +494,120 @@ public class ShoppingDAO extends DBCP {
 		}
 		
 		return result;
+	} 
+	
+	public int qnaUpdate(ItemReviewDTO qnaUp) {
+		conn = getConn();
+		
+		int result = 0;
+		
+		try {
+			String sql = "";                         
+			sql += "UPDATE QNA SET                      ";
+			sql += " CATE = ?                           ";
+			sql += ", WRITER = ?                        ";
+			sql += ", PASS = ?                          ";
+			sql += ", TITLE = ?                         ";
+			sql += ", QUESTION = ?                      ";
+			sql += ", REGDATE = SYSDATE                 ";
+			sql += ", SECRET = ?                        ";
+			sql += " WHERE                              ";
+			sql += " NO = ?                             ";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, qnaUp.getCate());
+			ps.setString(2, qnaUp.getWriter());
+			ps.setString(3, qnaUp.getPass());
+			ps.setString(4, qnaUp.getTitle());
+			ps.setString(5, qnaUp.getQuestion());
+			ps.setInt(6, qnaUp.getSecret());
+			ps.setInt(7, qnaUp.getNo());
+			
+			result = ps.executeUpdate();
+			
+			result = 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		return result;
 	}
+	
+	public int ansCreate(int no, String ans) {
+		conn = getConn();
+		int result = 0;
+		System.out.println(ans);
+		try {
+			String sql = "UPDATE QNA SET ANSWRE = ? WHERE NO = ? ";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, ans);
+			ps.setInt(2, no);
+			
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		return result;
+	}
+	
+	
+//	public void ansUpdate() {
+//		try {
+//			String sql = 
+//				    "MERGE INTO QNA q " +
+//				    "USING (SELECT ? AS NO, ? AS CATE, ? AS WRITER, ? AS PASS, ? AS TITLE, ? AS QUESTION, ? AS ANSWRE, SYSDATE AS REGDATE, ? AS ITEMNO, ? AS SECRET FROM DUAL) data " +
+//				    "ON (q.NO = data.NO) " +
+//				    "WHEN MATCHED THEN " +
+//				    "  UPDATE SET " +
+//				    "    q.CATE = data.CATE, " +
+//				    "    q.WRITER = data.WRITER, " +
+//				    "    q.PASS = data.PASS, " +
+//				    "    q.TITLE = data.TITLE, " +
+//				    "    q.QUESTION = data.QUESTION, " +
+//				    "    q.ANSWRE = data.ANSWRE, " +
+//				    "    q.REGDATE = data.REGDATE, " +
+//				    "    q.ITEMNO = data.ITEMNO, " +
+//				    "    q.SECRET = data.SECRET " +
+//				    "WHEN NOT MATCHED THEN " +
+//				    "  INSERT (NO, CATE, WRITER, PASS, TITLE, QUESTION, ANSWRE, REGDATE, ITEMNO, SECRET) " +
+//				    "  VALUES (SEQ_QNA.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE, ?, ?)";
+//				    
+//				PreparedStatement pstmt = conn.prepareStatement(sql);
+//
+//				// 값을 설정 (Java 코드에서 가져오는 값)
+//				pstmt.setInt(1, no); // NO (이 값이 중복 여부를 결정함)
+//				pstmt.setString(2, cate); // CATE
+//				pstmt.setString(3, writer); // WRITER
+//				pstmt.setString(4, pass); // PASS
+//				pstmt.setString(5, title); // TITLE
+//				pstmt.setString(6, question); // QUESTION
+//				pstmt.setString(7, answer); // ANSWRE
+//				pstmt.setInt(8, itemno); // ITEMNO
+//				pstmt.setInt(9, secret); // SECRET
+//
+//				// INSERT 부분의 값들 (NO는 SEQ_QNA.NEXTVAL이므로 생략)
+//				pstmt.setString(10, cate); // CATE
+//				pstmt.setString(11, writer); // WRITER
+//				pstmt.setString(12, pass); // PASS
+//				pstmt.setString(13, title); // TITLE
+//				pstmt.setString(14, question); // QUESTION
+//				pstmt.setString(15, answer); // ANSWRE
+//				pstmt.setInt(16, itemno); // ITEMNO
+//				pstmt.setInt(17, secret); // SECRET
+//
+//				// 실행
+//				pstmt.executeUpdate();
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			
+//		}
+//	}
 	
 }

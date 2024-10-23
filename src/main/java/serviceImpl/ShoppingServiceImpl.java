@@ -65,4 +65,14 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public int qnaDel(int no) {
 		return dao.qnaDel(no);
 	}
+
+	@Override
+	public boolean qnaUpdate(ItemReviewDTO qnaUp) {
+		return dao.qnaUpdate(qnaUp) > 0;
+	}
+
+	@Override
+	public int ansCreate(int no, String ans) {
+		return dao.ansCreate(no, ans);
+	}
 }
