@@ -47,14 +47,15 @@ public class CatalogDAO extends DBCP {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				int no = rs.getInt("NO");
-				String title = rs.getString("TITLE");
-				String regdate = rs.getString("REGDATE");
-				int visitcount = rs.getInt("VISITCOUNT");
-				String ofile = rs.getString("OFILE");
-				String nfile = rs.getString("NFILE");
+				CatalogDTO dto = new CatalogDTO();
+				dto.setNo(rs.getInt("NO"));
+				dto.setTitle(rs.getString("TITLE"));
+				dto.setRegdate(rs.getString("REGDATE"));
+				dto.setVisitcount(rs.getInt("VISITCOUNT"));
+				dto.setOfile(rs.getString("OFILE"));
+				dto.setNfile(rs.getString("NFILE"));
 
-				list.add(new CatalogDTO(no, title, null, regdate, visitcount, ofile, nfile));
+				list.add(dto);
 			}
 
 		} catch (Exception e) {
@@ -82,15 +83,14 @@ public class CatalogDAO extends DBCP {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				int no = rs.getInt("NO");
-				String title = rs.getString("TITLE");
-				String content = rs.getString("CONTENT");
-				String regdate = rs.getString("REGDATE");
-				int visitcount = rs.getInt("VISITCOUNT");
-				String ofile = rs.getString("OFILE");
-				String nfile = rs.getString("NFILE");
-
-				dto = new CatalogDTO(no, title, content, regdate, visitcount, ofile, nfile);
+				 
+				dto.setNo(rs.getInt("NO"));
+				dto.setTitle(rs.getString("TITLE"));
+				dto.setContent(rs.getString("CONTENT"));
+				dto.setRegdate(rs.getString("REGDATE"));
+				dto.setVisitcount(rs.getInt("VISITCOUNT"));
+				dto.setOfile(rs.getString("OFILE"));
+				dto.setNfile(rs.getString("NFILE"));
 			}
 
 		} catch (Exception e) {
@@ -221,7 +221,7 @@ public class CatalogDAO extends DBCP {
 			if (result > 0) {
 				// 파일 업로드를 할 때
 				if (dto.getOfile() != null) {
-					sql = "UPDATE CATALOG_FILE SET OFILE = ?, NFILE = ? WHERE NO = ? AND CATALNO = ?";
+					sql = "UPDATE CATALOG_FILE SET OFILE = ?, NFILE = ? WHERE NO = ?";
 
 					ps = conn.prepareStatement(sql);
 					ps.setString(1, dto.getOfile());

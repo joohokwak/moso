@@ -18,4 +18,5 @@ public class QuizDTO {
 	private String sizename;
 	private String poster;
 	private int totalCount;
+	private String memberid;
 }

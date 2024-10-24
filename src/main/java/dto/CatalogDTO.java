@@ -15,5 +15,4 @@ public class CatalogDTO {
 	private int visitcount;
 	private String ofile;
 	private String nfile;
-	
 }

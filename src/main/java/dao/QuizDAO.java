@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.DBCP;
+import common.Order;
 import common.Pagination;
 import dto.QuizDTO;
 
@@ -165,17 +166,20 @@ public class QuizDAO extends DBCP {
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				int no = rs.getInt("NO");
-				String name = rs.getString("NAME");
-				String type = rs.getString("TYPE");
-				String text = rs.getString("TEXT");
-				int price = rs.getInt("PRICE");
-				String point = rs.getString("POINT");
-				String regdate = rs.getString("REGDATE");
-				String sizename = rs.getString("SIZENAME");
-				String poster = rs.getString("POSTER");
+				QuizDTO dto = new QuizDTO();
 				
-				list.add(new QuizDTO(no, name, type, text, price, point, regdate, sizename, poster, 0));
+				dto.setNo(rs.getInt("NO"));
+				dto.setName(rs.getString("NAME"));
+				dto.setType(rs.getString("TYPE"));
+				dto.setText(rs.getString("TEXT"));
+				dto.setPrice(rs.getInt("PRICE"));
+				dto.setPoint(rs.getString("POINT"));
+				dto.setRegdate(rs.getString("REGDATE"));
+				dto.setSizename(rs.getString("SIZENAME"));
+				dto.setPoster(rs.getString("POSTER"));
+				
+				
+				list.add(dto);
 			}
 			
 		} catch (Exception e) {
@@ -195,7 +199,20 @@ public class QuizDAO extends DBCP {
 			// 숫자 외엔 검색 막기
 			String regExp = "^[0-9]+$";
 			
-			String tmp = "SELECT * FROM ITEM WHERE 1 = 1";
+			String tmp = "SELECT DISTINCT NO,																						";
+			tmp += "	   NAME,																									";
+			tmp += "	   TYPE,																									";
+			tmp += "	   TEXT,																									";
+			tmp += "	   PRICE,																									";
+			tmp += "	   POINT,																									";
+			tmp += "	   REGDATE,																									";
+			tmp += "	   SIZENAME,																								";
+			tmp += "	   POSTER,																									";
+			tmp += "	   LISTAGG(IL.MEMBER_ID, ',') WITHIN GROUP(ORDER BY IL.ITEM_NO) OVER (PARTITION BY IL.ITEM_NO) AS MEMBER_ID,";
+			tmp += "	   IL.ITEM_NO,																								";
+			tmp += "	   (SELECT COUNT(ITEM_NO) FROM ITEM_LIKE WHERE ITEM_NO = I.NO GROUP BY ITEM_NO) AS CNT						";
+			tmp += "  FROM ITEM I LEFT JOIN ITEM_LIKE IL 																			";
+			tmp += "  ON I.NO = IL.ITEM_NO WHERE 1 = 1																				";
 			// 검색 단어가 있으면
 			if (keyword != null && keyword.length() > 0) {
 				// 검색 옵션이 상품명일 때
@@ -212,27 +229,25 @@ public class QuizDAO extends DBCP {
 			
 			// 상품 검색 결과 정렬 기준
 			// 인기순
-//			if (sort.equals("visit_desc")) {
-//				tmp = "SELECT *"
-//					+ " FROM ITEM i LEFT OUTER JOIN ITEM_LIKE il"
-//					+ " ON i.NO = il.ITEM_NO"
-//					+ " WHERE i.NO = 13";	
-//			// 신상품순
-//			} else if (sort.equals("regdate_desc")) {
-//				pg.setOrderName("REGDATE");
-//				pg.setOrder(Order.DESC_NULLS_LAST.getOrder());
-//			// 가격순
-//			} else if (sort.equals("price_desc")) {
-//				pg.setOrderName("PRICE");
-//				pg.setOrder(Order.ASC_NULLS_LAST.getOrder());
-//			// 상품평순
-//			} else if (sort.equals("review_desc")) {
-//				pg.setOrderName("REVIEW");
-//			}
+			if (sort.equals("visit_desc")) {
+				pg.setOrderName("CNT");
+				pg.setOrder(Order.DESC_NULLS_LAST.getOrder());
+			// 신상품순
+			} else if (sort.equals("regdate_desc")) {
+				pg.setOrderName("REGDATE");
+				pg.setOrder(Order.DESC_NULLS_LAST.getOrder());
+			// 가격순
+			} else if (sort.equals("price_desc")) {
+				pg.setOrderName("PRICE");
+				pg.setOrder(Order.ASC_NULLS_LAST.getOrder());
+			// 상품평순
+			} else if (sort.equals("review_desc")) {
+				pg.setOrderName("REVIEW");
+			}
 			
 			// 검색 결과 개수
 			String tc = "";
-			tc += "SELECT count(a.no) cnt";
+			tc += "SELECT COUNT(a.NO) CNT";
 			tc += " FROM ( ";
 			tc += tmp;
 			tc += " ) a";
@@ -252,17 +267,19 @@ public class QuizDAO extends DBCP {
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				int no = rs.getInt("NO");
-				String name = rs.getString("NAME");
-				String type = rs.getString("TYPE");
-				String text = rs.getString("TEXT");
-				int price = rs.getInt("PRICE");
-				String point = rs.getString("POINT");
-				String regdate = rs.getString("REGDATE");
-				String sizename = rs.getString("SIZENAME");
-				String poster = rs.getString("POSTER");
+				QuizDTO dto = new QuizDTO();
+				dto.setNo(rs.getInt("NO"));
+				dto.setName(rs.getString("NAME"));
+				dto.setType(rs.getString("TYPE"));
+				dto.setText(rs.getString("TEXT"));
+				dto.setPrice(rs.getInt("PRICE"));
+				dto.setPoint(rs.getString("POINT"));
+				dto.setRegdate(rs.getString("REGDATE"));
+				dto.setSizename(rs.getString("SIZENAME"));
+				dto.setPoster(rs.getString("POSTER"));
+				dto.setMemberid(rs.getString("MEMBER_ID"));
 				
-				list.add(new QuizDTO(no, name, type, text, price, point, regdate, sizename, poster, totalCount));
+				list.add(dto);
 			}
 			
 		} catch (Exception e) {
