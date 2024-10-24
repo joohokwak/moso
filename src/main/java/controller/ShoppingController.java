@@ -261,8 +261,8 @@ public class ShoppingController extends HttpServlet {
 			System.out.println("test");
 			int rating = Integer.parseInt(req.getParameter("ratings"));
 			ItemReviewDTO dto = Common.convert(req, ItemReviewDTO.class);
-			shopSer.rvwrite(dto, rating);
-			return;			
+			shopSer.rvwrite(dto, rating);	
+			return;
 		}
 		
 		req.setAttribute("layout", "/shopping" + action);
