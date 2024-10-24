@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,21 +107,30 @@ public class FaqDAO extends DBCP {
 	
 	// 글삭제
 	public int deleteFaq(String...no) {
-		int result = 0;
+		int result = 0; // 총 삭제된 행의 개수
 		
 		try {
 			conn = getConn();
+			conn.setAutoCommit(false); // 트랜잭션 시작
 			
+			String sql = "DELETE FROM FAQ WHERE NO = ?";
+			ps = conn.prepareStatement(sql);
+				
 			for (String num : no) {
-				String sql = "DELETE FROM FAQ WHERE NO = ?";
-				
-				ps = conn.prepareStatement(sql);
 				ps.setInt(1, Integer.parseInt(num));
-				
-				result = ps.executeUpdate();
+				result += ps.executeUpdate(); // 누적
 			}
 			
+			conn.commit(); // 트랜잭션 커밋
+			
 		} catch (Exception e) {
+			if (conn != null) {
+	            try {
+	                conn.rollback(); // 오류 발생 시 롤백
+	            } catch (SQLException se) {
+	                se.printStackTrace();
+	            }
+	        }
 			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);

@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -291,21 +292,32 @@ public class MemberDAO extends DBCP {
 		
 		try {
 			conn = getConn();
+			conn.setAutoCommit(false);
 			
+			String sqlItem = "DELETE FROM ITEM_LIKE WHERE MEMBER_ID = ?";
+			ps = conn.prepareStatement(sqlItem);
 			for (String id : ids) {
-				String sqlItem = "DELETE FROM ITEM_LIKE WHERE MEMBER_ID = ?";
-				ps = conn.prepareStatement(sqlItem);
 				ps.setString(1, id);
 				ps.executeUpdate();
+			}
 				
-				String sql = "DELETE FROM MEMBER WHERE ID = ?";
-				ps = conn.prepareStatement(sql);
+			String sql = "DELETE FROM MEMBER WHERE ID = ?";
+			ps = conn.prepareStatement(sql);
+			for (String id : ids) {
 				ps.setString(1, id);
-				
-				result = ps.executeUpdate();
+				result += ps.executeUpdate();
 			}
 			
+			conn.commit();
+			
 		} catch (Exception e) {
+			if (conn != null) {
+	            try {
+	                conn.rollback(); // 오류 발생 시 롤백
+	            } catch (SQLException se) {
+	                se.printStackTrace();
+	            }
+	        }
 			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);
@@ -321,8 +333,8 @@ public class MemberDAO extends DBCP {
 		try {
 			conn = getConn();
 			
-			pg.setOrderName("ID");
-			pg.setOrder(Order.ASC.getOrder());
+			pg.setOrderName("ISADMIN");
+			pg.setOrder(Order.ASC_NULLS_LAST.getOrder());
 			String sql = pg.getQuery(conn, "SELECT * FROM MEMBER");
 			
 			ps = conn.prepareStatement(sql);
