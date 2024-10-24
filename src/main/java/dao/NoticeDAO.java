@@ -229,12 +229,47 @@ public class NoticeDAO extends DBCP {
 		
 		try {
 			conn = getConn();
+			String sqlN = "UPDATE NOTICE SET TITLE=?, CONTENT=? WHERE NO=?";
 			
-			String sql = "UPDATE NOTICE SET TITLE=?, CONTENT=? WHERE NO=?";
-			ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sqlN);
+			
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getContent());
 			ps.setInt(3, dto.getNo());
+			
+			ps.executeUpdate();
+			int increase = 1;
+			
+			String sqlNF = "";
+			sqlNF += "MERGE INTO NOTICE_FILE NF                                           ";
+			sqlNF += "USING (SELECT NOTICE.NO FROM NOTICE WHERE NO = ?) N                 ";
+			sqlNF += "ON (NF.NOTICENO = N.NO)                                             ";
+			sqlNF += "WHEN MATCHED THEN                                                   ";
+			sqlNF += "	UPDATE SET                                                        ";
+			sqlNF += "			NF.OFILE = ?                                        	  ";
+			sqlNF += "		  , NF.NFILE = ?                                              ";
+			sqlNF += "	WHERE NF.NOTICENO = ?                                             ";
+			System.out.println("실행 후:" +dto);
+			
+			if(dto.getNfile() == null) {
+				sqlNF += "	DELETE WHERE NF.NOTICENO = ?                                  ";
+			}
+			
+			sqlNF += "WHEN NOT MATCHED THEN                                               ";
+			sqlNF += "	INSERT VALUES (SEQ_NOTICE_FILE.NEXTVAL, ?, ?, SYSDATE, ?)         ";
+			
+			ps = conn.prepareStatement(sqlNF);
+			
+			ps.setInt(increase++, dto.getNo());
+			ps.setString(increase++, dto.getOfile());
+			ps.setString(increase++, dto.getNfile());
+			ps.setInt(increase++, dto.getNo());
+			
+			if(dto.getNfile() == null) ps.setInt(increase++, dto.getNo());
+			
+			ps.setString(increase++, dto.getOfile());
+			ps.setString(increase++, dto.getNfile());
+			ps.setInt(increase++, dto.getNo());
 			
 			result = ps.executeUpdate();
 			

@@ -44,6 +44,7 @@ public class NoticeController extends HttpServlet {
 			NoticeDTO dto = new NoticeDTO();
 			
 			dto = sc.selectOne(no);
+			System.out.println("상세보기: "+dto);
 			req.setAttribute("dto", dto);
 			
 		// 글쓰기OK
@@ -56,6 +57,7 @@ public class NoticeController extends HttpServlet {
 			}
 			
 			sc.insertNotice(dto);
+			System.out.println("글쓰기 후: "+dto);
 			resp.sendRedirect("/Notice/list");
 			return;
 			
@@ -67,37 +69,44 @@ public class NoticeController extends HttpServlet {
 			resp.sendRedirect("/Notice/list");
 			return;
 			
-		// 글 첨부파일 삭제
-		} else if(action.equals("/deleteFile")) {
-			
-			
 		// 글수정
 		} else if (action.equals("/update")) {
 			int no = Integer.parseInt(req.getParameter("no"));
 			NoticeDTO dto = new NoticeDTO();
 			
 			dto = sc.selectOne(no);
+			System.out.println("수정하기 클릭 후: "+dto);
 			req.setAttribute("dto", dto);
 			
 		// 글수정OK
 		} else if (action.equals("/updateOk")) {
 			NoticeDTO dto = Common.convert(req, NoticeDTO.class);
-			// 글 수정시 기존파일 제거 로직 추가 해야함!
+			
+			NoticeDTO dto2 = sc.selectOne(dto.getNo());
+			
+			// 글 수정시 기존파일 제거할 경우
 			Map<String, String> nData = Common.fileUpload(req, "files/notice");
-			System.out.println(nData);
 			if(nData != null && !nData.isEmpty()) {
-				dto.setOfile("ofile");
-				dto.setNfile("nfile");
+				dto.setOfile(nData.get("ofile"));
+				dto.setNfile(nData.get("nfile"));
 				
-				Common.fileDelete(req, "files/notice", sc.selectOne(dto.getNo()).getNfile());
+				if(dto2.getOfile() != null) 
+					Common.fileDelete(req, "files/notice", dto2.getNfile());
 			}
+//			else {
+//				dto.setOfile(dto2.getOfile());
+//				dto.setNfile(dto2.getNfile());
+//			}
 			
 			sc.noticeUpdate(dto);
+			// 관리자 페이지에서 수정한경우 관리자 페이지로 이동
+			String isadmin = req.getParameter("isadmin");
+			if("Y".equals(isadmin)) {
+				resp.sendRedirect("/Admin/notice");
+			} else {
+				resp.sendRedirect("/Notice/list");
+			}
 			
-			
-			
-			// 관리자 페이지에서 수정한경우 관리자 페이지로 이동해야함!!
-			resp.sendRedirect("/Notice/list");
 			return;
 		
 		// 첨부파일 다운로드
