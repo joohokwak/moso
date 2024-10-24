@@ -13,28 +13,28 @@ window.addEventListener('DOMContentLoaded', function() {
 		_searchWish.forEach((item) => {
 			item.addEventListener('click', function(e) {
 				e.preventDefault();
-
+				
 				if (this.dataset.islogin === 'true') {
 					confirm('관심상품을 등록하시겠습니까?', () => {
-//						fetch(`/Shop/like?like=${this.dataset.no}`).then(res => res.json()).then(data => {
-//							this.classList.toggle('active');
-//						}).catch(err => console.log(err));
 						
 						post(`/Shop/like?like=${this.dataset.no}`, {}, (data) => {
-							this.classList.toggle('active');
+							if (data) {
+								let wishImg = item.querySelector('img');
+								if (wishImg.src.indexOf('_on') !== -1) {
+									wishImg.src = '/images/shopping/wish_off.png';
+								} else {
+									wishImg.src = '/images/shopping/wish_on.png';
+								}
+							}
 						});
 						
 					});
-					
-					
-					
-					
 				} else {
 					alert("로그인하셔야 본 서비스를 이용하실 수 있습니다.", () => {
 						const loginBtn = document.querySelector('#loginbtn');
 						loginBtn.click();
 					});
-				}				
+				}
 			});
 		});
 	}

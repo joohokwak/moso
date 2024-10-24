@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class CatalogDAO extends DBCP {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				 
+				dto = new CatalogDTO();
 				dto.setNo(rs.getInt("NO"));
 				dto.setTitle(rs.getString("TITLE"));
 				dto.setContent(rs.getString("CONTENT"));
@@ -260,20 +261,32 @@ public class CatalogDAO extends DBCP {
 
 		try {
 			conn = getConn();
+			conn.setAutoCommit(false);
 			
+			String sql = "DELETE FROM CATALOG_FILE WHERE CATALNO = ?";
+			ps = conn.prepareStatement(sql);
 			for (String num : no) {
-				String sql = "DELETE FROM CATALOG_FILE WHERE CATALNO = ?";
-				ps = conn.prepareStatement(sql);
 				ps.setInt(1, Integer.parseInt(num));
 				ps.executeUpdate();
-
-				sql = "DELETE FROM CATALOG WHERE NO = ?";
-				ps = conn.prepareStatement(sql);
-				ps.setInt(1, Integer.parseInt(num));
-				result = ps.executeUpdate();
 			}
+			
+			sql = "DELETE FROM CATALOG WHERE NO = ?";
+			ps = conn.prepareStatement(sql);
+			for (String num : no) {
+				ps.setInt(1, Integer.parseInt(num));
+				result += ps.executeUpdate();
+			}
+			
+			conn.commit();
 
 		} catch (Exception e) {
+			if (conn != null) {
+	            try {
+	                conn.rollback(); // 오류 발생 시 롤백
+	            } catch (SQLException se) {
+	                se.printStackTrace();
+	            }
+	        }
 			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);

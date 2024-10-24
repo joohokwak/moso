@@ -59,20 +59,21 @@
 		<div class="search_result">
 			<ul>
 			<c:forEach var="item" items="${search }">
-			
-			
 				<li>
 					<div class="goods_space">
 						<div class="thumbnail">
 							<a href="#" class="wish" data-no="${item.no }" data-islogin="${not empty member }">
 							<c:set var="mids" value="${fn:split(item.memberid, ',') }"/>
-							<c:if test="${fn:indexOf(mids, member.id) }"></c:if>
-							<c:if test="${member.id }">
-								<img alt="위시리스트" src="/images/shopping/wish_off.png">
-							</c:if>
-							<c:if test="${empty member.id }">
-								<img alt="위시리스트" src="/images/shopping/wish_off.png">
-							</c:if>
+	                        <c:set var="isInWishlist" value="false"/>
+	                        <c:forEach var="mid" items="${mids}">
+	                            <c:if test="${mid eq member.id }">
+	                               <c:set var="isInWishlist" value="true"/>
+	                              <img alt="위시리스트" src="/images/shopping/wish_on.png">
+	                            </c:if>
+	                        </c:forEach>
+	                        <c:if test="${not isInWishlist}">
+	                            <img alt="위시리스트" src="/images/shopping/wish_off.png">
+	                        </c:if>
 							</a>
 							<a href="/Shop/buy?itemno=${item.no }">
 								<img src="/images/shopping/${item.poster }" alt="${item.name }">
