@@ -415,7 +415,7 @@
 						<h3>리뷰</h3>
 						<div class="board_btn">
 							<button class="board_all">리뷰 전체보기</button>
-							<button class="board_write">리뷰 등록</button>
+							<button class="board_write" data-no="${dto.no }" data-user="${not empty member.id ? 1 : 0 }">리뷰 등록</button>
 						</div>
 					</div>
 					<table class="board_body">
@@ -498,7 +498,7 @@
 										<p class="center">${qna.regdate }</p>
 									</td>
 									<td width="112">
-										<p class="center">${qna.answre != null? '답변완료' : ''}</p>
+										<p class="center">${not empty qna.answre ? '답변완료' : ''}</p>
 									</td>
 								</tr>
 								<tr>
@@ -516,7 +516,7 @@
 								<tr>
 									<td colspan='4' class="board_content display_none">
 										<span><img src="/images/shopping/a.png" alt="답변"></span>
-										<p>${qna.answre != null? qna.answre : '&nbsp;' }</p>
+										<p>${not empty qna.answre? qna.answre : '&nbsp;' }</p>
 										<div id="admin_ans" class="${member.isadmin == 'Y'? 'active' : '' }">
 											<button onclick="location.href='/Shop/answre?itemno=${dto.no }&qnano=${qna.no}'" data-itemno="${dto.no }" data-no="${qna.no }" class="ansBtn" >작성/수정</button>
 											<button onclick="location.href='/Shop/ansdelete?itemno=${dto.no }&qnano=${qna.no}'" class="ansBtn" >삭제</button>

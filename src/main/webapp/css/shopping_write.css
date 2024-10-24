@@ -210,3 +210,45 @@
 	color: #003628;
 	margin-left: 5px;
 }
+
+/* rvwrite css */
+#shopping_write .mradio {
+	display: flex;
+	gap: 10px;
+	position: relative;
+}
+#shopping_write .mradio .inradio {
+	display: flex;
+}
+#shopping_write .mradio span {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+#shopping_write .mradio .inradio .circle {
+	position:absolute;
+	display: inline-block;
+	width:18px;
+	height:18px;
+	top: 2px;
+	background: url(/images/shopping/radio-off-s.png) no-repeat;
+}
+#shopping_write .mradio .inradio .circle:hover {
+	background-image: url(/images/shopping/radio-ov-s.png);
+}
+#shopping_write .mradio .inradio.active .circle {
+	background-image: url(/images/shopping/radio-on-s.png);
+}
+#shopping_write .mradio .rating {
+	display: flex;
+}
+#shopping_write .mradio .rating img {
+    width: 18px;
+    height: 18px;
+}
+
+
+
+
+
+

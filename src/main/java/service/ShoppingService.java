@@ -34,4 +34,5 @@ public interface ShoppingService {
 	
 	int ansCreate(int no, String ans);
 	
+	int rvwrite(ItemReviewDTO dto, int rating);
 }

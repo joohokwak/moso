@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				shopSelectBtn.innerHTML = item.innerText;
 				cateBtn.value = item.innerText;
 				selectWrap.classList.remove('on');
-			})
+			});
 		});
 	}
 
@@ -41,6 +41,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	if (checkBox2) {
 		// 개인정보 수집동의
 		checkBox2.addEventListener('click', function(e) {
+			// wrap 클릭 시 토글 可
 			e.preventDefault();
 			this.classList.toggle('on');
 			check2.checked = this.classList.contains('on');
@@ -86,4 +87,49 @@ window.addEventListener('DOMContentLoaded', function() {
 			reqBtn.setAttribute('type', 'submit');
 		});
 	}
+	
+	// rvwrite - radio관련
+	const srradio = document.querySelectorAll('#shopping_write .inradio');
+	if (srradio) {
+		srradio.forEach((item) => {
+			item.addEventListener('click', function(e){
+				const rating = item.dataset.rating;
+//				siblings(e.currentTarget).forEach(i => {
+//					i.classList.remove('active');
+//				});
+				srradio.forEach(v => v.classList.remove('active'));
+				item.classList.toggle('active');
+			});
+		});
+	}
+	// siblings
+//	function siblings(t) {
+//			let children = t.parentElement.children;
+//			let tempArr = [];
+//
+//			for (let i = 0; i < children.length; i++) {
+//				tempArr.push(children[i]);
+//			}
+//
+//			return tempArr.filter(function(e) {
+//				return e != t;
+//			});
+//		}
+	const subBtn = document.querySelector('#openpopup_btn');
+	if(subBtn) {		
+		subBtn.addEventListener('click', function() {
+			document.querySelector('#shopping_write form').submit();
+			setTimeout(()=> {
+				window.close();
+				window.open('', '_self').close();
+			}, 200);
+			//self.close();
+//			fetch('/Shop/rvwriteOk').then(resp => resp.json()).then(data => {
+//				if(data) {					
+//				window.close();
+//				}
+//			}).catch(error => console.log(error));
+		});
+	}
+	
 });

@@ -1,3 +1,5 @@
+let writepopup;
+
 window.addEventListener('DOMContentLoaded', function() {
 	new Swiper('#shopping_buy .swiper', {
 		direction: 'horizontal',
@@ -145,7 +147,26 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 		});
 	}
-
+	// rvwrite 작성
+	const gorvwrite = document.querySelector('#view_review .board_write');
+	if(gorvwrite) {
+		const user = gorvwrite.dataset.user;
+		const itemno = gorvwrite.dataset.no;
+		const url = '/Shop/rvwrite?itemno=' + itemno;
+		const name = 'rvwirte';
+		const option = 'width=1100, height=1000, left=500';
+		gorvwrite.addEventListener('click', function() {
+//			type 비교(typeof)
+//			console.log(typeof user);
+			if(user === '1') {
+				writepopup = window.open(url, name, option);				
+			} else {
+				
+				alert('');
+			}
+		});
+	}
+	
 	// 리뷰 내용 보기
 	const reviewView = document.querySelector('#view_review .board_body');
 	if (reviewView) {
