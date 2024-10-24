@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<div class="external">
+<div class="external catalog">
 	<div class="inquiry_wrap">
 		<div class="inquiry_content">
 			<div class="inquiry_admin">
@@ -28,7 +28,7 @@
 						<li>
 							<span>파일</span>
 							<div class="main_field">
-								<input type="file" class="field_file" name="file" />
+								<input type="file" class="field_file" id="file" name="file" placeholder="${update.ofile }"/>
 							</div>
 						</li>
 					</ul>

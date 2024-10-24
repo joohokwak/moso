@@ -80,19 +80,21 @@ public class CatalogController extends HttpServlet {
 		} else if (action.equals("/update")) {
 			int num = Integer.parseInt(req.getParameter("no"));
 			req.setAttribute("update", cs.selectOne(num));
+			System.out.println(cs.selectOne(num));
 
 		// 수정 버튼 클릭
 		} else if (action.equals("/updateOk")) {
 			CatalogDTO dto = Common.convert(req, CatalogDTO.class);
-			Map<String, String> map = Common.fileUpload(req, "files/catalog");
+			Map<String, String> uploadMap = Common.fileUpload(req, "files/catalog");
 
-			if (map != null) {
-				String nfile = map.get("nfile");
-				String ofile = map.get("ofile");
+			if (uploadMap != null) {
+				String nfile = uploadMap.get("nfile");
+				String ofile = uploadMap.get("ofile");
 
 				dto.setOfile(ofile);
 				dto.setNfile(nfile);
 			}
+			
 			
 			cs.updateCatalog(dto);
 			

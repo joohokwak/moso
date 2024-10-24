@@ -72,7 +72,6 @@ public class QuizController extends HttpServlet {
 			req.setAttribute("layout", "/quiz" + action);
 			req.getRequestDispatcher("/layout.jsp").forward(req, resp);
 			
-			System.out.println(searchAll);
 		}
 	}
 }
