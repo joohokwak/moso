@@ -240,8 +240,9 @@ public class CatalogDAO extends DBCP {
 						conn.rollback();
 					}
 
-					// 파일 업로드 없이 커밋
+					// 기존 파일이 없지만 추가해서 수정할 경우
 				} else {
+						
 					conn.commit();
 				}
 			}
