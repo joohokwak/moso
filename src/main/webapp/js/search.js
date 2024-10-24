@@ -41,12 +41,15 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	// 검색 페이지 내부 검색 버튼
 	const _pageSearchBtn = document.querySelector('#search_content .search_input .search_btn');
-	const _pageSearch = document.querySelector('#search_content .search_input input[type=text]');
+	let _pageSearch = document.querySelector('#search_content .search_input input[type=text]');
 	if (_pageSearch) {
 		_pageSearchBtn.addEventListener('click', function(e) {
-			if (_pageSearch.value.length === 0) {
+			if (_pageSearch.value.trim().length === 0) {
 				e.preventDefault();
-				alert('검색어를 입력하세요.');
+				alert('검색어를 입력하세요.', () => {
+					_pageSearch.value = '';
+					_pageSearch.focus();
+				});
 			};
 		});
 	}

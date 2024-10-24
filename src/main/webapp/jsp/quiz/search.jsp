@@ -1,12 +1,15 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div id="search_content">
 	<div class="inner">
 		<strong>
 			<span>"${param.keyword}${param.name }"</span>
-			검색결과 ${search[0].totalCount}개
+			검색결과 
+			<c:if test="${not empty search }">${search[0].totalCount}개</c:if> 
+			<c:if test="${empty search }">0개</c:if>
 		</strong>
 		<div class="search_input">
 			<form action="/Quiz/search" method="post">
@@ -56,11 +59,20 @@
 		<div class="search_result">
 			<ul>
 			<c:forEach var="item" items="${search }">
+			
+			
 				<li>
 					<div class="goods_space">
 						<div class="thumbnail">
 							<a href="#" class="wish" data-no="${item.no }" data-islogin="${not empty member }">
-							<img alt="위시리스트" src="/images/shopping/${(list.id eq member.id) and (list.no eq list.itemnum) ? 'wish_on.png' : 'wish_off.png'}">
+							<c:set var="mids" value="${fn:split(item.memberid, ',') }"/>
+							<c:if test="${fn:indexOf(mids, member.id) }"></c:if>
+							<c:if test="${member.id }">
+								<img alt="위시리스트" src="/images/shopping/wish_off.png">
+							</c:if>
+							<c:if test="${empty member.id }">
+								<img alt="위시리스트" src="/images/shopping/wish_off.png">
+							</c:if>
 							</a>
 							<a href="/Shop/buy?itemno=${item.no }">
 								<img src="/images/shopping/${item.poster }" alt="${item.name }">

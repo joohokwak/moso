@@ -55,6 +55,8 @@ public class QuizController extends HttpServlet {
 			String key = req.getParameter("key");
 			String keyword = req.getParameter("keyword");
 			String sort = req.getParameter("sort");
+			
+			if (sort == null) sort = "visit_desc";
 
 			if (headerSearch != null) {
 				key = "goodsName";
@@ -67,11 +69,10 @@ public class QuizController extends HttpServlet {
 			List<QuizDTO> searchAll = qs.setGoods(pg, key, keyword, sort);
 			req.setAttribute("search", searchAll);
 			req.setAttribute("paging", pg.paging(req));
-
-//			System.out.println(sort);
-
 			req.setAttribute("layout", "/quiz" + action);
 			req.getRequestDispatcher("/layout.jsp").forward(req, resp);
+			
+			System.out.println(searchAll);
 		}
 	}
 }
