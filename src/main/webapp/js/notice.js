@@ -94,7 +94,6 @@ window.addEventListener('DOMContentLoaded', function () {
 			e.preventDefault();
 			noticeUpdate.value = '';
 			cancelBtnUpdate.style.display = 'none';
-			noticeUpdateId.value = '';
 		});
 	}
 	

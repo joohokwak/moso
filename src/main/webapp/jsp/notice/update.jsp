@@ -44,7 +44,7 @@
 					
 					<div class="section_bottom">
 						<a href="javascript:history.back();" class="return">이전</a>
-						<button type="submit" class="save" onclick="location.href='/Notice/list'" >수정완료</button>
+						<button class="save" >수정완료</button>
 					</div>
 				</form>
 			</div>
