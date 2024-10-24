@@ -1,6 +1,7 @@
 package serviceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import common.Pagination;
 import dao.QuizDAO;
@@ -20,7 +21,7 @@ public class QuizServiceImpl implements QuizService{
 	}
 
 	@Override
-	public List<QuizDTO> setGoods(Pagination pg, String key, String keyword, String sort) {
-		return dao.setGoods(pg, key, keyword, sort);
+	public List<QuizDTO> setGoods(Pagination pg, List<Map<String, String>> searchList, String sort) {
+		return dao.setGoods(pg, searchList, sort);
 	}
 }
