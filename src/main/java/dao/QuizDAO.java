@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import common.DBCP;
 import common.Order;
@@ -178,7 +179,6 @@ public class QuizDAO extends DBCP {
 				dto.setSizename(rs.getString("SIZENAME"));
 				dto.setPoster(rs.getString("POSTER"));
 				
-				
 				list.add(dto);
 			}
 			
@@ -192,7 +192,7 @@ public class QuizDAO extends DBCP {
 	}
 	
 	// search 페이지
-	public List<QuizDTO> setGoods(Pagination pg, String key, String keyword, String sort) {
+	public List<QuizDTO> setGoods(Pagination pg, List<Map<String, String>> searchList, String sort) {
 		List<QuizDTO> list = new ArrayList<QuizDTO>();
 		try {
 			conn = getConn();
@@ -213,17 +213,26 @@ public class QuizDAO extends DBCP {
 			tmp += "	   (SELECT COUNT(ITEM_NO) FROM ITEM_LIKE WHERE ITEM_NO = I.NO GROUP BY ITEM_NO) AS CNT						";
 			tmp += "  FROM ITEM I LEFT JOIN ITEM_LIKE IL 																			";
 			tmp += "  ON I.NO = IL.ITEM_NO WHERE 1 = 1																				";
-			// 검색 단어가 있으면
-			if (keyword != null && keyword.length() > 0) {
-				// 검색 옵션이 상품명일 때
-				if (key.equals("goodsName")) {
-					tmp += " AND UPPER(NAME) LIKE UPPER('%" + keyword + "%')";
-				// 검색 옵션이 상품 코드일 때
-				} else if (key.equals("goodsNo") && keyword.matches(regExp)) {
-					tmp += " AND NO = " + keyword; 
-				// 검색 옵션이 상품 설명일 때
-				} else if (key.equals("goodsText")) {
-					tmp += " AND UPPER(TEXT) LIKE UPPER('%" + keyword + "%')"; 
+			
+			if (!searchList.isEmpty()) {
+				for (Map<String, String> searchMap : searchList) {
+					for (Map.Entry<String, String> entry : searchMap.entrySet()) {
+						String key = entry.getKey();
+						String keyword = entry.getValue();
+						
+						if (key != null && keyword != null) {
+							// 검색 옵션이 상품명일 때
+							if ("goodsName".equals(key)) {
+								tmp += " AND UPPER(NAME) LIKE UPPER('%" + keyword + "%')";
+								// 검색 옵션이 상품 코드일 때
+							} else if ("goodsNo".equals(key) && keyword.matches(regExp)) {
+								tmp += " AND NO = " + keyword; 
+								// 검색 옵션이 상품 설명일 때
+							} else if ("goodsText".equals(key)) {
+								tmp += " AND UPPER(TEXT) LIKE UPPER('%" + keyword + "%')"; 
+							}
+						}
+					}
 				}
 			}
 			
@@ -278,6 +287,7 @@ public class QuizDAO extends DBCP {
 				dto.setSizename(rs.getString("SIZENAME"));
 				dto.setPoster(rs.getString("POSTER"));
 				dto.setMemberid(rs.getString("MEMBER_ID"));
+				dto.setTotalCount(totalCount);
 				
 				list.add(dto);
 			}

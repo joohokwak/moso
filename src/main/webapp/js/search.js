@@ -53,6 +53,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			};
 		});
 	}
+	
 	// 상품 결과 정렬 순서
 	const _searchSort = document.querySelectorAll('#search_content .sort_wrap > li');
 	if (_searchSort) {
@@ -72,11 +73,3 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 	
 });
-
-
-
-
-
-
-
-

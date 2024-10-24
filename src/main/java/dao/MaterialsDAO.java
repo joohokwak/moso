@@ -98,8 +98,6 @@ public class MaterialsDAO extends DBCP {
         	
         	sql += " WHERE NO = ?";
         	
-        	System.out.println(sql);
-			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getTxt().replaceAll("<[^>]*>", ""));

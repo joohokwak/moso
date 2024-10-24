@@ -22,8 +22,6 @@ public class MemberDAO extends DBCP {
 	public int insertMember(MemberDTO member) {
 		int result = 0;
 		
-		System.out.println(member);
-		
 		try {
 			conn = getConn();
 			

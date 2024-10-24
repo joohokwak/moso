@@ -83,8 +83,10 @@ public class Pagination {
 		if (hasFirstPage) {
 			sb.append("<a class='page_num' href='");
 			sb.append(request.getRequestURI());
-			sb.append("?pageNum=");
-			sb.append(1);
+			sb.append("?pageNum=1");
+			
+			appendPageLink(sb);
+			
 			sb.append("'>");
 			sb.append("&lt;&lt;");
 			sb.append("</a>");
@@ -144,6 +146,9 @@ public class Pagination {
 			sb.append(request.getRequestURI());
 			sb.append("?pageNum=");
 			sb.append(totalPage);
+			
+			appendPageLink(sb);
+			
 			sb.append("'>");
 			sb.append("&gt;&gt;");
 			sb.append("</a>");
