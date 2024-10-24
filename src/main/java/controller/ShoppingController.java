@@ -249,6 +249,20 @@ public class ShoppingController extends HttpServlet {
 			
 			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
 			return;
+			
+		// review write
+		} else if(action.equals("/rvwrite")) {
+			int itemno = Integer.parseInt(req.getParameter("itemno"));
+			ShoppingDTO writeItem = shopSer.writeItem(itemno);
+			req.setAttribute("item", writeItem);
+			
+		// 리뷰 작성	
+		} else if(action.equals("/rvwriteOk")) {
+			System.out.println("test");
+			int rating = Integer.parseInt(req.getParameter("ratings"));
+			ItemReviewDTO dto = Common.convert(req, ItemReviewDTO.class);
+			shopSer.rvwrite(dto, rating);
+			return;			
 		}
 		
 		req.setAttribute("layout", "/shopping" + action);

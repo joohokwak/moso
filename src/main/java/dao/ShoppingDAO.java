@@ -288,6 +288,44 @@ public class ShoppingDAO extends DBCP {
 		}
 		
 		return list;
+	} 
+	
+	public int rvwrite(ItemReviewDTO dto, int rating) {
+		conn = getConn();
+		int result = 0;
+		dto.setRating(rating);
+		
+		try {
+			
+			String sql = " INSERT INTO               ";
+				sql += " ITEM_REVIEW                 ";
+				sql += " VALUES (                    ";
+				sql += " SEQ_ITEM_REVIEW.NEXTVAL     ";
+				sql += " , ?            	         ";
+				sql += " , ?             		     ";
+				sql += " , SYSDATE                   ";
+				sql += " , ?                         ";
+				sql += " , ?                         ";
+				sql += " , ?                         ";
+				sql += " , ? )                       ";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getWriter());
+			ps.setString(3, dto.getContent());
+			ps.setInt(4, dto.getRating());
+			ps.setInt(5, dto.getSecret());
+			ps.setInt(6, dto.getItemno());
+			
+			result = ps.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		return result;
 	}
 	
 	public List<ItemReviewDTO> qnaAll(int itemNo, Pagination pg) {

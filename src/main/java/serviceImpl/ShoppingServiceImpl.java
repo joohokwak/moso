@@ -75,4 +75,10 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public int ansCreate(int no, String ans) {
 		return dao.ansCreate(no, ans);
 	}
+
+	@Override
+	public int rvwrite(ItemReviewDTO dto, int rating) {
+		// TODO Auto-generated method stub
+		return dao.rvwrite(dto, rating);
+	}
 }
