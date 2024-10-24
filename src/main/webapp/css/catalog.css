@@ -118,3 +118,13 @@
 #catalog_content .col_no, .col_postdate, .col_visicount {
 	text-align: center;
 }
+
+/* 카탈로그 수정 페이지 */
+.catalog .main_field label {
+	display: inline-block;
+	color: #FFF; 
+	background: var(--point-color1); 
+}
+.catalog .main_field .catalog_file_update {
+	display: block;
+}
