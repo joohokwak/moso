@@ -166,13 +166,13 @@ public class Common {
 	}
 
 	// 파일 다운로드
-	public static void fileDownLoad(HttpServletResponse response, String path, String saveFileName, String originFileName) {
+	public static void fileDownLoad(HttpServletResponse response, String path, String saveFileName, String originFileName) throws IOException {
 		// 파일 경로 및 저장된 파일명을 file 객체로 얻기
 		File file = new File(path, saveFileName);
 		
 		// 파일 존재 여부 확인
 	    if (!file.exists()) {
-	        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	        response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404
 	        return;
 	    }
 		
@@ -197,7 +197,7 @@ public class Common {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
 		}
 	}
 	

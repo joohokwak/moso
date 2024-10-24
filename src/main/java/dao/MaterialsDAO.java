@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,17 +124,26 @@ public class MaterialsDAO extends DBCP {
 		
 		try {
 			conn = getConn();
+			conn.setAutoCommit(false);
+			
+			String sql = "DELETE FROM MATERIALS WHERE NO = ?";
+			ps = conn.prepareStatement(sql);
 			
 			for (String num : no) {
-				String sql = "DELETE FROM MATERIALS WHERE NO = ?";
-				
-				ps = conn.prepareStatement(sql);
 				ps.setInt(1, Integer.parseInt(num));
-				
-				result = ps.executeUpdate();
+				result += ps.executeUpdate();
 			}
 			
+			conn.commit();
+			
 		} catch (Exception e) {
+			if (conn != null) {
+	            try {
+	                conn.rollback(); // 오류 발생 시 롤백
+	            } catch (SQLException se) {
+	                se.printStackTrace();
+	            }
+	        }
 			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);
