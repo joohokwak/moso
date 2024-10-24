@@ -118,18 +118,18 @@ window.addEventListener('DOMContentLoaded', function() {
 	const subBtn = document.querySelector('#openpopup_btn');
 	if(subBtn) {		
 		subBtn.addEventListener('click', function() {
-			document.querySelector('#shopping_write form').submit();
-			setTimeout(()=> {
-				window.close();
-				window.open('', '_self').close();
-			}, 200);
-			//self.close();
-//			fetch('/Shop/rvwriteOk').then(resp => resp.json()).then(data => {
-//				if(data) {					
-//				window.close();
-//				}
-//			}).catch(error => console.log(error));
+			fetch('/Shop/rvwriteOk', {
+	              method: 'POST',
+	              body: new FormData(document.querySelector('#shopping_write form'))
+	          }).then(() => {
+	              // 응답 처리 후 팝업창 닫기
+	              window.close();
+	          });
 		});
+	}
+	const rvwriteclose = document.querySelector('#rvwriteclose');
+	if(rvwriteclose) {
+		window.close();
 	}
 	
 });

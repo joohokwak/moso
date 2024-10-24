@@ -1,5 +1,3 @@
-let writepopup;
-
 window.addEventListener('DOMContentLoaded', function() {
 	new Swiper('#shopping_buy .swiper', {
 		direction: 'horizontal',
@@ -159,9 +157,8 @@ window.addEventListener('DOMContentLoaded', function() {
 //			type 비교(typeof)
 //			console.log(typeof user);
 			if(user === '1') {
-				writepopup = window.open(url, name, option);				
+				window.open(url, name, option);				
 			} else {
-				
 				alert('');
 			}
 		});
