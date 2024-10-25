@@ -159,7 +159,9 @@ window.addEventListener('DOMContentLoaded', function() {
 			if(user === '1') {
 				window.open(url, name, option);				
 			} else {
-				alert('');
+				alert('로그인하셔야 본 서비스를 이용하실 수 있습니다.', () => {
+					document.querySelector('#loginbtn').click();
+				});
 			}
 		});
 	}

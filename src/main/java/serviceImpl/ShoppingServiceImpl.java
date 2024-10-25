@@ -78,7 +78,6 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	@Override
 	public int rvwrite(ItemReviewDTO dto, int rating) {
-		// TODO Auto-generated method stub
 		return dao.rvwrite(dto, rating);
 	}
 }

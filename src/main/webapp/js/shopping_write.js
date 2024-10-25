@@ -102,34 +102,33 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 		});
 	}
-	// siblings
-//	function siblings(t) {
-//			let children = t.parentElement.children;
-//			let tempArr = [];
-//
-//			for (let i = 0; i < children.length; i++) {
-//				tempArr.push(children[i]);
-//			}
-//
-//			return tempArr.filter(function(e) {
-//				return e != t;
-//			});
-//		}
+	
+	
+	
+	// submit 후 닫기
 	const subBtn = document.querySelector('#openpopup_btn');
 	if(subBtn) {		
 		subBtn.addEventListener('click', function() {
-			fetch('/Shop/rvwriteOk', {
-	              method: 'POST',
-	              body: new FormData(document.querySelector('#shopping_write form'))
-	          }).then(() => {
-	              // 응답 처리 후 팝업창 닫기
-	              window.close();
-	          });
+			const rvtitle = document.querySelector('#shopping_write input[name=title]');
+			const rvcontent =  document.querySelector('#shopping_write .ql-editor p');
+
+			if (rvtitle.value === '') { 
+				alert('제목을 입력해주세요.', () => rvtitle.focus());
+				return;
+			}
+			if (rvcontent.textContent.trim().length === 0) {
+				alert('내용을 입력해주세요.');
+				return;
+			}
+			if (rvtitle.value.trim() != '' && rvcontent.textContent.trim().length > 0) {				
+				fetch('/Shop/rvwriteOk', {
+		              method: 'POST',
+		              body: new FormData(document.querySelector('#shopping_write form'))
+		          }).then(() => {
+		              // 응답 처리 후 팝업창 닫기
+		              window.close();
+		          });
+			}
 		});
-	}
-	const rvwriteclose = document.querySelector('#rvwriteclose');
-	if(rvwriteclose) {
-		window.close();
-	}
-	
+	}	
 });

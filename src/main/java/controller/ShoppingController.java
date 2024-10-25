@@ -258,7 +258,6 @@ public class ShoppingController extends HttpServlet {
 			
 		// 리뷰 작성	
 		} else if(action.equals("/rvwriteOk")) {
-			System.out.println("test");
 			int rating = Integer.parseInt(req.getParameter("ratings"));
 			ItemReviewDTO dto = Common.convert(req, ItemReviewDTO.class);
 			shopSer.rvwrite(dto, rating);	
