@@ -73,16 +73,30 @@ function initOptionModal() {
     }
 }
 
-// 수정 버튼 이벤트 초기화
+// 수정 버튼 이벤트
 function initUpdateButtons() {
     const cntUpdateBtns = document.querySelector('#cartItemBody');
     if (cntUpdateBtns) {
-        cntUpdateBtns.addEventListener('click', function() {
-            this.querySelectorAll('.number_input button').forEach(v => {
-                v.removeEventListener('click', itemCntChange);
-                v.addEventListener('click', itemCntChange);
-            });
-        });
+		cntUpdateBtns.addEventListener('click', function(e) {
+			const target = e.target.closest('.number_input button');
+			if (target) {
+				e.preventDefault();
+				
+				const countInput = target.previousElementSibling;
+			    const countValue = parseInt(countInput.value);
+			    
+			    cartItem = JSON.parse(target.dataset.item);
+				cartItem.idx = target.dataset.idx;
+
+			    if (countValue > 0) {
+			        cartItem.cnt = countValue;
+			        document.querySelector('#shopping_cart .select_option .op_update').click();
+			    } else {
+			        alert('상품 개수는 1개 이상이어야 합니다.');
+			        countInput.value = cartItem.cnt; // 원래 개수로 복원
+			    }
+			}
+		});
     }
 }
 
@@ -183,7 +197,7 @@ function setCartItem() {
                     </td>
                     <td class="number_input">
                         <input type="text" value="${item.cnt}">
-                        <button type="button" data-item='${_op}'>수정</button>
+                        <button type="button" data-item='${_op}' data-idx="${idx}">수정</button>
                     </td>
                     <td class="cost">${comma(parseInt(item.totalPrice))}원</td>
                     <td class="ben">0</td>
@@ -289,22 +303,6 @@ function calculatePrice(selectedText, originalSize, originalShipping) {
 function updatePriceDisplay(price) {
     document.querySelector('.select_option .cost1 span').innerHTML = comma(price);
     document.querySelector('.select_option .cost2 span').innerHTML = comma(price);
-}
-
-// 상품 수량 수정
-function itemCntChange(e) {
-    const countInput = e.target.closest('.number_input').children[0];
-    const countValue = parseInt(countInput.value);
-    
-    cartItem = JSON.parse(e.target.dataset.item);
-
-    if (countValue > 0) {
-        cartItem.cnt = countValue;
-        document.querySelector('#shopping_cart .select_option .op_update').click();
-    } else {
-        alert('상품 개수는 1개 이상이어야 합니다.');
-        countInput.value = cartItem.cnt; // 원래 개수로 복원
-    }
 }
 
 // 상품삭제
