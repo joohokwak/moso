@@ -44,7 +44,6 @@ public class NoticeController extends HttpServlet {
 			NoticeDTO dto = new NoticeDTO();
 			
 			dto = sc.selectOne(no);
-			System.out.println("상세보기: "+dto);
 			req.setAttribute("dto", dto);
 			
 		// 글쓰기OK
@@ -57,7 +56,6 @@ public class NoticeController extends HttpServlet {
 			}
 			
 			sc.insertNotice(dto);
-			System.out.println("글쓰기 후: "+dto);
 			resp.sendRedirect("/Notice/list");
 			return;
 			
@@ -75,15 +73,12 @@ public class NoticeController extends HttpServlet {
 			NoticeDTO dto = new NoticeDTO();
 			
 			dto = sc.selectOne(no);
-			System.out.println("수정하기 클릭 후: "+dto);
 			req.setAttribute("dto", dto);
 			
 		// 글수정OK
 		} else if (action.equals("/updateOk")) {
 			NoticeDTO dto = Common.convert(req, NoticeDTO.class);
-			
 			NoticeDTO dto2 = sc.selectOne(dto.getNo());
-			
 			// 글 수정시 기존파일 제거할 경우
 			Map<String, String> nData = Common.fileUpload(req, "files/notice");
 			if(nData != null && !nData.isEmpty()) {
@@ -93,10 +88,6 @@ public class NoticeController extends HttpServlet {
 				if(dto2.getOfile() != null) 
 					Common.fileDelete(req, "files/notice", dto2.getNfile());
 			}
-//			else {
-//				dto.setOfile(dto2.getOfile());
-//				dto.setNfile(dto2.getNfile());
-//			}
 			
 			sc.noticeUpdate(dto);
 			// 관리자 페이지에서 수정한경우 관리자 페이지로 이동
