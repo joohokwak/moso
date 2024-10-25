@@ -249,7 +249,6 @@ public class NoticeDAO extends DBCP {
 			sqlNF += "			NF.OFILE = ?                                        	  ";
 			sqlNF += "		  , NF.NFILE = ?                                              ";
 			sqlNF += "	WHERE NF.NOTICENO = ?                                             ";
-			System.out.println("실행 후:" +dto);
 			
 			if(dto.getNfile() == null) {
 				sqlNF += "	DELETE WHERE NF.NOTICENO = ?                                  ";

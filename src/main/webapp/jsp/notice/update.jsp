@@ -32,7 +32,8 @@
 							<span>파일</span>
 							<div class="main_field_notice">
 								<label for="notice_file_update">파일선택</label>
-								<input class="notice_file_update" value="${dto.ofile }" placeholder="첨부파일" />
+								<input class="blind" name="nfile" />
+								<input class="notice_file_update" name="ofile" value="${dto.ofile }" placeholder="첨부파일" />
 								<input type="file" name="file" id="notice_file_update" style="display: none" />
 								<c:if test="${fn: length(dto.ofile) > 0 }">
 									<button type="button" id="cancel_btn_update" class="notice_cancel_btn">X</button>
