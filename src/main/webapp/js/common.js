@@ -56,7 +56,7 @@ function post(url, reqData, callback) {
 	};
 
 	// 서버와 통신후 callback 응답하기위한 로직
-	fetch(url, options).then(res => res.json()).then(data => callback(data)).catch(err => console.err(err));
+	fetch(url, options).then(res => res.json()).then(data => callback(data)).catch(err => console.log(err));
 }
 
 // 공통 클릭 이벤트 처리 함수
