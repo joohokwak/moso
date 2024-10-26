@@ -68,13 +68,6 @@ public class MemberDAO extends DBCP {
 			rs = ps.executeQuery();
 			if (rs.next()) result = true;
 			
-//			String sqlLen = "SELECT * FROM MEMBER WHERE LENGTH(?) >= 12";
-//			
-//			ps = conn.prepareStatement(sqlLen);
-//			ps.setString(1, id);
-//
-//			if(rs.next()) result = false;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -99,19 +92,7 @@ public class MemberDAO extends DBCP {
 			
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				dto = new MemberDTO();
-				dto.setId(rs.getString("ID"));
-				dto.setPass(rs.getString("PASS"));
-				dto.setName(rs.getString("NAME"));
-				dto.setEmail(rs.getString("EMAIL"));
-				dto.setPhone(rs.getString("PHONE"));
-				dto.setTel(rs.getString("TEL"));
-				dto.setZipcode(rs.getString("ZIPCODE"));
-				dto.setAddress(rs.getString("ADDRESS"));
-				dto.setAddr_detail(rs.getString("ADDR_DETAIL"));
-				dto.setGender(rs.getString("GENDER"));
-				dto.setBirth(rs.getString("BIRTH"));
-				dto.setIsadmin(rs.getString("ISADMIN"));
+				dto = getMember(rs);
 			}
 			
 		} catch (Exception e) {
@@ -137,19 +118,7 @@ public class MemberDAO extends DBCP {
 			
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				dto = new MemberDTO();
-				dto.setId(rs.getString("ID"));
-				dto.setPass(rs.getString("PASS"));
-				dto.setName(rs.getString("NAME"));
-				dto.setEmail(rs.getString("EMAIL"));
-				dto.setPhone(rs.getString("PHONE"));
-				dto.setTel(rs.getString("TEL"));
-				dto.setZipcode(rs.getString("ZIPCODE"));
-				dto.setAddress(rs.getString("ADDRESS"));
-				dto.setAddr_detail(rs.getString("ADDR_DETAIL"));
-				dto.setGender(rs.getString("GENDER"));
-				dto.setBirth(rs.getString("BIRTH"));
-				dto.setIsadmin(rs.getString("ISADMIN"));
+				dto = getMember(rs);
 			}
 			
 		} catch (Exception e) {
@@ -176,19 +145,7 @@ public class MemberDAO extends DBCP {
 			
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				dto = new MemberDTO();
-				dto.setId(rs.getString("ID"));
-				dto.setPass(rs.getString("PASS"));
-				dto.setName(rs.getString("NAME"));
-				dto.setEmail(rs.getString("EMAIL"));
-				dto.setPhone(rs.getString("PHONE"));
-				dto.setTel(rs.getString("TEL"));
-				dto.setZipcode(rs.getString("ZIPCODE"));
-				dto.setAddress(rs.getString("ADDRESS"));
-				dto.setAddr_detail(rs.getString("ADDR_DETAIL"));
-				dto.setGender(rs.getString("GENDER"));
-				dto.setBirth(rs.getString("BIRTH"));
-				dto.setIsadmin(rs.getString("ISADMIN"));
+				dto = getMember(rs);
 			}
 			
 		} catch (Exception e) {
@@ -222,19 +179,7 @@ public class MemberDAO extends DBCP {
 				
 				rs = ps.executeQuery();
 				if (rs.next()) {
-					dto = new MemberDTO();
-					dto.setId(rs.getString("ID"));
-					dto.setPass(rs.getString("PASS"));
-					dto.setName(rs.getString("NAME"));
-					dto.setEmail(rs.getString("EMAIL"));
-					dto.setPhone(rs.getString("PHONE"));
-					dto.setTel(rs.getString("TEL"));
-					dto.setZipcode(rs.getString("ZIPCODE"));
-					dto.setAddress(rs.getString("ADDRESS"));
-					dto.setAddr_detail(rs.getString("ADDR_DETAIL"));
-					dto.setGender(rs.getString("GENDER"));
-					dto.setBirth(rs.getString("BIRTH"));
-					dto.setIsadmin(rs.getString("ISADMIN"));
+					dto = getMember(rs);
 				}
 			}
 			
@@ -339,20 +284,7 @@ public class MemberDAO extends DBCP {
 			
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				MemberDTO dto = new MemberDTO();
-				dto.setId(rs.getString("ID"));
-				dto.setPass(rs.getString("PASS"));
-				dto.setName(rs.getString("NAME"));
-				dto.setEmail(rs.getString("EMAIL"));
-				dto.setPhone(rs.getString("PHONE"));
-				dto.setTel(rs.getString("TEL"));
-				dto.setZipcode(rs.getString("ZIPCODE"));
-				dto.setAddress(rs.getString("ADDRESS"));
-				dto.setAddr_detail(rs.getString("ADDR_DETAIL"));
-				dto.setGender(rs.getString("GENDER"));
-				dto.setBirth(rs.getString("BIRTH"));
-				dto.setIsadmin(rs.getString("ISADMIN"));
-				
+				MemberDTO dto = getMember(rs);
 				list.add(dto);
 			}
 			
@@ -363,6 +295,26 @@ public class MemberDAO extends DBCP {
 		}
 		
 		return list;
+	}
+	
+	// ResultSet to MemberDTO
+	private MemberDTO getMember(ResultSet rs) throws SQLException {
+		MemberDTO dto = new MemberDTO();
+		
+		dto.setId(rs.getString("ID"));
+		dto.setPass(rs.getString("PASS"));
+		dto.setName(rs.getString("NAME"));
+		dto.setEmail(rs.getString("EMAIL"));
+		dto.setPhone(rs.getString("PHONE"));
+		dto.setTel(rs.getString("TEL"));
+		dto.setZipcode(rs.getString("ZIPCODE"));
+		dto.setAddress(rs.getString("ADDRESS"));
+		dto.setAddr_detail(rs.getString("ADDR_DETAIL"));
+		dto.setGender(rs.getString("GENDER"));
+		dto.setBirth(rs.getString("BIRTH"));
+		dto.setIsadmin(rs.getString("ISADMIN"));
+		
+		return dto;
 	}
 	
 }

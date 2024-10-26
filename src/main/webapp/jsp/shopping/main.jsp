@@ -1,19 +1,21 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div id="shopping">
-  <div class="view">
-    <img class="main_img" src="/images/shopping/mattress.jpg" alt="mattress">
+	<div class="view">
+		<img class="main_img" src="/images/shopping/mattress.jpg" alt="mattress">
 		<div class="title">
 			<h2>Mattress</h2>
 			<p>완벽한 숙면을 위한 선택</p>
 			<a href="#">제품 바로보기</a>
 		</div>
-  </div>
-  <div class="go_menu">
-    <ul class="inner">
+	</div>
+	
+	<!-- 메뉴 -->
+	<div class="go_menu">
+		<ul class="inner">
 			<li class="box">
 				<div class="box_inner">
 					<h4>Memory Foam<br>Mattress</h4>
@@ -38,117 +40,120 @@
 					<a href="#">SHOP</a>
 				</div>
 			</li>
-    </ul>
-  </div>
-<div class="shopping_view">
-	<div class="inner">	
-		<div id="location" class="location">
-			<span>Home</span>
-			<span class="slash">/</span>
-			<div class="show_more">
-				<a href="#" class="current_active">매트리스</a>
-				<ul class="category">
-					<li>
-						<a href="#" class="active">매트리스</a>
-					</li>
-					<li>
-						<a href="#">침대프레임</a>
-					</li>
-					<li>
-						<a href="#">토퍼</a>
-					</li>
-					<li>
-						<a href="#">필로우</a>
-					</li>
-					<li>
-						<a href="#">베딩</a>
-					</li>
-					<li>
-						<a href="#">Sale</a>
-					</li>
-				</ul>
+		</ul>
+	</div>
+	
+	<!-- 리스트 -->
+	<div class="shopping_view" id="shoppingView">
+		<div class="inner">
+			<div id="location" class="location">
+				<span>Home</span> <span class="slash">/</span>
+				<div class="show_more">
+					<a href="#shoppingView" class="current_active">매트리스</a>
+					<ul class="category">
+						<li><a href="#shoppingView" class="active">매트리스</a></li>
+						<li><a href="#shoppingView">침대프레임</a></li>
+						<li><a href="#shoppingView">토퍼</a></li>
+						<li><a href="#shoppingView">필로우</a></li>
+						<li><a href="#shoppingView">베딩</a></li>
+						<li><a href="#shoppingView">Sale</a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-		<div class="filter">
-			<div class="select_toggle">
-				<span class="current_select">타입선택</span>
-				<ul class="type_select">
-						<li><a href="/Shop/main?type=all${orderBy}">타입 선택</a></li>
-						<li><a href="/Shop/main?type=memory${orderBy}">메모리폼 매트리스</a></li>
-						<li><a href="/Shop/main?type=spring${orderBy}">스프링 매트리스</a></li>
-						<li><a href="/Shop/main?type=air${orderBy}">에어 매트리스</a></li>
-						<li><a href="/Shop/main?type=luxe${orderBy}">Luxe S collection</a></li>
-						<li><a href="/Shop/main?type=forest${orderBy}">ForestWalk</a></li>
+			<div class="filter">
+				<div class="select_toggle">
+					<span class="current_select">
+						<c:choose>
+							<c:when test="${type eq 'memory'	}">메모리폼 매트리스</c:when>
+							<c:when test="${type eq 'spring'	}">스프링 매트리스</c:when>
+							<c:when test="${type eq 'air'		}">에어 매트리스</c:when>
+							<c:when test="${type eq 'luxe'		}">Luxe S collection</c:when>
+							<c:when test="${type eq 'forest'	}">ForestWalk</c:when>
+							<c:otherwise>타입 선택</c:otherwise>
+						</c:choose>
+					</span>
+					<ul class="type_select">
+						<li><a href="/Shop/main?type=all&ordered=${orderBy}#shoppingView">타입 선택</a></li>
+						<li><a href="/Shop/main?type=memory&ordered=${orderBy}#shoppingView">메모리폼 매트리스</a></li>
+						<li><a href="/Shop/main?type=spring&ordered=${orderBy}#shoppingView">스프링 매트리스</a></li>
+						<li><a href="/Shop/main?type=air&ordered=${orderBy}#shoppingView">에어 매트리스</a></li>
+						<li><a href="/Shop/main?type=luxe&ordered=${orderBy}#shoppingView">Luxe S collection</a></li>
+						<li><a href="/Shop/main?type=forest&ordered=${orderBy}#shoppingView">ForestWalk</a></li>
+					</ul>
+				</div>
+
+				<ul class="rank">
+					<li class="${orderBy eq 'pop' ? 'active' : '' }">
+						<a href="/Shop/main?type=${type}&ordered=pop#shoppingView" class="sort">인기순</a>
+					</li>
+					<li class="${orderBy eq 'new' ? 'active' : '' }">
+						<a href="/Shop/main?type=${type}&ordered=new#shoppingView" class="sort"> 신상품순 </a>
+					</li>
+					<li class="${orderBy eq 'price' ? 'active' : '' }">
+						<a href="/Shop/main?type=${type}&ordered=price#shoppingView" class="sort"> 가격순 </a>
+					</li>
+					<li class="${orderBy eq 'review' ? 'active' : '' }">
+						<a href="/Shop/main?type=${type}&ordered=review#shoppingView" class="sort"> 상품평순 </a>
+					</li>
 				</ul>
 			</div>
 			
-			<ul class="rank">
-				<li class="${param.ordered eq 'pop' ? 'active' : '' }">
-					<a href="javascript:void(0);" onclick="window.location.href='/Shop/main?${typecheck}ordered=pop'" class="sort">인기순</a>
-				</li>
-				<li class="${param.ordered eq 'new' ? 'active' : '' }">
-					<a href="javascript:void(0)" onclick="window.location.href='/Shop/main?${typecheck }ordered=new'" class="sort">
-						신상품순
-					</a>
-				</li>
-				<li class="${param.ordered eq 'price' ? 'active' : '' }">
-					<a href="javascript:void(0)" onclick="window.location.href='/Shop/main?${typecheck }ordered=price'" class="sort">
-						가격순
-					</a>
-				</li>
-				<li class="${param.ordered eq 'review' ? 'active' : '' }">
-					<a href="javascript:void(0)" onclick="window.location.href='/Shop/main?${typecheck }ordered=review'" class="sort">
-						상품평순
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div class="list">
-			<c:forEach var="list" items="${list }">
-			<ul class="product">
-				<li class="product_img">
-					<a href="/Shop/buy?itemno=${list.no }">
-						<img src="/images/shopping/${list.poster }" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
-					</a>
-					<a href="#" class="wish" data-no="${list.no }" data-islogin="${not empty member }"><img src="${(list.id eq member.id) and (list.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요"></a> 
-				</li>
-				<li class="discription">
-					<a href="/Shop/buy?itemno=${list.no }">
-						<strong>
-							${list.name} 
-						</strong>
-						<em>
-							${list.id }
-							${list.text }
-						</em>
-					</a>
-				</li>
-				<li>
-					<p class="price">최저 <strong><fmt:formatNumber value="${list.price }" pattern="#,###" /></strong> 원</p>
-					<div class="type">
-						<c:set var="size" value="${fn:split(list.sizename, ',') }" />
-						<c:forEach var="s" items="${size }">
-							<c:choose>
-								<c:when test="${s eq 'LK' }"><img src="/images/shopping/S_01.png" alt="LK"></c:when>
-								<c:when test="${s eq 'K' }"><img src="/images/shopping/S_02.png" alt="K"></c:when>
-								<c:when test="${s eq 'Q' }"><img src="/images/shopping/S_03.png" alt="Q"></c:when>
-								<c:when test="${s eq 'SS' }"><img src="/images/shopping/S_04.png" alt="SS"></c:when>
-								<c:when test="${s eq 'S' }"><img src="/images/shopping/S_05.png" alt="S"></c:when>
-								<c:otherwise></c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:if test="${list.point eq 'H' }"><img src="/images/shopping/H_01.png" alt="단단한"></c:if>
-						<c:if test="${list.point eq 'MH' }"><img src="/images/shopping/H_02.png" alt="적당히 단단한"></c:if>
-						<c:if test="${list.point eq 'M' }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
-						<c:if test="${list.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
-					</div>
-				</li>
-			</ul>
-			</c:forEach>
+			<!-- 결과 -->
+			<div class="list">
+				<c:forEach var="list" items="${list }">
+					<ul class="product">
+						<li class="product_img">
+							<a href="/Shop/buy?itemno=${list.no }">
+								<img src="/images/shopping/${list.poster }" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
+							</a>
+							<a href="#" class="wish" data-no="${list.no }" data-islogin="${not empty member }">
+								<c:set var="mids" value="${fn:split(list.id, ',') }" />
+								<c:set var="isInWishlist" value="false" />
+								<c:forEach var="mid" items="${mids}">
+									<c:if test="${mid eq member.id }">
+										<c:set var="isInWishlist" value="true" />
+										<img alt="위시리스트" src="/images/shopping/wish_on.png">
+									</c:if>
+								</c:forEach>
+								<c:if test="${not isInWishlist}">
+									<img alt="위시리스트" src="/images/shopping/wish_off.png">
+								</c:if>
+							</a>
+						</li>
+						<li class="discription">
+							<a href="/Shop/buy?itemno=${list.no }">
+								<strong>${list.name}</strong>
+								<em> ${list.id } ${list.text } </em>
+							</a>
+						</li>
+						<li>
+							<p class="price">
+								최저 <strong><fmt:formatNumber value="${list.price }" pattern="#,###" /></strong> 원
+							</p>
+							<div class="type">
+								<c:if test="${list.point eq 'H'  }"><img src="/images/shopping/H_01.png" alt="단단한"></c:if>
+								<c:if test="${list.point eq 'MH' }"><img src="/images/shopping/H_02.png" alt="적당히 단단한"></c:if>
+								<c:if test="${list.point eq 'M'  }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
+								<c:if test="${list.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
+								<c:set var="size" value="${fn:split(list.sizename, ',') }" />
+								<c:forEach var="s" items="${size }">
+									<c:choose>
+										<c:when test="${s eq 'LK' }"><img src="/images/shopping/S_01.png" alt="LK"></c:when>
+										<c:when test="${s eq 'K'  }"><img src="/images/shopping/S_02.png" alt="K" ></c:when>
+										<c:when test="${s eq 'Q'  }"><img src="/images/shopping/S_03.png" alt="Q" ></c:when>
+										<c:when test="${s eq 'SS' }"><img src="/images/shopping/S_04.png" alt="SS"></c:when>
+										<c:when test="${s eq 'S'  }"><img src="/images/shopping/S_05.png" alt="S" ></c:when>
+										<c:otherwise></c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
+						</li>
+					</ul>
+				</c:forEach>
+			</div>
 		</div>
 	</div>
-</div>
-	<div class="pagination">
-	${paging }
-	</div>
+	
+	<!-- 페이징 -->
+	<div class="pagination">${paging }</div>
 </div>

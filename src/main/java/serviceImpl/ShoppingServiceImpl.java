@@ -77,7 +77,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public int rvwrite(ItemReviewDTO dto, int rating) {
-		return dao.rvwrite(dto, rating);
+	public int rvwrite(ItemReviewDTO dto) {
+		return dao.rvwrite(dto);
 	}
 }

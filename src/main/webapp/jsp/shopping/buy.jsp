@@ -107,7 +107,7 @@
 							</p>
 						</div>
 						<div class="buttons">
-							<a href="#" class="payment">결제하기</a>
+							<a href="#" class="payment" onclick="showPrepare();">결제하기</a>
 							<a href="/Shop/cart?itemno=${dto.no }" class="cart" data-item="${dto }">장바구니</a>
 							<a href="#" class="like" data-no="${dto.no }" data-islogin="${not empty member }">
 								<img src="${(dto.id eq member.id) and (dto.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요">
@@ -642,6 +642,27 @@
 						엘리베이터에 제품이 들어가지 않거나 구조상 제품 진입이 불가능 할 경우 사다리차 비용이 추가될 수 있습니다.
 					</p>
 				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 장바구니 팝업 -->
+	<div id="addCartLayer">
+		<div class="add_cart_layer">
+			<div class="cart_top">
+				<h2>장바구니 담기</h2>
+				<!-- 닫기 버튼(X) -->
+				<button title="닫기" class="close" type="button" onclick="cartPopClose();">닫기</button>
+			</div>
+			
+			<div class="cart_body">
+				<img src="/images/shopping/add-cart-success.png" alt="카트이미지">
+				<strong>상품이 장바구니에 담겼습니다.</strong><br>바로 확인하시겠습니까?
+			</div>
+			
+			<div class="cart_button">
+				<button type="button" onclick="cartPopClose();">취소</button>
+				<button type="button" class="point" onclick="javascript:location.href='/Shop/cart'">확인</button>
 			</div>
 		</div>
 	</div>

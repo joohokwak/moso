@@ -12,6 +12,9 @@
 	</div>
 
 	<form action="/Member/updateOk" class="join_form" method="post">
+		<input type="hidden" name="isadmin" value="${param.isadmin }">
+		<input type="hidden" name="pageNum" value="${not empty param.isadmin ? param.pageNum : '' }">
+	
 		<div class="join_tit">
 			<h3>개인회원 정보입력</h3>
 			<p>표시는 반드시 입력하셔야 하는 항목입니다.</p>
@@ -123,10 +126,10 @@
 					<th>생일</th>
 					<td>
 						<div class="calendar_wrap">
-							<c:set var="birth" value="${member.birth }" />
-							<c:set var="year" value="${birth.substring(0,4) }" />
-							<c:set var="month" value="${birth.substring(4,6) }" />
-							<c:set var="day" value="${birth.substring(6,8) }" />
+							<c:set var="birth" 	value="${member.birth }" />
+							<c:set var="year" 	value="${birth.substring(0,4) }" />
+							<c:set var="month" 	value="${birth.substring(4,6) }" />
+							<c:set var="day" 	value="${birth.substring(6,8) }" />
 							<c:set var="formattedDate" value="${year }-${month }-${day }" />
 							<input type="date" class="join_calendar" name="birth" placeholder="예시) 2015-09-03" autocomplete="off" value="${formattedDate }">
 						</div>

@@ -9,5 +9,5 @@ import dto.QuizDTO;
 public interface QuizService {
 
 	List<QuizDTO> mattressQuiz(String sumQ);
-	List<QuizDTO> setGoods(Pagination pg, List<Map<String, String>> searchList, String sort);
+	List<QuizDTO> setGoods(Pagination pg, List<Map<String, String>> searchList, String sort, String id);
 }

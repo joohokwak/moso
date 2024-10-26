@@ -36,12 +36,8 @@ public class ShoppingController extends HttpServlet {
 		
 		// 세션에서 로그인 정보 가져오기
 		HttpSession session = req.getSession();
-		Object user = session.getAttribute("member");
-		String id = null;
-		if (user != null)  {
-			MemberDTO member = (MemberDTO) user;
-			id = member.getId();
-		}
+		MemberDTO user = (MemberDTO) session.getAttribute("member");
+		String id = (user != null) ? user.getId() : "";
 		
 		
 		// 상품 리스트 페이지
@@ -49,9 +45,9 @@ public class ShoppingController extends HttpServlet {
 			//	정렬하기
 			String ordered = req.getParameter("ordered");
 			String type = req.getParameter("type");
-			String typecheck = "type=" + type + "&";
+			
 			if (ordered == null) ordered = "pop";
-			String orderBy = "&ordered=" + ordered;
+			if (type == null) type = "all";
 					
 			//	페이징
 			int pnum = 1;
@@ -68,8 +64,8 @@ public class ShoppingController extends HttpServlet {
 			List<ShoppingDTO> list = shopSer.viewMain(type, ordered, id, pg);
 			
 			//	jsp로 보내기
-			req.setAttribute("orderBy", orderBy);
-			req.setAttribute("typecheck", typecheck);
+			req.setAttribute("orderBy", ordered);
+			req.setAttribute("type", type);
 			req.setAttribute("list", list);
 			req.setAttribute("paging", pg.paging(req));
 			
@@ -260,7 +256,8 @@ public class ShoppingController extends HttpServlet {
 		} else if(action.equals("/rvwriteOk")) {
 			int rating = Integer.parseInt(req.getParameter("ratings"));
 			ItemReviewDTO dto = Common.convert(req, ItemReviewDTO.class);
-			shopSer.rvwrite(dto, rating);	
+			dto.setRating(rating);
+			shopSer.rvwrite(dto);	
 			return;
 		}
 		

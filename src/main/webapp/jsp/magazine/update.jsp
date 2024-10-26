@@ -6,7 +6,7 @@
 		<div class="inquiry_content">
 			<div class="inquiry_admin">
 				<span><a href="#">Home</a></span>
-				<span>글수정</span>
+				<span>수정하기</span>
 			</div>
 			
 			<div class="inquiry_section">
@@ -17,6 +17,7 @@
 				<form action="/Magazine/updateOk" class="section_main" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="no" value="${magazine.no }">
 					<input type="hidden" name="isadmin" value="${param.isadmin }">
+					<input type="hidden" name="pageNum" value="${not empty param.isadmin ? param.pageNum : '' }">
 					
 					<ul>
 						<li>

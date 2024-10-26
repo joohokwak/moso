@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.Pagination;
+import dto.MemberDTO;
 import dto.QuizDTO;
 import service.QuizService;
 import serviceImpl.QuizServiceImpl;
@@ -74,7 +75,11 @@ public class QuizController extends HttpServlet {
 			pg.setPageNum(pageNum);
 			pg.setPageSize(12);
 			
-			List<QuizDTO> searchAll = qs.setGoods(pg, searchList, sort);
+			// 세션에서 로그인 정보 가져오기
+			MemberDTO member = (MemberDTO) req.getSession().getAttribute("member");
+			String id = (member != null) ? member.getId() : "";
+			
+			List<QuizDTO> searchAll = qs.setGoods(pg, searchList, sort, id);
 			req.setAttribute("search", searchAll);
 			req.setAttribute("paging", pg.paging(req));
 			req.setAttribute("searchKeywords", searchList);

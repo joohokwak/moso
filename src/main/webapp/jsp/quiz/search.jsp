@@ -22,31 +22,31 @@
 			<c:if test="${not empty search }">${search[0].totalCount}개</c:if> 
 			<c:if test="${empty search }">0개</c:if>
 		</strong>
-		<div class="search_input">
-			<form action="/Quiz/search" method="post" name="searchFrm">
-				<fieldset>
-					<legend>검색 폼</legend>
-					<span class="research_form">
-						<input type="checkbox" id="rescan" name="reSearch" class="checkbox" value="c" ${not empty param.reSearch ? 'checked' : '' }>
-						<label for="rescan">결과 내 재검색</label>
-					</span>
-					<select class="select_type" name="key" id="check-s">
-						<option value="goodsName" ${param.key eq 'goodsName' ? 'selected' : '' }>상품명</option>
-						<option value="goodsNo"   ${param.key eq 'goodsNo' 	 ? 'selected' : '' }>상품코드</option>
-						<option value="goodsText" ${param.key eq 'goodsText' ? 'selected' : '' }>상품설명</option>
-					</select>
-					<div class="txt_field">
-						<input type="text" name="keyword" class="text_keyword" autocomplete="off" value="${lastvalue }">
-					</div>
-					<button type="submit" class="search_btn">
-						검색
-						<img src="/images/shopping/search.png" alt="상품 검색 버튼">
-					</button>
-				</fieldset>
-			</form>
-		</div>
-		<div class="order_sort">
-			<form action="/Quiz/search" method="post" name="sortFrm">
+		
+		<!-- 검색폼 -->
+		<form action="/Quiz/search" method="post" name="searchFrm">
+			<fieldset class="search_input">
+				<legend>검색</legend>
+				<span class="research_form">
+					<input type="checkbox" id="rescan" name="reSearch" class="checkbox" value="c" ${not empty param.reSearch ? 'checked' : '' }>
+					<label for="rescan">결과 내 재검색</label>
+				</span>
+				<select class="select_type" name="key" id="check-s">
+					<option value="goodsName" ${param.key eq 'goodsName' ? 'selected' : '' }>상품명</option>
+					<option value="goodsNo"   ${param.key eq 'goodsNo' 	 ? 'selected' : '' }>상품코드</option>
+					<option value="goodsText" ${param.key eq 'goodsText' ? 'selected' : '' }>상품설명</option>
+				</select>
+				<div class="txt_field">
+					<input type="text" name="keyword" class="text_keyword" autocomplete="off" value="${lastvalue }">
+				</div>
+				<button type="submit" class="search_btn">
+					검색
+					<img src="/images/shopping/search.png" alt="상품 검색 버튼">
+				</button>
+			</fieldset>
+			
+			<fieldset class="order_sort">
+				<legend>정렬</legend>
 				<ul class="sort_wrap">
 					<li class="${param.sort eq 'visit_desc' ? 'on' : '' }">
 						<input type="radio" id="sort1" name="sort" value="visit_desc" checked>
@@ -65,8 +65,10 @@
 						<label for="sort4">상품평순</label>
 					</li>
 				</ul>
-			</form>
-		</div>
+			</fieldset>
+		</form>
+		
+		<!-- 결과 -->
 		<div class="search_result">
 			<ul>
 			<c:forEach var="item" items="${search }">
@@ -100,6 +102,10 @@
 							<span>최저 <strong><fmt:formatNumber value="${item.price }" pattern="#,###"/></strong>원</span>
 						</div>
 						<div class="type">
+							<c:if test="${item.point eq 'H'  }"><img src="/images/shopping/H_01.png" alt="단단한"></c:if>
+							<c:if test="${item.point eq 'MH' }"><img src="/images/shopping/H_02.png" alt="적당히 단단한"></c:if>
+							<c:if test="${item.point eq 'M'  }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
+							<c:if test="${item.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
 							<c:forEach var="size" items="${fn:split(item.sizename, ',') }">
 								<c:choose>
 									<c:when test="${size eq 'LK' }"><img src="/images/shopping/S_01.png" alt="LK"></c:when>
@@ -110,10 +116,6 @@
 									<c:otherwise></c:otherwise>
 								</c:choose>
 							</c:forEach>
-							<c:if test="${item.point eq 'H'  }"><img src="/images/shopping/H_01.png" alt="단단한"></c:if>
-							<c:if test="${item.point eq 'MH' }"><img src="/images/shopping/H_02.png" alt="적당히 단단한"></c:if>
-							<c:if test="${item.point eq 'M'  }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
-							<c:if test="${item.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
 						</div>
 					</div>
 				</li>

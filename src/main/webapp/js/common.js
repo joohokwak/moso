@@ -40,12 +40,39 @@ function quill(id, body) {
 	});
 }
 
+function showLoading(isShow) {
+	// 로딩 동적으로 생성
+	const container = document.getElementById('container');
+	let loadingBar = container.querySelector('#mosoLoading');
+	
+	if (!loadingBar) {
+		loadingBar = document.createElement('img');
+		loadingBar.src 				= '/images/common/moso_loading.svg';
+		loadingBar.alt 				= '로딩 중...';
+		loadingBar.id 				= 'mosoLoading';
+		loadingBar.style.position 	= 'fixed';
+		loadingBar.style.top 		= '50%';
+		loadingBar.style.left 		= '50%';
+		loadingBar.style.transform 	= 'translate(-50%, -50%)';
+		loadingBar.style.zIndex 	= '99999';
+		loadingBar.style.display 	= 'block';
+		
+		// 로딩 영역에 추가
+        container.appendChild(loadingBar);
+	}
+	
+	// 로딩 영역에 추가
+    loadingBar.style.display = isShow ? 'block' : 'none';
+}
+
 // post 방식으로 서버와 비동기 통신 함수
 // 사용예시
 // post('/Board/fetch', params, (data) => {
 //		console.log(data);
 //	});
 function post(url, reqData, callback) {
+	showLoading(true);
+	
 	// 설정
 	const options = {
 		method: "POST",
@@ -54,9 +81,13 @@ function post(url, reqData, callback) {
 		},
 		body: JSON.stringify(reqData), // json데이터로 변환
 	};
-
+	
 	// 서버와 통신후 callback 응답하기위한 로직
-	fetch(url, options).then(res => res.json()).then(data => callback(data)).catch(err => console.log(err));
+	fetch(url, options)
+		.then(res => res.json())
+		.then(data => callback(data))
+		.catch(err => console.log(err))
+		.finally(() => showLoading(false));
 }
 
 // 공통 클릭 이벤트 처리 함수

@@ -60,16 +60,34 @@ window.addEventListener('DOMContentLoaded', function() {
 		_searchSort.forEach((item) => {
 			item.addEventListener('click', function(e){
 				e.preventDefault();
-				_searchSort.forEach(v => {
-					v.classList.remove('on');
-				});
 				
-				item.classList.toggle('on');
+				_searchSort.forEach(v => v.classList.remove('on'));
+				
+				item.classList.add('on');
 				item.querySelector('input[type=radio]').checked = true;
 				
-				document.sortFrm.submit();
+				document.searchFrm.submit();
 			});
 		})
+	}
+	
+	// 페이징
+	const _searchPaging = document.querySelectorAll('#search_content .pagination .page_num:not(.active)');
+	if (_searchPaging) {
+		_searchPaging.forEach(page => {
+			page.addEventListener('click', function(e) {
+				e.preventDefault();
+				
+				const pageEl = document.createElement('input');
+				pageEl.type = 'hidden';
+				pageEl.name = 'pageNum';
+				pageEl.value = page.href.match(/pageNum=(\d+)/)[1];
+				
+				document.searchFrm.append(pageEl);
+				document.searchFrm.submit();
+			});
+			
+		});
 	}
 	
 });
