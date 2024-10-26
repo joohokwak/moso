@@ -245,31 +245,31 @@ INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'ZINUS Product Catalo
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- << ITEM >> --
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '젤 하이브리드 스프링 매트리스', '스프링 매트리스', '7cm 높이의 메모리폼 특유의 터치감과 포켓 스트링 매트리스의 탄탄함을 동시에 경험하는 제품', '418000', '적당히 단단한', SYSDATE, 'Q,SS', '1000000126_detail_096.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '젤 하이브리드 스프링 매트리스', '스프링 매트리스', '7cm 높이의 메모리폼 특유의 터치감과 포켓 스트링 매트리스의 탄탄함을 동시에 경험하는 제품', '418000', 'MH', SYSDATE, 'Q,SS', '1000000126_detail_096.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '그린티 하이브리드 스프링 매트리스', '스프링 매트리스', '*아이코일®기술로 안정감 있게 지지<br>*지누스 스테디셀러', '154000', '적당히 단단한', SYSDATE, 'Q,SS,S', '1000000034_detail_050.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '그린티 하이브리드 스프링 매트리스', '스프링 매트리스', '*아이코일®기술로 안정감 있게 지지<br>*지누스 스테디셀러', '154000', 'MH', SYSDATE, 'Q,SS,S', '1000000034_detail_050.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '젤 메모리폼 매트리스', '메모리폼 매트리스', '특수 제작된 패브릭과 젤이 함유된 메모리폼은 처음 누웠을 때의 보송보송한 느낌을 장시간 유지해주는 제품', '30800', '적당히 단단한', SYSDATE, 'Q,SS,S', '1000000125_detail_058.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '젤 메모리폼 매트리스', '메모리폼 매트리스', '특수 제작된 패브릭과 젤이 함유된 메모리폼은 처음 누웠을 때의 보송보송한 느낌을 장시간 유지해주는 제품', '30800', 'MH', SYSDATE, 'Q,SS,S', '1000000125_detail_058.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '젤인퓨즈드 메모리폼 매트리스', '메모리폼 매트리스', '*젤 메모리폼이 체온을 균형 있게 조절<br>*안락한 감촉의 초극세사 충전재', '37400', '적당히 단단한', SYSDATE, '30CM', '1000000039_detail_082.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '젤인퓨즈드 메모리폼 매트리스', '메모리폼 매트리스', '*젤 메모리폼이 체온을 균형 있게 조절<br>*안락한 감촉의 초극세사 충전재', '37400', 'MH', SYSDATE, 'K', '1000000039_detail_082.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '클라우드 플러스 하이브리드 스프링 매트리스', '스프링 매트리스', '*두가지의 폼이 유기적으로 몸을 골고루 지지<br>*모서리까지 받쳐주는 인케이스드 폼', '495000', '중간', SYSDATE, 'K,Q,SS', '1000000138_detail_069.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '클라우드 플러스 하이브리드 스프링 매트리스', '스프링 매트리스', '*두가지의 폼이 유기적으로 몸을 골고루 지지<br>*모서리까지 받쳐주는 인케이스드 폼', '495000', 'M', SYSDATE, 'K,Q,SS', '1000000138_detail_069.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '젤인퓨즈드 하이브리드 스프링 매트리스', '스프링 매트리스', '*젤 메모리폼이 체온을 균형 있게 조절<br>*두 배로 푹신한 유로탑', '341000', '중간', SYSDATE, '25cm,30cm', '1000000040_detail_025.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '젤인퓨즈드 하이브리드 스프링 매트리스', '스프링 매트리스', '*젤 메모리폼이 체온을 균형 있게 조절<br>*두 배로 푹신한 유로탑', '341000', 'M', SYSDATE, 'Q,K', '1000000040_detail_025.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '그린티 플러스 하이브리드 스프링 매트리스', '스프링 매트리스', '*흔들림 없이 안정적인 타이트탑<br>*기본에 충실한 매트리스', '154000', '중간', SYSDATE, '15cm,20c,,25cm', '1000000136_detail_032.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '그린티 플러스 하이브리드 스프링 매트리스', '스프링 매트리스', '*흔들림 없이 안정적인 타이트탑<br>*기본에 충실한 매트리스', '154000', 'M', SYSDATE, 'S,SS,Q', '1000000136_detail_032.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '얼티마 하이브리드 스프링 매트리스', '스프링 매트리스', '*두 배로 푹신한 유로탑<br>*대중적인 디자인과 조화로운 컬러', '231000', '중간', SYSDATE, 'K,Q,SS', '1000000038_detail_071.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '얼티마 하이브리드 스프링 매트리스', '스프링 매트리스', '*두 배로 푹신한 유로탑<br>*대중적인 디자인과 조화로운 컬러', '231000', 'M', SYSDATE, 'K,Q,SS', '1000000038_detail_071.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '클라우드 메모리폼 매트리스', '메모리폼 매트리스', '*초극세사 충전재 퀼팅<br>*구름 위에 누운 듯한 포근함', '418000', '중간', SYSDATE, '25cm,30cm,35cm', '1000000041_detail_073.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '클라우드 메모리폼 매트리스', '메모리폼 매트리스', '*초극세사 충전재 퀼팅<br>*구름 위에 누운 듯한 포근함', '418000', 'M', SYSDATE, 'SS,Q,K', '1000000041_detail_073.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '그린티 메모리폼 매트리스', '메모리폼 매트리스', '*지누스의 스테디셀러<br>*기본에 충실한 메모리폼 매트리스', '187000', '중간', SYSDATE, 'Q,SS,S', '1000000033_detail_048.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '그린티 메모리폼 매트리스', '메모리폼 매트리스', '*지누스의 스테디셀러<br>*기본에 충실한 메모리폼 매트리스', '187000', 'M', SYSDATE, 'Q,SS,S', '1000000033_detail_048.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '클라우드 플러스 메모리폼 매트리스', '메모리폼 매트리스', '*구름 위에 누운 듯한 포근함<br>*두가지의 폼이 유기적으로 몸을 골고루 지지', '495000', '중간', SYSDATE, 'Q,SS,S', '1000000137_detail_087.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '클라우드 플러스 메모리폼 매트리스', '메모리폼 매트리스', '*구름 위에 누운 듯한 포근함<br>*두가지의 폼이 유기적으로 몸을 골고루 지지', '495000', 'M', SYSDATE, 'Q,SS,S', '1000000137_detail_087.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '그린티 플러스 메모리폼 매트리스', '메모리폼 매트리스', '*두가지의 폼이 유기적으로 몸을 골고루 지지<br>*탄탄한 사용감', '495000', '단단한', SYSDATE, 'Q,SS,S', '1000000135_detail_053.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '그린티 플러스 메모리폼 매트리스', '메모리폼 매트리스', '*두가지의 폼이 유기적으로 몸을 골고루 지지<br>*탄탄한 사용감', '495000', 'H', SYSDATE, 'Q,SS,S', '1000000135_detail_053.jpg'
 );
-INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '얼티마 메모리폼 매트리스', '메모리폼 매트리스', '사용자의 수면 중 움직임에 따라 유연하게 변형되며 신체를 지지, 부드러움과 포근함, 탄탄한 지지력을 동시에 제공', '264000', '적당히 푹신한', SYSDATE, 'Q,SS,S', '1000000037_detail_085.jpg'
+INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '얼티마 메모리폼 매트리스', '메모리폼 매트리스', '사용자의 수면 중 움직임에 따라 유연하게 변형되며 신체를 지지, 부드러움과 포근함, 탄탄한 지지력을 동시에 제공', '264000', 'MS', SYSDATE, 'Q,SS,S', '1000000037_detail_085.jpg'
 );
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

@@ -26,69 +26,73 @@ public class ShoppingDAO extends DBCP {
 		try {
 			conn = getConn();
 			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT																											");
+	        sql.append("	   DISTINCT i.NO																							");
+	        sql.append("	 , i.NAME																									");
+	        sql.append("	 , i.TYPE																									");
+	        sql.append("	 , i.TEXT																									");
+	        sql.append("	 , i.PRICE																									");
+	        sql.append("	 , i.POINT																									");
+	        sql.append("	 , i.REGDATE																								");
+	        sql.append("	 , i.SIZENAME																								");
+	        sql.append("	 , i.POSTER																									");
+	        sql.append("	 , LISTAGG(il.MEMBER_ID, ',') WITHIN GROUP(ORDER BY IL.ITEM_NO) OVER (PARTITION BY IL.ITEM_NO) AS MEMBER_ID	");
+	        sql.append("	 , IL.ITEM_NO																								");
+	        sql.append("	 , (																										");
+	        sql.append("		SELECT COUNT(ITEM_NO)																					");
+	        sql.append("		  FROM ITEM_LIKE																						");
+	        sql.append("		 WHERE ITEM_NO = I.NO																					");
+	        sql.append("		 GROUP BY ITEM_NO																						");
+	        sql.append("	   ) AS CNT																									");
+	        sql.append("	 , (																										");
+	        sql.append("		SELECT AVG(RATING)																						");
+	        sql.append("		  FROM ITEM_REVIEW																						");
+	        sql.append("		 WHERE ITEMNO = I.NO																					");
+	        sql.append("		 GROUP BY ITEMNO																						");
+	        sql.append("	   ) AS RAITNG																								");
+		    sql.append("  FROM ITEM i																									");
+		    sql.append("  LEFT OUTER JOIN ITEM_LIKE il																					");
+		    sql.append("	ON i.NO = il.ITEM_NO																						");
+		    sql.append(" WHERE 1 = 1																									");
+			
+		    // 타입 선택
+			if (ty.equalsIgnoreCase("memory")) {
+				sql.append(" AND TYPE = '메모리폼 매트리스'");
+			} else if (ty.equalsIgnoreCase("air")) {
+				sql.append(" AND TYPE = '에어 매트리스'");
+			} else if (ty.equalsIgnoreCase("luxe")) {
+				sql.append(" AND TYPE = 'Luxe S collection'");
+			} else if (ty.equalsIgnoreCase("forest")) {
+				sql.append(" AND TYPE = 'ForestWalk'");
+			} else if (ty.equalsIgnoreCase("spring")) {
+				sql.append(" AND TYPE = '스프링 매트리스'");
+			} else if (ty.equalsIgnoreCase("all")) {
+				sql.append("");
+			}
+			
+			// 신상품순
 			if (ordered.equalsIgnoreCase("new")) {
 				pg.setOrderName("REGDATE");
 				pg.setOrder(Order.DESC.getOrder());
+			// 상평품순
 			} else if(ordered.equalsIgnoreCase("review")) {
-				pg.setOrderName(" ");
+				pg.setOrderName("RAITNG");
+				pg.setOrder(Order.DESC_NULLS_LAST.getOrder());
+			// 가격순
 			} else if(ordered.equalsIgnoreCase("price")) {
 				pg.setOrderName("PRICE");
 				pg.setOrder(Order.ASC.getOrder());
+			// 인기순
 			} else if(ordered.equalsIgnoreCase("pop")) {
-				pg.setOrderName("CNT");
-				pg.setOrder(Order.DESC_NULLS_LAST.getOrder());
-			}
-			                                                                         
-			String sql = "";
-			sql += "SELECT DISTINCT i.NO                                                                           ";
-			sql += "	 , i.NAME                                                                                  ";
-			sql += "	 , i.TYPE                                                                                  ";
-			sql += "	 , i.TEXT                                                                                  ";
-			sql += "	 , i.PRICE                                                                                 ";
-			sql += "	 , i.POINT                                                                                 ";
-			sql += "	 , i.REGDATE                                                                               ";
-			sql += "	 , i.SIZENAME                                                                              ";
-			sql += "	 , i.POSTER                                                                                ";
-			sql += "	 , (                                                                                       ";
-			sql += "		SELECT ITEM_NO                                                                         ";
-			sql += "		  FROM ITEM_LIKE                                                                       ";
-			sql += "		 WHERE ITEM_NO = il.ITEM_NO                                                            ";
-			sql += "		   AND MEMBER_ID = il.MEMBER_ID                                                        ";
-			sql += "	   ) AS ITEM_NO                                                                            ";
-			sql += "	 , (                                                                                       ";
-			sql += "		SELECT MEMBER_ID                                                                       ";
-			sql += "		  FROM ITEM_LIKE                                                                       ";
-			sql += "		 WHERE ITEM_NO = il.ITEM_NO                                                            ";
-			sql += "		   AND MEMBER_ID = il.MEMBER_ID                                                        ";
-			sql += "	   ) AS MEMBER_ID                                                                          ";
-			sql += "	 , (SELECT COUNT(ITEM_NO) FROM ITEM_LIKE WHERE ITEM_NO = il.ITEM_NO GROUP BY ITEM_NO) CNT  ";
-			sql += "  FROM ITEM i                                                                                  ";
-			sql += "  LEFT OUTER JOIN ITEM_LIKE il                                                                 ";
-			sql += "	ON i.NO = il.ITEM_NO                                                                       ";
-			sql += "  LEFT OUTER JOIN MEMBER m                                                                     ";
-			sql += "	ON il.MEMBER_ID = m.ID                                                                     ";
-			sql += " WHERE 1 = 1                                                                                   ";
-				
-			if (ty != null) {
-				if (ty.equalsIgnoreCase("memory")) {
-					sql += " AND TYPE = '메모리폼 매트리스'";
-				} else if (ty.equalsIgnoreCase("air")) {
-					sql += " AND TYPE = '에어 매트리스'";
-				} else if (ty.equalsIgnoreCase("luxe")) {
-					sql += " AND TYPE = 'Luxe S collection'";
-				} else if (ty.equalsIgnoreCase("forest")) {
-					sql += " AND TYPE = 'ForestWalk'";
-				} else if (ty.equalsIgnoreCase("spring")) {
-					sql += " AND TYPE = '스프링 매트리스'";
-				} else if (ty.equalsIgnoreCase("all")) {
-					sql += "";
-				}
+				// 로그인 한 사용자별 우선 정렬
+				pg.setOrderName("CASE WHEN MEMBER_ID LIKE '%" + id + "%' THEN 1 ELSE 2 END, CNT DESC NULLS LAST");
+				pg.setOrder("");
 			}
 			
-			sql = pg.getQuery(conn, sql);
+			String sqlQuery = pg.getQuery(conn, sql.toString());
 			
-			ps = conn.prepareStatement(sql);
-			
+			ps = conn.prepareStatement(sqlQuery);
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -134,26 +138,19 @@ public class ShoppingDAO extends DBCP {
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
+				// 좋아요 존재 한다면 삭제
 				sql = "DELETE FROM ITEM_LIKE WHERE ITEM_NO = ? AND MEMBER_ID = ?";
-				ps = conn.prepareStatement(sql);
-				ps.setInt(1, no);
-				ps.setString(2, id);
-				
-				result = ps.executeUpdate();
-				
-				if (rs != null) rs.close();
-				if (ps != null) ps.close();
-				if (conn != null) conn.close();
-				return result;
+			} else {
+				// 존재하지 않으면 추가
+				sql = "INSERT INTO ITEM_LIKE VALUES (?, ?)";
 			}
 			
-			sql = "INSERT INTO ITEM_LIKE VALUES (?, ?)";
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, no);
 			ps.setString(2, id);
 			
 			result = ps.executeUpdate();
-						
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -171,17 +168,17 @@ public class ShoppingDAO extends DBCP {
 			conn = getConn();
 			
 			String sql = "";
-			sql += " SELECT NO				";
-			sql += "	  , NAME			";
-			sql += "	  , TYPE			";
-			sql += "	  , TEXT			";
-			sql += "	  , PRICE			";
-			sql += "	  , POINT			";
-			sql += "	  , REGDATE			";
-			sql += "	  , SIZENAME		";
-			sql += "	  , POSTER			";
-			sql += " FROM ITEM 				";
-			sql += " WHERE NO = ?";
+			sql += " SELECT NO			";
+			sql += "	  , NAME		";
+			sql += "	  , TYPE		";
+			sql += "	  , TEXT		";
+			sql += "	  , PRICE		";
+			sql += "	  , POINT		";
+			sql += "	  , REGDATE		";
+			sql += "	  , SIZENAME	";
+			sql += "	  , POSTER		";
+			sql += " FROM ITEM 			";
+			sql += " WHERE NO = ?		";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, num);
@@ -218,9 +215,9 @@ public class ShoppingDAO extends DBCP {
 			conn = getConn();
 			
 			String sql = "";
-			sql += "SELECT *				";
-			sql += "  FROM ITEM_IMAGE		";
-			sql += " WHERE ITEMNO = ?		";
+			sql += "SELECT *			";
+			sql += "  FROM ITEM_IMAGE	";
+			sql += " WHERE ITEMNO = ?	";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, num);
@@ -240,7 +237,7 @@ public class ShoppingDAO extends DBCP {
 		return images;
 	}
 	
-	
+	// 리뷰 전체 조회
 	public List<ItemReviewDTO> reviewAll(int num, Pagination pg) {
 		List<ItemReviewDTO> list = new ArrayList<>();
 		
@@ -259,11 +256,10 @@ public class ShoppingDAO extends DBCP {
 			sql += "	 , ITEMNO                  							";
 			sql += "  FROM ITEM_REVIEW          							";
 			sql += " WHERE ITEMNO = " + num;
-
+			
 			sql = pg.getQuery(conn, sql);
 			
 			ps = conn.prepareStatement(sql);
-			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -290,24 +286,15 @@ public class ShoppingDAO extends DBCP {
 		return list;
 	} 
 	
-	public int rvwrite(ItemReviewDTO dto, int rating) {
-		conn = getConn();
+	// 리뷰 등록
+	public int rvwrite(ItemReviewDTO dto) {
 		int result = 0;
-		dto.setRating(rating);
 		
 		try {
+			conn = getConn();
 			
-			String sql = " INSERT INTO               ";
-				sql += " ITEM_REVIEW                 ";
-				sql += " VALUES (                    ";
-				sql += " SEQ_ITEM_REVIEW.NEXTVAL     ";
-				sql += " , ?            	         ";
-				sql += " , ?             		     ";
-				sql += " , SYSDATE                   ";
-				sql += " , ?                         ";
-				sql += " , ?                         ";
-				sql += " , ?                         ";
-				sql += " , ? )                       ";
+			String sql = "INSERT INTO ITEM_REVIEW ";
+			sql += " VALUES (SEQ_ITEM_REVIEW.NEXTVAL, ?, ?, SYSDATE, ?, ?, ?, ?)";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
@@ -319,39 +306,40 @@ public class ShoppingDAO extends DBCP {
 			
 			result = ps.executeUpdate();
 			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(conn, ps);
 		}
+		
 		return result;
 	}
 	
+	// Q&A 리스트
 	public List<ItemReviewDTO> qnaAll(int itemNo, Pagination pg) {
 		List<ItemReviewDTO> list = new ArrayList<>();
 		
 		try {
 			conn = getConn();
 			
-			String sql = "";                                               
-			 sql += " SELECT											";
-			 sql += " 		 (SELECT COUNT(q.NO) FROM QNA q) AS CNT		";                                           
-			 sql += "	   , NO                                         ";
-			 sql += "	   , CATE                                       ";
-			 sql += "	   , WRITER                                     ";
-			 sql += "	   , PASS                                       ";
-			 sql += "	   , TITLE                                      ";
-			 sql += "	   , QUESTION                                   ";
-			 sql += "	   , ANSWRE                                     ";
-			 sql += "	   , TO_CHAR(REGDATE, 'YYYY-MM-DD') AS REGDATE  ";
-			 sql += "	   , ITEMNO                                     ";
-			 sql += "	   , SECRET                                     ";
-			 sql += "	FROM QNA                                        ";
-			 sql += "  WHERE ITEMNO = " + itemNo;
+			StringBuilder sql = new StringBuilder();                                               
+			sql.append("SELECT												");
+			sql.append("	   (SELECT COUNT(q.NO) FROM QNA q) AS CNT		");                                           
+			sql.append("	 , NO											");
+			sql.append("	 , CATE											");
+			sql.append("	 , WRITER										");
+			sql.append("	 , PASS											");
+			sql.append("	 , TITLE										");
+			sql.append("	 , QUESTION										");
+			sql.append("	 , ANSWRE										");
+			sql.append("	 , TO_CHAR(REGDATE, 'YYYY-MM-DD') AS REGDATE	");
+			sql.append("	 , ITEMNO										");
+			sql.append("	 , SECRET										");
+			sql.append("  FROM QNA											");
+			sql.append(" WHERE ITEMNO = " + itemNo							 );
 			
-			sql = pg.getQuery(conn, sql);
-			ps = conn.prepareStatement(sql);
+			String query = pg.getQuery(conn, sql.toString());
+			ps = conn.prepareStatement(query);
 			
 			rs = ps.executeQuery();
 			
@@ -372,7 +360,7 @@ public class ShoppingDAO extends DBCP {
 				
 				list.add(dto);
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -382,6 +370,7 @@ public class ShoppingDAO extends DBCP {
 		return list;
 	}
 	
+	// Q&A 상세조회
 	public ItemReviewDTO qnaOne(int qnano) {
 		ItemReviewDTO dto = new ItemReviewDTO();
 		
@@ -420,7 +409,7 @@ public class ShoppingDAO extends DBCP {
 				dto.setItemno(rs.getInt("ITEMNO"));
 				dto.setSecret(rs.getInt("SECRET"));
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -429,7 +418,8 @@ public class ShoppingDAO extends DBCP {
 		
 		return dto;
 	}
-
+	
+	// Q&A 페이지
 	public ShoppingDTO writeItem(int itemno) {
 		ShoppingDTO dto = new ShoppingDTO();
 		
@@ -464,7 +454,8 @@ public class ShoppingDAO extends DBCP {
 		
 		return dto;
 	}
-
+	
+	// Q&A 등록
 	public int qnaCreate(ItemReviewDTO qnaCre) {
 		int rsu = 0;
 		
@@ -472,17 +463,8 @@ public class ShoppingDAO extends DBCP {
 			conn = getConn();
 			
 			String sql = "";
-			sql +="	INSERT INTO QNA (NO, CATE, TITLE, WRITER, PASS, QUESTION, REGDATE, ITEMNO, SECRET) VALUES(             ";
-			sql +="			SEQ_QNA.NEXTVAL             ";
-			sql +="			, ?        			        ";
-			sql +="			, ?        	   		        ";
-			sql +="			, ?         		        ";
-			sql +="			, ?            		        ";
-			sql +="			, ?  						";
-			sql +="			, SYSDATE                   ";
-			sql +="			, ?                         ";
-			sql +="			, ?                         ";
-			sql +="		)             		            ";
+			sql +="INSERT INTO QNA (NO, CATE, TITLE, WRITER, PASS, QUESTION, REGDATE, ITEMNO, SECRET) ";
+			sql +="VALUES(SEQ_QNA.NEXTVAL, ?, ?, ?, ?, ?, SYSDATE, ?, ?)";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, qnaCre.getCate());
@@ -504,14 +486,14 @@ public class ShoppingDAO extends DBCP {
 		return rsu;
 	}
 	
+	// Q&A 삭제
 	public int qnaDel(int no) {
-		conn = getConn();
 		int result = 0;
 		
 		try {
+			conn = getConn();
 			
-			String sql = "";
-			sql += "DELETE QNA WHERE NO = ?";
+			String sql = "DELETE QNA WHERE NO = ?";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, no);
@@ -527,23 +509,23 @@ public class ShoppingDAO extends DBCP {
 		return result;
 	} 
 	
+	// Q&A 수정
 	public int qnaUpdate(ItemReviewDTO qnaUp) {
-		conn = getConn();
-		
 		int result = 0;
 		
 		try {
+			conn = getConn();
+			
 			String sql = "";                         
-			sql += "UPDATE QNA SET					";
-			sql += "	  CATE = ?                  ";
-			sql += "	, WRITER = ?                ";
-			sql += "	, PASS = ?                  ";
-			sql += "	, TITLE = ?                 ";
-			sql += "	, QUESTION = ?              ";
-			sql += "	, REGDATE = SYSDATE         ";
-			sql += "	, SECRET = ?                ";
-			sql += "WHERE                           ";
-			sql += " 	  NO = ?                    ";
+			sql += "UPDATE QNA					";
+			sql += "   SET CATE = ?				";
+			sql += "	 , WRITER = ?			";
+			sql += "	 , PASS = ?				";
+			sql += "	 , TITLE = ?			";
+			sql += "	 , QUESTION = ?			";
+			sql += "	 , REGDATE = SYSDATE	";
+			sql += "	 , SECRET = ?			";
+			sql += " WHERE NO = ?				";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, qnaUp.getCate());
@@ -565,11 +547,13 @@ public class ShoppingDAO extends DBCP {
 		return result;
 	}
 	
+	// 답변등록
 	public int ansCreate(int no, String ans) {
 		int result = 0;
 		
 		try {
 			conn = getConn();
+			
 			String sql = "UPDATE QNA SET ANSWRE = ? WHERE NO = ? ";
 			
 			ps = conn.prepareStatement(sql);

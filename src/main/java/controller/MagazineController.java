@@ -66,7 +66,13 @@ public class MagazineController extends HttpServlet {
 			MagazineDTO dto = Common.convert(req, MagazineDTO.class);
 			mgs.magazineUpdateOk(dto);
 			
-			resp.sendRedirect("/Magazine/view?no=" + dto.getNo());
+			String isadmin = req.getParameter("isadmin");
+			if ("Y".equals(isadmin)) {
+				resp.sendRedirect("/Admin/magazine");
+			} else {
+				resp.sendRedirect("/Magazine/view?no=" + dto.getNo());
+			}
+			
 			return;
 			
 		// 글쓰기

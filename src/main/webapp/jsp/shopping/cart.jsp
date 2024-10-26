@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <div id="shopping_cart">
 	<div class="cart_modal_dim"></div>
 	<div class="select_option off">
@@ -9,6 +10,7 @@
 			</span>
 		</div>
 		
+		<!-- 옵션 변경 팝업 -->
 		<div class="body">
 			<div class="body_img">
 				<img src="/images/shopping/1000000369_main_074.jpg" alt="이미지">
@@ -93,11 +95,15 @@
 					<th>합계금액</th>
 				</tr>
 			</thead>
+			
+			<!-- 상품 목록 -->
 			<tbody id="cartItemBody"></tbody>
 		</table>
 		
+		<!-- 삭제버튼 -->
 		<button class="delete_btn" type="button" onclick="deleteCartItem();">선택 상품 삭제</button>
 		
+		<!-- 금액 -->
 		<div class="calc_cost">
 			<div>
 				<p>
@@ -118,6 +124,8 @@
 				<span>0</span>
 			</div>
 		</div>
+		
+		<!-- 버튼 -->
 		<div class="button_tab">
 			<button type="button" onclick="location.href = '/Shop/main'">쇼핑 계속하기</button>
 			<button type="button" class="btn2" onclick="showPrepare();">주문하기</button>

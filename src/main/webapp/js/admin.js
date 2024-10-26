@@ -67,7 +67,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				}
 			});
 		} else {
-			alert('삭제할 회원을 선택해주세요');
+			alert('삭제할 항목을 선택해주세요');
 		}
 	});
 	

@@ -124,6 +124,13 @@ public class MagazineDAO extends DBCP {
 		try {
 			conn = getConn();
 			
+			String mtype = dto.getMtype();
+			if ("매거진".equals(mtype)) {
+				mtype = "magazine";
+			} else if ("월간 리뷰".equals(mtype)) {
+				mtype = "review";
+			}
+			
 			String sql = "INSERT INTO MAGAZINE VALUES(SEQ_MAGAZINE.NEXTVAL, ?, ?, ?, ?, SYSDATE, ?)";
 			
 			ps = conn.prepareStatement(sql);
@@ -131,7 +138,7 @@ public class MagazineDAO extends DBCP {
 			ps.setString(2, dto.getText());
 			ps.setString(3, dto.getPoster());
 			ps.setString(4, dto.getContent());
-			ps.setString(5, dto.getMtype().equals("매거진") ? "magazine" : "review");
+			ps.setString(5, mtype);
 			
 			result = ps.executeUpdate();
 			

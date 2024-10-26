@@ -29,15 +29,27 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     // 상품 상세페이지에서 장바구니에 담기 클릭
-	// (TODO: 상품 팝업에서 클릭시 동작하도록 수정 필요함)
     const cartEl = document.querySelector('.shopping_goods .cart');
     if (cartEl) {
         cartEl.addEventListener('click', function(e) {
             e.preventDefault();
-            addToCart(this.dataset.item);
+			
+			const totalPriceElement = this.closest('.select_detail').querySelector('.total_price');
+			const isReady = window.getComputedStyle(totalPriceElement).display;
+			if (isReady === 'none') {
+				alert('가격 정보가 없거나 옵션이 선택되지 않았습니다!');
+			} else {
+				document.querySelector('#addCartLayer').style.display = 'block';
+	            addToCart(this.dataset.item);
+			}
         });
     }
 });
+
+// 상세페이지 팝업 닫기
+function cartPopClose() {
+	document.querySelector('#addCartLayer').style.display = 'none';
+}
 
 // 옵션 초기화
 function initOptionModal() {
@@ -89,8 +101,13 @@ function initUpdateButtons() {
 				cartItem.idx = target.dataset.idx;
 
 			    if (countValue > 0) {
-			        cartItem.cnt = countValue;
-			        document.querySelector('#shopping_cart .select_option .op_update').click();
+					showLoading(true);
+					
+					setTimeout(() => {
+				        cartItem.cnt = countValue;
+				        document.querySelector('#shopping_cart .select_option .op_update').click();
+						showLoading(false);
+					}, 500);
 			    } else {
 			        alert('상품 개수는 1개 이상이어야 합니다.');
 			        countInput.value = cartItem.cnt; // 원래 개수로 복원
@@ -126,8 +143,6 @@ function addToCart(itemData) {
 	// 스토리지에 저장
     itemList.push(item);
     localStorage.setItem('itemList', JSON.stringify(itemList));
-    
-    location.href = "/Shop/cart";
 }
 
 // 상품 정보 파싱
@@ -408,20 +423,26 @@ function plusCartItemCnt(operation) {
 
 // 옵션 변경 확인버튼
 function updateCartItem() {
-    const itemList = JSON.parse(localStorage.getItem('itemList')) || [];
-    
-    // 기존 상품 정보를 업데이트
-    // itemList[cartItem.idx] = { ...cartItem };
-	itemList[cartItem.idx] = cartItem;
-
-    // 로컬 스토리지에 변경된 옵션 세팅
-    localStorage.setItem('itemList', JSON.stringify(itemList));
-
-    // 장바구니 아이템 목록을 다시 세팅
-    setCartItem();
-
-    // 모달 닫기
-    document.querySelector('#shopping_cart .select_option .top .close_btn').click();
+	showLoading(true);
+	
+	setTimeout(() => {
+	    const itemList = JSON.parse(localStorage.getItem('itemList')) || [];
+	    
+	    // 기존 상품 정보를 업데이트
+	    // itemList[cartItem.idx] = { ...cartItem };
+		itemList[cartItem.idx] = cartItem;
+	
+	    // 로컬 스토리지에 변경된 옵션 세팅
+	    localStorage.setItem('itemList', JSON.stringify(itemList));
+	
+	    // 장바구니 아이템 목록을 다시 세팅
+	    setCartItem();
+	
+	    // 모달 닫기
+	    document.querySelector('#shopping_cart .select_option .top .close_btn').click();
+		
+		showLoading(false);
+	}, 500);
 }
 
 // 체크박스 상태 업데이트

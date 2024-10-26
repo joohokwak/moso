@@ -192,27 +192,42 @@ public class QuizDAO extends DBCP {
 	}
 	
 	// search 페이지
-	public List<QuizDTO> setGoods(Pagination pg, List<Map<String, String>> searchList, String sort) {
+	public List<QuizDTO> setGoods(Pagination pg, List<Map<String, String>> searchList, String sort, String id) {
 		List<QuizDTO> list = new ArrayList<QuizDTO>();
 		try {
 			conn = getConn();
 			// 숫자 외엔 검색 막기
 			String regExp = "^[0-9]+$";
 			
-			String tmp = "SELECT DISTINCT NO,																						";
-			tmp += "	   NAME,																									";
-			tmp += "	   TYPE,																									";
-			tmp += "	   TEXT,																									";
-			tmp += "	   PRICE,																									";
-			tmp += "	   POINT,																									";
-			tmp += "	   REGDATE,																									";
-			tmp += "	   SIZENAME,																								";
-			tmp += "	   POSTER,																									";
-			tmp += "	   LISTAGG(IL.MEMBER_ID, ',') WITHIN GROUP(ORDER BY IL.ITEM_NO) OVER (PARTITION BY IL.ITEM_NO) AS MEMBER_ID,";
-			tmp += "	   IL.ITEM_NO,																								";
-			tmp += "	   (SELECT COUNT(ITEM_NO) FROM ITEM_LIKE WHERE ITEM_NO = I.NO GROUP BY ITEM_NO) AS CNT						";
-			tmp += "  FROM ITEM I LEFT JOIN ITEM_LIKE IL 																			";
-			tmp += "  ON I.NO = IL.ITEM_NO WHERE 1 = 1																				";
+			StringBuilder tmp = new StringBuilder();
+			tmp.append("SELECT																											");
+	        tmp.append("	   DISTINCT I.NO																							");
+	        tmp.append("	 , I.NAME																									");
+	        tmp.append("	 , I.TYPE																									");
+	        tmp.append("	 , I.TEXT																									");
+	        tmp.append("	 , I.PRICE																									");
+	        tmp.append("	 , I.POINT																									");
+	        tmp.append("	 , I.REGDATE																								");
+	        tmp.append("	 , I.SIZENAME																								");
+	        tmp.append("	 , I.POSTER																									");
+	        tmp.append("	 , LISTAGG(IL.MEMBER_ID, ',') WITHIN GROUP(ORDER BY IL.ITEM_NO) OVER (PARTITION BY IL.ITEM_NO) AS MEMBER_ID ");
+	        tmp.append("	 , IL.ITEM_NO																								");
+	        tmp.append("	 , (																										");
+	        tmp.append("    	SELECT COUNT(ITEM_NO)																					");
+	        tmp.append("    	  FROM ITEM_LIKE																						");
+	        tmp.append("    	 WHERE ITEM_NO = I.NO																					");
+	        tmp.append("    	 GROUP BY ITEM_NO																						");
+	        tmp.append("	   ) AS CNT																									");
+	        tmp.append("	 , (																										");
+	        tmp.append("    	SELECT AVG(RATING)																						");
+	        tmp.append("    	  FROM ITEM_REVIEW																						");
+	        tmp.append("    	 WHERE ITEMNO = I.NO																					");
+	        tmp.append("    	 GROUP BY ITEMNO																						");
+	        tmp.append("	   ) AS RAITNG																								");
+		    tmp.append("  FROM ITEM I																									");
+		    tmp.append("  LEFT OUTER JOIN ITEM_LIKE IL																					");
+		    tmp.append("	ON I.NO = IL.ITEM_NO																						");
+		    tmp.append(" WHERE 1 = 1																									");
 			
 			if (!searchList.isEmpty()) {
 				for (Map<String, String> searchMap : searchList) {
@@ -223,13 +238,13 @@ public class QuizDAO extends DBCP {
 						if (key != null && keyword != null) {
 							// 검색 옵션이 상품명일 때
 							if ("goodsName".equals(key)) {
-								tmp += " AND UPPER(NAME) LIKE UPPER('%" + keyword + "%')";
-								// 검색 옵션이 상품 코드일 때
+								tmp.append(" AND UPPER(NAME) LIKE UPPER('%" + keyword + "%')");
+							// 검색 옵션이 상품 코드일 때
 							} else if ("goodsNo".equals(key) && keyword.matches(regExp)) {
-								tmp += " AND NO = " + keyword; 
-								// 검색 옵션이 상품 설명일 때
+								tmp.append(" AND NO = " + keyword); 
+							// 검색 옵션이 상품 설명일 때
 							} else if ("goodsText".equals(key)) {
-								tmp += " AND UPPER(TEXT) LIKE UPPER('%" + keyword + "%')"; 
+								tmp.append(" AND UPPER(TEXT) LIKE UPPER('%" + keyword + "%')"); 
 							}
 						}
 					}
@@ -237,10 +252,10 @@ public class QuizDAO extends DBCP {
 			}
 			
 			// 상품 검색 결과 정렬 기준
-			// 인기순
+			// 인기순 (로그인 된 경우 로그인 사용자 우선으로 정렬)
 			if (sort.equals("visit_desc")) {
-				pg.setOrderName("CNT");
-				pg.setOrder(Order.DESC_NULLS_LAST.getOrder());
+				pg.setOrderName("CASE WHEN MEMBER_ID LIKE '%" + id + "%' THEN 1 ELSE 2 END, CNT DESC NULLS LAST");
+				pg.setOrder("");
 			// 신상품순
 			} else if (sort.equals("regdate_desc")) {
 				pg.setOrderName("REGDATE");
@@ -251,28 +266,29 @@ public class QuizDAO extends DBCP {
 				pg.setOrder(Order.ASC_NULLS_LAST.getOrder());
 			// 상품평순
 			} else if (sort.equals("review_desc")) {
-				pg.setOrderName("REVIEW");
+				pg.setOrderName("RAITNG");
+				pg.setOrder(Order.DESC_NULLS_LAST.getOrder());
 			}
 			
 			// 검색 결과 개수
 			String tc = "";
 			tc += "SELECT COUNT(a.NO) CNT";
-			tc += " FROM ( ";
-			tc += tmp;
-			tc += " ) a";
+			tc += "  FROM ( ";
+			tc += tmp.toString();
+			tc += " 	  ) a";
 			
 			ps = conn.prepareStatement(tc);
-			
 			rs = ps.executeQuery();
 			
+			// 검색 내 상품 총 개수
 			int totalCount = 0;
-			if (rs.next()) totalCount = rs.getInt("cnt");
+			if (rs.next()) totalCount = rs.getInt("CNT");
 			
 			
-			String sql = pg.getQuery(conn, tmp);
+			// 검색 결과 조회
+			String sql = pg.getQuery(conn, tmp.toString());
 			
 			ps = conn.prepareStatement(sql);
-			
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {

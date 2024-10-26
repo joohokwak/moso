@@ -21,7 +21,7 @@ public class QuizServiceImpl implements QuizService{
 	}
 
 	@Override
-	public List<QuizDTO> setGoods(Pagination pg, List<Map<String, String>> searchList, String sort) {
-		return dao.setGoods(pg, searchList, sort);
+	public List<QuizDTO> setGoods(Pagination pg, List<Map<String, String>> searchList, String sort, String id) {
+		return dao.setGoods(pg, searchList, sort, id);
 	}
 }

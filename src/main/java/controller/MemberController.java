@@ -100,15 +100,22 @@ public class MemberController extends HttpServlet {
 		} else if (action.equals("/updateOk")) {
 			MemberDTO dto = Common.convert(req, MemberDTO.class);
 			int re = mService.updateMember(dto);
-			if (re > 0) req.setAttribute("msg", "정상적으로 변경되었습니다.");
-			else req.setAttribute("msg", "회원정보 변경에 실패하였습니다. 잠시후 다시 시도 하시거나 관리자에게 문의하세요.");
-			req.getSession().invalidate();
 			
-			MemberDTO user = mService.login(dto);
-			HttpSession session = req.getSession();
-			session.setAttribute("member", user);
-			
-			action = "/update";
+			String isadmin = req.getParameter("isadmin");
+			if ("Y".equals(isadmin)) {
+				resp.sendRedirect("/Admin/member");
+				return;
+				
+			} else {
+				if (re > 0) req.setAttribute("msg", "정상적으로 변경되었습니다.");
+				else req.setAttribute("msg", "회원정보 변경에 실패하였습니다. 잠시후 다시 시도 하시거나 관리자에게 문의하세요.");
+				req.getSession().invalidate();
+				
+				MemberDTO user = mService.login(dto);
+				HttpSession session = req.getSession();
+				session.setAttribute("member", user);
+				action = "/update";
+			}
 		
 		// 회원탈퇴
 		} else if (action.equals("/withdraw")) {

@@ -186,7 +186,7 @@ public class Pagination {
 		sb.append(" ) ");
 		sb.append("SELECT xx.* ");
 		sb.append(" FROM ( ");
-		sb.append(" SELECT /*+ALL_ROWS*/ ROW_NUMBER() OVER(ORDER BY yy.");
+		sb.append(" SELECT /*+ALL_ROWS*/ ROW_NUMBER() OVER(ORDER BY ");
 		sb.append(orderName);
 		sb.append(" ");
 		sb.append(order);
@@ -226,7 +226,7 @@ public class Pagination {
 		appendSearchConditions(sb);
 		
 		sb.append(" ) ");
-		sb.append("SELECT /*+ full(A) parallel(A 8) */ COUNT(1) FROM QCNT ");
+		sb.append("SELECT /*+ full(A) parallel(A 8) */ COUNT(*) FROM QCNT ");
 		
 		try (PreparedStatement ps = conn.prepareStatement(sb.toString()); ResultSet rs = ps.executeQuery()) {
 			if (rs.next()) {

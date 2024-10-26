@@ -64,7 +64,6 @@ public class AdminController extends HttpServlet {
 			req.getRequestDispatcher("/layout.jsp").forward(req, resp);
 			return;
 			
-			
 		// 매거진 목록
 		} else if (action.equals("/magazine")) {
 			MagazineService ms = new MagazineServiceImpl();
@@ -122,41 +121,16 @@ public class AdminController extends HttpServlet {
 				String tmpPath = _path.substring(_path.lastIndexOf("/"));
 				String[] noArr = _no.split(",");
 				
-				// 공지사항
-				if (tmpPath.equals("/notice")) {
-					NoticeService ns = new NoticeServiceImpl();
-					ns.deleteNotice(noArr);
-				
-				// FAQ
-				} else if (tmpPath.equals("/faq")) {
-					FaqService fs = new FaqServiceImpl();
-					fs.deleteFaq(noArr);
-					
-				// 조립 설명서
-				} else if (tmpPath.equals("/materials")) {
-					MaterialsService ms = new MaterialsServiceImpl();
-					ms.deleteMaterial(noArr);
-					
-				// 카탈로그
-				} else if (tmpPath.equals("/catalog")) {
-					CatalogService cs = new CatalogServiceImpl();
-					cs.deleteCatalog(noArr);
-					
-				// 매거진
-				} else if (tmpPath.equals("/magazine")) {
-					MagazineService ms = new MagazineServiceImpl();
-					ms.magazineDelete(noArr);
-					
-				// 쇼핑
-				} else if (tmpPath.equals("/shop")) {
-					
-				
-				// 회원
-				} else if (tmpPath.equals("/member")) {
-					MemberService ms = new MemberServiceImpl();
-					ms.memberDelete(noArr);
-					
+				switch (tmpPath) {
+				case "/notice"		: new NoticeServiceImpl().deleteNotice(noArr);		break; // 공지사항
+				case "/faq"			: new FaqServiceImpl().deleteFaq(noArr);			break; // FAQ
+				case "/materials"	: new MaterialsServiceImpl().deleteMaterial(noArr);	break; // 조립 설명서
+				case "/catalog"		: new CatalogServiceImpl().deleteCatalog(noArr);	break; // 카탈로그
+				case "/magazine"	: new MagazineServiceImpl().magazineDelete(noArr);	break; // 매거진
+				case "/member"		: new MemberServiceImpl().memberDelete(noArr);		break; // 회원
+				case "/shop"		: break; // 회원
 				}
+				
 			}
 			
 			if (_pageNum != null) _path += "?pageNum=" + _pageNum;

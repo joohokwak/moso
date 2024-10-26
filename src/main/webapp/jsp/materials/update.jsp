@@ -6,7 +6,8 @@
 	<div class="inquiry_wrap">
 		<div class="inquiry_content">
 			<div class="inquiry_admin">
-				<span><a href="#">Home</a></span> <span>글쓰기</span>
+				<span><a href="#">Home</a></span>
+				<span>수정하기</span>
 			</div>
 			
 			<div class="inquiry_section">
@@ -15,11 +16,13 @@
 				</div>
 				
 				<form action="/Materials/updateOk" class="section_main" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="no" value="${data.no }" />
+					<input type="hidden" name="isadmin" value="${param.isadmin }">
+					
 					<ul>
 						<li><span>Title</span>
 							<div class="main_field">
 								<input type="text" class="field_tit" name="title" value="${data.title }" />
-								<input type="hidden" name="no" value="${data.no }" />
 							</div>
 						</li>
 						<li>

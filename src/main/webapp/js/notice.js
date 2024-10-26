@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const noticeDelSelect = document.querySelectorAll('.admin_notice_wrap .selectedDelNo');
     if (noticeDelSelect.length) {
         noticeDelSelect.forEach(select => {
-            select.addEventListener('click', function () {
+            select.addEventListener('click', function() {
                 const no = this.dataset.no;
                 if (this.checked) {
                     delSelectedNo.push(no);
@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', function () {
 	// 글 삭제 버튼
     const noticeDelBtn = document.querySelector('.admin_notice_wrap .delete_btn');
     if (noticeDelBtn) {
-        noticeDelBtn.addEventListener('click', function () {
+        noticeDelBtn.addEventListener('click', function() {
             if (delSelectedNo.length) {
                 confirm('삭제하시겠습니까?', () => {
                     location.href = '/Notice/delete?no=' + delSelectedNo.join();
@@ -48,9 +48,9 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 	
 	// view 페이지 글삭제
-	const contentNo = document.querySelector('.notice_view_wrap .delete_btn');
+	const contentNo = document.querySelector('.notice_view .delete_btn');
 	if (contentNo) {
-		contentNo.addEventListener('click', function(){
+		contentNo.addEventListener('click', function() {
 			const cntNo = this.dataset.no;
 			
 			confirm('글을 삭제하시겠습니까?', () => {
@@ -64,20 +64,19 @@ window.addEventListener('DOMContentLoaded', function () {
 	const cancelBtnView = document.getElementById('cancel_btn');
 	const fileNamDisplayEl = document.getElementById('file_name_display');
 	if (fileInputView) {
-		fileInputView.addEventListener('change', function(){
-			if(fileInputView.files.length > 0) {
+		fileInputView.addEventListener('change', function() {
+			if (fileInputView.files.length > 0) {
 				fileNamDisplayEl.textContent = fileInputView.files[0].name; 
 				cancelBtnView.style.display = 'inline-block';
 			} else {
-				console.log('파일이 선택되지 않았습니다.');
 				cancelBtnView.style.display = 'none';
 			}
 		});
 	};
 	
 	// view 페이지에서 파일삭제 (DB에서는 삭제되지 않음)
-	if(cancelBtnView){
-		cancelBtnView.addEventListener('click', function(e){
+	if (cancelBtnView){
+		cancelBtnView.addEventListener('click', function(e) {
 			e.preventDefault();
 			
 			fileNamDisplayEl.textContent = '';
@@ -89,16 +88,16 @@ window.addEventListener('DOMContentLoaded', function () {
 	const cancelBtnUpdate = document.getElementById('cancel_btn_update');
 	const noticeUpdate = document.querySelector('.notice_file_update');
 	const noticeUpdateId = document.getElementById('notice_file_update');
-	if(cancelBtnUpdate){
-		cancelBtnUpdate.addEventListener('click', function(e){
+	if (cancelBtnUpdate) {
+		cancelBtnUpdate.addEventListener('click', function(e) {
 			e.preventDefault();
 			noticeUpdate.value = '';
 			cancelBtnUpdate.style.display = 'none';
 		});
 	}
 	
-	if(noticeUpdateId) {
-		noticeUpdateId.addEventListener('change', function(){
+	if (noticeUpdateId) {
+		noticeUpdateId.addEventListener('change', function() {
 			noticeUpdate.value = noticeUpdateId.files[0].name;
 			cancelBtnUpdate.style.display = 'inline-block';
 		});

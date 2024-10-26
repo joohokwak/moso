@@ -184,6 +184,7 @@
 	left: 0;
 	padding: 7px;
 	height: 54px;
+	cursor: pointer;
 }
 
 #shopping .shopping_view .filter .select_toggle::after {
