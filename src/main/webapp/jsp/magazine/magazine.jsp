@@ -16,7 +16,7 @@
 				</ul>
 			</div>
 			<div class="brand_admin">
-				<span><a href="#">Home</a></span>
+				<span><a href="/">Home</a></span>
 				<span>브랜드</span>
 				<span>매거진</span>
 			</div>
@@ -59,9 +59,7 @@
 			</div>
 			
 			<!-- 페이징 -->
-			<div class="pagination">
-				${paging }
-			</div>
+			<div class="pagination">${paging }</div>
 		</div>
 	</div>
 </div>

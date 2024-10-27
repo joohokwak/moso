@@ -4,7 +4,7 @@
 <div class="materials_wrap">
 	<div class="inner">
 		<div class="materials_top">
-			<span><a href="#">Home</a></span>
+			<span><a href="/">Home</a></span>
 			<span>고객서비스</span>
 			<span>조립설명서</span>
 		</div>

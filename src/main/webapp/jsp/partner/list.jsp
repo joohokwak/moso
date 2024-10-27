@@ -3,7 +3,7 @@
 <div class="partner_wrap">
 	<div class="inner">
 		<div class="contents_nav">
-			<span><a href="#">Home</a></span>
+			<span><a href="/">Home</a></span>
 			<span>매장안내</span>
 			<span>지누스 파트너 숙소</span>
 		</div>
@@ -39,12 +39,13 @@
 				</div>
 				<div>
 					<ul class="info_ul">
-						<li class="span_list"><strong>구비 제품</strong>
-						<ul>
-							<li>포레스트워크 S 하이브리드 스프링 매트리스 (30cm/퀸)</li>
-							<li>포레스트워크 S&nbsp;메모리폼 매트리스(30cm/퀸)</li>
-							<li>그린티&nbsp;4단 메모리폼 토퍼&nbsp;(10cm/퀸)</li>
-						</ul>
+						<li class="span_list">
+							<strong>구비 제품</strong>
+							<ul>
+								<li>포레스트워크 S 하이브리드 스프링 매트리스 (30cm/퀸)</li>
+								<li>포레스트워크 S&nbsp;메모리폼 매트리스(30cm/퀸)</li>
+								<li>그린티&nbsp;4단 메모리폼 토퍼&nbsp;(10cm/퀸)</li>
+							</ul>
 						</li>
 					</ul>
 				</div>
@@ -62,21 +63,12 @@
 			</div>
 
 			<div>
+				<div><img src="/images/login/partner_img2_1.png" alt="숙소 이미지"></div>
 				<div>
-					<img src="/images/login/partner_img2_1.png" alt="숙소 이미지">
+					<div><img src="/images/login/partner_img2_2.png" alt="숙소 이미지"></div>
+					<div><img src="/images/login/partner_img2_3.png" alt="숙소 이미지"></div>
 				</div>
-		
-				<div>
-					<div>
-						<img src="/images/login/partner_img2_2.png" alt="숙소 이미지">
-					</div>
-					<div>
-						<img src="/images/login/partner_img2_3.png" alt="숙소 이미지">
-					</div>
-				</div>
-				<div>
-					<img src="/images/login/partner_img2_4.png" alt="숙소 이미지">
-				</div>
+				<div><img src="/images/login/partner_img2_4.png" alt="숙소 이미지"></div>
 			</div>
     	</div>
 	</div>

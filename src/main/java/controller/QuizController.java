@@ -53,9 +53,6 @@ public class QuizController extends HttpServlet {
 			String sort 		= req.getParameter("sort");
 			String reSearch 	= req.getParameter("reSearch");
 			
-			// 기본 정렬값 설정
-			if (sort == null) sort = "visit_desc";
-			
 			if (headerSearch != null) {
 				key = "goodsName";
 				keyword = headerSearch;
@@ -65,8 +62,22 @@ public class QuizController extends HttpServlet {
 			Map<String, String> searchMap = new HashMap<>();
 			searchMap.put(key, keyword);
 			
+			// 결과내 재검색
 			if (reSearch == null) searchList.clear();
-			searchList.add(searchMap);
+			
+			boolean isExists = false;
+			for (Map<String, String> map : searchList) {
+				if (map.equals(searchMap)) {
+					isExists = true;
+					break;
+				}
+			}
+			
+			// 동일 검색어가 존재하는 경우 제외
+			if (!isExists) searchList.add(searchMap);
+			
+			// 기본 정렬값 설정
+			if (sort == null) sort = "visit_desc";
 			
 			String strNum = req.getParameter("pageNum");
 			int pageNum = strNum != null ? Integer.parseInt(strNum) : 1;

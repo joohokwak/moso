@@ -14,18 +14,18 @@ window.addEventListener('DOMContentLoaded', function() {
 			wish.addEventListener('click', function(e) {
 				e.preventDefault();
 				
-				if(this.dataset.islogin === "true"){
-					
-					fetch(`/Shop/like?like=${this.dataset.no}`).then(res => res.json()).then(data => {
-						if(data != 0) {
+				if (this.dataset.islogin === "true") {
+					post(`/Shop/like?like=${this.dataset.no}`, {}, (data) => {
+						if (data !== 0) {
 							let src = this.children[0].src;
+							
 							if (src.indexOf('off') != -1) {
 								this.children[0].src = src.replace('wish_off.png', 'wish_on.png');
 							} else {
 								this.children[0].src = src.replace('wish_on.png', 'wish_off.png');
 							}
 						}
-					}).catch(err => console.log(err));
+					});
 					
 				} else {
 					alert("로그인하셔야 본 서비스를 이용하실 수 있습니다.", () => {
