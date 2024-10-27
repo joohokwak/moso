@@ -4,7 +4,8 @@
 	<div class="inquiry_wrap">
 		<div class="inquiry_content">
 			<div class="inquiry_admin">
-				<span><a href="#">Home</a></span> <span>글쓰기</span>
+				<span><a href="/">Home</a></span>
+				<span>글쓰기</span>
 			</div>
 			
 			<div class="inquiry_section">
@@ -14,13 +15,13 @@
 				
 				<form action="/Notice/writeOk" class="section_main" method="post" enctype="multipart/form-data">
 					<ul>
-						<li><span>제목</span>
+						<li>
+							<span>제목</span>
 							<div class="main_field">
 								<input type="text" class="field_tit" name="title" />
 							</div>
 						</li>
 						<li>
-						
 							<span>내용</span>
 							<div class="main_field">
 								<textarea id="writeEditor" name="content" class="field_txt" data-editor></textarea>
@@ -43,6 +44,7 @@
 						<button type="submit" class="save" onclick="location.href='/Notice/writeOk'" >확인</button>
 					</div>
 				</form>
+				
 			</div>
 		</div>
 	</div>

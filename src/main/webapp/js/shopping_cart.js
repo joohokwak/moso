@@ -1,4 +1,4 @@
-let cartItem = {};
+let cartItem = {}; // 임시 이벤트 요소를 담기 위한 변수
 
 window.addEventListener('DOMContentLoaded', function() {
     // 장바구니 페이지 인 경우
@@ -35,7 +35,9 @@ window.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
 			
 			const totalPriceElement = this.closest('.select_detail').querySelector('.total_price');
+			// 이벤트 요소 상태를 확인하기 위해 window 객체의 getComputedStyle 함수 이용
 			const isReady = window.getComputedStyle(totalPriceElement).display;
+			// 옵션이 모두 선택 되었는지 체크
 			if (isReady === 'none') {
 				alert('가격 정보가 없거나 옵션이 선택되지 않았습니다!');
 			} else {
@@ -57,6 +59,7 @@ function initOptionModal() {
     const showOption = document.querySelector('#shopping_cart .select_option');
     const cartModal = document.querySelector('.cart_modal_dim');
 
+	// 닫기 버튼 이벤트
     if (closeBtn) {
         closeBtn.addEventListener('click', function() {
             showOption.classList.add('off');
@@ -65,12 +68,15 @@ function initOptionModal() {
             cartItem = {};
         });
     }
-
+	
+	// 옵션 팝업 닫기 버튼
     const modalCancelBtn = document.querySelector('#shopping_cart .select_option .op_cancel');
     if (modalCancelBtn) {
         modalCancelBtn.addEventListener('click', () => closeBtn.click());
     }
 
+	// 옵션 변경 팝업 내 선택 창 이벤트
+	// 동적 생성된 태그 이므로 이벤트가 중첩될수 있으므로 기존 이벤트 삭제 후 이벤트 연결
     const selectOp = document.querySelectorAll('#shopping_cart .select_option .select_wrap1');
     if (selectOp) {
         selectOp.forEach(v => {
@@ -87,9 +93,11 @@ function initOptionModal() {
 
 // 수정 버튼 이벤트
 function initUpdateButtons() {
+	// 동적으로 생성된 태그 이므로 정적 태그에서 부터 접근
     const cntUpdateBtns = document.querySelector('#cartItemBody');
     if (cntUpdateBtns) {
 		cntUpdateBtns.addEventListener('click', function(e) {
+			// 이벤트 버블링을 이용해 접근하는 방식
 			const target = e.target.closest('.number_input button');
 			if (target) {
 				e.preventDefault();
@@ -97,9 +105,12 @@ function initUpdateButtons() {
 				const countInput = target.previousElementSibling;
 			    const countValue = parseInt(countInput.value);
 			    
+				// item 요소 얻기
 			    cartItem = JSON.parse(target.dataset.item);
+				// 개수 얻기
 				cartItem.idx = target.dataset.idx;
-
+				
+				// 개수가 1개 이상인 경우에만
 			    if (countValue > 0) {
 					showLoading(true);
 					
@@ -124,7 +135,7 @@ function addToCart(itemData) {
     
 	// 상품 정보 파싱
     const item = parseItemData(itemData);
-    
+	
     // 사이즈
     const _size = document.querySelector('.size .active');
     item.size = _size.textContent;
@@ -133,15 +144,31 @@ function addToCart(itemData) {
     const _shipping = document.querySelector('.delivery .active');
     item.loc = _shipping.textContent;
     item.plusPrice = getShippingPrice(item.loc);
-    
-	// 기본 상품 개수
-    item.cnt = 1;
 	
-	// 상품 총액
-    item.totalPrice = document.querySelector('.total_price em').textContent.replaceAll(',', '');
-
+	let itemFound = false;
+	// 동일 제품이 장바구니에 있는지 체크해서 수량만 업데이트
+	for (let _item of itemList) {
+		// 제품코드, 사이즈, 설치/배송 여부가 동일한지 체크
+		if (_item.no === item.no && _item.size === item.size && _item.loc === item.loc) {
+			itemFound = true;
+			_item.cnt += 1;
+			break;
+		}
+	}
+	
+	// 동일 제품이 없는 경우에만 다시 담기
+    if (!itemFound) {
+		// 기본 상품 개수
+	    item.cnt = 1;
+		
+		// 상품 총액
+	    item.totalPrice = document.querySelector('.total_price em').textContent.replaceAll(',', '');
+	
+		// 배열에 담기
+	    itemList.push(item);
+	}
+	
 	// 스토리지에 저장
-    itemList.push(item);
     localStorage.setItem('itemList', JSON.stringify(itemList));
 }
 
@@ -166,10 +193,10 @@ function getShippingPrice(location) {
 	for (const loc of locations) {
 	    if (location.includes(loc)) {
 			switch(location) {
-		        case '수도권': return 16000;
-		        case '지방': return 30000;
-		        case '제주도': return 46000;
-		        default: return 0;
+	        case '수도권': return 16000;
+	        case '지방': return 30000;
+	        case '제주도': return 46000;
+	        default: return 0;
 		    }
 	    }
 	}
@@ -177,14 +204,17 @@ function getShippingPrice(location) {
 
 // 장바구니 아이템 세팅
 function setCartItem() {
+	//	장바구니에 담긴 상품이 없는 경우 기본값을 배열로 세팅하기 위해
     const itemList = JSON.parse(localStorage.getItem('itemList')) || [];
     
     let data = '';
+	// 총액을 구하기 위해 reduce 누산 함수 사용
     let sumPrice = itemList.reduce((sum, item) => sum + parseInt(item.totalPrice * item.cnt), 0);
-
+	
     if (itemList.length) {
         itemList.forEach((item, idx) => {
             const _op = JSON.stringify(item);
+			
             data += `
                 <tr>
                     <td align="center">
@@ -221,6 +251,7 @@ function setCartItem() {
                 </tr>
             `;
         });
+		
     } else {
         data += '<tr><td colspan="7" align="center" height="86">장바구니에 담겨있는 상품이 없습니다.</td></tr>';
     }
@@ -241,8 +272,10 @@ function handleSizeOption(size) {
         'LK': 1.2
     };
     
-    cartItem.size = size; // 사이즈명 세팅
-    return sizeMultiplier[size] || 1; // 기본값 1 반환
+	// 변경된 사이즈 정보 세팅
+    cartItem.size = size;
+	// 기본값 1 반환
+    return sizeMultiplier[size] || 1;
 }
 
 // 지역별 설치배송 금액 변경
@@ -266,15 +299,16 @@ function handleShipOption(location) {
 	
 	// 변경된 금액 정보 세팅
 	cartItem.plusPrice = shippingCosts[cartItem.loc];
-	
-    return shippingCosts[cartItem.loc] || 0; // 기본값 0 반환
+	// 기본값 0 반환
+    return shippingCosts[cartItem.loc] || 0;
 }
 
 // 옵션/수량 변경 모달에서 사이즈/설치배송 옵션 변경 클릭
 function handleOptionClick(e) {
     const selectedText = e.currentTarget.innerText;
     const optionWrap = e.target.closest('.select_wrap1');
-    optionWrap.children[0].innerText = selectedText; // 선택한 옵션 텍스트 설정
+	// 선택한 옵션 텍스트 설정
+    optionWrap.children[0].innerText = selectedText;
 
     const originalSize = document.querySelector('.select_option .size_names > button').innerText;
     const originalShipping = document.querySelector('.select_option .shippings > button').innerText;
@@ -353,6 +387,7 @@ function deleteCartItem() {
 			// 체크박스 상태 업데이트
 			updateCheckboxState();
 		});
+		
     } else {
         alert('선택하신 상품이 없습니다.');
     }
@@ -391,7 +426,7 @@ function changeCartItem(item, index) {
     updatePriceDisplay(cartItem.totalPrice);
 }
 
-// 사이즈 옵션 업데이트
+// 사이즈 옵션 세팅
 function updateSizeOptions(sizeNames) {
     const modalSizeName = document.querySelector('.select_option .size_names');
     modalSizeName.innerHTML = '';

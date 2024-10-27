@@ -66,9 +66,7 @@
 					</div>
 					
 					<!-- 페이징 -->
-					<div class="pagination">
-						${paging }
-					</div>
+					<div class="pagination">${paging }</div>
 				</div>
 			</div>
 		</div>

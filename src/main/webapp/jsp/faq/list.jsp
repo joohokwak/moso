@@ -4,7 +4,7 @@
 <div class="faq_wrap">
 	<div class="inner">
 		<div class="faq_top">
-			<span><a href="#">Home</a></span>
+			<span><a href="/">Home</a></span>
 			<span>고객서비스</span>
 			<span>FAQ</span>
 		</div>

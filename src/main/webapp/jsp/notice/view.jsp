@@ -13,6 +13,7 @@
 					<li><a href="#">공지사항/공시</a></li>
 				</ul>
 			</div>
+			
 			<div class="notice_view_wrap">
 				<div class="notice_view_head">
 					<div class="notice_view_tit">
@@ -30,18 +31,20 @@
 					<c:if test="${fn:length(dto.nfile) > 0 }">
 						<div class="notice_view_info">
 							<strong>첨부파일</strong>
-								<h2>
-									<a class="filename" href="/Notice/filedownload?nfile=${dto.nfile }&ofile=${dto.ofile}" >${dto.ofile }</a>
-								</h2>
+							<h2>
+								<a class="filename" href="/Notice/filedownload?nfile=${dto.nfile }&ofile=${dto.ofile}" >${dto.ofile }</a>
+							</h2>
 						</div>
 					</c:if>
 				</div>
 			</div>
 			<div class="notice_view_body">${dto.content }</div>
 		</div>
+		
 		<div class="section_bottom">
 			<button type="submit" class="save" onclick="location.href='/Notice/list'" >목록보기</button>
 		</div>
+		
 		<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
 			<button class="btn update_btn" onclick="location.href='/Notice/update?no=${dto.no}'" >수정</button>
 			<button class="btn delete_btn" data-no="${dto.no }">삭제</button>

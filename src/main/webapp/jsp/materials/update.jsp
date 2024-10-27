@@ -6,7 +6,7 @@
 	<div class="inquiry_wrap">
 		<div class="inquiry_content">
 			<div class="inquiry_admin">
-				<span><a href="#">Home</a></span>
+				<span><a href="/">Home</a></span>
 				<span>수정하기</span>
 			</div>
 			
