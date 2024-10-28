@@ -147,16 +147,17 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 	// rvwrite 작성
 	const gorvwrite = document.querySelector('#view_review .board_write');
-	if(gorvwrite) {
+	if (gorvwrite) {
 		const user = gorvwrite.dataset.user;
 		const itemno = gorvwrite.dataset.no;
 		const url = '/Shop/rvwrite?itemno=' + itemno;
 		const name = 'rvwirte';
 		const option = 'width=1125, height=1000, left=500';
+		
 		gorvwrite.addEventListener('click', function() {
 //			type 비교(typeof)
 //			console.log(typeof user);
-			if(user === '1') {
+			if (user === '1') {
 				window.open(url, name, option);				
 			} else {
 				alert('로그인하셔야 본 서비스를 이용하실 수 있습니다.', () => {
@@ -184,19 +185,20 @@ window.addEventListener('DOMContentLoaded', function() {
 				const  rvdelete = e.target.closest('.display_view').querySelector('.rv_btn .rvdelete');
 				
 				// 리뷰 업데이트 페이지 로딩
-				if(rvupdate) {
-						const no = rvupdate.dataset.no;
-						const itemno = rvupdate.dataset.itemno;
-						const url = '/Shop/rvupdate?itemno=' + itemno + '&rvno=' + no;
-						const name = 'rvupdate';
-						const option = 'width=1125, height=1000, left=500';
-						rvupdate.addEventListener('click', function(e) {
-							e.preventDefault();
-							window.open(url, name, option);				
-						});
-					}
+				if (rvupdate) {
+					const no = rvupdate.dataset.no;
+					const itemno = rvupdate.dataset.itemno;
+					const url = '/Shop/rvupdate?itemno=' + itemno + '&rvno=' + no;
+					const name = 'rvupdate';
+					const option = 'width=1125, height=1000, left=500';
+					rvupdate.addEventListener('click', function(e) {
+						e.preventDefault();
+						window.open(url, name, option);				
+					});
+				}
+					
 				// 리뷰 삭제
-				if(rvdelete) {
+				if (rvdelete) {
 					const no = rvdelete.dataset.no;
 					const itemno = rvdelete.dataset.itemno;
 					
@@ -208,8 +210,6 @@ window.addEventListener('DOMContentLoaded', function() {
 	        }	
 		});
 	}
-	
-	
 	
 	const showDetail = document.querySelector('#view_info .detail_more_box .table i');
 	const detailBox = document.querySelector('#view_info .detail_more_box');
@@ -261,24 +261,24 @@ window.addEventListener('DOMContentLoaded', function() {
 	
 	// Q&A 등록 버튼
 	const qna = document.querySelector('.shopping_borad .board_top .board_btn .qna');
-	if(qna) {
+	if (qna) {
 		qna.addEventListener('click', function() {
-			window.location.href = `/Shop/write?itemno=${this.dataset.no}`;
+			location.href = `/Shop/write?itemno=${this.dataset.no}`;
 		});
 	}
 	
 	// Q&A 글 내용 토글
 	// 정적 태그
 	const qnaView = document.querySelector('#view_question .board_body');
-	if(qnaView) {
+	if (qnaView) {
 		qnaView.addEventListener('click', function(e) {
 			// 동적 태그 (접근 방식)
-	        const target = e.target.closest('.display_view .board_content a');
-			const no = target.dataset.no;
-			const admin = target.dataset.user;
+	        const target = e.target.closest('.display_view tr:nth-of-type(1) .board_content a');
 			
 	        if (target) {
 	            e.preventDefault();
+				const no = target.dataset.no;
+				const admin = target.dataset.user;
 				
 				if (target.dataset.secret === 'false') {
 					target.closest('.display_view').classList.toggle('on');
@@ -289,7 +289,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				} else {
 					prompt('글작성 시 설정한 비밀번호를 입력하세요.', (pass) => {
 						post('/Shop/check', {no, pass}, data => {						
-							if(data === '1') {
+							if (data === '1') {
 								target.closest('.display_view').classList.add('on');
 							} else {
 								alert('비밀번호가 일치하지 않습니다.');
@@ -317,36 +317,19 @@ window.addEventListener('DOMContentLoaded', function() {
 				
 				prompt('글작성 시 설정한 비밀번호를 입력하세요.', (pass) => {
 					if (pass) {
-//						post('/Shop/check', {no, pass}, (data) => {
-//							console.log(data);
-//							if(data === '0') {
-//								location.href = `/Shop/write?no=${no}`;
-//							} else {
-//								alert('비밀번호가 일치하지 않습니다.');
-//							}
-//						});
-						fetch('/Shop/check', {
-							method: 'post',
-							headers: {
-								"Content-Type": "application/json",
-							},
-							// 'key' : value 동일 
-							body: JSON.stringify({no, pass})
-						}).then(res => res.json()).then(data => {
-							
+						post('/Shop/check', {no, pass}, (data) => {
 							if (data === '1') {
 								if (delBtn) {
 									post('/Shop/qnadelete', {no}, () => {
 										location.reload();
 									});
-								} else {								
+								} else {
 									location.href = `/Shop/update?itemno=${itemno}&qnano=${no}`;
 								}
 							} else {
 								alert('비밀번호가 일치하지 않습니다.');
 							}
-							
-						}).catch(err => console.log(err));
+						});
 					}
 				});
 				
@@ -379,7 +362,6 @@ window.addEventListener('DOMContentLoaded', function() {
 //		});
 //	}
 	
-		
 	// Q&A 페이징
 	const qnaPaing = document.querySelectorAll('#view_question .page_num');
 	if (qnaPaing) {
@@ -433,16 +415,15 @@ function handleSetReview(data) {
 			let file = '';
 			let user = '';
 		
-			if(rv.secret > 0) {
+			if (rv.secret > 0) {
 				tmp = '<img class="secret_img" src="/images/shopping/icon_board_secret.png" alt="비밀글">';
 			}
-			if(rv.content.indexOf('<img') != -1) {
+			if (rv.content.indexOf('<img') != -1) {
 				file = '<img src="/images/shopping/icon_board_attach_file.png"alt="file">';
 			}
-			if(rv.writer == id || admin == 'Y') {
+			if (rv.writer == id || admin == 'Y') {
 				user = 'active';
 			}
-			
 			
 			reviewTxt += `
 			<tbody class="display_view">
@@ -520,7 +501,7 @@ function handleSetQna(data) {
 			if (qna.secret > 0) {
 				tmp = '<img src="/images/shopping/icon_board_secret.png" alt="비밀글">';
 			}
-			if(user == 'Y') {
+			if (user == 'Y') {
 				admin = 'active';
 				isadmin = 'isadmintrue';
 			}
@@ -536,7 +517,7 @@ function handleSetQna(data) {
 							<span>
 							 	${tmp}
 							</span>
-							<a href="#" data-no="${qna.no }"  data-secret='${qna.secret > 0}' data-user="${isadmin}">${qna.title }</a>
+							<a href="#" data-no="${qna.no }" data-secret='${qna.secret > 0}' data-user="${isadmin }">${qna.title }</a>
 						</td>
 						<td width="112">
 							<p>${qna.writer }</p>
@@ -545,7 +526,7 @@ function handleSetQna(data) {
 							<p class="center">${qna.regdate }</p>
 						</td>
 						<td width="112">
-							<p class="center">${answreYes}</p>
+							<p class="center">${answreYes }</p>
 						</td>
 					</tr>
 					<tr>
@@ -563,10 +544,10 @@ function handleSetQna(data) {
 					<tr>
 						<td colspan='4' class="board_content display_none">
 							<span><img src="/images/shopping/a.png" alt="답변"></span>
-							<p>${answre}</p>
-							<div id="admin_ans" class="${admin}">
-								<button onclick="location.href='/Shop/answre?itemno=${qna.itemno }&qnano=${qna.no}'" data-itemno="${qna.itemno }" data-no="${qna.no }" class="ansBtn" >작성/수정</button>
-								<button onclick="location.href='/Shop/ansdelete?itemno=${qna.itemno }&qnano=${qna.no}'" class="ansBtn" >삭제</button>
+							<p>${answre }</p>
+							<div id="admin_ans" class="${admin }">
+								<button onclick="location.href='/Shop/answre?itemno=${qna.itemno }&qnano=${qna.no }'" data-itemno="${qna.itemno }" data-no="${qna.no }" class="ansBtn">작성/수정</button>
+								<button onclick="location.href='/Shop/ansdelete?itemno=${qna.itemno }&qnano=${qna.no }'" class="ansBtn">삭제</button>
 							</div>
 						</td>
 					</tr>
@@ -577,5 +558,4 @@ function handleSetQna(data) {
 		const qnaBody = document.querySelector('#view_question .board_body');
 		qnaBody.innerHTML = qnaTxt;
 	}
-	
 }

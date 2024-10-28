@@ -31,9 +31,9 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="list" items="${list }">
+					<c:forEach var="list" items="${list }">
 					<tr>
-						<td class="delete_col"  data-isadmin="${member.isadmin eq 'Y' }">
+						<td class="delete_col" data-isadmin="${member.isadmin eq 'Y' }">
 							<label class="checkbox">
 								<input type="checkbox" class="blind selectedDelNo" name="delSelNo" data-no="${list.no }" />
 							</label>
@@ -48,7 +48,13 @@
 						<td class="notice_date">${list.regdate }</td>
 						<td class="notice_visit">${list.visitcount }</td>
 					</tr>
-				</c:forEach>
+					</c:forEach>
+					<c:if test="${empty list }">
+					<tr>
+						<td data-isadmin="${member.isadmin eq 'Y' }"></td>
+						<td colspan="4">등록된 게시글이 존재하지 않습니다.</td>
+					</tr>
+					</c:if>
 				</tbody>
 			</table>
 			

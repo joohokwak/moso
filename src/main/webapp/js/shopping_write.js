@@ -90,41 +90,29 @@ window.addEventListener('DOMContentLoaded', function() {
 	
 	// rvwrite - radio관련
 	const radioInput = document.querySelector('#shopping_write .mradio .rating_input');
-	if(radioInput) {
+	if (radioInput) {
 		const srradio = document.querySelectorAll('#shopping_write .inradio');
-		const ratingNum = radioInput.dataset.rating;
+		
 		if (srradio) {
-			const intarr = ['5', '4', '3', '2', '1'];
-			if(ratingNum){			
-				srradio[(5 - parseInt(ratingNum))].classList.add('active');
-			} else if(!ratingNum){
-				srradio[0].classList.add('active');
-			}
 			// radio value 적용
 			srradio.forEach((item, idx) => {
-				item.addEventListener('click', function(e){
-	//				siblings(e.currentTarget).forEach(i => {
-	//					i.classList.remove('active');
-	//				});
+				item.addEventListener('click', function() {
 					srradio.forEach(v => v.classList.remove('active'));
 					item.classList.toggle('active');
-					radioInput.setAttribute('value', intarr[idx]);
-					
+					radioInput.setAttribute('value', 5 - idx);
 				});
 			});
 		}
 	}
 	
-	
-	
-	
 	// submit 후 닫기
 	const subBtn = document.querySelector('#openpopup_btn');
-	if(subBtn) {		
+	if (subBtn) {		
 		subBtn.addEventListener('click', function() {
 			const rvtitle = document.querySelector('#shopping_write input[name=title]');
 			const rvcontent =  document.querySelector('#shopping_write .ql-editor p');
 			const ratingNum = radioInput.dataset.rating;
+			
 			if (rvtitle.value === '') { 
 				alert('제목을 입력해주세요.', () => rvtitle.focus());
 				return;
@@ -133,27 +121,17 @@ window.addEventListener('DOMContentLoaded', function() {
 				alert('내용을 입력해주세요.');
 				return;
 			}
-			if(ratingNum) {
-				if (rvtitle.value.trim() != '' && rvcontent.innerHTML.trim().length > 0 ) {				
-					fetch('/Shop/rvupdateOk', {
-			              method: 'POST',
-			              body: new FormData(document.querySelector('#shopping_write form'))
-			          }).then(() => {
-			              // 응답 처리 후 팝업창 닫기
-			              window.close();
-			          });
-				}
-			}else if(!ratingNum) {				
-				if (rvtitle.value.trim() != '' && rvcontent.innerHTML.trim().length > 0 ) {				
-					fetch('/Shop/rvwriteOk', {
-			              method: 'POST',
-			              body: new FormData(document.querySelector('#shopping_write form'))
-			          }).then(() => {
-			              // 응답 처리 후 팝업창 닫기
-			              window.close();
-			          });
-				}
-			}
+			
+			const url = ratingNum ? '/Shop/rvupdateOk' : '/Shop/rvwriteOk';
+	        fetch(url, {
+	            method: 'POST',
+	            body: new FormData(document.querySelector('#shopping_write form'))
+	        }).then(() => {
+				if (window.opener) {
+		            window.opener.location.reload();
+		        }
+				window.close();
+			});
 		});
 	}	
 });

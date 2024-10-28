@@ -128,3 +128,8 @@
 .faq_content_right ul li:has(.on) .faq_a::after {
 	background-position: 0 -6px;
 }
+
+.faq_content_right .no_data {
+	text-align: center;
+	padding: 20px 0;
+}
