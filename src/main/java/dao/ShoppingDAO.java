@@ -253,6 +253,7 @@ public class ShoppingDAO extends DBCP {
 			sql += " 	 , TO_CHAR(REGDATE, 'YYYY-MM-DD') AS REGDATE		";
 			sql += " 	 , CONTENT                 							";
 			sql += "	 , RATING                 			 				";
+			sql += "	 , SECRET                 			 				";
 			sql += "	 , ITEMNO                  							";
 			sql += "  FROM ITEM_REVIEW          							";
 			sql += " WHERE ITEMNO = " + num;
@@ -272,6 +273,7 @@ public class ShoppingDAO extends DBCP {
 				dto.setRegdate(rs.getString("REGDATE"));
 				dto.setContent(rs.getString("CONTENT"));
 				dto.setRating(rs.getInt("RATING"));
+				dto.setSecret(rs.getInt("SECRET"));
 				dto.setItemno(rs.getInt("ITEMNO")); 
 				
 				list.add(dto);
@@ -571,59 +573,110 @@ public class ShoppingDAO extends DBCP {
 		return result;
 	}
 	
-	
-//	public void ansUpdate() {
-//		try {
-//			String sql = 
-//				    "MERGE INTO QNA q " +
-//				    "USING (SELECT ? AS NO, ? AS CATE, ? AS WRITER, ? AS PASS, ? AS TITLE, ? AS QUESTION, ? AS ANSWRE, SYSDATE AS REGDATE, ? AS ITEMNO, ? AS SECRET FROM DUAL) data " +
-//				    "ON (q.NO = data.NO) " +
-//				    "WHEN MATCHED THEN " +
-//				    "  UPDATE SET " +
-//				    "    q.CATE = data.CATE, " +
-//				    "    q.WRITER = data.WRITER, " +
-//				    "    q.PASS = data.PASS, " +
-//				    "    q.TITLE = data.TITLE, " +
-//				    "    q.QUESTION = data.QUESTION, " +
-//				    "    q.ANSWRE = data.ANSWRE, " +
-//				    "    q.REGDATE = data.REGDATE, " +
-//				    "    q.ITEMNO = data.ITEMNO, " +
-//				    "    q.SECRET = data.SECRET " +
-//				    "WHEN NOT MATCHED THEN " +
-//				    "  INSERT (NO, CATE, WRITER, PASS, TITLE, QUESTION, ANSWRE, REGDATE, ITEMNO, SECRET) " +
-//				    "  VALUES (SEQ_QNA.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE, ?, ?)";
-//				    
-//				PreparedStatement pstmt = conn.prepareStatement(sql);
-//
-//				// 값을 설정 (Java 코드에서 가져오는 값)
-//				pstmt.setInt(1, no); // NO (이 값이 중복 여부를 결정함)
-//				pstmt.setString(2, cate); // CATE
-//				pstmt.setString(3, writer); // WRITER
-//				pstmt.setString(4, pass); // PASS
-//				pstmt.setString(5, title); // TITLE
-//				pstmt.setString(6, question); // QUESTION
-//				pstmt.setString(7, answer); // ANSWRE
-//				pstmt.setInt(8, itemno); // ITEMNO
-//				pstmt.setInt(9, secret); // SECRET
-//
-//				// INSERT 부분의 값들 (NO는 SEQ_QNA.NEXTVAL이므로 생략)
-//				pstmt.setString(10, cate); // CATE
-//				pstmt.setString(11, writer); // WRITER
-//				pstmt.setString(12, pass); // PASS
-//				pstmt.setString(13, title); // TITLE
-//				pstmt.setString(14, question); // QUESTION
-//				pstmt.setString(15, answer); // ANSWRE
-//				pstmt.setInt(16, itemno); // ITEMNO
-//				pstmt.setInt(17, secret); // SECRET
-//
-//				// 실행
-//				pstmt.executeUpdate();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			
-//		}
-//	}
+	public ItemReviewDTO reviewOne(int rvno) {
+		
+		conn = getConn();
+		ItemReviewDTO dto = null;
+		
+		try {
+			
+			String sql = "";
+			sql += "SELECT NO"
+					+ ", TITLE"
+					+ ", WRITER"
+					+ ", CONTENT"
+					+ ", RATING"
+					+ ", SECRET"
+					+ ", ITEMNO "
+					+ "FROM ITEM_REVIEW "
+					+ "WHERE NO = ?";
+			
+			
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, rvno);
+			
+			rs = ps.executeQuery();
+			
+			
+			while(rs.next()) {
+				dto = new ItemReviewDTO();
+
+				dto.setNo(rs.getInt("NO"));
+				dto.setTitle(rs.getString("TITLE"));
+				dto.setWriter(rs.getString("WRITER"));
+				dto.setContent(rs.getString("CONTENT"));
+				dto.setRating(rs.getInt("RATING"));
+				dto.setSecret(rs.getInt("SECRET"));
+				dto.setItemno(rs.getInt("ITEMNO"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return dto;
+	}
+
+	public int rvupdate(ItemReviewDTO dto) {
+		
+		conn = getConn();
+		int result = 0;
+		
+		try {
+		
+			String sql = "";
+			sql += "UPDATE ITEM_REVIEW SET        ";
+			sql +=	 "  TITLE = ?                 ";
+			sql +=	 " , WRITER = ?               ";
+			sql +=	 " , CONTENT = ?              ";
+			sql +=	 " , REGDATE = SYSDATE        ";
+			sql +=	 " , RATING = ?               ";
+			sql +=	 " , SECRET = ?               ";
+			sql +=	 " WHERE NO = ?               ";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getWriter());
+			ps.setString(3, dto.getContent());
+			ps.setInt(4, dto.getRating());
+			ps.setInt(5, dto.getSecret());
+			ps.setInt(6, dto.getNo());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		
+		return result;
+	}
+
+	public int rvdelete(int rvno) {
+		
+		conn = getConn();
+		int result = 0;
+		
+		try {
+			
+			String sql = "DELETE ITEM_REVIEW WHERE NO = " + rvno;
+			
+			ps = conn.prepareStatement(sql);
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		
+		
+		return result;
+	}
 	
 }

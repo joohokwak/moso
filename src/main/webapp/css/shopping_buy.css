@@ -747,7 +747,6 @@
 	background: #003628;
 	color: #fff;
 }
-
 .shopping_borad .board_body td {
 	padding: 12px 0 13px;
 	border-bottom: 1px solid #dbdbdb;
@@ -783,6 +782,11 @@
 	height: auto;
 	
 }
+#view_review .board_body .board_content .secret_img {
+    margin: 4px;
+    width: 11px;
+    height: 100%;
+}
 #view_review .board_body .board_content strong {
 	font-weight: 700;
 }
@@ -799,9 +803,12 @@
 	margin: 0 6px;
 }
 #view_review .board_body .rv_btn {
-	display: flex;
+	display: none;
 	gap:5px;
 	text-align: center;
+}
+#view_review .board_body .rv_btn.active{
+	display:flex;
 }
 #view_review .board_body .rv_btn a {
 	font-size: 12px;
@@ -811,6 +818,9 @@
     background: #c7c7c7;
     color:#fff;
     display: block;
+}
+#view_review .board_body .rv_btn a:hover {
+	background: #979797;
 }
 #view_question .board_body .board_content img {
 	margin: 4px;

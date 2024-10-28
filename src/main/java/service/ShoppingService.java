@@ -35,4 +35,10 @@ public interface ShoppingService {
 	int ansCreate(int no, String ans);
 	
 	int rvwrite(ItemReviewDTO dto);
+	
+	int rvupdate(ItemReviewDTO dto);
+	
+	ItemReviewDTO reviewOne(int rvno);
+
+	int rvdelete(int rvno);
 }

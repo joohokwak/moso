@@ -33,7 +33,7 @@
 						<td class="input_txt">
 							<div class="mradio">
 								<c:forEach begin="1" end="5" varStatus="vs">
-									<div class="inradio ${vs.first ? 'active' : '' }" data-rating="${6 - vs.count}">
+									<div class="inradio" data-rating="${6 - vs.count}">
 										<span><i class="circle"></i></span>
 										<div class="rating">
 											<c:forEach begin="${vs.count}" end="5">
@@ -44,8 +44,8 @@
 											</c:forEach>
 										</div>
 									</div>
-									<input type="hidden" name="ratings" value="${6 - vs.count }"></input>
 								</c:forEach>
+								<input class="rating_input" type="hidden" name="rating" value="5"></input>
 							</div>
 						</td>
 					</tr>

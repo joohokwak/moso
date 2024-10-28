@@ -138,7 +138,7 @@ public class ShoppingController extends HttpServlet {
 						
 			shopSer.qnaCreate(qnaCre);
 			
-			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
+			resp.sendRedirect("/Shop/buy?itemno=" + itemno + "#view_question");
 			return;
 			
 		 // 리뷰 페이징
@@ -156,6 +156,7 @@ public class ShoppingController extends HttpServlet {
 			Map<String, Object> resMap = new HashMap<>();
 			resMap.put("reviewAll", reviewAll);
 			resMap.put("paging", pg.paging(req));
+//			if(user != null) resMap.put("member", user);
 			
 			Common.jsonResponse(resp, resMap);
 			return;
@@ -185,7 +186,7 @@ public class ShoppingController extends HttpServlet {
 			
 			if (qnaOne.getPass().equals(pass)) {
 				check = '1';
-			}
+			} 
 			
 			Common.jsonResponse(resp, check);
 			return;
@@ -208,7 +209,7 @@ public class ShoppingController extends HttpServlet {
 			
 			shopSer.qnaUpdate(qnaUp);
 			
-			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
+			resp.sendRedirect("/Shop/buy?itemno=" + itemno + "#view_question");
 			return;
 			
 		// Q&A 삭제
@@ -231,17 +232,17 @@ public class ShoppingController extends HttpServlet {
 			req.setAttribute("qna", qnaOne);
 			req.setAttribute("item", writeItem);
 		
-		// 답변 달기 
+		// Q&A 답변 달기 
 		} else if(action.equals("/answreOk")) {
 			int num = Integer.parseInt(req.getParameter("no"));
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
 			String ans = req.getParameter("answre");
 			shopSer.ansCreate(num, ans);
 			
-			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
+			resp.sendRedirect("/Shop/buy?itemno=" + itemno + "#view_question");
 			return;
 			
-		// 답변 삭제
+		// Q&A 답변 삭제
 		} else if (action.equals("/ansdelete")) {
 			int num = Integer.parseInt(req.getParameter("qnano"));
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
@@ -249,21 +250,48 @@ public class ShoppingController extends HttpServlet {
 			String ans = "";
 			shopSer.ansCreate(num, ans);
 			
-			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
+			resp.sendRedirect("/Shop/buy?itemno=" + itemno + "#view_question");
 			return;
 			
 		// review write
 		} else if(action.equals("/rvwrite")) {
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
+			
 			ShoppingDTO writeItem = shopSer.writeItem(itemno);
 			req.setAttribute("item", writeItem);
 			
 		// 리뷰 작성	
 		} else if(action.equals("/rvwriteOk")) {
-			int rating = Integer.parseInt(req.getParameter("ratings"));
 			ItemReviewDTO dto = Common.convert(req, ItemReviewDTO.class);
-			dto.setRating(rating);
 			shopSer.rvwrite(dto);	
+		
+			return;
+			
+		// 리뷰 업데이트 페이지
+		} else if(action.equals("/rvupdate")) {
+			int itemno = Integer.parseInt(req.getParameter("itemno"));
+			int rvno = Integer.parseInt(req.getParameter("rvno"));
+			
+			ShoppingDTO writeItem = shopSer.writeItem(itemno);
+			ItemReviewDTO reviewOne = shopSer.reviewOne(rvno);
+			
+			req.setAttribute("item", writeItem);
+			req.setAttribute("rv", reviewOne);
+			
+		// 리뷰 업데이트	
+		} else if(action.equals("/rvupdateOk")) {
+			ItemReviewDTO rvUpdate = Common.convert(req, ItemReviewDTO.class);
+			shopSer.rvupdate(rvUpdate);
+			return;
+			
+		// 리뷰 삭제
+		} else if(action.equals("/rvdelete")) {
+			int rvno = Integer.parseInt(req.getParameter("rvno"));
+			int itemno = Integer.parseInt(req.getParameter("itemno"));
+			
+			shopSer.rvdelete(rvno);
+			
+			resp.sendRedirect("/Shop/buy?itemno=" + itemno + "#view_review");
 			return;
 		}
 		
