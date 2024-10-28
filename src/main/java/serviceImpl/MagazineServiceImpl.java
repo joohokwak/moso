@@ -20,6 +20,11 @@ public class MagazineServiceImpl implements MagazineService {
 	}
 	
 	@Override
+	public int magazineCount(String mtype) {
+		return dao.magazineCount(mtype);
+	}
+	
+	@Override
 	public MagazineDTO magazineView(int no) {
 		return dao.magazineView(no);
 	}

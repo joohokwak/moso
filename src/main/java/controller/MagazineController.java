@@ -35,6 +35,7 @@ public class MagazineController extends HttpServlet {
 			pg.getSearchMap().put("mtype", "magazine");
 			pg.setPageSize(9);
 			
+			req.setAttribute("count", mgs.magazineCount("magazine"));
 			req.setAttribute("magazine", mgs.magazineList(pg));
 			req.setAttribute("paging", pg.paging(req));
 			
@@ -51,6 +52,7 @@ public class MagazineController extends HttpServlet {
 			pg.getSearchMap().put("mtype", "review");
 			pg.setPageSize(8);
 			
+			req.setAttribute("count", mgs.magazineCount("review"));
 			req.setAttribute("magazine", mgs.magazineList(pg));
 			req.setAttribute("paging", pg.paging(req));
 			

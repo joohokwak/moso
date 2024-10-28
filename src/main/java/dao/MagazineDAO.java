@@ -49,6 +49,33 @@ public class MagazineDAO extends DBCP {
 		return mglist;
 	}
 	
+	// 게시글 개수 
+	public int magazineCount(String mtype) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			String sql = "SELECT COUNT(*) FROM MAGAZINE WHERE MTYPE = ?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, mtype);
+			
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
+	} 
+	
 	// 상세보기
 	public MagazineDTO magazineView(int no) {
 		MagazineDTO mview = null;
