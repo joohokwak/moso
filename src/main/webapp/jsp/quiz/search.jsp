@@ -48,19 +48,19 @@
 			<fieldset class="order_sort">
 				<legend>정렬</legend>
 				<ul class="sort_wrap">
-					<li class="${param.sort eq 'visit_desc' ? 'on' : '' }">
+					<li class="${sort eq 'visit_desc' ? 'on' : '' }">
 						<input type="radio" id="sort1" name="sort" value="visit_desc" checked>
 						<label for="sort1">인기순</label>
 					</li>
-					<li class="${param.sort eq 'regdate_desc' ? 'on' : '' }">
+					<li class="${sort eq 'regdate_desc' ? 'on' : '' }">
 						<input type="radio" id="sort2" name="sort" value="regdate_desc">
 						<label for="sort2">신상품순</label>
 					</li>
-					<li class="${param.sort eq 'price_desc' ? 'on' : '' }">
+					<li class="${sort eq 'price_desc' ? 'on' : '' }">
 						<input type="radio" id="sort3" name="sort" value="price_desc">
 						<label for="sort3">가격순</label>
 					</li>
-					<li class="${param.sort eq 'review_desc' ? 'on' : '' }">
+					<li class="${sort eq 'review_desc' ? 'on' : '' }">
 						<input type="radio" id="sort4" name="sort" value="review_desc">
 						<label for="sort4">상품평순</label>
 					</li>

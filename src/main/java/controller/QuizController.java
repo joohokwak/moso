@@ -91,6 +91,7 @@ public class QuizController extends HttpServlet {
 			String id = (member != null) ? member.getId() : "";
 			
 			List<QuizDTO> searchAll = qs.setGoods(pg, searchList, sort, id);
+			req.setAttribute("sort", sort);
 			req.setAttribute("search", searchAll);
 			req.setAttribute("paging", pg.paging(req));
 			req.setAttribute("searchKeywords", searchList);
