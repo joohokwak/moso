@@ -169,17 +169,48 @@ window.addEventListener('DOMContentLoaded', function() {
 	// 리뷰 내용 보기
 	const reviewView = document.querySelector('#view_review .board_body');
 	if (reviewView) {
+		let id = reviewView.dataset.id;
+		let admin = reviewView.dataset.admin;
 		reviewView.addEventListener('click', function(e) {
 	        const target = e.target.closest('.display_view .board_content a');
 	        if (target) {
-	            e.preventDefault();
-				
+				e.preventDefault();
+				const secret = target.dataset.secret;
 				const display = e.target.closest('.display_view').querySelector('tr + .display');
-				if (display) display.classList.toggle('none');
-	        }
+				const writer = e.target.closest('.display_view').querySelector('.review_writer').innerText;
+				if (secret == 0 || writer == id || admin == 'Y') display.classList.toggle('none');
+				
+				const  rvupdate = e.target.closest('.display_view').querySelector('.rv_btn .rvupdate');
+				const  rvdelete = e.target.closest('.display_view').querySelector('.rv_btn .rvdelete');
+				
+				// 리뷰 업데이트 페이지 로딩
+				if(rvupdate) {
+						const no = rvupdate.dataset.no;
+						const itemno = rvupdate.dataset.itemno;
+						const url = '/Shop/rvupdate?itemno=' + itemno + '&rvno=' + no;
+						const name = 'rvupdate';
+						const option = 'width=1125, height=1000, left=500';
+						rvupdate.addEventListener('click', function(e) {
+							e.preventDefault();
+							window.open(url, name, option);				
+						});
+					}
+				// 리뷰 삭제
+				if(rvdelete) {
+					const no = rvdelete.dataset.no;
+					const itemno = rvdelete.dataset.itemno;
+					
+					rvdelete.addEventListener('click', function(e) {
+						e.preventDefault();
+						location.href =`/Shop/rvdelete?itemno=${itemno}&rvno=${no}`;	
+					});
+				}
+	        }	
 		});
 	}
-
+	
+	
+	
 	const showDetail = document.querySelector('#view_info .detail_more_box .table i');
 	const detailBox = document.querySelector('#view_info .detail_more_box');
 	const detailImage = document.querySelector('#view_info .detail_more_box .more_size');
@@ -203,8 +234,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	      reviewPaing.addEventListener('click', function(e) {
 	         const target = e.target.closest('#view_review .pagination .page_num');
 	         if (target) {
-	            e.preventDefault();
-	            
+		            e.preventDefault();
 	            if (!target.classList.contains('active')) {
 	               let pageNum = target.getAttribute('href').match(/pageNum=(\d+)/)[1];
 	               
@@ -251,6 +281,8 @@ window.addEventListener('DOMContentLoaded', function() {
 	            e.preventDefault();
 				
 				if (target.dataset.secret === 'false') {
+					target.closest('.display_view').classList.toggle('on');
+				} else if (admin == 'isadmintrue') {
 					target.closest('.display_view').classList.toggle('on');
 				} else if (admin == 'isadmintrue') {
 					target.closest('.display_view').classList.toggle('on');
@@ -390,41 +422,64 @@ function comma(str) {
 function handleSetReview(data) {
 	if (data) {
 		let reviewTxt = '';
+		const reviewView = document.querySelector('#view_review .board_body');
+		let id = reviewView.dataset.id;
+		let admin = reviewView.dataset.admin;
 		
 		for (const rv of data) {
 			// 별점 생성
 	        const star = createStarRating(rv.rating);
+			let tmp = '';
+			let file = '';
+			let user = '';
+		
+			if(rv.secret > 0) {
+				tmp = '<img class="secret_img" src="/images/shopping/icon_board_secret.png" alt="비밀글">';
+			}
+			if(rv.content.indexOf('<img') != -1) {
+				file = '<img src="/images/shopping/icon_board_attach_file.png"alt="file">';
+			}
+			if(rv.writer == id || admin == 'Y') {
+				user = 'active';
+			}
+			
 			
 			reviewTxt += `
-				<tbody class="display_view">
-					<tr>
-						<td width="110">
-							<span class="rating">
-								${star}
-							</span>
-						</td>
-						<td class="board_content">
-							<a href="#">${rv.title }</a>
-							<span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span>
-						</td>
-						<td width="112" align="center">
-							<p>${rv.writer }</p>
-						</td>
-						<td width="112">
-							<p class="center">${rv.regdate }</p>
-						</td>
-					</tr>
-					<tr class="display none">
-						<td></td>
-						<td class="board_content">
-							<div class="board_main_content">
-								${rv.content }
-							</div>
-						</td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
+			<tbody class="display_view">
+				<tr>
+					<td width="110">
+						<span class="rating">
+							${star}
+						</span>
+					</td>
+					<td class="board_content">
+						${tmp}
+						<a href="#" data-secret="${rv.secret }">${rv.title }</a>
+						<span>${file}</span>
+					</td>
+					<td width="112" align="center">
+						<p class="review_writer">${rv.writer }</p>
+					</td>
+					<td width="112">
+						<p class="center">${rv.regdate }</p>
+					</td>
+				</tr>
+				<tr class="display none">
+					<td></td>
+					<td class="board_content">
+						<div class="board_main_content">
+							${rv.content }
+						</div>
+					</td>
+					<td></td>
+					<td>
+						<div class="rv_btn ${user}">
+							<a href="#" class="rvupdate" data-no="${rv.no }" data-itemno="${rv.itemno }" >수정</a>
+							<a href="#">삭제</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
 			`;
 		}
 		
@@ -436,7 +491,7 @@ function handleSetReview(data) {
 // 별점 생성 함수
 function createStarRating(rating) {
     let stars = '';
-
+	
     // 별점 이미지 생성
     for (let i = 0; i < rating; i++) {
         stars += '<img src="/images/shopping/star-fill.png" alt="별점">';
@@ -453,11 +508,25 @@ function createStarRating(rating) {
 function handleSetQna(data) {
 	if (data) {
 		let qnaTxt = '';
+		const qnaView = document.querySelector('#view_review .board_body');
+		let user = qnaView.dataset.admin;
 		
 		for (const qna of data ) {
 			let tmp = '';
+			let admin ='';
+			let isadmin = '';
+			let answre = '&nbsp;';
+			let answreYes = '';
 			if (qna.secret > 0) {
 				tmp = '<img src="/images/shopping/icon_board_secret.png" alt="비밀글">';
+			}
+			if(user == 'Y') {
+				admin = 'active';
+				isadmin = 'isadmintrue';
+			}
+			if (qna.answre) {
+				answre = '${qna.answre}';
+				answreYes = '답변완료';
 			}
 			
 			qnaTxt += `
@@ -467,7 +536,7 @@ function handleSetQna(data) {
 							<span>
 							 	${tmp}
 							</span>
-							<a href="#" data-secret='${qna.secret > 0}'>${qna.title }</a>
+							<a href="#" data-no="${qna.no }"  data-secret='${qna.secret > 0}' data-user="${isadmin}">${qna.title }</a>
 						</td>
 						<td width="112">
 							<p>${qna.writer }</p>
@@ -476,7 +545,7 @@ function handleSetQna(data) {
 							<p class="center">${qna.regdate }</p>
 						</td>
 						<td width="112">
-							<p class="center">답변완료</p>
+							<p class="center">${answreYes}</p>
 						</td>
 					</tr>
 					<tr>
@@ -486,7 +555,7 @@ function handleSetQna(data) {
 						</td>
 						<td class="display_none" >
 							<div class="qna_btn">
-								<a href="#" data-itemno="${qna.itemno }" data-no="${qna.no }" >수정</a>
+								<a href="#" data-itemno="${qna.itemno }" data-no="${qna.no }">수정</a>
 								<a href="#">삭제</a>
 							</div>
 						</td>
@@ -494,7 +563,11 @@ function handleSetQna(data) {
 					<tr>
 						<td colspan='4' class="board_content display_none">
 							<span><img src="/images/shopping/a.png" alt="답변"></span>
-							<p>${qna.answre }&nbsp;</p>
+							<p>${answre}</p>
+							<div id="admin_ans" class="${admin}">
+								<button onclick="location.href='/Shop/answre?itemno=${qna.itemno }&qnano=${qna.no}'" data-itemno="${qna.itemno }" data-no="${qna.no }" class="ansBtn" >작성/수정</button>
+								<button onclick="location.href='/Shop/ansdelete?itemno=${qna.itemno }&qnano=${qna.no}'" class="ansBtn" >삭제</button>
+							</div>
 						</td>
 					</tr>
 				</tbody>

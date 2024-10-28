@@ -80,4 +80,19 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public int rvwrite(ItemReviewDTO dto) {
 		return dao.rvwrite(dto);
 	}
+
+	@Override
+	public ItemReviewDTO reviewOne(int rvno) {
+		return dao.reviewOne(rvno);
+	}
+
+	@Override
+	public int rvupdate(ItemReviewDTO dto) {
+		return dao.rvupdate(dto);
+	}
+
+	@Override
+	public int rvdelete(int rvno) {
+		return dao.rvdelete(rvno);
+	}
 }

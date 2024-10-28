@@ -418,7 +418,7 @@
 							<button class="board_write" data-no="${dto.no }" data-user="${not empty member.id ? 1 : 0 }">리뷰 등록</button>
 						</div>
 					</div>
-					<table class="board_body">
+					<table class="board_body" data-id="${member.id}" data-admin="${member.isadmin }" >
 						<c:forEach var="rv" items="${review }">
 							<tbody class="display_view">
 								<tr>
@@ -433,11 +433,14 @@
 										</span>
 									</td>
 									<td class="board_content">
-										<a href="#">${rv.title }</a>
+										<c:if test="${rv.secret > 0}">
+											<img class="secret_img" src="/images/shopping/icon_board_secret.png" alt="비밀글">
+									 	</c:if>	
+										<a href="#" data-secret="${rv.secret }">${rv.title }</a>
 										<span><c:if test='${fn:indexOf(rv.content, "<img") != -1 }'><img src="/images/shopping/icon_board_attach_file.png"alt="file"></c:if></span>
 									</td>
 									<td width="112" align="center">
-										<p>${rv.writer }</p>
+										<p class="review_writer">${rv.writer }</p>
 									</td>
 									<td width="112">
 										<p class="center">${rv.regdate }</p>
@@ -452,9 +455,9 @@
 									</td>
 									<td></td>
 									<td>
-  										<div class="rv_btn">
-											<a href="#" data-itemno="${dto.no }" data-no="${qna.no }" class="rv_modify" >수정</a>
-											<a href="#" data-no="${qna.no }" class="rv_delete">삭제</a>
+  										<div class="rv_btn ${member.isadmin == 'Y' || member.id == rv.writer ? 'active' : '' }">
+											<a href="#" class="rvupdate" data-no="${rv.no }" data-itemno="${dto.no }" >수정</a>
+											<a href="#" class="rvdelete" data-no="${rv.no }" data-itemno="${dto.no }" >삭제</a>
 										</div>
 									</td>
 								</tr>
@@ -534,7 +537,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div id="view_service">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>
