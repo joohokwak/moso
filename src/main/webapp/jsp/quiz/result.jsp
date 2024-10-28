@@ -47,32 +47,13 @@
 										<em class="bar"></em>
 										<em class="price">
 											최저
-											<span><fmt:formatNumber value="${m.price }" pattern="#,###" /></span>
+											<span><fmt:formatNumber value="${m.price}" pattern="#,###" /></span>
 											원
 										</em>
 									</b>
 								</a>
 							</div>
 							</c:forEach>
-<!-- 							<div class="recommend"> -->
-<!-- 								<a href="#"> -->
-<!-- 									<div class="img_wrap"> -->
-<!-- 										<img src="/images/quiz/1000000034_detail_050.jpg" alt="얼티마 하이브리드 스프링 매트리스" title="얼티마 하이브리드 스프링 매트리스"> -->
-<!-- 									</div> -->
-<!-- 									<div class="info"> -->
-<!-- 										<h3>그린티 하이브리드 스프링 매트리스</h3> -->
-<!-- 										<p class="summary"> -->
-<!-- 											*아이코일®기술로 안정감 있게 지지<br>*지누스 스테디셀러 -->
-<!-- 										</p> -->
-<!-- 										<span class="bar"></span> -->
-<!-- 										<p class="price"> -->
-<!-- 											최저 -->
-<!-- 											<span>154,000</span> -->
-<!-- 											원 -->
-<!-- 										</p> -->
-<!-- 									</div> -->
-<!-- 								</a> -->
-<!-- 							</div> -->
 						</div>
 					</div>
 				</div>

@@ -71,56 +71,61 @@
 		<!-- 결과 -->
 		<div class="search_result">
 			<ul>
-			<c:forEach var="item" items="${search }">
-				<li>
-					<div class="goods_space">
-						<div class="thumbnail">
-							<a href="#" class="wish" data-no="${item.no }" data-islogin="${not empty member }">
-							<c:set var="mids" value="${fn:split(item.memberid, ',') }"/>
-	                        <c:set var="isInWishlist" value="false"/>
-	                        <c:forEach var="mid" items="${mids}">
-	                            <c:if test="${mid eq member.id }">
-	                               <c:set var="isInWishlist" value="true"/>
-	                              <img alt="위시리스트" src="/images/shopping/wish_on.png">
-	                            </c:if>
-	                        </c:forEach>
-	                        <c:if test="${not isInWishlist}">
-	                            <img alt="위시리스트" src="/images/shopping/wish_off.png">
-	                        </c:if>
-							</a>
-							<a href="/Shop/buy?itemno=${item.no }">
-								<img src="/images/shopping/${item.poster }" alt="${item.name }">
-							</a>
+			<c:if test="${not empty search }">
+				<c:forEach var="item" items="${search }">
+					<li>
+						<div class="goods_space">
+							<div class="thumbnail">
+								<a href="#" class="wish" data-no="${item.no }" data-islogin="${not empty member }">
+								<c:set var="mids" value="${fn:split(item.memberid, ',') }"/>
+		                        <c:set var="isInWishlist" value="false"/>
+		                        <c:forEach var="mid" items="${mids}">
+		                            <c:if test="${mid eq member.id }">
+		                               <c:set var="isInWishlist" value="true"/>
+		                              <img alt="위시리스트" src="/images/shopping/wish_on.png">
+		                            </c:if>
+		                        </c:forEach>
+		                        <c:if test="${not isInWishlist}">
+		                            <img alt="위시리스트" src="/images/shopping/wish_off.png">
+		                        </c:if>
+								</a>
+								<a href="/Shop/buy?itemno=${item.no }">
+									<img src="/images/shopping/${item.poster }" alt="${item.name }">
+								</a>
+							</div>
+							<div class="txt_wrap">
+								<a href="/Shop/buy?itemno=${item.no }">
+									<strong>${item.name }</strong>
+									<span>${item.text }</span>
+								</a>
+							</div>
+							<div class="lowest_price">
+								<span>최저 <strong><fmt:formatNumber value="${item.price }" pattern="#,###"/></strong>원</span>
+							</div>
+							<div class="type">
+								<c:if test="${item.point eq 'H'  }"><img src="/images/shopping/H_01.png" alt="단단한"></c:if>
+								<c:if test="${item.point eq 'MH' }"><img src="/images/shopping/H_02.png" alt="적당히 단단한"></c:if>
+								<c:if test="${item.point eq 'M'  }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
+								<c:if test="${item.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
+								<c:forEach var="size" items="${fn:split(item.sizename, ',') }">
+									<c:choose>
+										<c:when test="${size eq 'LK' }"><img src="/images/shopping/S_01.png" alt="LK"></c:when>
+										<c:when test="${size eq 'K'  }"><img src="/images/shopping/S_02.png" alt="K"></c:when>
+										<c:when test="${size eq 'Q'  }"><img src="/images/shopping/S_03.png" alt="Q"></c:when>
+										<c:when test="${size eq 'SS' }"><img src="/images/shopping/S_04.png" alt="SS"></c:when>
+										<c:when test="${size eq 'S'  }"><img src="/images/shopping/S_05.png" alt="S"></c:when>
+										<c:otherwise></c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
 						</div>
-						<div class="txt_wrap">
-							<a href="/Shop/buy?itemno=${item.no }">
-								<strong>${item.name }</strong>
-								<span>${item.text }</span>
-							</a>
-						</div>
-						<div class="lowest_price">
-							<span>최저 <strong><fmt:formatNumber value="${item.price }" pattern="#,###"/></strong>원</span>
-						</div>
-						<div class="type">
-							<c:if test="${item.point eq 'H'  }"><img src="/images/shopping/H_01.png" alt="단단한"></c:if>
-							<c:if test="${item.point eq 'MH' }"><img src="/images/shopping/H_02.png" alt="적당히 단단한"></c:if>
-							<c:if test="${item.point eq 'M'  }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
-							<c:if test="${item.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
-							<c:forEach var="size" items="${fn:split(item.sizename, ',') }">
-								<c:choose>
-									<c:when test="${size eq 'LK' }"><img src="/images/shopping/S_01.png" alt="LK"></c:when>
-									<c:when test="${size eq 'K'  }"><img src="/images/shopping/S_02.png" alt="K"></c:when>
-									<c:when test="${size eq 'Q'  }"><img src="/images/shopping/S_03.png" alt="Q"></c:when>
-									<c:when test="${size eq 'SS' }"><img src="/images/shopping/S_04.png" alt="SS"></c:when>
-									<c:when test="${size eq 'S'  }"><img src="/images/shopping/S_05.png" alt="S"></c:when>
-									<c:otherwise></c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</div>
-					</div>
-				</li>
-			</c:forEach>
+					</li>
+				</c:forEach>
+			</c:if>
 			</ul>
+			<c:if test="${empty search}">
+				<div class="no_data">상품이 존재하지 않습니다.</div>
+			</c:if>
 		</div>
 		
 		<!-- 페이징 -->

@@ -41,30 +41,35 @@
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="ct" items="${catalog }">
+							<c:if test="${not empty catalog }">
+								<c:forEach var="ct" items="${catalog }">
+									<tr>
+										<td class="col_no">${ct.no }</td>
+										<td class="col_tit">
+											<a href="/Catalog/view?no=${ct.no }">${ct.title }</a>
+											<c:if test="${not empty ct.ofile }">
+												<img src="/images/catalog/icon_board_attach_file.png" alt="파일첨부 있음">
+											</c:if>
+											<c:if test="${ct.visitcount ge 10 }">
+												<img src="/images/catalog/icon_board_hot.png" alt="인기글">
+											</c:if>	
+										</td>
+										<td class="col_postdate">${ct.regdate }</td>
+										<td class="col_visicount">${ct.visitcount }</td>
+									</tr>
+								</c:forEach>
+							</c:if>
+							<c:if test="${empty catalog }">
 								<tr>
-									<td class="col_no">${ct.no }</td>
-									<td class="col_tit">
-										<a href="/Catalog/view?no=${ct.no }">${ct.title }</a>
-										<c:if test="${not empty ct.ofile }">
-											<img src="/images/catalog/icon_board_attach_file.png" alt="파일첨부 있음">
-										</c:if>
-										<c:if test="${ct.visitcount ge 10 }">
-											<img src="/images/catalog/icon_board_hot.png" alt="인기글">
-										</c:if>	
-									</td>
-									<td class="col_postdate">${ct.regdate }</td>
-									<td class="col_visicount">${ct.visitcount }</td>
+									<td colspan="4" align="center" class="no_data">게시글이 존재하지 않습니다.</td>
 								</tr>
-							</c:forEach>
+							</c:if>
 							</tbody>
 						</table>
 					</div>
-					
 					<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
 						<button class="btn write_btn">글쓰기</button>
 					</div>
-					
 					<!-- 페이징 -->
 					<div class="pagination">${paging }</div>
 				</div>

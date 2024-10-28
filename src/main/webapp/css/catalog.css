@@ -73,6 +73,7 @@
 	border: 1px solid #ddd;
 	border-radius: 20px;
 	padding: 0 40px;
+	color: #717171;
 }
 
 #catalog_content .search_frm input[type=text]::placeholder {
@@ -101,14 +102,23 @@
 	color: #ACACAC;
 	border-bottom: 1px solid #ededed;
 }
+#catalog_content .catalog_table .no_data {
+	color: #444;
+}
 
 #catalog_content .catalog_table .col_tit {
 	width: 100%;
-	color: #444;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	word-break: break-all;
+}
+#catalog_content .catalog_table .col_tit a {
+	color: #444;
+	font-weight: 500;
+}
+#catalog_content .catalog_table .col_tit a:hover {
+	text-decoration: underline;
 }
 
 #catalog_content .catalog_table .col_tit img {
@@ -117,14 +127,4 @@
 
 #catalog_content .col_no, .col_postdate, .col_visicount {
 	text-align: center;
-}
-
-/* 카탈로그 수정 페이지 */
-.catalog .main_field label {
-	display: inline-block;
-	color: #FFF; 
-	background: var(--point-color1); 
-}
-.catalog .main_field .catalog_file_update {
-	display: block;
 }

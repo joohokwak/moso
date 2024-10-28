@@ -91,3 +91,14 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 	
 });
+
+function checkNum(e) {
+	var keyVal = e.keyCode;
+
+	if (((keyVal >= 48) && (keyVal <= 57))) {
+		return true;
+	} else {
+		alert("숫자만 입력가능합니다");
+		return false;
+	}
+}

@@ -235,6 +235,7 @@ public class QuizDAO extends DBCP {
 						String key = entry.getKey();
 						String keyword = entry.getValue();
 						
+						// 검색조건, 검색키워드가 있을 때
 						if (key != null && keyword != null) {
 							// 검색 옵션이 상품명일 때
 							if ("goodsName".equals(key)) {

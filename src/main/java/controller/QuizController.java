@@ -57,7 +57,6 @@ public class QuizController extends HttpServlet {
 				key = "goodsName";
 				keyword = headerSearch;
 			}
-			
 			// 결과 내 재검색 기능
 			Map<String, String> searchMap = new HashMap<>();
 			searchMap.put(key, keyword);
