@@ -79,8 +79,8 @@ public class CatalogController extends HttpServlet {
 		// 수정하기 페이지
 		} else if (action.equals("/update")) {
 			int num = Integer.parseInt(req.getParameter("no"));
+
 			req.setAttribute("update", cs.selectOne(num));
-			System.out.println(cs.selectOne(num));
 
 		// 수정 버튼 클릭
 		} else if (action.equals("/updateOk")) {
@@ -88,11 +88,8 @@ public class CatalogController extends HttpServlet {
 			Map<String, String> uploadMap = Common.fileUpload(req, "files/catalog");
 
 			if (uploadMap != null) {
-				String nfile = uploadMap.get("nfile");
-				String ofile = uploadMap.get("ofile");
-
-				dto.setOfile(ofile);
-				dto.setNfile(nfile);
+				dto.setOfile(uploadMap.get("nfile"));
+				dto.setNfile(uploadMap.get("ofile"));
 			}
 			
 			

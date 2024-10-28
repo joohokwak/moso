@@ -518,3 +518,9 @@ header .top_util .cart {
 	margin-right: 5px;
 	height: 30px;
 }
+
+#search_content div .no_data {
+	line-height: 60px;
+	text-align: center;
+	color: #717171;
+}

@@ -27,11 +27,8 @@
 						</li>
 						<li>
 							<span>파일</span>
-							<div class="main_field">
-								<label for="catalog_file_update">파일 선택</label>
-								<input class="catalog_file_update" value="${update.ofile }"  placeholder="첨부파일" />
-								<input type="file" class="field_file" id="file" name="file" style="display:none;"/>
-								<button type="button" id="cancle_btn_update" class="catalog_cancle_btn">X</button>
+							<div class="main_field catalog_file_field">
+								<input type="file" class="field_file" id="file" name="file"/>
 							</div>
 						</li>
 					</ul>

@@ -147,50 +147,50 @@ public class CatalogDAO extends DBCP {
 			// insertNo에 시퀀스를 변수로 담기
 			if (rs.next()) {
 				insertNo = rs.getInt(1);
-			}
 
-			// insertNo가 0보다 크면 CATALOG c 에 담기
-			if (insertNo > 0) {
-				conn.setAutoCommit(false);
-
-				sql = "INSERT INTO CATALOG VALUES (?, ?, ?, SYSDATE, 0)";
-
-				ps = conn.prepareStatement(sql);
-				ps.setInt(1, insertNo);
-				ps.setString(2, dto.getTitle());
-				ps.setString(3, dto.getContent());
-
-				result = ps.executeUpdate();
-
-				// insert 성공했다면 파일 업로드 여부 체크
-				if (result > 0) {
-					// 파일 업로드를 할 때
-					if (dto.getOfile() != null) {
-						sql = "INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, ?, ?, SYSDATE, ?)";
-
-						ps = conn.prepareStatement(sql);
-						ps.setString(1, dto.getOfile());
-						ps.setString(2, dto.getNfile());
-						ps.setInt(3, insertNo);
-
-						result = ps.executeUpdate();
-
-						// insert 성공하면 커밋
-						if (result > 0) {
-							conn.commit();
-
-						// 실패하면 catalog, catalog_file 모두 롤백
+				// insertNo가 0보다 크면 CATALOG c 에 담기
+				if (insertNo > 0) {
+					conn.setAutoCommit(false);
+	
+					sql = "INSERT INTO CATALOG VALUES (?, ?, ?, SYSDATE, 0)";
+	
+					ps = conn.prepareStatement(sql);
+					ps.setInt(1, insertNo);
+					ps.setString(2, dto.getTitle());
+					ps.setString(3, dto.getContent());
+	
+					result = ps.executeUpdate();
+	
+					// insert 성공했다면 파일 업로드 여부 체크
+					if (result > 0) {
+						// 파일 업로드를 할 때
+						if (dto.getOfile() != null) {
+							sql = "INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, ?, ?, SYSDATE, ?)";
+	
+							ps = conn.prepareStatement(sql);
+							ps.setString(1, dto.getOfile());
+							ps.setString(2, dto.getNfile());
+							ps.setInt(3, insertNo);
+	
+							result = ps.executeUpdate();
+	
+							// insert 성공하면 커밋
+							if (result > 0) {
+								conn.commit();
+	
+							// 실패하면 catalog, catalog_file 모두 롤백
+							} else {
+								conn.rollback();
+							}
+	
+							// 파일 업로드 없이 커밋
 						} else {
-							conn.rollback();
+							conn.commit();
 						}
-
-						// 파일 업로드 없이 커밋
-					} else {
-						conn.commit();
 					}
 				}
-			}
-
+		}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -209,44 +209,58 @@ public class CatalogDAO extends DBCP {
 
 			conn.setAutoCommit(false);
 
-			String sql = "UPDATE CATALOG c SET TITLE = ?, CONTENT = ? WHERE NO = ?";
+			// 카탈로그 테이블
+			String sqlC = "UPDATE CATALOG c SET TITLE = ?, CONTENT = ? WHERE NO = ?";
 
-			ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sqlC);
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getContent());
 			ps.setInt(3, dto.getNo());
 
-			result = ps.executeUpdate();
+			ps.executeUpdate();
+			
+			// setString, setInt 파라미터 인덱스 값을 increase++로 대체
+			int increase = 1;
 
-			// update 성공했다면 파일 업로드 여부 체크
-			if (result > 0) {
-				// 파일 업로드를 할 때
-				if (dto.getOfile() != null) {
-					sql = "UPDATE CATALOG_FILE SET OFILE = ?, NFILE = ? WHERE NO = ?";
-
-					ps = conn.prepareStatement(sql);
-					ps.setString(1, dto.getOfile());
-					ps.setString(2, dto.getNfile());
-					ps.setInt(3, dto.getNo());
-
-					result = ps.executeUpdate();
-
-					// update 성공하면 커밋
-					if (result > 0) {
-						conn.commit();
-
-					// 실패하면 catalog, catalog_file 모두 롤백
-					} else {
-						conn.rollback();
-					}
-
-					// 기존 파일이 없지만 추가해서 수정할 경우
-				} else {
-						
-					conn.commit();
-				}
+			// 카탈로그 파일 테이블
+			// 수정 시 파일이 있는 경우
+			String sqlCf = "";
+			sqlCf += "MERGE                                                                                                              ";
+			sqlCf += "INTO CATALOG_FILE CF                                                                                               ";
+			sqlCf += "USING (SELECT CATALOG.NO FROM CATALOG WHERE CATALOG.NO = ?) C                                                      ";
+			sqlCf += "ON (CF.CATALNO = C.NO)                                                                                             ";
+			sqlCf += "WHEN MATCHED THEN                                                                                                  ";
+			sqlCf += "	UPDATE SET 																										 ";
+			sqlCf += "		CF.OFILE = ?																								 ";
+			sqlCf += " 	  , CF.NFILE = ?																								 ";
+			sqlCf += "	WHERE CF.CATALNO = ?																							 ";
+			
+			// 수정 시 파일이 있던 게시글에 파일을 지우는 경우
+			if (dto.getOfile() == null) {
+				sqlCf += "DELETE WHERE CF.CATALNO = ?																					 "; 
 			}
+			
+			// 수정 시 파일이 없던 게시글에 파일을 추가하는 경우
+			sqlCf += "WHEN NOT MATCHED THEN 																							 ";
+			sqlCf += "	INSERT (NO, OFILE, NFILE, REGDATE, CATALNO) 																	 ";
+			sqlCf += "	VALUES (SEQ_CATALOG_FILE.NEXTVAL, ?, ?, SYSDATE, ?)																 ";
 
+			ps = conn.prepareStatement(sqlCf);
+			ps.setInt(increase++, dto.getNo());
+			ps.setString(increase++, dto.getOfile());
+			ps.setString(increase++, dto.getNfile());
+			ps.setInt(increase++, dto.getNo());
+			
+			if (dto.getOfile() == null) {
+				ps.setInt(increase++, dto.getNo());
+			}
+			
+			ps.setString(increase++, dto.getOfile());
+			ps.setString(increase++, dto.getNfile());
+			ps.setInt(increase++, dto.getNo());
+			
+			result = ps.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
