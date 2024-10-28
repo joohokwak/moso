@@ -152,7 +152,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		const itemno = gorvwrite.dataset.no;
 		const url = '/Shop/rvwrite?itemno=' + itemno;
 		const name = 'rvwirte';
-		const option = 'width=1100, height=1000, left=500';
+		const option = 'width=1125, height=1000, left=500';
 		gorvwrite.addEventListener('click', function() {
 //			type 비교(typeof)
 //			console.log(typeof user);
@@ -218,7 +218,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	               
 	               post('/Shop/review', params, (data) => {
 	                  // 요소 추가
-	                  handleSetReview(data.revieAll);
+	                  handleSetReview(data.reviewAll);
 	                  
 	                  // 페이징 처리
 	                  document.querySelector('#view_review .pagination').innerHTML = data.paging;
@@ -419,9 +419,6 @@ function handleSetReview(data) {
 						<td class="board_content">
 							<div class="board_main_content">
 								${rv.content }
-							</div>
-							<div>
-								<p><span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span><strong>첨부파일</strong><i class="file_name">jpg</i></p>
 							</div>
 						</td>
 						<td></td>
