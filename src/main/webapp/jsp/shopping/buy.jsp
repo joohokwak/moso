@@ -451,7 +451,12 @@
 										</div>
 									</td>
 									<td></td>
-									<td></td>
+									<td>
+  										<div class="rv_btn">
+											<a href="#" data-itemno="${dto.no }" data-no="${qna.no }" class="rv_modify" >수정</a>
+											<a href="#" data-no="${qna.no }" class="rv_delete">삭제</a>
+										</div>
+									</td>
 								</tr>
 							</tbody>
 						</c:forEach>

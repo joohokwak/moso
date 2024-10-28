@@ -783,6 +783,35 @@
 	height: auto;
 	
 }
+#view_review .board_body .board_content strong {
+	font-weight: 700;
+}
+
+#view_review .board_body .board_content .board_main_content {
+	color: #444;
+	line-height: 1.8;
+}
+
+#view_review .board_body .board_content .file_name {
+	font-size: 11px;
+	color: #717171;
+	font-style: normal;
+	margin: 0 6px;
+}
+#view_review .board_body .rv_btn {
+	display: flex;
+	gap:5px;
+	text-align: center;
+}
+#view_review .board_body .rv_btn a {
+	font-size: 12px;
+	width: 40px;
+    height: 20px;
+    line-height: 20px;
+    background: #c7c7c7;
+    color:#fff;
+    display: block;
+}
 #view_question .board_body .board_content img {
 	margin: 4px;
 	width: 11px;
@@ -843,21 +872,6 @@
 }
 #view_question .board_body .display_view .qna_btn a:hover{
 	background: #979797;
-}
-#view_review .board_body .board_content strong {
-	font-weight: 700;
-}
-
-#view_review .board_body .board_content .board_main_content {
-	color: #444;
-	line-height: 1.8;
-}
-
-#view_review .board_body .board_content .file_name {
-	font-size: 11px;
-	color: #717171;
-	font-style: normal;
-	margin: 0 6px;
 }
 
 .shopping_borad .board_body .center {
