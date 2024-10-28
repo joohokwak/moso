@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 	
+	// 게시글 삭제
 	const magazinedelete = document.querySelectorAll('.brand_section .delete_btn');
 	if(magazinedelete) {
 		magazinedelete.forEach(btn => {

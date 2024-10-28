@@ -29,12 +29,12 @@
 				</div>
 				<div class="section_search">
 					<form action="/Magazine/review" method="post">
-						<input class="search" type="text" name="title" placeholder="Search" title="검색어입력" value="${m.title }">
+						<input class="search" type="text" name="title" placeholder="Search" title="검색어입력" value="${param.title }">
 					</form>
 				</div>
 				<div class="section_main">
 					<div class="category">
-						<span><a href="#" class="on">전체(14)</a></span>
+						<span><a href="#" class="on">전체(${count })</a></span>
 						<span><a href="#">진행중 이벤트(0)</a></span>
 						<span><a href="#">종료된 이벤트(14)</a></span>
 					</div>
