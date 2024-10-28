@@ -223,6 +223,9 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
 .swal2-shown {
 	padding-right: 0 !important;
 }
+#swal2-title {
+	font-size: 24px;
+}
 
 /* 스크롤바 안보이게 */
 /* IE */

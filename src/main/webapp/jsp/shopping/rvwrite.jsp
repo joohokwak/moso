@@ -33,7 +33,7 @@
 						<td class="input_txt">
 							<div class="mradio">
 								<c:forEach begin="1" end="5" varStatus="vs">
-									<div class="inradio" data-rating="${6 - vs.count}">
+									<div class="inradio ${vs.first ? 'active' : '' }" data-rating="${6 - vs.count}">
 										<span><i class="circle"></i></span>
 										<div class="rating">
 											<c:forEach begin="${vs.count}" end="5">

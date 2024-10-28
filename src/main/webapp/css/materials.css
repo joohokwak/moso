@@ -86,3 +86,8 @@
 .materials_content ul>li>button:hover {
 	background: #f7c8a8;
 }
+
+.materials_content li.no_data {
+	justify-content: center;
+	padding: 20px 0 40px;
+}

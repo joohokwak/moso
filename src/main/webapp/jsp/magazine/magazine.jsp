@@ -49,6 +49,9 @@
 									</div>
 								</li>
 							</c:forEach>
+							<c:if test="${empty magazine }">
+								<li>등록된 글이 존재하지 않습니다.</li>
+							</c:if>
 						</ul>
 					</div>
 				</div>

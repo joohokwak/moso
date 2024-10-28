@@ -50,6 +50,9 @@
 							</div>
 						</li>
 					</c:forEach>
+					<c:if test="${empty list }">
+						<li class="no_data">등록된 글이 존재하지 않습니다.</li>
+					</c:if>
 					</ul>
 				</div>
 			</div>
