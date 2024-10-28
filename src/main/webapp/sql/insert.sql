@@ -1,8 +1,8 @@
-
 -- << MEMBER >> --
 INSERT INTO MEMBER 
 VALUES ('admin', '1', '관리자', 'admin@naver.com', '01012345678', '024567890', '12345', '서울시 종로구', '종각역123', 'M', '19900101', 'Y');
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 -- << FAQ >> --
 -- 주문/배송
@@ -116,6 +116,7 @@ INSERT INTO FAQ VALUES(SEQ_FAQ.NEXTVAL, '비밀번호 및 개인정보를 변경
 수정 정보는 즉시 반영되며 구입하신 상품의 정확한 배송을 위해 변경된 회원정보는 꼭 수정 부탁 드립니다. ', SYSDATE);
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
 -- << MATERIALS >> --
 INSERT INTO MATERIALS VALUES (
     SEQ_MATERIALS.NEXTVAL, '트리샤 헤드보드 침대 프레임', '트리샤 헤드보드 침대 프레임 블랙/화이트', 'S, SS, Q', 'material_6.png', 'ZK-SSBFH-07S.pdf', 'ZK-SSBFH-07S.pdf', SYSDATE
@@ -136,6 +137,7 @@ INSERT INTO MATERIALS VALUES (
     SEQ_MATERIALS.NEXTVAL, '베이직 스마트베이스 침대 프레임', '베이직 스마트베이스 침대 프레임', 'SS, Q', 'material_1.png', 'ZK-SBBK-2.pdf', 'ZK-SBBK-2.pdf', SYSDATE
 );
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 -- << MAGAZINE >> --
 INSERT INTO MAGAZINE VALUES(
@@ -193,6 +195,7 @@ INSERT INTO MAGAZINE VALUES(
 	SEQ_MAGAZINE.NEXTVAL, '지누스 에어 매트리스💛', '난연 기능을 무장한 에어 매트리스 후기를 만나보세요', '56.png', '', SYSDATE, 'magazine'
 );
 
+
 -- << MAGAZINE (review) >> --
 INSERT INTO MAGAZINE VALUES(
 	SEQ_MAGAZINE.NEXTVAL, '이 달의 리뷰 1월호', '2024.01.01 ~ 2024.01.31', '14.jfif', '', SYSDATE, 'review'
@@ -235,14 +238,16 @@ INSERT INTO MAGAZINE VALUES(
 );
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
 -- << CATALOG >> --
-INSERT INTO CATALOG VALUES (SEQ_CATALOG.NEXTVAL, '지누스 프로덕트 카탈로그 (Jan, 20...', '내용입니다.', SYSDATE, 0
-);
+INSERT INTO CATALOG VALUES (SEQ_CATALOG.NEXTVAL, 'ZINUS Product Catalog (Jan, 2021)', '', SYSDATE, 0);
+INSERT INTO CATALOG VALUES (SEQ_CATALOG.NEXTVAL, 'ZINUS Product Catalog (Mar, 2021)', '', SYSDATE, 0);
 
 -- << CATALOG_FILE >> --
-INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'ZINUS Product Catalog (Mar, 2021).pdf', 'ZINUS Product Catalog (Mar, 2021).pdf', SYSDATE, 1
-);
+INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'ZINUS Product Catalog (Jan, 2021).pdf', 'ZINUS Product Catalog (Jan, 2021).pdf', SYSDATE, 1);
+INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'ZINUS Product Catalog (Mar, 2021).pdf', 'ZINUS Product Catalog (Mar, 2021).pdf', SYSDATE, 2);
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 -- << ITEM >> --
 INSERT INTO ITEM VALUES (SEQ_ITEM.NEXTVAL, '젤 하이브리드 스프링 매트리스', '스프링 매트리스', '7cm 높이의 메모리폼 특유의 터치감과 포켓 스트링 매트리스의 탄탄함을 동시에 경험하는 제품', '418000', 'MH', SYSDATE, 'Q,SS', '1000000126_detail_096.jpg'
@@ -366,6 +371,14 @@ INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000038_detail_071.jpg
 INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000039_detail_082.jpg', 12);
 INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000040_detail_025.jpg', 12);
 INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000041_detail_073.jpg', 12);
+
+INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000369_detail_027.jpg', 13);
+INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000369_detail_124.jpg', 13);
+INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000369_detail_227.jpg', 13);
+INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000369_detail_335.jpg', 13);
+INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000369_detail_487.jpg', 13);
+INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000369_detail_544.jpg', 13);
+INSERT INTO ITEM_IMAGE values(SEQ_ITEM_IMAGE.NEXTVAL, '1000000369_detail_648.jpg', 13);
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -376,4 +389,10 @@ INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '전자증권 전환대상 주권
 INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '신주발행공고(안)', '', SYSDATE, 0);
 INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '신주발행공고(안)', '', SYSDATE, 0);
 INSERT INTO NOTICE VALUES (SEQ_NOTICE.NEXTVAL, '신주발행공고(안)', '', SYSDATE, 0);
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- << NOTICE_FILE >> --
+INSERT INTO NOTICE_FILE VALUES(SEQ_NOTICE_FILE.NEXTVAL, '지누스_중견기업확인서(2019.03.31).pdf', '지누스_중견기업확인서(2019.03.31).pdf', SYSDATE, 1);
+INSERT INTO NOTICE_FILE VALUES(SEQ_NOTICE_FILE.NEXTVAL, '지누스_중견기업확인서(2020.03.31).pdf', '지누스_중견기업확인서(2020.03.31).pdf', SYSDATE, 2);
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
