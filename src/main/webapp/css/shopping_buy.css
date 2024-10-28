@@ -778,7 +778,11 @@
 	width: 7px;
 	height: 11px;
 }
-
+#view_review .board_body .board_content .board_main_content img {
+	width: auto;
+	height: auto;
+	
+}
 #view_question .board_body .board_content img {
 	margin: 4px;
 	width: 11px;
@@ -793,6 +797,7 @@
     left: 0;
    	top: 12px;
 }
+
 #view_question .board_body .display_view.on .display_none {
 	display: table-cell;
 	place-content: start;

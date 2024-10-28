@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -140,8 +141,8 @@ public class ShoppingController extends HttpServlet {
 			resp.sendRedirect("/Shop/buy?itemno=" + itemno);
 			return;
 			
-		// 리뷰 페이징
-		} else if (action.equals("/review")) {
+		 // 리뷰 페이징
+		 } else if (action.equals("/review")) {
 			Map<String, Object> rdata = Common.jsonConvert(req);
 			int itemno = Integer.parseInt(rdata.get("ITEMNO") + "");
 			int pageNum = Integer.parseInt(rdata.get("PAGENUM") + "");
@@ -151,7 +152,12 @@ public class ShoppingController extends HttpServlet {
 			pg.setPageNum(pageNum);
 			
 			List<ItemReviewDTO> reviewAll = shopSer.reviewAll(itemno, pg);
-			Common.jsonResponse(resp, reviewAll);
+	
+			Map<String, Object> resMap = new HashMap<>();
+			resMap.put("reviewAll", reviewAll);
+			resMap.put("paging", pg.paging(req));
+			
+			Common.jsonResponse(resp, resMap);
 			return;
 			
 		// QNA 페이징

@@ -116,11 +116,11 @@ window.addEventListener('DOMContentLoaded', function() {
 				alert('제목을 입력해주세요.', () => rvtitle.focus());
 				return;
 			}
-			if (rvcontent.textContent.trim().length === 0) {
+			if (rvcontent.innerHTML.trim().length === 0) {
 				alert('내용을 입력해주세요.');
 				return;
 			}
-			if (rvtitle.value.trim() != '' && rvcontent.textContent.trim().length > 0) {				
+			if (rvtitle.value.trim() != '' && rvcontent.innerHTML.trim().length > 0 ) {				
 				fetch('/Shop/rvwriteOk', {
 		              method: 'POST',
 		              body: new FormData(document.querySelector('#shopping_write form'))

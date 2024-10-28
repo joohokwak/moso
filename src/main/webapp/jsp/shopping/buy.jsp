@@ -434,7 +434,7 @@
 									</td>
 									<td class="board_content">
 										<a href="#">${rv.title }</a>
-										<span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span>
+										<span><c:if test='${fn:indexOf(rv.content, "<img") != -1 }'><img src="/images/shopping/icon_board_attach_file.png"alt="file"></c:if></span>
 									</td>
 									<td width="112" align="center">
 										<p>${rv.writer }</p>
@@ -448,9 +448,6 @@
 									<td class="board_content">
 										<div class="board_main_content">
 											${rv.content }
-										</div>
-										<div>
-											<p><span><img src="/images/shopping/icon_board_attach_file.png"alt="file"></span><strong>첨부파일</strong><i class="file_name">jpg</i></p>
 										</div>
 									</td>
 									<td></td>

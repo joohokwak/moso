@@ -198,35 +198,36 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 	
 	// 리뷰 페이징
-	const reviewPaing = document.querySelectorAll('#view_review .page_num');
-	if (reviewPaing) {
-		reviewPaing.forEach(v => {
-			v.addEventListener('click', function(e) {
-				e.preventDefault();
-				
-				if (!v.classList.contains('active')) {
-					const viewReview = document.querySelector('#view_review');
-					let pageNum = v.innerText;
-					// 기본값 설정
-					if (!pageNum) pageNum = 1;
-					
-					const params = {
-						'ITEMNO': viewReview.dataset.itemno, 
-						'PAGENUM' : pageNum
-					};
-					
-					post('/Shop/review', params, (data) => {
-						// 요소 추가
-						handleSetReview(data);
-						
-						// active 처리
-						reviewPaing.forEach(rp => rp.classList.remove('active'));
-						v.classList.add('active');
-					});
-				}
-			});
-		});
-	}
+	   const reviewPaing = document.querySelector('#view_review');
+	   if (reviewPaing) {
+	      reviewPaing.addEventListener('click', function(e) {
+	         const target = e.target.closest('#view_review .pagination .page_num');
+	         if (target) {
+	            e.preventDefault();
+	            
+	            if (!target.classList.contains('active')) {
+	               let pageNum = target.getAttribute('href').match(/pageNum=(\d+)/)[1];
+	               
+	               // 기본값 설정
+	               if (!pageNum) pageNum = 1;
+	               
+	               const params = {
+	                  'ITEMNO': reviewPaing.dataset.itemno,
+	                  'PAGENUM' : pageNum
+	               };
+	               
+	               post('/Shop/review', params, (data) => {
+	                  // 요소 추가
+	                  handleSetReview(data.revieAll);
+	                  
+	                  // 페이징 처리
+	                  document.querySelector('#view_review .pagination').innerHTML = data.paging;
+	               });
+	            }
+	         }
+	         
+	      });
+	   }
 	
 	// Q&A 등록 버튼
 	const qna = document.querySelector('.shopping_borad .board_top .board_btn .qna');
