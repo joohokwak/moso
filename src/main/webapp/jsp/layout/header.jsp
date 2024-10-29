@@ -293,6 +293,7 @@
 			<c:choose>
 				<c:when test="${empty member }">
 					<a href="#" title="로그인 페이지" class="my_page" id="loginbtn"><span class="blind">로그인 페이지</span></a>
+					<a href="#" title="관심상품" class="wish_list" id="wish_btn"><span class="blind">관심상품</span></a>
 				</c:when>
 				<c:otherwise>
 					<c:if test="${member.isadmin eq 'Y' }">
@@ -301,9 +302,11 @@
 					<c:if test="${member.isadmin ne 'Y' }">
 						<a href="#" title="마이 페이지" class="my_page" id="updateBtn"><span class="blind">마이 페이지</span></a>
 					</c:if>
+					<c:if test="${not empty member }">
+						<a href="#" title="관심상품" class="wish_list" id="wish_page"><span class="blind">관심상품</span></a>
+					</c:if>
 				</c:otherwise>
 			</c:choose>
-			<a href="#" title="주문/배송" class="delivery"><span class="blind">주문/배송</span></a>
 			<a href="/Shop/cart" title="장바구니" class="cart"><span class="blind">장바구니</span></a>
 		</div>
 	</div>

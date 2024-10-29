@@ -278,10 +278,10 @@ header .top_util .my_page {
 	height: 17px;
 }
 
-header .top_util .delivery {
-	background: url(/images/header/icon_delivery.png) no-repeat center/cover;
-	width: 26px;
-	height: 18px;
+header .top_util .wish_list {
+	background: url(/images/header/header_wish.png) no-repeat center/cover;
+	width: 27px;
+	height: 26px;
 }
 
 header .top_util .cart {
