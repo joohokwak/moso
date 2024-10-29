@@ -78,7 +78,7 @@ public class QuizController extends HttpServlet {
 			if (!isExists) searchList.add(searchMap);
 			
 			// 기본 정렬값 설정
-			if (sort == null) sort = "visit_desc";
+			if (sort == null) sort = "pop_desc";
 			
 			// 시작 페이지 기본 값 설정
 			String strNum = req.getParameter("pageNum");

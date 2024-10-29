@@ -240,7 +240,7 @@ public class QuizDAO extends DBCP {
 							// 검색 옵션이 상품명일 때
 							if ("goodsName".equals(key)) {
 								tmp.append(" AND UPPER(NAME) LIKE UPPER('%" + keyword + "%')");
-							// 검색 옵션이 상품 코드일 때
+							// 검색 옵션이 상품 코드일 때 + 숫자만 검색되도록 처리
 							} else if ("goodsNo".equals(key) && keyword.matches(regExp)) {
 								tmp.append(" AND NO = " + keyword); 
 							// 검색 옵션이 상품 설명일 때
@@ -254,7 +254,7 @@ public class QuizDAO extends DBCP {
 			
 			// 상품 검색 결과 정렬 기준
 			// 인기순 (로그인 된 경우 로그인 사용자 우선으로 정렬)
-			if (sort.equals("visit_desc")) {
+			if (sort.equals("pop_desc")) {
 				pg.setOrderName("CASE WHEN MEMBER_ID LIKE '%" + id + "%' THEN 1 ELSE 2 END, CNT DESC NULLS LAST");
 				pg.setOrder("");
 			// 신상품순
