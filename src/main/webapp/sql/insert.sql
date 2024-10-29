@@ -242,11 +242,12 @@ INSERT INTO MAGAZINE VALUES(
 -- << CATALOG >> --
 INSERT INTO CATALOG VALUES (SEQ_CATALOG.NEXTVAL, 'ZINUS Product Catalog (Jan, 2021)', '', SYSDATE, 0);
 INSERT INTO CATALOG VALUES (SEQ_CATALOG.NEXTVAL, 'ZINUS Product Catalog (Mar, 2021)', '', SYSDATE, 0);
+INSERT INTO CATALOG VALUES (SEQ_CATALOG.NEXTVAL, 'png Test', '', SYSDATE, 0);
 
 -- << CATALOG_FILE >> --
 INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'ZINUS Product Catalog (Jan, 2021).pdf', 'ZINUS Product Catalog (Jan, 2021).pdf', SYSDATE, 1);
-INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'icon_board_hot.png', 'icon_board_hot.png', SYSDATE, 2);
-INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'ZINUS Product Catalog (Mar, 2021).pdf', 'ZINUS Product Catalog (Mar, 2021).pdf', SYSDATE, 9);
+INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'ZINUS Product Catalog (Mar, 2021).pdf', 'ZINUS Product Catalog (Mar, 2021).pdf', SYSDATE, 2);
+INSERT INTO CATALOG_FILE VALUES (SEQ_CATALOG_FILE.NEXTVAL, 'icon_board_hot.png', 'icon_board_hot.png', SYSDATE, 3);
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
