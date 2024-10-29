@@ -294,6 +294,7 @@ public class QuizDAO extends DBCP {
 			
 			while (rs.next()) {
 				QuizDTO dto = new QuizDTO();
+				
 				dto.setNo(rs.getInt("NO"));
 				dto.setName(rs.getString("NAME"));
 				dto.setType(rs.getString("TYPE"));

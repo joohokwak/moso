@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -198,23 +199,34 @@ public class NoticeDAO extends DBCP {
 		
 		try {
 			conn = getConn();
+			conn.setAutoCommit(false);
+			
+			String delSql = "DELETE FROM NOTICE_FILE WHERE NOTICENO = ?";
+			ps = conn.prepareStatement(delSql);
 			
 			for (String no : selNo) {
-				String delSql = "DELETE FROM NOTICE_FILE WHERE NOTICENO = ?";
-				ps = conn.prepareStatement(delSql);
 				ps.setInt(1, Integer.parseInt(no));
-				
 				ps.executeUpdate();
+			}
 				
-				String sql = "DELETE FROM NOTICE WHERE NO = ?";
+			String sql = "DELETE FROM NOTICE WHERE NO = ?";
+			ps = conn.prepareStatement(sql);
 				
-				ps = conn.prepareStatement(sql);
+			for (String no : selNo) {
 				ps.setInt(1, Integer.parseInt(no));
-				
-				result = ps.executeUpdate();
+				result += ps.executeUpdate();
 			}
 			
+			conn.commit();
+			
 		} catch (Exception e) {
+			if (conn != null) {
+	            try {
+	                conn.rollback(); // 오류 발생 시 롤백
+	            } catch (SQLException se) {
+	                se.printStackTrace();
+	            }
+	        }
 			e.printStackTrace();
 		} finally {
 			close(conn, ps, rs);
@@ -250,7 +262,7 @@ public class NoticeDAO extends DBCP {
 			sqlNF += "		  , NF.NFILE = ?                                              ";
 			sqlNF += "	WHERE NF.NOTICENO = ?                                             ";
 			
-			if(dto.getNfile() == null) {
+			if (dto.getNfile() == null) {
 				sqlNF += "	DELETE WHERE NF.NOTICENO = ?                                  ";
 			}
 			
@@ -264,7 +276,7 @@ public class NoticeDAO extends DBCP {
 			ps.setString(increase++, dto.getNfile());
 			ps.setInt(increase++, dto.getNo());
 			
-			if(dto.getNfile() == null) ps.setInt(increase++, dto.getNo());
+			if (dto.getNfile() == null) ps.setInt(increase++, dto.getNo());
 			
 			ps.setString(increase++, dto.getOfile());
 			ps.setString(increase++, dto.getNfile());

@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		marker.setMap(map);
 
 		var iwContent =
-			'<div style="padding:5px; font-size:12px;">대구 중구 서성로13길 32-3 <br><a href="https://map.kakao.com/link/map/Hello World!,35.872338,128.585494" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,35.872338,128.585494" style="color:blue" target="_blank">길찾기</a></div>',
+			'<div style="padding:5px; font-size:12px;">대구 중구 서성로13길 32-3 <br><a href="https://map.kakao.com/link/map/대구 중구 서성로13길 32-3,35.872338,128.585494" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/대구 중구 서성로13길 32-3,35.872338,128.585494" style="color:blue" target="_blank">길찾기</a></div>',
 			iwPosition = new kakao.maps.LatLng(35.872338, 128.585494); //인포윈도우 표시 위치입니다
 
 		// 인포윈도우를 생성합니다

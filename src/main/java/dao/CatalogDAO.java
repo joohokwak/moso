@@ -187,7 +187,7 @@ public class CatalogDAO extends DBCP {
 						}
 					}
 				}
-		}
+			}
 		
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -267,27 +267,27 @@ header .top_util .btn_wrap {
 }
 
 header .top_util .logout {
-	background: url(/images/header/icon_logout.png) no-repeat center/cover;
-	width: 18px;
-	height: 17px;
+	background: url(/images/header/logout.svg) no-repeat center/cover;
+	width: 22px;
+	height: 22px;
 }
 
 header .top_util .my_page {
-	background: url(/images/header/icon_mypage.png) no-repeat center/cover;
-	width: 18px;
-	height: 17px;
-}
-
-header .top_util .wish_list {
-	background: url(/images/header/header_wish.png) no-repeat center/cover;
+	background: url(/images/header/user.svg) no-repeat center/cover;
 	width: 25px;
 	height: 25px;
 }
 
-header .top_util .cart {
-	background: url(/images/header/icon_cart2.png) no-repeat center/cover;
+header .top_util .wish_list {
+	background: url(/images/header/favorite.svg) no-repeat center/cover;
 	width: 23px;
-	height: 18px;
+	height: 24px;
+}
+
+header .top_util .cart {
+	background: url(/images/header/cart.svg) no-repeat center/cover;
+	width: 23px;
+	height: 22px;
 }
 
 /* search.css */

@@ -113,7 +113,7 @@
 							<a href="/Shop/cart?itemno=${dto.no }" class="cart" data-item="${dto }">장바구니</a>
 							<!-- 좋아요 버튼 -->
 							<a href="#" class="like" data-no="${dto.no }" data-islogin="${not empty member }">
-								<img src="${(dto.id eq member.id) and (dto.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요">
+								<img src="${dto.no eq dto.itemnum ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요">
 							</a>
 						</div>
 						<div class="relation">
