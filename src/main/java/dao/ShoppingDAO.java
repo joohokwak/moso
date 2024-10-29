@@ -438,7 +438,7 @@ public class ShoppingDAO extends DBCP {
 			sql.append("	 , PASS											");
 			sql.append("	 , TITLE										");
 			sql.append("	 , QUESTION										");
-			sql.append("	 , ANSWRE										");
+			sql.append("	 , ANSWER										");
 			sql.append("	 , TO_CHAR(REGDATE, 'YYYY-MM-DD') AS REGDATE	");
 			sql.append("	 , ITEMNO										");
 			sql.append("	 , SECRET										");
@@ -460,7 +460,7 @@ public class ShoppingDAO extends DBCP {
 				dto.setPass(rs.getString("PASS"));
 				dto.setTitle(rs.getString("TITLE"));
 				dto.setQuestion(rs.getString("QUESTION"));
-				dto.setAnswre(rs.getString("ANSWRE"));
+				dto.setAnswer(rs.getString("ANSWER"));
 				dto.setRegdate(rs.getString("REGDATE"));
 				dto.setItemno(rs.getInt("ITEMNO")); 
 				dto.setSecret(rs.getInt("SECRET"));
@@ -492,7 +492,7 @@ public class ShoppingDAO extends DBCP {
 			sql += " 	  , PASS                                        ";
 			sql += " 	  , TITLE                                       ";
 			sql += " 	  , QUESTION                                    ";
-			sql += " 	  , ANSWRE                                      ";
+			sql += " 	  , ANSWER                                      ";
 			sql += " 	  , TO_CHAR(REGDATE, 'yyyy-mm-dd') AS REGDATE	";
 			sql += " 	  , ITEMNO                                      ";
 			sql += " 	  , SECRET                                      ";
@@ -511,7 +511,7 @@ public class ShoppingDAO extends DBCP {
 				dto.setPass(rs.getString("PASS"));
 				dto.setTitle(rs.getString("TITLE"));
 				dto.setQuestion(rs.getString("QUESTION"));
-				dto.setAnswre(rs.getString("ANSWRE"));
+				dto.setAnswer(rs.getString("ANSWER"));
 				dto.setRegdate(rs.getString("REGDATE"));
 				dto.setItemno(rs.getInt("ITEMNO"));
 				dto.setSecret(rs.getInt("SECRET"));
@@ -661,7 +661,7 @@ public class ShoppingDAO extends DBCP {
 		try {
 			conn = getConn();
 			
-			String sql = "UPDATE QNA SET ANSWRE = ? WHERE NO = ? ";
+			String sql = "UPDATE QNA SET ANSWER = ? WHERE NO = ? ";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, ans);

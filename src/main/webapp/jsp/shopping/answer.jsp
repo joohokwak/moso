@@ -17,7 +17,7 @@
 	
 	<div class="contain">
 		<!-- 폼 데이터 -->
-		<form action="/Shop/answreOk" method="post" enctype="multipart/form-data">
+		<form action="/Shop/answerOk" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="itemno" value="${param.itemno}">
 			<!-- 질문을 찾기 위한 Q&A 번호 찾기 -->
 			<input type="hidden" name="no" value="${qna.no}">
@@ -50,7 +50,7 @@
 					<tr>
 						<th>답변 달기</th>
 						<td style="padding-top: 20px;">
-							<textarea id="answre" name="answre" data-editor="${qna.answre}">${qna.answre }</textarea>
+							<textarea id="answer" name="answer" data-editor="${qna.answer}">${qna.answer }</textarea>
 						</td>
 					</tr>
 				</table>

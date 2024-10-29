@@ -267,7 +267,7 @@ public class ShoppingController extends HttpServlet {
 			return;
 			
 		// 답변 페이지
-		} else if (action.equals("/answre")) {
+		} else if (action.equals("/answer")) {
 			int num = Integer.parseInt(req.getParameter("qnano"));
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
 		
@@ -278,10 +278,10 @@ public class ShoppingController extends HttpServlet {
 			req.setAttribute("item", writeItem);
 		
 		// Q&A 답변 달기 
-		} else if(action.equals("/answreOk")) {
+		} else if(action.equals("/answerOk")) {
 			int num = Integer.parseInt(req.getParameter("no"));
 			int itemno = Integer.parseInt(req.getParameter("itemno"));
-			String ans = req.getParameter("answre");
+			String ans = req.getParameter("answer");
 			shopSer.ansCreate(num, ans);
 			
 			resp.sendRedirect("/Shop/buy?itemno=" + itemno + "#view_question");
