@@ -317,6 +317,111 @@ public class ShoppingDAO extends DBCP {
 		return result;
 	}
 	
+	// 선택된 리뷰 상세
+	public ItemReviewDTO reviewOne(int rvno) {
+		ItemReviewDTO dto = null;
+		
+		try {
+			conn = getConn();
+			
+			String sql = "";
+			sql += "SELECT NO          ";
+			sql+= ", TITLE             ";
+			sql+= ", WRITER            ";
+			sql+= ", CONTENT           ";
+			sql+= ", RATING            ";
+			sql+= ", SECRET            ";
+			sql+= ", ITEMNO            ";
+			sql+= "FROM ITEM_REVIEW    ";
+			sql+= "WHERE NO = ?        ";
+			
+			
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, rvno);
+			
+			rs = ps.executeQuery();
+			
+			
+			while(rs.next()) {
+				dto = new ItemReviewDTO();
+
+				dto.setNo(rs.getInt("NO"));
+				dto.setTitle(rs.getString("TITLE"));
+				dto.setWriter(rs.getString("WRITER"));
+				dto.setContent(rs.getString("CONTENT"));
+				dto.setRating(rs.getInt("RATING"));
+				dto.setSecret(rs.getInt("SECRET"));
+				dto.setItemno(rs.getInt("ITEMNO"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return dto;
+	}
+
+	// 리뷰 수정
+	public int rvupdate(ItemReviewDTO dto) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+		
+			String sql = "";
+			sql += "UPDATE ITEM_REVIEW SET        ";
+			sql +=	 "  TITLE = ?                 ";
+			sql +=	 " , WRITER = ?               ";
+			sql +=	 " , CONTENT = ?              ";
+			sql +=	 " , REGDATE = SYSDATE        ";
+			sql +=	 " , RATING = ?               ";
+			sql +=	 " , SECRET = ?               ";
+			sql +=	 " WHERE NO = ?               ";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getWriter());
+			ps.setString(3, dto.getContent());
+			ps.setInt(4, dto.getRating());
+			ps.setInt(5, dto.getSecret());
+			ps.setInt(6, dto.getNo());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		
+		return result;
+	}
+	
+	// 리뷰 삭제
+	public int rvdelete(int rvno) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			String sql = "DELETE ITEM_REVIEW WHERE NO = " + rvno;
+			
+			ps = conn.prepareStatement(sql);
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		
+		return result;
+	}
+	
 	// Q&A 리스트
 	public List<ItemReviewDTO> qnaAll(int itemNo, Pagination pg) {
 		List<ItemReviewDTO> list = new ArrayList<>();
@@ -569,112 +674,6 @@ public class ShoppingDAO extends DBCP {
 		} finally {
 			close(conn, ps);
 		}
-		
-		return result;
-	}
-	
-	public ItemReviewDTO reviewOne(int rvno) {
-		
-		conn = getConn();
-		ItemReviewDTO dto = null;
-		
-		try {
-			
-			String sql = "";
-			sql += "SELECT NO"
-					+ ", TITLE"
-					+ ", WRITER"
-					+ ", CONTENT"
-					+ ", RATING"
-					+ ", SECRET"
-					+ ", ITEMNO "
-					+ "FROM ITEM_REVIEW "
-					+ "WHERE NO = ?";
-			
-			
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, rvno);
-			
-			rs = ps.executeQuery();
-			
-			
-			while(rs.next()) {
-				dto = new ItemReviewDTO();
-
-				dto.setNo(rs.getInt("NO"));
-				dto.setTitle(rs.getString("TITLE"));
-				dto.setWriter(rs.getString("WRITER"));
-				dto.setContent(rs.getString("CONTENT"));
-				dto.setRating(rs.getInt("RATING"));
-				dto.setSecret(rs.getInt("SECRET"));
-				dto.setItemno(rs.getInt("ITEMNO"));
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps, rs);
-		}
-		
-		return dto;
-	}
-
-	public int rvupdate(ItemReviewDTO dto) {
-		
-		conn = getConn();
-		int result = 0;
-		
-		try {
-		
-			String sql = "";
-			sql += "UPDATE ITEM_REVIEW SET        ";
-			sql +=	 "  TITLE = ?                 ";
-			sql +=	 " , WRITER = ?               ";
-			sql +=	 " , CONTENT = ?              ";
-			sql +=	 " , REGDATE = SYSDATE        ";
-			sql +=	 " , RATING = ?               ";
-			sql +=	 " , SECRET = ?               ";
-			sql +=	 " WHERE NO = ?               ";
-			
-			ps = conn.prepareStatement(sql);
-			
-			ps.setString(1, dto.getTitle());
-			ps.setString(2, dto.getWriter());
-			ps.setString(3, dto.getContent());
-			ps.setInt(4, dto.getRating());
-			ps.setInt(5, dto.getSecret());
-			ps.setInt(6, dto.getNo());
-			
-			result = ps.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps);
-		}
-		
-		return result;
-	}
-
-	public int rvdelete(int rvno) {
-		
-		conn = getConn();
-		int result = 0;
-		
-		try {
-			
-			String sql = "DELETE ITEM_REVIEW WHERE NO = " + rvno;
-			
-			ps = conn.prepareStatement(sql);
-			
-			result = ps.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps);
-		}
-		
 		
 		return result;
 	}
