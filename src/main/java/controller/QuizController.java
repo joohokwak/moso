@@ -53,10 +53,12 @@ public class QuizController extends HttpServlet {
 			String sort 		= req.getParameter("sort");
 			String reSearch 	= req.getParameter("reSearch");
 			
+			// 헤더 검색 영역에서 검색 시 key를 상품명으로 설정
 			if (headerSearch != null) {
 				key = "goodsName";
 				keyword = headerSearch;
 			}
+			
 			// 결과 내 재검색 기능
 			Map<String, String> searchMap = new HashMap<>();
 			searchMap.put(key, keyword);
@@ -78,11 +80,13 @@ public class QuizController extends HttpServlet {
 			// 기본 정렬값 설정
 			if (sort == null) sort = "visit_desc";
 			
+			// 시작 페이지 기본 값 설정
 			String strNum = req.getParameter("pageNum");
 			int pageNum = strNum != null ? Integer.parseInt(strNum) : 1;
 			
 			Pagination pg = new Pagination();
 			pg.setPageNum(pageNum);
+			// 한 페이지에 보여줄 게시글 수 세팅
 			pg.setPageSize(12);
 			
 			// 세션에서 로그인 정보 가져오기

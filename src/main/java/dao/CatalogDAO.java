@@ -21,12 +21,10 @@ public class CatalogDAO extends DBCP {
 		List<CatalogDTO> list = new ArrayList<CatalogDTO>();
 
 		try {
+			// 1. Connection 연결
 			conn = getConn();
 
-			// 2. sql Query문 작성
-			// String sql = "SELECT NO, TITLE, TO_CHAR(REGDATE,'YYYY-MM-DD') REGDATE,
-			// VISITCOUNT FROM CATALOG ORDER BY NO DESC ";
-
+			// 2. SQL Query 문 작성
 			String str = "";
 			str += "SELECT c.NO                                            ";
 			str += "	 , c.TITLE                                         ";
@@ -39,12 +37,12 @@ public class CatalogDAO extends DBCP {
 
 			String sql = pg.getQuery(conn, str);
 
-			// 3. preparedstatement 연결
+			// 3. PreparedStatement 연결
 			ps = conn.prepareStatement(sql);
+			
+			// 4. mapping 
 
-			// 4. mapping
-
-			// 5. Query문 실행
+			// 5. SQL Query 문 실행
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
