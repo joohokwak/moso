@@ -88,8 +88,8 @@ public class CatalogController extends HttpServlet {
 			Map<String, String> uploadMap = Common.fileUpload(req, "files/catalog");
 
 			if (uploadMap != null) {
-				dto.setOfile(uploadMap.get("nfile"));
-				dto.setNfile(uploadMap.get("ofile"));
+				dto.setOfile(uploadMap.get("ofile"));
+				dto.setNfile(uploadMap.get("nfile"));
 			}
 			
 			
