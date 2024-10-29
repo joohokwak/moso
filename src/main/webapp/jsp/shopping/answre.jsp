@@ -26,7 +26,7 @@
 					<tr>
 						<th>구분</th>
 						<td class="select_wrap1">
-							<button class="cateBtn" type="button">상품</button>
+							<button class="cateBtn" type="button">${qna.cate}</button>
 							<ul class="option1">
 								<li>상품</li>
 								<li>배송</li>
@@ -34,7 +34,7 @@
 								<li>교환/변경</li>
 								<li>기타</li>
 							</ul>
-							<input type="hidden" name="cate" id="cateBtn" value="상품">
+							<input type="hidden" name="cate" id="cateBtn" value="${qna.cate}">
 						</td>
 					</tr>
 					<tr>

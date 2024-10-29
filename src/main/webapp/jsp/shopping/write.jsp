@@ -38,7 +38,7 @@
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td class="input_txt"><input type="text" name="writer"></td>
+						<td class="input_txt"><input type="text" name="writer" value="${not empty member ? member.id : ''}"></td>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
