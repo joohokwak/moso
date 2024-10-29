@@ -25,35 +25,26 @@
 				<table>
 					<tr>
 						<th>구분</th>
-						<td class="select_wrap1">
-							<button class="cateBtn" type="button">${qna.cate}</button>
-							<ul class="option1">
-								<li>상품</li>
-								<li>배송</li>
-								<li>반품/환불</li>
-								<li>교환/변경</li>
-								<li>기타</li>
-							</ul>
-							<input type="hidden" name="cate" id="cateBtn" value="${qna.cate}">
+						<td class="content">
+							<div class="text_readonly">${qna.cate}</div>
 						</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td class="input_txt">
-							<input type="text" name="writer" value="${qna.writer}">
+						<td class="content">
+							<div class="text_readonly">${qna.writer}</div>
 						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td class="input_txt">
-							<input type="text" placeholder="제목 입력" name="title" value="${qna.title}">
+						<td class="content">
+							<div class="text_readonly">${qna.title}</div>
 						</td>
 					</tr>
 					<tr>
 						<th>내용</th>
 						<td class="content">
-							<input type="hidden" id="check1" name="secret" value="${qna.secret}" class="blind">
-							<textarea name="question">${qna.question}</textarea>
+							<div class="text_readonly">${qna.question}</div>
 						</td>
 					</tr>
 					<tr>
