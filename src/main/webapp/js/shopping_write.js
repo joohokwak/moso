@@ -29,6 +29,15 @@ window.addEventListener('DOMContentLoaded', function() {
 	const check1 = document.querySelector('#check1');
 	const check2 = document.querySelector('#check2');
 	
+	if (check1) {
+		console.log(typeof(check1.value));
+		// 기본 체크
+		if(check1.value == '0') {
+			checkBox1.classList.remove('on');
+		} else if (check1.value == '1') {
+			checkBox1.classList.add('on');
+		}
+	}
 	// 비밀글 토글 온/오프
 	if (checkBox1) {
 		checkBox1.addEventListener('click', function() {
@@ -139,5 +148,6 @@ window.addEventListener('DOMContentLoaded', function() {
 				window.close();
 			});
 		});
-	}	
+	}
+
 });

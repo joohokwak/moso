@@ -156,6 +156,12 @@
 #shopping_write .container .content p {
 	padding: 5px 0;
 }
+#shopping_write .container .content .text_readonly {
+	font-size: 14px;
+	color: #000;
+	border: 1px solid #ccc;
+	padding: 10px ;
+}
 
 #shopping_write .container .content  textarea {
 	height: 123px;

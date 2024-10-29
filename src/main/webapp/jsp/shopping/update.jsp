@@ -60,7 +60,7 @@
 						<td class="content">
 							<div class="checkbox1_wrap">
 								<label class="checkbox1" for="check1">비밀글</label>
-								<input type="hidden" id="check1" name="secret" value="0">
+								<input type="hidden" id="check1" name="secret" value="${qna.secret}">
 							</div>
 							<p>
 								※ 네이버 등 기타 온라인몰에서 구매하신 고객분들께서는 구매처에 문의를 부탁드립니다. <br>
