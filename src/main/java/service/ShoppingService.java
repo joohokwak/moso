@@ -41,5 +41,8 @@ public interface ShoppingService {
 	
 	// Q&A 답변
 	int ansCreate(int no, String ans);
+	
+	// 관심상품 목록
+	List<ShoppingDTO> wishList(Pagination pg, String id);
 
 }
