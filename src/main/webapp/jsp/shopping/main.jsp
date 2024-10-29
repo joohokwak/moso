@@ -4,6 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div id="shopping">
+	<!-- 메인 이미지 -->
 	<div class="view">
 		<img class="main_img" src="/images/shopping/mattress.jpg" alt="mattress">
 		<div class="title">
@@ -60,6 +61,8 @@
 					</ul>
 				</div>
 			</div>
+			
+			<!-- 타입 선택 -->
 			<div class="filter">
 				<div class="select_toggle">
 					<span class="current_select">
@@ -81,7 +84,8 @@
 						<li><a href="/Shop/main?type=forest&ordered=${orderBy}#shoppingView">ForestWalk</a></li>
 					</ul>
 				</div>
-
+				
+				<!-- 주제 별 정렬 -->
 				<ul class="rank">
 					<li class="${orderBy eq 'pop' ? 'active' : '' }">
 						<a href="/Shop/main?type=${type}&ordered=pop#shoppingView" class="sort">인기순</a>
@@ -98,7 +102,7 @@
 				</ul>
 			</div>
 			
-			<!-- 결과 -->
+			<!-- 리스트 결과 -->
 			<div class="list">
 				<c:forEach var="list" items="${list }">
 					<ul class="product">
@@ -106,6 +110,7 @@
 							<a href="/Shop/buy?itemno=${list.no }">
 								<img src="/images/shopping/${list.poster }" alt="포레스트 워크S 하이브리드 스프링 매트리스 30cm">
 							</a>
+							<!-- 좋아요 버튼 -->
 							<a href="#" class="wish" data-no="${list.no }" data-islogin="${not empty member }">
 								<c:set var="mids" value="${fn:split(list.id, ',') }" />
 								<c:set var="isInWishlist" value="false" />
@@ -120,6 +125,7 @@
 								</c:if>
 							</a>
 						</li>
+						<!-- 제품 설명 리스트 -->
 						<li class="discription">
 							<a href="/Shop/buy?itemno=${list.no }">
 								<strong>${list.name}</strong>
@@ -127,14 +133,17 @@
 							</a>
 						</li>
 						<li>
+							<!-- 가격 -->
 							<p class="price">
 								최저 <strong><fmt:formatNumber value="${list.price }" pattern="#,###" /></strong> 원
 							</p>
 							<div class="type">
+								<!-- 한 개만 있는 특징 -->
 								<c:if test="${list.point eq 'H'  }"><img src="/images/shopping/H_01.png" alt="단단한"></c:if>
 								<c:if test="${list.point eq 'MH' }"><img src="/images/shopping/H_02.png" alt="적당히 단단한"></c:if>
 								<c:if test="${list.point eq 'M'  }"><img src="/images/shopping/H_03.png" alt="중간"></c:if>
 								<c:if test="${list.point eq 'MS' }"><img src="/images/shopping/H_05.png" alt="적당히 푹신한"></c:if>
+								<!-- 여러 개가 있는 특징 -->
 								<c:set var="size" value="${fn:split(list.sizename, ',') }" />
 								<c:forEach var="s" items="${size }">
 									<c:choose>

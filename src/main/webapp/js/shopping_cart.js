@@ -1,9 +1,11 @@
 let cartItem = {}; // 임시 이벤트 요소를 담기 위한 변수
 
 window.addEventListener('DOMContentLoaded', function() {
-    // 장바구니 페이지 인 경우
+    
+	// 장바구니 페이지인 경우(location.pathname)
     if (location.pathname === '/Shop/cart') {
-        // 목록 세팅
+		
+        // 목록 세팅(동적 생성)
         setCartItem();
         
         // 전체 체크

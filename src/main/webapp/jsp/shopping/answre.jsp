@@ -16,10 +16,11 @@
 	</div>
 	
 	<div class="contain">
+		<!-- 폼 데이터 -->
 		<form action="/Shop/answreOk" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="itemno" value="${param.itemno}">
+			<!-- 질문을 찾기 위한 Q&A 번호 찾기 -->
 			<input type="hidden" name="no" value="${qna.no}">
-			
 			<div class="container">
 				<table>
 					<tr>
@@ -63,6 +64,7 @@
 					</tr>
 				</table>
 			</div>
+			<!-- 버튼 -->
 			<div class="bottom" style="padding: 20px 0;">
 				<button onclick="javascript:history.go(-1);">취소</button>
 				<button>등록</button>

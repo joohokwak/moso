@@ -6,6 +6,7 @@
 <div id="shopping_buy">
 	<div class="shopping_goods">
 		<div class="inner">
+			<!-- 메뉴 선택 탭 -->
 			<div class="goods_menu">
 				<span>Home</span> <span class="slash">/</span>
 				<div class="show_more">
@@ -31,31 +32,29 @@
 					</ul>
 				</div>
 			</div>
-			<div class="goods">
-								
+			<!-- 제품 이미지 -->
+			<div class="goods">		
 				<div class="goods_img">
 					<div class="main_img">
 						<img src="/images/shopping/${dto.poster }"
 							alt="메인 이미지">
 					</div>
-					<!-- Slider main container -->
+					<!-- 하단 슬라이더 -->
 					<div class="shopping_swiper">
 						<div class="swiper">
-							<!-- Additional required wrapper -->
 							<div class="swiper-wrapper">
-								<!-- Slides -->
 								<c:forEach var="image" items="${images }">
 									<div class="swiper-slide">
 										<img src="/images/shopping/${image}" alt="상세보기">
 									</div>
 								</c:forEach>
 							</div>
-							<!-- If we need navigation buttons -->
 							<div class="swiper-button-prev"></div>
 							<div class="swiper-button-next"></div>
 						</div>
 					</div>
 				</div>
+				<!-- 제품 선택 -->
 				<div class="goods_select">
 					<div class="info_txt">
 						<h3>${dto.name }</h3>
@@ -76,6 +75,7 @@
 						</p>
 					</div>
 					<div class="select_detail">
+						<!-- 사이즈 선택 -->
 						<div class="size">
 							<strong>사이즈</strong>
 							<div >
@@ -89,6 +89,7 @@
 								</c:forEach>
 							</div>
 						</div>
+						<!-- 배송 지역 선택 -->
 						<div class="delivery">
 							<strong>설치배송여부</strong>
 							<div>
@@ -102,6 +103,7 @@
 							<div class="price_txt">
 								<strong>판매가</strong><span>제품 가격은 옵션 선택 후 확인하실 수 있습니다.</span>
 							</div>
+							<!-- 제품 가격 -->
 							<p class="total_price">
 								<em>${dto.price } </em>원
 							</p>
@@ -109,6 +111,7 @@
 						<div class="buttons">
 							<a href="#" class="payment" onclick="showPrepare();">결제하기</a>
 							<a href="/Shop/cart?itemno=${dto.no }" class="cart" data-item="${dto }">장바구니</a>
+							<!-- 좋아요 버튼 -->
 							<a href="#" class="like" data-no="${dto.no }" data-islogin="${not empty member }">
 								<img src="${(dto.id eq member.id) and (dto.no eq list.itemnum) ? '/images/shopping/wish_on.png' : '/images/shopping/wish_off.png'}" alt="좋아요">
 							</a>
@@ -124,9 +127,10 @@
 	</div>
 	<div class="shopping_view">
 		<div class="inner">
+			<!-- 제품 관련 정보 -->
 			<div id="view_info">
 				<div class="shopping_go_tab">
-					<!-- db에 따라 리뷰, q&a 숫자 변경 설정할 것 -->
+					<!-- DB에 있는 숫자에 따라 리뷰, Q&A 숫자 변경 설정할 것 -->
 					<a href="#view_info" class="underline">상세정보</a>
 					<a href="#view_review">리뷰 (${review[0].cnt })</a>
 					<a href="#view_question">Q&amp;A(${qnaAll[0].cnt })</a>
@@ -403,6 +407,7 @@
 					</div>
 				</div>
 			</div>
+			<!-- 제품 리뷰 -->
 			<div id="view_review" class="shopping_borad" data-itemno="${dto.no }">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>
@@ -413,16 +418,19 @@
 				<div class="board_inner">
 					<div class="board_top">
 						<h3>리뷰</h3>
+						<!-- 리뷰 쓰기 / 전체 보기 -->
 						<div class="board_btn">
-							<button class="board_all">리뷰 전체보기</button>
+							<button class="board_all" onclick="location.href='https://zinus.co.kr/board/list.php?bdId=goodsreview'">리뷰 전체보기</button>
 							<button class="board_write" data-no="${dto.no }" data-user="${not empty member.id ? 1 : 0 }">리뷰 등록</button>
 						</div>
 					</div>
+					<!-- 리뷰(관리자 또는 작성자만 수정/삭제 가능) -->
 					<table class="board_body" data-id="${member.id}" data-admin="${member.isadmin }" >
 						<c:forEach var="rv" items="${review }">
 							<tbody class="display_view">
 								<tr>
 									<td width="110">
+										<!-- 별점 -->
 										<span class="rating">
 											<c:forEach var="rat" begin="1" end="${rv.rating }">
 												<img src="/images/shopping/star-fill.png" alt="별점">
@@ -433,19 +441,25 @@
 										</span>
 									</td>
 									<td class="board_content">
+										<!-- 비밀글 -->
 										<c:if test="${rv.secret > 0}">
 											<img class="secret_img" src="/images/shopping/icon_board_secret.png" alt="비밀글">
-									 	</c:if>	
+									 	</c:if>
+									 	<!-- 타이틀(클릭 시 열림) -->
 										<a href="#" data-secret="${rv.secret }">${rv.title }</a>
+										<!-- 이미지 파일 포함 여부 -->
 										<span><c:if test='${fn:indexOf(rv.content, "<img") != -1 }'><img src="/images/shopping/icon_board_attach_file.png"alt="file"></c:if></span>
 									</td>
 									<td width="112" align="center">
+										<!-- 작성자 -->
 										<p class="review_writer">${rv.writer }</p>
 									</td>
 									<td width="112">
+										<!-- 작성일 -->
 										<p class="center">${rv.regdate }</p>
 									</td>
 								</tr>
+								<!-- 리뷰 내용(토글) -->
 								<tr class="display none">
 									<td></td>
 									<td class="board_content">
@@ -455,6 +469,7 @@
 									</td>
 									<td></td>
 									<td>
+										<!-- 관리자/작성자 수정/삭제 -->
   										<div class="rv_btn ${member.isadmin == 'Y' || member.id == rv.writer ? 'active' : '' }">
 											<a href="#" class="rvupdate" data-no="${rv.no }" data-itemno="${dto.no }" >수정</a>
 											<a href="#" class="rvdelete" data-no="${rv.no }" data-itemno="${dto.no }" >삭제</a>
@@ -464,11 +479,14 @@
 							</tbody>
 						</c:forEach>
 					</table>
+					<!-- 페이징 -->
 					<div class="pagination">
 						${paging }
 					</div>
 				</div>
 			</div>
+			
+			<!-- Q&A -->
 			<div id="view_question" class="shopping_borad" data-itemno="${dto.no }">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>
@@ -479,8 +497,9 @@
 				<div class="board_inner">
 					<div class="board_top">
 						<h3>Q&amp;A</h3>
+						<!-- Q&A 관련 버튼 -->
 						<div class="board_btn">
-							<button class="board_all">고객센터</button>
+							<button class="board_all" onclick="location.href='/Faq/list'">고객센터</button>
 							<button class="board_write qna" type="button" data-no="${dto.no }">Q&amp;A 등록</button>
 						</div>
 					</div>
@@ -489,28 +508,35 @@
 							<tbody class="display_view">						
 								<tr>
 									<td class="board_content">
+										<!-- 비밀글 표시 아이콘 -->
 										<span>
 										 	<c:if test="${qna.secret > 0}">
 												<img src="/images/shopping/icon_board_secret.png" alt="비밀글">
 										 	</c:if>										
 										</span>
+										<!-- 타이틀(클릭 시 내용 토글) -->
 										<a href="#" data-no="${qna.no }" data-secret='${qna.secret > 0}' data-user="${member.isadmin == 'Y'? 'isadmintrue' : '' }" >${qna.title }</a>
 									</td>
+									<!-- 작성자 -->
 									<td width="112">
 										<p>${qna.writer }</p>
 									</td>
+									<!-- 작성일 -->
 									<td width="112">
 										<p class="center">${qna.regdate }</p>
 									</td>
+									<!-- 답변이 있을 경우 '답변완료' 표시 -->
 									<td width="112">
 										<p class="center">${not empty qna.answre ? '답변완료' : ''}</p>
 									</td>
 								</tr>
 								<tr>
+									<!-- 질문 -->
 									<td colspan='3' class="board_content display_none">
 										<span><img src="/images/shopping/q.png" alt="질문"></span>
 										<p>${qna.question }</p>
 									</td>
+									<!-- Q&A 작성자의 수정/삭제 -->
 									<td class="display_none" >
 										<div class="qna_btn">
 											<a href="#" data-itemno="${dto.no }" data-no="${qna.no }" class="qna_modify" >수정</a>
@@ -519,9 +545,12 @@
 									</td>
 								</tr>
 								<tr>
+									<!-- 답변 -->
 									<td colspan='4' class="board_content display_none">
 										<span><img src="/images/shopping/a.png" alt="답변"></span>
+										<!-- 답변이 없다면 공백(**공백 삭제 시 css 조정 필요) -->
 										<p>${not empty qna.answre? qna.answre : '&nbsp;' }</p>
+										<!-- 관리자용 등록/수정, 삭제-->
 										<div id="admin_ans" class="${member.isadmin == 'Y'? 'active' : '' }">
 											<button onclick="location.href='/Shop/answre?itemno=${dto.no }&qnano=${qna.no}'" data-itemno="${dto.no }" data-no="${qna.no }" class="ansBtn" >작성/수정</button>
 											<button onclick="location.href='/Shop/ansdelete?itemno=${dto.no }&qnano=${qna.no}'" class="ansBtn" >삭제</button>
@@ -537,6 +566,8 @@
 					</div>
 				</div>
 			</div>
+			
+			<!-- 제품 서비스 관련 설명 -->
 			<div id="view_service">
 				<div class="shopping_go_tab">
 					<a href="#view_info">상세정보</a>

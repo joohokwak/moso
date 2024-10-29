@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<!-- Q&A 작성 -->
 <div id="shopping_write">
 	<div class="goods">
 		<h4>상품문의 쓰기</h4>
@@ -16,9 +16,9 @@
 	</div>
 	
 	<div class="contain">
+		<!-- form 데이터 -->
 		<form action="/Shop/writeOk" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="itemno" value="${param.itemno}">
-			
 			<div class="container">
 				<table>
 					<tr>
@@ -32,6 +32,7 @@
 								<li>교환/변경</li>
 								<li>기타</li>
 							</ul>
+							<!-- 상품 선택 시 value 변경 -->
 							<input type="hidden" name="cate" id="cateBtn" value="상품">
 						</td>
 					</tr>
@@ -52,6 +53,7 @@
 						<td class="content">
 							<div class="checkbox1_wrap">
 								<label class="checkbox1" for="check1">비밀글</label>
+								<!-- checkbox 선택 시 값 변경 -->
 								<input type="hidden" id="check1" name="secret" value="0">
 							</div>
 							<p>
@@ -74,6 +76,7 @@
 					그 밖의 사항은 지누스 개인정보처리방침을 준수합니다.
 				</p>
 				<div>
+					<!-- Q&A 등록 시 개인정보 동의 -->
 					<div class="checkbox1_wrap">
 						<label class="checkbox1" for="check2">위 내용에 동의합니다.</label>
 						<input type="checkbox" id="check2">
@@ -81,12 +84,13 @@
 					<a href="#">전체보기></a>
 				</div>
 			</div>
-			
 			<!-- 버튼 -->
 			<div class="bottom" style="padding-bottom: 20px">
+				<!-- 한 단계 뒤로 보내기 -->
 				<button onclick="javascript:history.go(-1);">취소</button>
 				<button id="req_btn" type="button">등록</button>
 			</div>
 		</form>
+		
 	</div>
 </div>

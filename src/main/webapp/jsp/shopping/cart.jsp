@@ -22,6 +22,7 @@
 						*항균효과가 뛰어난 Sanitized® 코퍼 메모리폼<br> *부드러운 퀼팅으로 마감된 타이트탑
 					</p>
 				</div>
+				<!-- 사이즈 선택 -->
 				<div class="select_tab">
 					<span>사이즈</span>
 					<div class="select_wrap1 size_names">
@@ -33,6 +34,7 @@
 							<li>LK</li>
 						</ul>
 					</div>
+					<!-- 설치배송여부 변경 -->
 					<span>설치배송여부</span>
 					<div class="select_wrap1 shippings">
 						<button>수도권 : +172,000</button>
@@ -46,6 +48,7 @@
 					</div>
 				</div>
 				<div class="num_btn">
+				<!-- 수량 변경 -->
 					<button type="button" onclick="plusCartItemCnt('minus')">
 						<img src="/images/shopping/count-minus.png" alt="빼기">
 					</button>
@@ -69,13 +72,14 @@
 				</div>
 			</div>
 		</div>
-		
+		<!-- 옵션 적용 -->
 		<div class="bottom">
 			<button type="button" class="op_cancel">취소</button>
 			<button type="button" class="op_update">확인</button>
 		</div>
 	</div>
 	
+	<!-- /Shop/cart 메인 페이지 -->
 	<div class="inner">
 		<h2 class="tit">장바구니</h2>
 		<table>

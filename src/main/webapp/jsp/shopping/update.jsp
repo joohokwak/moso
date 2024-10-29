@@ -17,9 +17,9 @@
 	
 	<div class="contain">
 		<form action="/Shop/updateOk" method="post" enctype="multipart/form-data">
+			<!-- Q&A no 전달 -->
 			<input type="hidden" name="no" value="${qna.no}">
 			<input type="hidden" name="itemno" value="${param.itemno}">
-			
 			<div class="container">
 				<table>
 					<tr>
