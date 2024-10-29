@@ -280,8 +280,8 @@ header .top_util .my_page {
 
 header .top_util .wish_list {
 	background: url(/images/header/header_wish.png) no-repeat center/cover;
-	width: 27px;
-	height: 26px;
+	width: 25px;
+	height: 25px;
 }
 
 header .top_util .cart {

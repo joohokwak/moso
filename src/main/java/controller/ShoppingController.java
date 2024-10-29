@@ -299,6 +299,15 @@ public class ShoppingController extends HttpServlet {
 			resp.sendRedirect("/Shop/buy?itemno=" + itemno + "#view_question");
 			
 			return;
+			
+		// 관심상품
+		} else if (action.equals("/wish")) {
+			Pagination pg = Common.getParameter(req);
+			pg.setPageSize(5);
+			
+			req.setAttribute("wishList", shopSer.wishList(pg, id));
+			req.setAttribute("paging", pg.paging(req));
+			
 		}
 		
 		req.setAttribute("layout", "/shopping" + action);

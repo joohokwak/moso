@@ -94,4 +94,9 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public int ansCreate(int no, String ans) {
 		return dao.ansCreate(no, ans);
 	}
+
+	@Override
+	public List<ShoppingDTO> wishList(Pagination pg, String id) {
+		return dao.wishList(pg, id);
+	}
 }

@@ -678,4 +678,62 @@ public class ShoppingDAO extends DBCP {
 		return result;
 	}
 	
+	// 관심상품 목록
+	public List<ShoppingDTO> wishList(Pagination pg, String id) {
+		List<ShoppingDTO> list = new ArrayList<>();
+		
+		try {
+			conn = getConn();
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT								");
+			sb.append("		  DISTINCT i.NO					");
+			sb.append("		, i.NAME                    	");
+			sb.append("		, i.TYPE                    	");
+			sb.append("		, i.TEXT                    	");
+			sb.append("		, i.PRICE                   	");
+			sb.append("		, i.POINT                   	");
+			sb.append("		, i.REGDATE                 	");
+			sb.append("		, i.SIZENAME                	");
+			sb.append("		, i.POSTER                  	");
+			sb.append("		, il.ITEM_NO                	");
+			sb.append("		, il.MEMBER_ID              	");
+			sb.append("  FROM ITEM i						");
+			sb.append("  LEFT OUTER JOIN ITEM_LIKE il		");
+			sb.append("	   ON i.NO = il.ITEM_NO				");
+			sb.append("	WHERE 1 = 1							");
+			sb.append("	  AND il.MEMBER_ID LIKE '" + id + "'");
+			
+			String sql = pg.getQuery(conn, sb.toString());
+			
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				ShoppingDTO dto = new ShoppingDTO();
+				
+				dto.setNo(rs.getInt("NO"));
+				dto.setName(rs.getString("NAME"));
+				dto.setType(rs.getString("TYPE"));
+				dto.setText(rs.getString("TEXT"));
+				dto.setPrice(rs.getInt("PRICE"));
+				dto.setPoint(rs.getString("POINT"));
+				dto.setRegdate(rs.getString("REGDATE"));
+				dto.setSizename(rs.getString("SIZENAME"));
+				dto.setPoster(rs.getString("POSTER"));
+				dto.setItemnum(rs.getInt("ITEM_NO"));
+				dto.setId(rs.getString("MEMBER_ID"));
+				
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return list;
+	}
+	
 }

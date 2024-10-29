@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="/css/shopping_buy.css">
 <link rel="stylesheet" href="/css/shopping_cart.css">
 <link rel="stylesheet" href="/css/shopping_write.css">
+<link rel="stylesheet" href="/css/wish.css">
 
 <!-- 매거진 -->
 <link rel="stylesheet" href="/css/brand.css">
