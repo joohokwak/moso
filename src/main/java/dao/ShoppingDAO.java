@@ -167,20 +167,24 @@ public class ShoppingDAO extends DBCP {
 		try {
 			conn = getConn();
 			
-			String sql = "";
-			sql += " SELECT NO			";
-			sql += "	  , NAME		";
-			sql += "	  , TYPE		";
-			sql += "	  , TEXT		";
-			sql += "	  , PRICE		";
-			sql += "	  , POINT		";
-			sql += "	  , REGDATE		";
-			sql += "	  , SIZENAME	";
-			sql += "	  , POSTER		";
-			sql += " FROM ITEM 			";
-			sql += " WHERE NO = ?		";
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT i.NO						");
+			sb.append("		, i.NAME					");
+			sb.append("		, i.TYPE					");
+			sb.append("		, i.TEXT					");
+			sb.append("		, i.PRICE					");
+			sb.append("		, i.POINT					");
+			sb.append("		, i.REGDATE					");
+			sb.append("		, i.SIZENAME				");
+			sb.append("		, i.POSTER					");
+			sb.append("		, il.ITEM_NO				");
+			sb.append("		, il.MEMBER_ID				");
+			sb.append("	 FROM ITEM i					");
+			sb.append("	 LEFT OUTER JOIN ITEM_LIKE il	");
+			sb.append("	   ON i.NO = il.ITEM_NO			");
+			sb.append("	WHERE i.NO = ?					");
 			
-			ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sb.toString());
 			ps.setInt(1, num);
 			
 			rs = ps.executeQuery();
@@ -196,6 +200,8 @@ public class ShoppingDAO extends DBCP {
 				dto.setRegdate(rs.getString("REGDATE"));
 				dto.setSizename(rs.getString("SIZENAME"));
 				dto.setPoster(rs.getString("POSTER"));
+				dto.setItemnum(rs.getInt("ITEM_NO"));
+				dto.setId(rs.getString("MEMBER_ID"));
 			}
 			
 		} catch (Exception e) {
@@ -299,6 +305,7 @@ public class ShoppingDAO extends DBCP {
 			sql += " VALUES (SEQ_ITEM_REVIEW.NEXTVAL, ?, ?, SYSDATE, ?, ?, ?, ?)";
 			
 			ps = conn.prepareStatement(sql);
+			
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getWriter());
 			ps.setString(3, dto.getContent());
@@ -325,24 +332,22 @@ public class ShoppingDAO extends DBCP {
 			conn = getConn();
 			
 			String sql = "";
-			sql += "SELECT NO          ";
-			sql+= ", TITLE             ";
-			sql+= ", WRITER            ";
-			sql+= ", CONTENT           ";
-			sql+= ", RATING            ";
-			sql+= ", SECRET            ";
-			sql+= ", ITEMNO            ";
-			sql+= "FROM ITEM_REVIEW    ";
-			sql+= "WHERE NO = ?        ";
-			
+			sql += "SELECT NO			";
+			sql += "	 , TITLE		";
+			sql += "	 , WRITER		";
+			sql += "	 , CONTENT		";
+			sql += "	 , RATING		";
+			sql += "	 , SECRET		";
+			sql += "	 , ITEMNO		";
+			sql += "  FROM ITEM_REVIEW	";
+			sql += " WHERE NO = ?		";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, rvno);
 			
 			rs = ps.executeQuery();
 			
-			
-			while(rs.next()) {
+			if (rs.next()) {
 				dto = new ItemReviewDTO();
 
 				dto.setNo(rs.getInt("NO"));
@@ -371,14 +376,13 @@ public class ShoppingDAO extends DBCP {
 			conn = getConn();
 		
 			String sql = "";
-			sql += "UPDATE ITEM_REVIEW SET        ";
-			sql +=	 "  TITLE = ?                 ";
-			sql +=	 " , WRITER = ?               ";
-			sql +=	 " , CONTENT = ?              ";
-			sql +=	 " , REGDATE = SYSDATE        ";
-			sql +=	 " , RATING = ?               ";
-			sql +=	 " , SECRET = ?               ";
-			sql +=	 " WHERE NO = ?               ";
+			sql += "UPDATE ITEM_REVIEW	";
+			sql += "   SET TITLE = ?	";
+			sql += "	 , WRITER = ?	";
+			sql += "	 , CONTENT = ?	";
+			sql += "	 , RATING = ?	";
+			sql += "	 , SECRET = ?	";
+			sql += " WHERE NO = ?		";
 			
 			ps = conn.prepareStatement(sql);
 			
@@ -630,7 +634,6 @@ public class ShoppingDAO extends DBCP {
 			sql += "	 , PASS = ?				";
 			sql += "	 , TITLE = ?			";
 			sql += "	 , QUESTION = ?			";
-			sql += "	 , REGDATE = SYSDATE	";
 			sql += "	 , SECRET = ?			";
 			sql += " WHERE NO = ?				";
 			

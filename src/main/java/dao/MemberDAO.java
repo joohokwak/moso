@@ -278,6 +278,7 @@ public class MemberDAO extends DBCP {
 			
 			pg.setOrderName("ISADMIN");
 			pg.setOrder(Order.ASC_NULLS_LAST.getOrder());
+			
 			String sql = pg.getQuery(conn, "SELECT * FROM MEMBER");
 			
 			ps = conn.prepareStatement(sql);

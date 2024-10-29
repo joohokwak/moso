@@ -73,8 +73,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				e.preventDefault();
 				
 				confirm('선택하신 상품을 삭제하시겠습니까?', () => {
-					const _no = del.dataset.no;
-					wishItemDelete([_no]);
+					wishItemDelete([del.dataset.no]);
 				});
 			});
 		});
@@ -84,8 +83,17 @@ window.addEventListener('DOMContentLoaded', function() {
 	const wishCheckAll = document.querySelector('.w_external #chkAll');
 	if (wishCheckAll) {
 		wishCheckAll.addEventListener('click', function() {
-			let wishCheckboxs = document.querySelectorAll('.w_external .news_body input[type=checkbox]');
 			wishCheckboxs.forEach(chk => chk.checked = this.checked);
+		});
+	}
+	
+	// 관심상품 체크박스 (개별)
+	const wishCheckboxs = document.querySelectorAll('.w_external .news_body input[type=checkbox]');
+	if (wishCheckboxs) {
+		wishCheckboxs.forEach(chk => {
+			chk.addEventListener('click', function() {
+				wishCheckAll.checked = Array.from(wishCheckboxs).every(v => v.checked);
+			});
 		});
 	}
 	
@@ -93,14 +101,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	const wishSelectCartBtn = document.querySelector('.w_external .selectCart');
 	if (wishSelectCartBtn) {
 		wishSelectCartBtn.addEventListener('click', function() {
-			let wishCheckboxs = document.querySelectorAll('.w_external .news_body input[type=checkbox]');
-			let selectedItem = [];
-			
-			wishCheckboxs.forEach(selectChk => {
-				if (selectChk.checked) {
-					selectedItem.push(selectChk.dataset.item);
-				}
-			});
+			const selectedItem = [...wishCheckboxs].filter(v => v.checked).map(selectChk => selectChk.dataset.item);
 			
 			if (!selectedItem.length) {
 				alert('상품을 선택해주세요.');
@@ -116,14 +117,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	const wishSelectDeleteBtn = document.querySelector('.w_external .selectDelete');
 	if (wishSelectDeleteBtn) {
 		wishSelectDeleteBtn.addEventListener('click', function() {
-			let wishCheckboxs = document.querySelectorAll('.w_external .news_body input[type=checkbox]');
-			let wishDelArr = [];
-			
-			wishCheckboxs.forEach(selectChk => {
-				if (selectChk.checked) {
-					wishDelArr.push(selectChk.dataset.no);
-				}
-			});
+			const wishDelArr = [...wishCheckboxs].filter(v => v.checked).map(selectChk => selectChk.dataset.no);
 			
 			if (!wishDelArr.length) {
 				alert('상품을 선택해주세요.');
