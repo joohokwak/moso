@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" 	uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" 	uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" 	uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="w_external">
 	<div class="wish_wrap">
@@ -22,8 +23,7 @@
 								<tr>
 									<th width="5%">
 										<div class="checkbox_wrap">
-											<label class="checkbox1"></label>
-											<input type="checkbox">
+											<input type="checkbox" id="chkAll"><label for="chkAll"><span class="blind">전체체크</span></label>
 										</div>
 									</th>
 									<th>상품명/옵션</th>
@@ -38,8 +38,7 @@
 							<tr>
 								<th class="wish_ct" width="5%">
 									<div class="checkbox_wrap">
-										<label class="checkbox1"></label>
-										<input type="checkbox">
+										<label class="checkbox"><input type="checkbox" class="blind chks" data-item="${wish }" data-no="${wish.no }"></label>
 									</div>
 								</th>
 								<th class="wish_ct">
@@ -53,7 +52,8 @@
 											<a href="/Shop/buy?itemno=${wish.no }"><span>${wish.name }</span></a>
 										</div>
 										<div class="option">
-											<p>사이즈 : Q</p>
+											<c:set var="size" value="${fn:split(wish.sizename, ',') }" />
+											<p>사이즈 : ${size[0] }</p>
 											<p>설치배송여부 : 미신청(0원)</p>
 										</div>
 									</div>
@@ -61,12 +61,11 @@
 								<th class="wish_ct" width="15%">
 									<span class="price"><fmt:formatNumber value="${wish.price }" pattern="#,###" /> 원 /</span>
 									<span class="num"> 1개</span><br>
-									<a href="#" class="option_btn">옵션/수량변경</a>
 								</th>
 								<th class="wish_ct" width="15%"></th>
 								<th class="wish_ct" width="15%">
-									<a href="#" class="button">장바구니</a>
-									<a href="#" class="button">삭제하기</a>
+									<a href="#" class="button cart" data-item="${wish }">장바구니</a>
+									<a href="#" class="button del" data-no="${wish.no }" data-id="${wish.id }">삭제하기</a>
 								</th>
 							</tr>
 							</c:forEach>
@@ -84,8 +83,8 @@
 				
 				<div class="section_footer">
 					<div class="wish_btn">
-						<button type="button">선택 상품 삭제</button>
-						<button type="button">선택 상품 장바구니</button>
+						<button type="button" class="selectDelete">선택 상품 삭제</button>
+						<button type="button" class="selectCart">선택 상품 장바구니</button>
 					</div>
 				</div>
 			</div>

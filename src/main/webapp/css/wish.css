@@ -60,20 +60,6 @@
 	font-weight: 400;
 }
 
-/* ----------------------------------------------- */
-.checkbox_wrap .checkbox1 {
-	border: 1px solid #999;
-	display: inline-flex;
-	cursor: pointer;
-	height: 15px;
-	width: 15px;;
-}
-
-.checkbox_wrap .checkbox1:hover {
-	background: url(/images/wish/check-ov-s.png) no-repeat 50% 50% / 100%;
-}
-
-/* ----------------------------------------------- */
 .section_body .news_body {
 	border-bottom: 2px solid #ededed;
 }

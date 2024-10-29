@@ -736,4 +736,31 @@ public class ShoppingDAO extends DBCP {
 		return list;
 	}
 	
+	// 관심상품 삭제
+	public int wishDelete(String id, String...no) {
+		int result = 0;
+		
+		try {
+			conn = getConn();
+			
+			String sql = "DELETE FROM ITEM_LIKE WHERE ITEM_NO = ? AND MEMBER_ID = ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			for (String itemNo : no) {
+				ps.setInt(1, Integer.parseInt(itemNo));
+				ps.setString(2, id);
+				
+				result += ps.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		
+		return result;
+	}
+	
 }

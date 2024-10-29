@@ -44,5 +44,8 @@ public interface ShoppingService {
 	
 	// 관심상품 목록
 	List<ShoppingDTO> wishList(Pagination pg, String id);
+	
+	// 관심상품 삭제
+	int wishDelete(String id, String...no);
 
 }

@@ -300,7 +300,7 @@ public class ShoppingController extends HttpServlet {
 			
 			return;
 			
-		// 관심상품
+		// 관심상품 리스트
 		} else if (action.equals("/wish")) {
 			Pagination pg = Common.getParameter(req);
 			pg.setPageSize(5);
@@ -308,6 +308,14 @@ public class ShoppingController extends HttpServlet {
 			req.setAttribute("wishList", shopSer.wishList(pg, id));
 			req.setAttribute("paging", pg.paging(req));
 			
+		// 관심상품 삭제
+		} else if (action.equals("/wishDelete")) {
+			String delList =  req.getParameter("delList");
+			
+			shopSer.wishDelete(id, delList.split(","));
+			
+			resp.sendRedirect("/Shop/wish");
+			return;
 		}
 		
 		req.setAttribute("layout", "/shopping" + action);
