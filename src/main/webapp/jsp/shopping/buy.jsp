@@ -527,7 +527,7 @@
 									</td>
 									<!-- 답변이 있을 경우 '답변완료' 표시 -->
 									<td width="112">
-										<p class="center">${not empty qna.answre ? '답변완료' : ''}</p>
+										<p class="center">${not empty qna.answer ? '답변완료' : ''}</p>
 									</td>
 								</tr>
 								<tr>
@@ -549,10 +549,10 @@
 									<td colspan='4' class="board_content display_none">
 										<span><img src="/images/shopping/a.png" alt="답변"></span>
 										<!-- 답변이 없다면 공백(**공백 삭제 시 css 조정 필요) -->
-										<p>${not empty qna.answre? qna.answre : '&nbsp;' }</p>
+										<p>${not empty qna.answer? qna.answer : '&nbsp;' }</p>
 										<!-- 관리자용 등록/수정, 삭제-->
 										<div id="admin_ans" class="${member.isadmin == 'Y'? 'active' : '' }">
-											<button onclick="location.href='/Shop/answre?itemno=${dto.no }&qnano=${qna.no}'" data-itemno="${dto.no }" data-no="${qna.no }" class="ansBtn" >작성/수정</button>
+											<button onclick="location.href='/Shop/answer?itemno=${dto.no }&qnano=${qna.no}'" data-itemno="${dto.no }" data-no="${qna.no }" class="ansBtn" >작성/수정</button>
 											<button onclick="location.href='/Shop/ansdelete?itemno=${dto.no }&qnano=${qna.no}'" class="ansBtn" >삭제</button>
 										</div>
 									</td>

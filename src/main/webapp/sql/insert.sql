@@ -408,8 +408,6 @@ INSERT INTO ITEM_REVIEW VALUES (SEQ_ITEM_REVIEW.NEXTVAL,'아주 좋아요~~!','c
 
 
 -- << QNA >> --
-INSERT INTO QNA VALUES (SEQ_QNA.NEXTVAL,'상품','dfg','1','sdaf',TO_CLOB('<p>asdf</p>'),NULL,TIMESTAMP'2024-10-29 09:37:00',3,0);
-INSERT INTO QNA VALUES (SEQ_QNA.NEXTVAL,'상품','1','1','fff',TO_CLOB('<p>dfd</p>'),TO_CLOB('<p>지누스입니다.</p>'),TIMESTAMP'2024-10-29 11:22:37',5,0);
 INSERT INTO QNA VALUES (SEQ_QNA.NEXTVAL,'상품','test','1','배송이 좀 느리네요.',TO_CLOB('<p>배송 확인 좀 부탁드려요. 주문한 지 3일 됐는데 아직 안왔어요.</p>'),TO_CLOB('<p>항상 저희 zinus를 사랑해주셔서 감사합니다.</p><p>배송이 다소 지연되고 있다는 질문 주셨는데요. </p><p><br></p><p>배송 기사님께서 고객님께 직접 연락하실 수 있도록 조치했습니다. </p><p>기사님께서 익일 오후 2시에서 4시 사이에 고객님꼐 연락드리겠다고 하십니다.</p><p><br></p><p>기사님과 연락이 되지 않으실 경우에는 1811-8002로 연락 주시면 바로 조치해드리겠습니다.</p><p><br></p><p>항상 노력하는 지누스 되겠습니다. 감사합니다.</p>'),TIMESTAMP'2024-10-29 14:40:50',1,1);
 INSERT INTO QNA VALUES (SEQ_QNA.NEXTVAL,'반품/환불','test','1','상품에 원래 기스가 있나요??',TO_CLOB('<p>스크래치가 있는데 환불 관련 상담 번호를 좀 알려주세요.</p>'),TO_CLOB('<p>안녕하세요. zinus 온라인 몰입니다.</p><p>고객님께서 배송받으신 상품에 문제가 있다면 교환/환불 정책에 따라 </p><p>새 제품을 받으실 수 있습니다.</p><p><br></p><p>금일 2시에서 5시사이 교환 관련한 상담을 진행하려고 합니다.</p><p>통화가 어려우시면 평일 9시부터 17시까지 상담사와 통화가 가능하니 1811-8002로 연락주시면 빠른 조치 해드리겠습니다.</p><p><br></p><p>항상 저희 지누스를 사랑해 주셔서 감사합니다.</p>'),TIMESTAMP'2024-10-29 14:41:37',1,0);
 INSERT INTO QNA VALUES (SEQ_QNA.NEXTVAL,'교환/변경','test','1','3개월 사용했는데 교환 가능한가요??',TO_CLOB('<p>3개월 썼더니 매트리스 스프링이 주저앉았습니다. </p><p>교환 가능한가요??? </p><p><br></p><p>1년 무상보증이라고 하셔서 여쭤봅니다.</p>'),NULL,TIMESTAMP'2024-10-29 14:48:03',1,0);

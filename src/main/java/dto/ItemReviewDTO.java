@@ -16,7 +16,7 @@ public class ItemReviewDTO {
 	private String pass;
 	private String regdate;
 	private String question;
-	private String answre;
+	private String answer;
 	private String content;
 	private int secret;
 	private int rating;

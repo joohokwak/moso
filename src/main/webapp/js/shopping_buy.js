@@ -525,8 +525,8 @@ function handleSetQna(data) {
 			let tmp = '';
 			let admin ='';
 			let isadmin = '';
-			let answre = '&nbsp;';
-			let answreYes = '';
+			let answer = '&nbsp;';
+			let answerYes = '';
 			
 			if (qna.secret > 0) {
 				tmp = '<img src="/images/shopping/icon_board_secret.png" alt="비밀글">';
@@ -537,11 +537,11 @@ function handleSetQna(data) {
 				isadmin = 'isadmintrue';
 			}
 			// 답변이 있는 경우
-			if (qna.answre) {
+			if (qna.answer) {
 				// 답변 보이기
-				answre = '${qna.answre}';
+				answer = '${qna.answer}';
 				// 답변완료 버튼 표시
-				answreYes = '답변완료';
+				answerYes = '답변완료';
 			}
 			
 			qnaTxt += `
@@ -560,7 +560,7 @@ function handleSetQna(data) {
 							<p class="center">${qna.regdate }</p>
 						</td>
 						<td width="112">
-							<p class="center">${answreYes }</p>
+							<p class="center">${answerYes }</p>
 						</td>
 					</tr>
 					<tr>
@@ -578,9 +578,9 @@ function handleSetQna(data) {
 					<tr>
 						<td colspan='4' class="board_content display_none">
 							<span><img src="/images/shopping/a.png" alt="답변"></span>
-							<p>${answre }</p>
+							<p>${answer }</p>
 							<div id="admin_ans" class="${admin }">
-								<button onclick="location.href='/Shop/answre?itemno=${qna.itemno }&qnano=${qna.no }'" data-itemno="${qna.itemno }" data-no="${qna.no }" class="ansBtn">작성/수정</button>
+								<button onclick="location.href='/Shop/answer?itemno=${qna.itemno }&qnano=${qna.no }'" data-itemno="${qna.itemno }" data-no="${qna.no }" class="ansBtn">작성/수정</button>
 								<button onclick="location.href='/Shop/ansdelete?itemno=${qna.itemno }&qnano=${qna.no }'" class="ansBtn">삭제</button>
 							</div>
 						</td>
