@@ -18,12 +18,14 @@ import service.MagazineService;
 import service.MaterialsService;
 import service.MemberService;
 import service.NoticeService;
+import service.ShoppingService;
 import serviceImpl.CatalogServiceImpl;
 import serviceImpl.FaqServiceImpl;
 import serviceImpl.MagazineServiceImpl;
 import serviceImpl.MaterialsServiceImpl;
 import serviceImpl.MemberServiceImpl;
 import serviceImpl.NoticeServiceImpl;
+import serviceImpl.ShoppingServiceImpl;
 
 @WebServlet("/Admin/*")
 public class AdminController extends HttpServlet {
@@ -63,6 +65,14 @@ public class AdminController extends HttpServlet {
 			req.setAttribute("layout", "/member" + action);
 			req.getRequestDispatcher("/layout.jsp").forward(req, resp);
 			return;
+		
+		// 쇼핑	
+		} else if (action.equals("/shop")) {	
+			ShoppingService ss = new ShoppingServiceImpl();
+			
+			Pagination pg = Common.getParameter(req);
+			
+			req.setAttribute("list", ss.qnaAll(0, pg));
 			
 		// 매거진 목록
 		} else if (action.equals("/magazine")) {

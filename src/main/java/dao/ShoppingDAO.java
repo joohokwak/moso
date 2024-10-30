@@ -447,7 +447,9 @@ public class ShoppingDAO extends DBCP {
 			sql.append("	 , ITEMNO										");
 			sql.append("	 , SECRET										");
 			sql.append("  FROM QNA											");
-			sql.append(" WHERE ITEMNO = " + itemNo							 );
+			if(itemNo > 0) {
+				sql.append(" WHERE ITEMNO = " + itemNo							 );
+			}
 			
 			String query = pg.getQuery(conn, sql.toString());
 			ps = conn.prepareStatement(query);
