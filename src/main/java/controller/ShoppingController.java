@@ -259,8 +259,7 @@ public class ShoppingController extends HttpServlet {
 		// Q&A 삭제
 		} else if (action.equals("/qnadelete")) {
 			Map<String, Object> ddata = Common.jsonConvert(req);
-			int no = Integer.parseInt(ddata.get("no") + "");
-			int qnaDel = shopSer.qnaDel(no);
+			int qnaDel = shopSer.qnaDel(ddata.get("no") + "");
 			
 			Common.jsonResponse(resp, qnaDel);
 			

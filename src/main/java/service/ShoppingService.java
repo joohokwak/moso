@@ -37,7 +37,7 @@ public interface ShoppingService {
 	// Q&A 질문/수정/삭제
 	boolean qnaCreate(ItemReviewDTO qnaCre);
 	boolean qnaUpdate(ItemReviewDTO qnaUp);
-	int qnaDel(int no);
+	int qnaDel(String...no);
 	
 	// Q&A 답변
 	int ansCreate(int no, String ans);

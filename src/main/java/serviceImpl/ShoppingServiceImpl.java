@@ -82,7 +82,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return dao.qnaCreate(qnaCre) > 0;
 	}
 	@Override
-	public int qnaDel(int no) {
+	public int qnaDel(String...no) {
 		return dao.qnaDel(no);
 	}
 	@Override

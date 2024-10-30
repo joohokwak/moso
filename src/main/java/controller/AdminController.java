@@ -138,7 +138,7 @@ public class AdminController extends HttpServlet {
 				case "/catalog"		: new CatalogServiceImpl().deleteCatalog(noArr);	break; // 카탈로그
 				case "/magazine"	: new MagazineServiceImpl().magazineDelete(noArr);	break; // 매거진
 				case "/member"		: new MemberServiceImpl().memberDelete(noArr);		break; // 회원
-				case "/shop"		: break; // 회원
+				case "/shop"		: new ShoppingServiceImpl().qnaDel(noArr);			break; // 쇼핑
 				}
 				
 			}
