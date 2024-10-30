@@ -600,18 +600,19 @@ public class ShoppingDAO extends DBCP {
 	}
 	
 	// Q&A 삭제
-	public int qnaDel(int no) {
+	public int qnaDel(String...no) {
 		int result = 0;
 		
 		try {
 			conn = getConn();
 			
 			String sql = "DELETE QNA WHERE NO = ?";
-			
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, no);
 			
-			result = ps.executeUpdate();
+			for (String num : no) {
+				ps.setInt(1, Integer.parseInt(num));
+				result += ps.executeUpdate();
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

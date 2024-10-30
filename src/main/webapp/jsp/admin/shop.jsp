@@ -6,11 +6,11 @@
 		<tr>
 			<th width="50px"><input type="checkbox" id="chkAll"><label for="chkAll"><span class="blind">전체체크</span></label></th>
 			<th width="50px">No.</th>
-			<th>구분</th>
+			<th width="90px">구분</th>
 			<th>제목</th>
-			<th>작성자</th>
-			<th width="150px">작성일</th>
-			<th>답변상황</th>
+			<th width="100px">작성자</th>
+			<th width="120px">작성일</th>
+			<th width="120px">답변상황</th>
 		</tr>
 		<c:forEach var="list" items="${list }">
 		<tr>
