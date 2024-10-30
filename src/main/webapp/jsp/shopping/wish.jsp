@@ -35,7 +35,7 @@
 						</table>
 						<table class="news_body">
 							<c:forEach var="wish" items="${wishList }">
-							<tr>
+							<tr class="wish_list">
 								<th class="wish_ct" width="5%">
 									<div class="checkbox_wrap">
 										<label class="checkbox"><input type="checkbox" class="blind chks" data-item="${wish }" data-no="${wish.no }"></label>

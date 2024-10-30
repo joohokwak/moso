@@ -64,6 +64,10 @@
 	border-bottom: 2px solid #ededed;
 }
 
+.section_body .wish_list {
+	border-bottom: 1px solid #ededed;
+}
+
 .news_body .wish_ct {
 	padding: 20px 15px;
 }
