@@ -36,7 +36,7 @@
 					<div class="category">
 						<span><a href="#" class="on">전체(${count })</a></span>
 						<span><a href="#">진행중 이벤트(0)</a></span>
-						<span><a href="#">종료된 이벤트(14)</a></span>
+						<span><a href="#">종료된 이벤트(${count })</a></span>
 					</div>
 					<div class="review">
 						<ul>
