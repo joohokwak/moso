@@ -59,10 +59,46 @@ function showLoading(isShow) {
 		
 		// 로딩 영역에 추가
         container.appendChild(loadingBar);
+		
+		// 오버레이 생성
+        const overlay = document.createElement('div');
+        overlay.id = 'loadingOverlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+        overlay.style.zIndex = '99998'; // 로딩바보다 낮게
+        overlay.style.display = 'none'; // 처음에는 숨김
+        
+        // 오버레이 추가
+        container.appendChild(overlay);
 	}
 	
 	// 로딩 영역에 추가
     loadingBar.style.display = isShow ? 'block' : 'none';
+	const overlay = document.getElementById('loadingOverlay');
+    overlay.style.display = isShow ? 'block' : 'none';
+	
+	// 키 입력 차단 및 클릭 이벤트 차단
+    if (isShow) {
+        window.onkeydown = function(e) {
+            e.preventDefault();
+        };
+        overlay.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        };
+		overlay.onwheel = function(e) {
+            e.preventDefault();
+        };
+    } else {
+        // 키 입력 및 클릭 이벤트 복원
+        window.onkeydown = null;
+        overlay.onclick = null;
+		overlay.onwheel = null;
+    }
 }
 
 // post 방식으로 서버와 비동기 통신 함수
