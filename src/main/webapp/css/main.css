@@ -1,11 +1,11 @@
 .main_slider .swiper-slide {
-	height: 100vh;
 	overflow: hidden;
 	position: relative;
 }
 
 .main_slider img {
 	max-width: none;
+	width: 100%;
 }
 
 .main_slider .swiper-button-prev {
