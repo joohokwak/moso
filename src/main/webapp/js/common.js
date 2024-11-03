@@ -68,9 +68,9 @@ function showLoading(isShow) {
         overlay.style.left = '0';
         overlay.style.width = '100%';
         overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0)';
         overlay.style.zIndex = '99998'; // 로딩바보다 낮게
-        overlay.style.display = 'none'; // 처음에는 숨김
+        overlay.style.display = 'none';
         
         // 오버레이 추가
         container.appendChild(overlay);
