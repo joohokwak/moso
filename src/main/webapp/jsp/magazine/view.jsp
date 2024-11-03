@@ -31,7 +31,7 @@
 						${magazine.content }
 					</div>
 					<div class="list_btn">
-						<a href="/Magazine/magazine">목록</a>
+						<a href="${magazine.mtype eq 'magazine' ? '/Magazine/magazine' : '/Magazine/review' }">목록</a>
 						<div class="admin_btn_wrap" data-isadmin="${member.isadmin eq 'Y' }">
 							<a href="/Magazine/update?no=${magazine.no }">수정</a>
 							<a href="#" class="delete_btn" data-no=${magazine.no }>삭제</a>
